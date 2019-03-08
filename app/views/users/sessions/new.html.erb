@@ -1,0 +1,43 @@
+
+<div class="login">
+    <div class="container">
+        <div class="login-grids">
+            <div class="col-md-6 log">
+                <h3>Login</h3>
+                <div class="strip"></div>
+                <p>Welcome, please enter the following to continue.</p>
+                <p>If you have previously Login with us, <a href="#">Click Here</a></p>
+                <div class="logon">
+                 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                 <div class="form-group">
+                    <%= f.label :email, class:"usr" %>
+                    <%= f.email_field :email, class: "form-control" %>
+                 </div>
+                    <div class="form-group">
+                    <%= f.label :password, class:"pwd" %>
+                    <%= f.password_field :password, class: "form-control" %>
+                 </div>
+                  <% if devise_mapping.rememberable? %>
+                      <%= f.check_box :remember_me %>
+                      <%= f.label :remember_me %>
+                  <% end %>
+                  <br/>
+                  <%= f.submit "Log in" %>
+                <% end %>
+               </div>
+                <a href="#">Forgot Password ?</a>
+            </div>
+            <div class="col-md-6 login-right">
+                <h3>New Registration</h3>
+                <div class="strip"></div>
+                <p>By creating an account with our store, you will be able to move through the checkout process faster,
+                    store multiple shipping addresses, view and track your orders in your account and more.</p>
+                <%= link_to 'Create An Account', signup_path, class: "button" %>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+<%= render "devise/shared/links" %>
