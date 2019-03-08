@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
+gem 'devise'
 #Bootstrap 4
 gem 'bootstrap3-rails', '~> 3.2'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
