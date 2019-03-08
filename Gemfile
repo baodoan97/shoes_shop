@@ -11,9 +11,6 @@ gem 'bootstrap3-rails', '~> 3.2'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
-
-gem 'bcrypt', '~> 3.1.7'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
