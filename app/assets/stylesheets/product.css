@@ -1,0 +1,25 @@
+.product-form {
+    padding: 100px 50px 20px 100px;
+}
+.input-group {
+    position: relative;
+    display: grid;
+    border-collapse: separate;
+}
+#imagetsask
+{
+	display: none;
+}
+textarea#product_description {
+    height: 150px;
+    overflow-x: hidden;
+}
+.imgtask {
+    margin: 1px 13px 1px 1px;
+    /* border: 105px black; */
+    width: 1;
+    /* border: 15em black; */
+    border: rgba(0, 0, 0, 0.075);
+    border-style: outset;
+}
+
