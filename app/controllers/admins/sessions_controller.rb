@@ -1,16 +1,24 @@
 # frozen_string_literal: true
+#layout 'layout'
 
 class Admins::SessionsController < Devise::SessionsController
+  #include Accessible
+  #skip_before_action :check_user, only: :destroy
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
-  # def new
-  #   super
-  # end
+ 
+   def new
+     super
+   end
 
   # POST /resource/sign_in
    def create
      super
+     #self.resource = warden.authenticate!(auth_options)
+     #set_flash_message!(:notice, :signed_in)
+     #yield resource if block_given?
+    # redirect_to rails_admin_path()
    end
 
   # DELETE /resource/sign_out
@@ -21,12 +29,12 @@ class Admins::SessionsController < Devise::SessionsController
   # protected
   protected
   def after_sign_in_path_for(resource)
-    rails_admin_path()
+    admins_path()
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
-   #  devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-   #end
+  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+  # end
    
 end

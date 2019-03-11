@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
     before_action :set_product , only: [:edit,:update, :show]
-
+	#include ActiveModel::AttributeMethods
+	def index
+		@product = Product.all
+	end
+	
      def show
 
     end
@@ -72,7 +76,7 @@ class ProductsController < ApplicationController
 		params.require(:product).permit(:name, :price, :quantity, :description, :size, :category)
 	end
     
-    def set_product
+	def set_product
         if Product.exists? id: params[:id] 
             @product = Product.find(params[:id])
         else

@@ -15,6 +15,7 @@
  */
  *= require bootstrap;
 @import "font-awesome";
+
 .logon {
 	width: 80%;
 }
