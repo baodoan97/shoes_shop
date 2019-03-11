@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   #get 'admins/categories', to: 'categories#index'
   mount RailsAdmin::Engine => '/admins/database/', as: 'rails_admin'
   devise_for :admins, controllers: { sessions: 'admins/sessions' }
-  devise_for :users
+  devise_for :users, controllers: {sessions: 'users/sessions'}
   #user
   root 'pages#home'
   get 'contact', to: 'pages#contact'
