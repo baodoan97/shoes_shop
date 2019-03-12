@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 	end
 	
      def show
-         @cart = Cart.new    
+
     end
     def new
     @product = Product.new
@@ -40,6 +40,8 @@ class ProductsController < ApplicationController
 	def edit
 		
 	end
+
+
 
     def update
        paPRODUCT = {

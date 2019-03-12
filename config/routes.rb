@@ -30,7 +30,7 @@ scope '/' do
 end
  
   #user
-  
+   resource :carts
   get 'contact', to: 'pages#contact'
    get 'login', to: 'sessions#new'
   get 'signup', to: 'users#new'
