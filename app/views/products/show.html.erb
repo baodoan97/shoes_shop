@@ -8,41 +8,29 @@
                 <div class="flex-viewport" style="overflow: hidden; position: relative;">
                     <ul class="slides"
                         style="width: 1200%; transition-duration: 0s; transform: translate3d(-1440px, 0px, 0px);">
-                        <li data-thumb="images/show3.jpg" class="clone" aria-hidden="true"
-                            style="width: 720px; float: left; display: block;">
-                            <div class="thumb-image"> <img src="images/show3.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
+            
                         <li data-thumb="<%= asset_path 'show.jpg' %>" style="width: 720px; float: left; display: block;" class="">
                             <div class="thumb-image"> 
                                 <%= image_tag 'show.jpg', :class=>"img-responsive", :data => { :imagezoom => "true" } %>
-                               
+                            </div>
                         </li>
                         <li data-thumb="images/show1.jpg" style="width: 720px; float: left; display: block;"
                             class="flex-active-slide">
                             <div class="thumb-image"> <img src="images/show1.jpg" data-imagezoom="true"
                                     class="img-responsive" draggable="false"> </div>
                         </li>
-                        <li data-thumb="images/show2.jpg" style="width: 720px; float: left; display: block;" class="">
-                            <div class="thumb-image"> <img src="images/show2.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
-                        <li data-thumb="images/show3.jpg" style="width: 720px; float: left; display: block;" class="">
-                            <div class="thumb-image"> <img src="images/show3.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
-                        <li data-thumb="images/show.jpg" style="width: 720px; float: left; display: block;"
-                            class="clone" aria-hidden="true">
-                            <div class="thumb-image"> <img src="images/show.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
+                        
                     </ul>
                 </div>
                 <ol class="flex-control-nav flex-control-thumbs">
-                    <li><img src="images/show.jpg" class="" draggable="false"></li>
-                    <li><img src="images/show1.jpg" draggable="false" class="flex-active"></li>
-                    <li><img src="images/show2.jpg" draggable="false" class=""></li>
-                    <li><img src="images/show3.jpg" draggable="false" class=""></li>
+                    <% if @product.images.attached? %>
+                        <% @product.images.each_with_index do |image, index| %>
+                    <li> 
+                            <%= image_tag image ,class: (index== 0? "flex-active":"") %>
+                             <% end %>         
+                    </li>
+                    <% end %>
+                   
                 </ol>
                 <ul class="flex-direction-nav">
                     <li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li>
@@ -77,27 +65,15 @@
             <div class="shocase-rt-bot">
                 <div class="float-qty-chart">
                     <ul>
+                        <%= form_for @cart, :url => add_path(@login) do |f| %>
                         <li class="qty">
                             <h3>Size Chart</h3>
-                            <select class="form-control siz-chrt">
-                                <option>6 US</option>
-                                <option>7 US</option>
-                                <option>8 US</option>
-                                <option>9 US</option>
-                                <option>10 US</option>
-                                <option>11 US</option>
-                            </select>
+                            <%= f.select :size, options_for_select(36..43), {}, { :class => "form-control qnty-chrt" } %>
                         </li>
                         <li class="qty">
                             <h4>QTY</h4>
                             <select class="form-control qnty-chrt">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
+                                <%= f.select :quantity, options_for_select(1..5), {}, { :class => "form-control qnty-chrt" } %>
                             </select>
                         </li>
                     </ul>
@@ -106,6 +82,7 @@
                 <ul>
                     <li class="ad-2-crt simpleCart_shelfItem">
                         <a class="btn item_add" href="#" role="button">Add To Cart</a>
+                        <% end %>
                         <a class="btn" href="#" role="button">Buy Now</a>
                     </li>
                 </ul>

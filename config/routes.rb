@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :products
 
   delete 'images', to:  'products#destroyimage'
+  get '/cart', to: 'carts#show', as: 'cart'
+  post 'add', to: 'cartproducts#create'
 
   
 end
