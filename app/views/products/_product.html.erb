@@ -7,7 +7,14 @@
                 <!-- normal -->
                 <div class="ih-item square effect3 bottom_to_top">
                     <div class="bottom-2-top">
-                        <div class="img"><img src="images/grid14.jpg" alt="/" class="img-responsive gri-wid"></div>
+                        <div class="img">
+                            <% if pro.images.attached? %>
+                            <%= image_tag pro.images.first ,class: "img-responsive gri-wid" %>
+                             <% end %>
+                        </div>
+                       
+                         
+                            
                         <div class="info">
                             <div class="pull-left styl-hdn">
                                 <h3><%= pro.name %></h3>

@@ -20,17 +20,17 @@ class ProductsController < ApplicationController
         	 "description" => product_params[:description],
         	 "size" => product_params[:size].to_i
          }
-		  @product = Product.new
+		  @product = Product.new(paPRODUCT)
 		  @product.category = Category.find(product_params[:category].to_i)
              # debugger
         if params[:product][:images] != nil 
-       @product.images.attach(params[:product][:images])
+            @product.images.attach(params[:product][:images])
         end
 
         if @product.save
 	        flash[:success] = "Product was created successfully"
 	       
-			redirect_to task_path(@product)
+			redirect_to product_path(@product)
 			# debugger
 		else
 			render 'new'

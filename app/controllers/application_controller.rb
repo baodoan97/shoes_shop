@@ -1,5 +1,18 @@
 class ApplicationController < ActionController::Base
 
+	before_action :set_cart
+
+	private
+	# tao sessions cart
+	def set_cart
+		@cart = Cart.find(session[:cart_id])
+	rescue ActiveRecord::RecordNotFound
+		@cart = Cart.create
+		session[:cart_id] = @cart.id
+	end
+
+
+
 	# protect_from_forgery with: :exception
 	# helper_method :current_user,:current_admin, :logged_in?
 	
@@ -27,4 +40,5 @@ class ApplicationController < ActionController::Base
 #   def store_current_location
 #     store_location_for(:admins, contact_path)
 #   end
+
 end
