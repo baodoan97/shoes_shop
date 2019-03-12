@@ -20,7 +20,15 @@
 //= require_imagezoom
 //= require_jquery.flexslider
 //= require_simpleCart.min
-
+//= require Chart.bundle
+//= require chartkick
+//= require_tables
+//= require_stats
+//= require_forms
+//= require_editors
+//= require_custom
+//= require_calendar
+//= require_jquery.dataTables
 $( document ).on('turbolinks:load', function() {
 
   $( "#a" ).click(function() {

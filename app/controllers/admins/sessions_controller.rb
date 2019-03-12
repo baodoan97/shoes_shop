@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-#layout 'layout'
+
 
 class Admins::SessionsController < Devise::SessionsController
   #include Accessible
   #skip_before_action :check_user, only: :destroy
   # before_action :configure_sign_in_params, only: [:create]
-
+  #layout "adminshome"
   # GET /resource/sign_in
  
    def new
@@ -22,14 +22,17 @@ class Admins::SessionsController < Devise::SessionsController
    end
 
   # DELETE /resource/sign_out
-   #def destroy
-   #  super
-   #end
+   def destroy
+     super
+   end
 
   # protected
   protected
   def after_sign_in_path_for(resource)
-    admins_path()
+    admins_homepage_path()
+  end
+  def after_sign_out_path_for(resource)
+    new_admin_session_path()
   end
 
   # If you have extra params to permit, append them to the sanitizer.
