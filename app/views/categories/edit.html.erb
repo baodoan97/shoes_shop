@@ -1,6 +1,25 @@
-<h1>Editing Category</h1>
+<%= render 'layouts/adminshome' %>
+<div class="container">
+    <div class="panel panel-success">
+        <div class="panel-heading"><strong style="font-size:20px">Editing Category</strong></div>
+        <div class="panel-body">
 
-<%= render 'form', category: @category %>
+            <%= simple_form_for(@category) do |f| %>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+            <div class="form-inputs">
+                <%= f.input :name %>
+                <%= f.input :description %>
+            </div>
 
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', categories_path %>
+            <div class="form-actions">
+                <%= f.button :submit %>
+            </div>
+            <% end %>
+            <%= link_to 'Show', @category %> |
+            <%= link_to 'Back', categories_path %>
+        </div>
+    </div>
+</div>
+
+</div>

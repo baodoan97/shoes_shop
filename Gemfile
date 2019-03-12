@@ -8,9 +8,11 @@ gem 'jquery-rails'
 gem 'devise'
 #Bootstrap 4
 gem 'bootstrap3-rails', '~> 3.2'
-gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
+gem 'font-awesome-sass', '~> 5.6.1'
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
+gem "chartkick"
+gem 'groupdate'
 gem 'simple_form'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass-extras', '~> 0.0.2'
