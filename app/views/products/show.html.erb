@@ -4,46 +4,33 @@
     <div class="container">
         <div class="col-md-8 showcase">
             <div class="flexslider">
-
                 <div class="clearfix"></div>
                 <div class="flex-viewport" style="overflow: hidden; position: relative;">
                     <ul class="slides"
                         style="width: 1200%; transition-duration: 0s; transform: translate3d(-1440px, 0px, 0px);">
-                        <li data-thumb="images/show3.jpg" class="clone" aria-hidden="true"
-                            style="width: 720px; float: left; display: block;">
-                            <div class="thumb-image"> <img src="images/show3.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
+                        
                         <li data-thumb="<%= asset_path 'show.jpg' %>" style="width: 720px; float: left; display: block;" class="">
-                            <div class="thumb-image"> 
+                            <div class="thumb-image">
                                 <%= image_tag 'show.jpg', :class=>"img-responsive", :data => { :imagezoom => "true" } %>
-                               
+                            </div>
                         </li>
                         <li data-thumb="images/show1.jpg" style="width: 720px; float: left; display: block;"
                             class="flex-active-slide">
                             <div class="thumb-image"> <img src="images/show1.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
+                            class="img-responsive" draggable="false"> </div>
                         </li>
-                        <li data-thumb="images/show2.jpg" style="width: 720px; float: left; display: block;" class="">
-                            <div class="thumb-image"> <img src="images/show2.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
-                        <li data-thumb="images/show3.jpg" style="width: 720px; float: left; display: block;" class="">
-                            <div class="thumb-image"> <img src="images/show3.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
-                        <li data-thumb="images/show.jpg" style="width: 720px; float: left; display: block;"
-                            class="clone" aria-hidden="true">
-                            <div class="thumb-image"> <img src="images/show.jpg" data-imagezoom="true"
-                                    class="img-responsive" draggable="false"> </div>
-                        </li>
+                        
                     </ul>
                 </div>
                 <ol class="flex-control-nav flex-control-thumbs">
-                    <li><img src="images/show.jpg" class="" draggable="false"></li>
-                    <li><img src="images/show1.jpg" draggable="false" class="flex-active"></li>
-                    <li><img src="images/show2.jpg" draggable="false" class=""></li>
-                    <li><img src="images/show3.jpg" draggable="false" class=""></li>
+                    <% if @product.images.attached? %>
+                    <% @product.images.each_with_index do |image, index| %>
+                    <li>
+                        <%= image_tag image ,class: (index== 0? "flex-active":"") %>
+                        <% end %>
+                    </li>
+                    <% end %>
+                    
                 </ol>
                 <ul class="flex-direction-nav">
                     <li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li>
@@ -61,63 +48,54 @@
                 <div class="pull-left rating-stars">
                     <ul>
                         <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn"
-                                    aria-hidden="true"></span></a></li>
+                        aria-hidden="true"></span></a></li>
                         <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn"
-                                    aria-hidden="true"></span></a></li>
+                        aria-hidden="true"></span></a></li>
                         <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn"
-                                    aria-hidden="true"></span></a></li>
+                        aria-hidden="true"></span></a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a>
-                        </li>
-                        <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <hr class="featurette-divider">
-            <div class="shocase-rt-bot">
-                <div class="float-qty-chart">
-                    <ul>
-                        <li class="qty">
-                            <h3>Size Chart</h3>
-                            <select class="form-control siz-chrt">
-                                <option>6 US</option>
-                                <option>7 US</option>
-                                <option>8 US</option>
-                                <option>9 US</option>
-                                <option>10 US</option>
-                                <option>11 US</option>
-                            </select>
-                        </li>
-                        <li class="qty">
-                            <h4>QTY</h4>
-                            <select class="form-control qnty-chrt">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                            </select>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-                <ul>
-                    <li class="ad-2-crt simpleCart_shelfItem">
-                        <a class="btn item_add" href="#" role="button">Add To Cart</a>
-                        <a class="btn" href="#" role="button">Buy Now</a>
                     </li>
-                </ul>
-            </div>
-            <div class="showcase-last">
-                <h3>product details</h3>
-                <p><%= @product.description%></p>
-            </div>
+                    <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a>
+                </li>
+            </ul>
         </div>
         <div class="clearfix"></div>
+    </div>
+    <hr class="featurette-divider">
+    <div class="shocase-rt-bot">
+        <div class="float-qty-chart">
+            <ul>
+                <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "carts", :action => "create"}, :method => :POST) do |a| %>
+                <div class="form-group">
+                  <%= hidden_field_tag "product_id", [@product.id] %>
+                   <%= hidden_field_tag "price", [@product.price] %>
+                    <%= a.select :size,options_for_select((35..43).to_a, " "),{}, { :class => "form-control qnty-chrt" } %>
+                </div>
+                <div class="form-group">
+                    <%= a.select :quantity,options_for_select((1..@product.quantity.to_i).to_a, " " ),{}, { :class => "form-control qnty-chrt" } %>
+                </div>
+                <div class="form-group">
+                    <ul>
+                        <li class="ad-2-crt simpleCart_shelfItem">
+                             <%= a.submit "Add To Cart", class: "btn item_add" %>                            
+                            <a class="btn" href="#" role="button">Buy Now</a>
+                        </li>
+                    </ul>
+                </div>
+                <% end %>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
     </div>
 </div>
 <%= render  "layouts/newsub" %>
 <%= render 'layouts/footer' %>
+    <div class="showcase-last">
+        <h3>product details</h3>
+        <p><%= @product.description%></p>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+<%= get_carts.inspect %>

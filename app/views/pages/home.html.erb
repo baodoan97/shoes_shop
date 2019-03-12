@@ -3,11 +3,7 @@
 <%= render 'layouts/breadcum' %>
 
 <%= render  "layouts/slider" %>
-<% if user_signed_in?  %>
-<%= current_user.inspect %>
-<% else %>
-  <%= current_user.inspect %>
-<% end %>
+
 <%= render  "layouts/shopgrid" %>
 
 <%= render  "layouts/newsub" %>
