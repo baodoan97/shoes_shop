@@ -68,12 +68,12 @@
                         <%= form_for @cart, :url => add_path(@login) do |f| %>
                         <li class="qty">
                             <h3>Size Chart</h3>
-                            <%= f.select :size, options_for_select(36..43), {}, { :class => "form-control qnty-chrt" } %>
+                           
                         </li>
                         <li class="qty">
                             <h4>QTY</h4>
                             <select class="form-control qnty-chrt">
-                                <%= f.select :quantity, options_for_select(1..5), {}, { :class => "form-control qnty-chrt" } %>
+                               
                             </select>
                         </li>
                     </ul>
