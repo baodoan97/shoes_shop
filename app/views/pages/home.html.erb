@@ -2,11 +2,7 @@ ADMINHOME
 <%= link_to  "Dang Xuat", destroy_admin_session_path,method: :delete %>
 <%= link_to  "Dang Nhap", new_admin_session_path %>
 <%= render  "layouts/slider" %>
-<% if user_signed_in?  %>
-<%= current_user.inspect %>
-<% else %>
-  <%= current_user.inspect %>
-<% end %>
+
 <%= render  "layouts/shopgrid" %>
 
 <%= render  "layouts/newsub" %>
