@@ -1,11 +1,12 @@
-<<<<<<< Updated upstream
 
-=======
 <%= render 'layouts/navtop' %>
 <%= render 'layouts/breadcum' %>
 
 <%= get_carts.inspect %>
->>>>>>> Stashed changes
+
+<%= render 'layouts/navtop' %>
+<%= render 'layouts/breadcum' %>
+
 <div class="showcase-grid">
     <div class="container">
         <div class="col-md-8 showcase">
@@ -49,7 +50,7 @@
                 <div class="pull-left shoe-name">
                     <h3><%= @product.name%></h3>
                     <p>Men's running shoes</p>
-                    <h4><%= @product.price %></h4>
+                    <h4><%= number_to_currency(@product.price, unit: "VND", separator: ",",precision: 3, format: "%n %u") %></h4>
                 </div>
                 <div class="pull-left rating-stars">
                     <ul>
@@ -93,6 +94,10 @@
             <div class="clearfix"></div>
         </div>
     </div>
+</div>
+<%= render  "layouts/newsub" %>
+<%= render 'layouts/footer' %>
+
     <div class="showcase-last">
         <h3>product details</h3>
         <p><%= @product.description%></p>
@@ -101,8 +106,4 @@
 <div class="clearfix"></div>
 </div>
 </div>
-<<<<<<< Updated upstream
-<%= get_carts.inspect %>
-=======
 
->>>>>>> Stashed changes

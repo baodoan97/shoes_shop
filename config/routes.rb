@@ -14,15 +14,24 @@ Rails.application.routes.draw do
   #   end
   # end
   #mount RailsAdmin::Engine => '/admins/database/', as: 'rails_admin'
-  
+  #namespace :category do
+  #  resources :products,only: [:show]
+  #end
+  #get 'password_resets/:id/edit', to: 'password_reset#create', as: :send_password_reset
+  #get 'categories/:category_id/:id' =>'products#show'
+  get '/admins/homepage', to:'admins#homepage'
+  #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
-    root 'admins#homepage'
+    #root'admins#homepage'
     resources :admins
     resources :products
     resources :categories
     resources :manages
     resources :users
-    
+    #resource :charts, 
+    #resources :statistics
+    #resources :layouts
+    #delete 'admins/sign_out',to: 'sessions#destroy'
   end
 end
 scope '/' do

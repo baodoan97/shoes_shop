@@ -1,12 +1,12 @@
 class  AdminsController < ApplicationController
    #s include Accessible
+   #layout "_adminshome"
    before_action :set_admin, only: [:show, :edit, :update, :destroy]
     def index
         @admins = Admin.all
     end
-    def showadmin
-       
-      end
+  
+   
     
       # GET /categories/1
       # GET /categories/1.json
