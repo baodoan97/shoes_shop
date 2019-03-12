@@ -1,0 +1,87 @@
+<h2>Sign up</h2>
+<div class="container">
+  <%= form_for(resource, as: resource_name, url: registration_path(:user)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="form-group ">
+    <div align="center">
+    </div>
+    <center>
+    <div class="image-upload">
+      <label for="file-input">
+        <div class="changeavt">
+          <i class="fa fa-exchange"></i>
+          <%= image_tag "",class: "img",id: "a" %>
+        </div>
+      </label>
+      <%= f.file_field :avatar, id:"file-input" %>
+    </div>
+    </center>
+  </div>
+  <div class="form-group">
+    <%= f.label :firstname %><br />
+    <%= f.text_field :firstname, autofocus: true, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname, autofocus: true , class: "form-control"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname, autofocus: true, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone, autofocus: true, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true , class: "form-control"%>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+  </div>
+  <div class="form-groups">
+    <%= f.submit "Sign up", class: "btn" %>
+  </div>
+  <% end %>
+</div>
+<%= render "users/shared/links" %>
+<script type="text/javascript">
+  ( "#a" ).click(function() {
+  $('#file-input').trigger('click'); 
+  });
+
+  $('#file-input').change(function () {
+    // var fileToUpload = $('#file-input').prop('files')[0];
+    //  $('#a').attr('src',fileToUpload.name);
+    //   console.log(fileToUpload);
+     if (this.files && this.files[0]) {
+      alert("x");
+           if( checkTypeimg(this.files[0].type) == false){
+            var input = $('#file-input');
+             alert("only image type jpeg,png");
+             input.replaceWith(input.val('').clone(true));
+            document.getElementById("a").src = "";
+                  return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#a').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    $('.fa-exchange').hover(function(){
+          $(this).fadeOut( 100 );
+            $(this).fadeIn( 500 );
+    });
+</script>
