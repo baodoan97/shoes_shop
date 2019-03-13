@@ -42,6 +42,7 @@ scope '/' do
 end
  
   #user
+  root 'pages#home'
    resource :carts
   get 'contact', to: 'pages#contact'
    get 'login', to: 'sessions#new'

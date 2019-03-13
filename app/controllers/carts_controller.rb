@@ -43,6 +43,7 @@ class CartsController < ApplicationController
 	               "quantity"  => params[:addcart][:quantity]
 				}
 	           	carts.push(cartsnew)
+
 		   end
 		else
 			carts = []

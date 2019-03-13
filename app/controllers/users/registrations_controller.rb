@@ -106,6 +106,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up_params
     debugger
         params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
+
   end
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
