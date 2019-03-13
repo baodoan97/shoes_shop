@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
-    resources :categories
+    resources :categories,only: [:edit,:update,:destroy,:new]
     resources :manages
     resources :users
     #resource :charts, 
@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   end
 end
 scope '/' do
+  resources :categories,only: [:show]
   resources :products,only: [:show]
 end
  
@@ -61,6 +62,5 @@ end
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cartproducts#create'
-
-  
+  get 'destroycart', to: 'carts#destroy'
 end
