@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+<<<<<<< HEAD
 
 	# protect_from_forgery with: :exception
 	# helper_method :current_user,:current_admin, :logged_in?
@@ -20,6 +21,24 @@ class ApplicationController < ActionController::Base
 	# end
 	
 
+=======
+# before_action :set_cart
+
+protect_from_forgery with: :exception
+helper_method :get_carts
+def get_carts
+@get_carts = session[:cart]
+end
+
+# private
+# 	# tao sessions cart
+# 	def set_cart
+# 		@cart = Cart.find(session[:cart_id])
+# 	rescue ActiveRecord::RecordNotFound
+# 		@cart = Cart.create
+# 		session[:cart_id] = @cart.id
+# 	end
+>>>>>>> admin
 # private
 #   # override the devise helper to store the current location so we can
 #   # redirect to it after loggin in or out. This override makes signing in

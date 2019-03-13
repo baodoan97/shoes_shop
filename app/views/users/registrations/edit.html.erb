@@ -1,3 +1,4 @@
+<<<<<<< HEAD:app/views/users/registrations/edit.html.erb
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(:user), html: { method: :put }) do |f| %>
@@ -22,20 +23,62 @@
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+=======
+<div class="container usertoolview">
+  <h2 align="center">Edit Profile</h2>
+  <br>
+  <%= form_for(resource, as: resource_name, url: registration_path(:user), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="form-group ">
+    <div align="center">
+    </div>
+    <center>
+    <div class="image-upload">
+      <label for="file-input">
+        <div class="changeavt">
+          <i class="fa fa-exchange"></i>
+          <%= image_tag(resource.avatar,class: "img",id: "a") if resource.avatar.attached? %>
+          <%= image_tag(" ",class: "img",id: "a") if !resource.avatar.attached? %>
+        </div>
+      </label>
+      <%= f.file_field :avatar, id:"file-input" %>
+    </div>
+    </center>
   </div>
-
+  
+  <div class="form-group ">
+    <label for="file-input">First name</label>
+    <%= f.text_field :firstname, autofocus: true , class: "form-control"%>
+  </div>
+  <div class="form-group ">
+    <label for="file-input">Last name</label>
+    <%= f.text_field :lastname, autofocus: true , class: "form-control"%>
+  </div>
+  <div class="form-group">
+    <label for="file-input">Address</label>
+    <%= f.text_area :address, class: "form-control", placeholder:"Find name task" %>
+  </div>
+  <div class="form-group ">
+    <label for="file-input">Phone</label>
+    <%= f.text_field :phone, autofocus: true, class: "form-control" %>
+  </div>
+  <div class="form-group ">
+    <label for="file-input">Email</label>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+>>>>>>> admin:app/views/devise/registrations/edit.html.erb
+  </div>
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <div class="form-group ">
+    <label for="file-input">Password</label><i>(leave blank if you don't want to change it)</i>
+    <%= f.password_field :password, autocomplete: "new-password" , class: "form-control"%>
     <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+    <br />
+    <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
+<<<<<<< HEAD:app/views/users/registrations/edit.html.erb
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
@@ -55,3 +98,22 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+=======
+  <div class="form-group ">
+    <label for="file-input">Password confirmation</label>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control"%>
+  </div>
+  <div class="form-group ">
+      <label for="file-input">Current password </label> <i>(we need your current password to confirm your changes)</i>
+      <br />
+    <%= f.password_field :current_password, autocomplete: "current-password" , class: "form-control"%>
+  </div>
+  <div class="form-group ">
+    <%= f.submit "Change profile", class: "btn" %>
+  </div>
+  <% end %>
+  <h3>Delete my account</h3>
+  <p>Unhappy? <%= button_to "Delete", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  <%= link_to "Back", :back %>
+</div>
+>>>>>>> admin:app/views/devise/registrations/edit.html.erb

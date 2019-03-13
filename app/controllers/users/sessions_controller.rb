@@ -4,7 +4,11 @@ class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   #include Accessible
+<<<<<<< HEAD
   before_action :configure_sign_in_params, only: [:create]
+=======
+  # before_action :configure_sign_in_params, only: [:create]
+>>>>>>> admin
 
   # GET /resource/sign_in
   def new

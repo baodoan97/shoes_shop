@@ -39,7 +39,12 @@ scope '/' do
 end
  
   #user
+<<<<<<< HEAD
   
+=======
+  root 'pages#home'
+   resource :carts
+>>>>>>> admin
   get 'contact', to: 'pages#contact'
    get 'login', to: 'sessions#new'
   get 'signup', to: 'users#new'
@@ -59,6 +64,8 @@ end
   #resources :products
 
   delete 'images', to:  'products#destroyimage'
+  get '/cart', to: 'carts#show', as: 'cart'
+  post 'add', to: 'cartproducts#create'
 
   
 end
