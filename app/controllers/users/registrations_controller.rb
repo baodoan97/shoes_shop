@@ -15,10 +15,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     build_resource(sign_up_params)
-<<<<<<< HEAD
-
-=======
->>>>>>> admin
     resource.save
     yield resource if block_given?
     if resource.persisted?
@@ -50,15 +46,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-<<<<<<< HEAD
-    @user = User.find(current_user.id)
-    if @user.update(configure_account_update_params)
-        flash[:notice] = 'Profile users was updated , login please !'
-          sign_in(current_user, :bypass => true)
-      else
-        render :action => :show
-      end
-=======
 
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
@@ -82,7 +69,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #   else
     #     render :action => :show
     #   end
->>>>>>> admin
   end
 
   # DELETE /resource
@@ -109,11 +95,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-<<<<<<< HEAD
-     params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address)
-=======
      params.require(:user).permit(:firstname,:lastname ,:email, :password,:password_confirmation,:current_password,:phone,:address,:avatar)
->>>>>>> admin
   end
 
   # The path used after sign up.
@@ -122,12 +104,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def sign_up_params
-<<<<<<< HEAD
-        params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address)
-=======
     debugger
         params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
->>>>>>> admin
+
   end
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)

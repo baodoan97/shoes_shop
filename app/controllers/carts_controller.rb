@@ -9,17 +9,16 @@ class CartsController < ApplicationController
     # end
     def create
     	carts = session[:cart]
-    	# debugger
 		if carts != nil
-			update = carts.find {|x| x['product_id'] == params[:product_id] }
-           if update != nil
-           	update[:quantity] = update[:quantity].to_i + params[:addcart][:quantity].to_i
-	            for i in 0..carts.count
-                       if carts[i][:product_id] = params[:product_id]
-                        carts[i] = update
-                        break
-                       end
-	            end
+			update = carts.find {|x| x['product_id'] == params[:product_id] && x['size'] == params[:addcart][:size] }
+           if update != nil 
+           	carts.map do |item|
+			  if item['product_id'] == params[:product_id]
+               item['quantity'] = params[:addcart][:quantity].to_i + update['quantity'].to_i 
+               item['price'] =  item['quantity'].to_f * update['price'].to_f
+               item['size']  =  update['size']
+			  end
+			end
            else
 	           cartsnew = {
 	               "product_id" => params[:product_id],
@@ -28,7 +27,7 @@ class CartsController < ApplicationController
 	               "quantity"  => params[:addcart][:quantity]
 				}
 	           	carts.push(cartsnew)
-	           	session[:cart] = carts
+
 		   end
 		else
 			carts = []
