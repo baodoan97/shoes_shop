@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2019_03_13_031907) do
-
+ActiveRecord::Schema.define(version: 2019_03_13_065948) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -47,7 +45,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_031907) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-
   create_table "bill_details", force: :cascade do |t|
     t.integer "bill_id"
     t.integer "product_id"
@@ -62,7 +59,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_031907) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
 
   create_table "carts", force: :cascade do |t|
     t.integer "user_id"
@@ -96,7 +92,6 @@ ActiveRecord::Schema.define(version: 2019_03_13_031907) do
     t.integer "quantity"
     t.string "description"
     t.integer "size"
-    t.integer "category_id"
   end
 
   create_table "users", force: :cascade do |t|
