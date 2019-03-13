@@ -5,30 +5,31 @@
                 <%= link_to 'N-SHOP', root_path %>
             </div>
             <div class="login-bars">
-                 <% if user_signed_in? %>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle usernav" data-toggle="dropdown" href="#">
-                           <%= current_user.firstname %>
-                          <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><%= link_to 'Profile', edit_user_registration_path %></li>
-                          <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-                        </ul>
-                      </li>
-                 <% else %>
+                <% if user_signed_in? %>
+                <li class="dropdown">
+                    <a class="dropdown-toggle usernav" data-toggle="dropdown" href="#">
+                        <%= current_user.firstname %>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><%= link_to 'Profile', edit_user_registration_path %></li>
+                        <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+                    </ul>
+                </li>
+                <% else %>
                 <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-default log-bar" %>
                 <%= link_to 'Login', new_user_session_path, class: "btn btn-default log-bar" %>
                 <% end %>
                 <div class="cart box_1">
                     <a href="checkout.html">
                         <h3>
-                            <div class="total">
-                                <span class="simpleCart_total"></span>(<span id="simpleCart_quantity"
-                                    class="simpleCart_quantity"></span>)</div>
+                        <div class="total">
+                            <span class="simpleCart_total"></span>(<span id="simpleCart_quantity"
+                        class="simpleCart_quantity"></span>)</div>
                         </h3>
                     </a>
-                    <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
+                    <p>
+                    </p>
                     <div class="clearfix"> </div>
                 </div>
             </div>
@@ -40,11 +41,11 @@
                 <nav class="navbar navbar-default nav-menu" role="navigation">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
+                        data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
                         </button>
                     </div>
                     <div class="clearfix"></div>
@@ -54,14 +55,29 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+
+                                    <!-- Category.all.each do |cat| %> -->
+                                    <!-- <li>< link_to cat.name, category_path(cat) %></li>                 -->
+                                    <li class="divider"></li>
+                                    
+
                                 <% Category.all.each do |cat| %> 
                                     <li><%= link_to cat.name, category_path(cat) %></li>  
                                 <% end %>
                                         <li class="divider"></li>
-                                  
+
                                 </ul>
                             </li>
                             <li><%= link_to 'Contact', contact_path, class: "menu" %></li>
+                            <li>
+                                <div class="iconcart">
+                                    <% if session[:cart] != nil %>
+                                    <%= link_to raw("&#xf07a"), carts_path, class: "fas" ,id: "cartnotification" %>
+                                    <% else %>
+                                    <%= link_to raw("&#xf07a"), carts_path, class: "fas"%>
+                                    <% end %>
+                                </div>
+                            </li>
                             <div class="clearfix"></div>
                         </ul>
                         <div class="clearfix"></div>
