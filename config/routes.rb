@@ -20,14 +20,13 @@ Rails.application.routes.draw do
   #get 'password_resets/:id/edit', to: 'password_reset#create', as: :send_password_reset
   #get 'categories/:category_id/:id' =>'products#show'
   get '/admins/homepage', to:'admins#homepage'
+  
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
     #root'admins#homepage'
     resources :admins
     resources :products
-    resources :categories,only: [:edit,:update,:destroy,:new]
-    resources :manages
-    resources :users
+
     #resource :charts, 
     #resources :statistics
     #resources :layouts
@@ -35,8 +34,11 @@ Rails.application.routes.draw do
   end
 end
 scope '/' do
+
   resources :categories,only: [:show]
   resources :products,only: [:show]
+
+
 end
  
   #user

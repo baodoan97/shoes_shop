@@ -1,44 +1,26 @@
 
+
 <%= render 'layouts/navtop' %>
 <%= render 'layouts/breadcum' %>
 <%= get_carts.inspect %>
+
+<%= get_carts.inspect %>
+
+
 
 <div class="showcase-grid">
     <div class="container">
         <div class="col-md-8 showcase">
             <div class="flexslider">
-                <div class="clearfix"></div>
-                <div class="flex-viewport" style="overflow: hidden; position: relative;">
-                    <ul class="slides"
-                        style="width: 1200%; transition-duration: 0s; transform: translate3d(-1440px, 0px, 0px);">
-                        
-                        <li data-thumb="<%= asset_path 'show.jpg' %>" style="width: 720px; float: left; display: block;" class="">
-                            <div class="thumb-image">
-                                <%= image_tag 'show.jpg', :class=>"img-responsive", :data => { :imagezoom => "true" } %>
-                            </div>
-                        </li>
-                        <li data-thumb="images/show1.jpg" style="width: 720px; float: left; display: block;"
-                            class="flex-active-slide">
-                            <div class="thumb-image"> <img src="images/show1.jpg" data-imagezoom="true"
-                            class="img-responsive" draggable="false"> </div>
-                        </li>
-                        
-                    </ul>
-                </div>
-                <ol class="flex-control-nav flex-control-thumbs">
-                    <% if @product.images.attached? %>
-                    <% @product.images.each_with_index do |image, index| %>
-                    <li>
-                        <%= image_tag image ,class: (index== 0? "flex-active":"") %>
-                        <% end %>
+                <ul class="slides">
+                <% @product.images.each do |img| %>   
+                    <li data-thumb="<%= image_tag img %>">
+                        <div class="thumb-image"> <img src="<%=image_tag img%>" data-imagezoom="true"
+                        class="img-responsive"> </div>
                     </li>
-                    <% end %>
-                    
-                </ol>
-                <ul class="flex-direction-nav">
-                    <li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li>
-                    <li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li>
-                </ul>
+                 <% end %>
+                    </ul>
+                <div class="clearfix"></div>
             </div>
         </div>
         <div class="col-md-4 showcase">
@@ -102,12 +84,5 @@
 <div class="clearfix"></div>
 </div>
 </div>
-<<<<<<< HEAD
-<%= get_carts.inspect %>
-=======
-<<<<<<< Updated upstream
-<%= get_carts.inspect %>
-=======
 
->>>>>>> Stashed changes
->>>>>>> origin/ary
+
