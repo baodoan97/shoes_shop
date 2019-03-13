@@ -1,3 +1,4 @@
+
  <div class="check">
                 <div class="container">	 
                     <div class="col-md-3 cart-total">
@@ -22,8 +23,8 @@
                         <a class="order" href="#">Place Order</a>
                     </div>
                     <div class="col-md-9 cart-items">
-                        <h1>My Shopping Bag (<%=@cart.products.count %>)</h1>
-                        <% @cart.products.each do |item| %>
+                        <h1 id="countcart">My Shopping Bag (<%=get_carts.count if get_carts != nil  %>)  </h1>
+                        <% get_carts.each do |item| %>
                             <script>$(document).ready(function(c) {
                                 $('.close1').on('click', function(c){
                                     $('.cart-header').fadeOut('slow', function(c){
@@ -33,16 +34,18 @@
                                 });
                            </script>
                         <div class="cart-header">
-                <div class="close1"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+                <div class="close1"><span  aria-hidden="true">  <%= link_to raw("&#xf068"), destroycart_path(:product_id => item['product_id'],:size => item.size),:remote => true, class: "fas"  %></span></div>
                             <div class="cart-sec simpleCart_shelfItem">
                                     <div class="cart-item cyc">
-                                        <img src="images/grid8.jpg" class="img-responsive" alt=""/>
+                                       <%= image_tag Product.find(item['product_id']).images.first ,class: "img-responsive gri-wid" %>
                                     </div>
                                    <div class="cart-item-info">
                                         <ul class="qty">
-                                            <li><p>Size : <%= item.size %></p></li>
-                                            <li><p>Qty : <%= item.quantity %></p><quantity
-                                            <li><p>Price : $<%= item.price %></p></li>
+                                             <li><p>Product name :  <%= Product.find(item['product_id']).name %></p></li>
+                                            <li><p>Size : <%= item['size'] %></p></li>
+                                            <li><p>Qty : <%= item['quantity'] %></p></li>
+                                            <li><p>Price : $<%= item['price'] %></p></li>
+                                            <li><p>total : $<%= item['price'].to_f * item['quantity'].to_i %></p></li>
                                         </ul>
                                  <div class="delivery">
                                              <p>Service Charges : Rs.190.00</p>

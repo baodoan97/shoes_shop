@@ -26,8 +26,7 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
-    resources :categories, only: [:edit, :update, :new, :create]
-    resources :users
+
     #resource :charts, 
     #resources :statistics
     #resources :layouts
@@ -35,8 +34,11 @@ Rails.application.routes.draw do
   end
 end
 scope '/' do
-  resources :products, only: [:show]
-  resources :categories, only: [:show]
+
+  resources :categories,only: [:show]
+  resources :products,only: [:show]
+
+
 end
  
   #user
@@ -63,6 +65,5 @@ end
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cartproducts#create'
-
-  
+  get 'destroycart', to: 'carts#destroy'
 end
