@@ -23,11 +23,12 @@
           </tr>
         </thead>
         <tbody>
+            number_to_currency(product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u")
           <% @product.each do |product| %>
           <tr class="gradeU">
             <td><%= product.id %></td>
             <td><%= product.name %></td>
-            <td><%=  number_to_currency(product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u") %></td>
+            <td><%= product.price %></td>
             <td><%= product.quantity %></td>
             <td><%= product.description %></td>
             <td><%= product.size %></td>

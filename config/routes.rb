@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   #get 'password_resets/:id/edit', to: 'password_reset#create', as: :send_password_reset
   #get 'categories/:category_id/:id' =>'products#show'
   get '/admins/homepage', to:'admins#homepage'
+  get '/admins/statistics', to:'manages#index'
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
@@ -32,10 +33,11 @@ Rails.application.routes.draw do
     #resources :layouts
     #delete 'admins/sign_out',to: 'sessions#destroy'
   end
-end
+
 
 namespace :admins do
   resources :users
+end
 end
   #user
   root 'pages#home'
