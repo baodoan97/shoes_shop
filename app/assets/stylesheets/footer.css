@@ -234,7 +234,7 @@ a{
 
 /* M E N U */
 
-.menu {
+.menu-chat{
     position: fixed;
     top: 0px;
     left: 0px;
@@ -408,7 +408,7 @@ a{
     box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
 }
 .msg p {
-    font-size: 0.8rem;
+    font-size: 3rem;
     margin: 0 0 0.2rem 0;
     color: #777;
 }
@@ -437,7 +437,7 @@ a{
 }
 
 .msg time {
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: #ccc;
     margin-top: 3px;
     float: right;
@@ -482,7 +482,7 @@ emoji.funny{background-image: url(https://i.imgur.com/qKia58V.png);}
   to { opacity: 0.5; }
 }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
     min-width: 12px;
     width: 12px;
     max-width: 12px;
@@ -491,7 +491,7 @@ emoji.funny{background-image: url(https://i.imgur.com/qKia58V.png);}
     max-height: 12px;
     background: #e5e5e5;
     box-shadow: inset 0px 50px 0px rgba(82,179,217,0.9), inset 0px -52px 0px #fafafa;
-}
+}*/
 
 ::-webkit-scrollbar-thumb {
     background: #bbb;
@@ -549,4 +549,11 @@ input.textarea {
 }
 .emojis:active {
     opacity: 0.9;
+}
+.avatar-custom{
+width: 76px;
+}
+.avatar-custom1 {
+    width: 100%;
+    margin-left: 87px;
 }

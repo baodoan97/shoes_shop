@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 <div class="container-fluid">
-    <div class="arrow">
+    <div id="repohide" class="arrow">
         <%= button_tag "Chat", :onclick => "openForm();" ,:remote => true, class: "open-button" , id: "chat-on" %>
         <div class="chat-popup" id="myForm">
             <div  class="data-chat">
@@ -8,7 +8,7 @@
                     <% Message.all.where("user_id == #{current_user.id}").each do |x| %>
                     <% if x.usersend == false %>
                     <div class="row msg_container base_receive">
-                        <div class="col-md-2 col-xs-2 avatar">
+                        <div class="col-md-2 col-xs-2 avatar-custom">
                             
                         </div>
                         <div class="col-xs-10 col-md-10">
@@ -17,9 +17,8 @@
                                 <time ><%= time_ago_in_words(x.created_at) %></time>
                             </div>
                         </div>
-                        </div>
+                    </div>
                     <% else %>
-                        
                     
                     <div class="row msg_container base_sent">
                         <div class="col-md-10 col-xs-10 ">
@@ -38,11 +37,11 @@
             </div>
             <div class="clearfix"></div>
             <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
-             <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
-             <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
-            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom" %>
+            <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
+            <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
+            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
             <%= f.submit "Send" , class: "btn"  %>
-             <%= button_tag "Close", :onclick => "closeForm();" ,class: "btn cancel"  %>
+            <%= button_tag "Close", :onclick => "closeForm();" ,class: "btn cancel"  %>
             <% end %>
         </div>
     </div>
@@ -101,6 +100,19 @@
         </div>
     </div>
     <script type="text/javascript">
+    function myFunction(x) {
+    if (x.matches) { // If media query matches
+    
+    document.getElementById("repohide").style.display = "none";
+    }
+    if(!x.matches)
+    {
+    document.getElementById("repohide").style.display = "inherit";
+    }
+    }
+    var x = window.matchMedia("(max-width: 1200px)")
+    myFunction(x) // Call listener function at run time
+    x.addListener(myFunction)
     document.getElementById("myForm").style.display = "none";
     function openForm() {
     document.getElementById("myForm").style.display = "block";
