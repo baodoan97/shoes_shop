@@ -34,6 +34,7 @@
 //= require_jquery.dataTables.min
 //= require_dataTables.bootstrap
 //= require_dataTables.jqueryui.min
+//= require highcharts
 $( document ).on('turbolinks:load', function() {
   $('#example').DataTable( {
     language: {
@@ -54,7 +55,7 @@ $( document ).on('turbolinks:load', function() {
 
           // Total over all pages
           total = api
-              .column( 3 )
+              .column( 2 )
               .data()
               .reduce( function (a, b) {
                   return intVal(a) + intVal(b);
@@ -62,15 +63,15 @@ $( document ).on('turbolinks:load', function() {
 
           // Total over this page
           pageTotal = api
-              .column( 3, { page: 'current'} )
+              .column( 2, { page: 'current'} )
               .data()
               .reduce( function (a, b) {
                   return intVal(a) + intVal(b);
               }, 0 );
 
           // Update footer
-          $( api.column( 3 ).footer() ).html(
-              'Quality: '+pageTotal +' ( Tổng cộng '+ total +' Quality )'
+          $( api.column( 2 ).footer() ).html(
+              'Price in page: '+pageTotal +' VND'+' ( Tổng cộng: '+ total +' VND )'
           );
       }
       
