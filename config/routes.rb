@@ -26,7 +26,11 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
+
     get '/messages/:id/show',to: 'messages#show'
+
+    resources :categories
+
     resource :manages 
     #resources :statistics
     #resources :layouts
@@ -37,7 +41,6 @@ end
 namespace :admins do
 
   resources :users
-  resources :categories
 end
   #user
   root 'pages#home'

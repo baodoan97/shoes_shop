@@ -31,9 +31,50 @@
 //= require_editors
 //= require_custom
 //= require_calendar
-//= require_jquery.dataTables
+//= require_jquery.dataTables.min
+//= require_dataTables.bootstrap
+//= require_dataTables.jqueryui.min
 $( document ).on('turbolinks:load', function() {
+  $('#example').DataTable( {
+    language: {
+      searchPlaceholder: "Nhap thong tin can tim",
+      search: "",
+    },
+      "footerCallback": function ( row, data, start, end, display ) {
+          var api = this.api(), data;
 
+
+          // Remove the formatting to get integer data for summation
+          var intVal = function ( i ) {
+              return typeof i === 'string' ?
+                  i.replace(/[\$,]/g, '')*1 :
+                  typeof i === 'number' ?
+                      i : 0;
+          };
+
+          // Total over all pages
+          total = api
+              .column( 3 )
+              .data()
+              .reduce( function (a, b) {
+                  return intVal(a) + intVal(b);
+              }, 0 );
+
+          // Total over this page
+          pageTotal = api
+              .column( 3, { page: 'current'} )
+              .data()
+              .reduce( function (a, b) {
+                  return intVal(a) + intVal(b);
+              }, 0 );
+
+          // Update footer
+          $( api.column( 3 ).footer() ).html(
+              'Quality: '+pageTotal +' ( Tổng cộng '+ total +' Quality )'
+          );
+      }
+      
+  } );
 
   $( "#a" ).click(function() {
   $('#file-input').trigger('click'); 

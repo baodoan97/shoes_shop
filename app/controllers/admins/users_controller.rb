@@ -35,8 +35,8 @@ class Admins::UsersController < ApplicationController
       def update
         if @user1.update(user_params)
       
-            flash[:success] =  'Category was successfully updated.'
-            redirect_to admins_users_path(@user)
+            flash[:success] =  'User was successfully updated.'
+            redirect_to admins_users_path(@user1)
             else
              render 'edit'
             end
