@@ -26,7 +26,11 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
+
+    get '/messages/:id/show',to: 'messages#show'
+
     resources :categories
+
     resource :manages 
     #resources :statistics
     #resources :layouts
@@ -35,6 +39,7 @@ Rails.application.routes.draw do
 end
 
 namespace :admins do
+
   resources :users
 end
   #user
@@ -45,7 +50,7 @@ end
   get 'signup', to: 'users#new'
   get 'users/signup'
   get 'errors/loi'
-  #resources :categories, except: [:show]
+  resources :categories, only: [:show]
 
   #root :to 'admins#adminshome'
   #resources :admins, except: [:show]
@@ -62,4 +67,7 @@ end
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cartproducts#create'
   get 'destroycart', to: 'carts#destroy'
+  resources :messages , except:[:show]
+  post 'create', to: 'messages#create'
+  mount ActionCable.server => '/cable'
 end

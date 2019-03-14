@@ -12,6 +12,9 @@
 //
 //= require activestorage
 //= require jquery2
+//= require jquery
+//= require jquery_ujs
+//= require turbolinks
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap
@@ -39,6 +42,7 @@ $( document ).on('turbolinks:load', function() {
     },
       "footerCallback": function ( row, data, start, end, display ) {
           var api = this.api(), data;
+
 
           // Remove the formatting to get integer data for summation
           var intVal = function ( i ) {
@@ -71,6 +75,7 @@ $( document ).on('turbolinks:load', function() {
       }
       
   } );
+
   $( "#a" ).click(function() {
   $('#file-input').trigger('click'); 
   });
