@@ -17,7 +17,7 @@ class Admins::UsersController < ApplicationController
       # GET /categories/1/edit
       def edit
       end
-    
+      #scope :created_in_time, ->(start_time, end_time){where(created_at: start_time..end_time)}
       # POST /categories
       # POST /categories.json
       def create

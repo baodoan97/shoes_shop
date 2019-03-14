@@ -5,7 +5,9 @@ class  AdminsController < ApplicationController
     def index
         @admins = Admin.all
     end
-  
+    def  statistic
+        
+    end
    
     
       # GET /categories/1
