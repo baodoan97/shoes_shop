@@ -8,17 +8,17 @@
             <div class="panel-heading"><strong style="font-size:20px">Info User</strong></div>
             <div class="panel-body">
               <strong>ID:</strong>
-              <%= @users.id %><br>
+              <%= @user1.id %><br>
               <strong>Email:</strong>
-              <%= @users.email %><br>
+              <%= @user1.email %><br>
               <strong>Create at:</strong>
-              <%= @users.created_at %><br>
+              <%= @user1.created_at %><br>
               <strong>Update at:</strong>
-              <%= @users.updated_at %><br>
+              <%= @user1.updated_at %><br>
             </div>
           </div>
     </div>
   </div>
-  <%= link_to 'Edit', edit_admins_user_path(@users) %> |
-  <%= link_to 'Back', admins_user_path %>
+  <%= link_to 'Edit', edit_admins_user_path() %> |
+  <%= link_to 'Back', admins_users_path %>
 </div>

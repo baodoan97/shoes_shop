@@ -24,70 +24,23 @@
         </tr>
       </thead>
       <tbody>
-        <% @users.each do |admin| %>
+        <% @users.each do |user| %>
         <tr class="gradeC">
-          <td><%= admin.id %></td>
-          <td><%= admin.email %></td>
-          <td><%= admin.admin %></td>
-          <td><%= admin.created_at.localtime %></td>
-          <td><%= admin.updated_at.localtime %></td>
-          <td><%= link_to '', admin,class: "btn btn-info fas fa-eye" %></td>
-          <td><%= link_to '', edit_admins_user_path(admin),class: "btn btn-warning fas fa-edit" %></td>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.admin %></td>
+          <td><%= user.created_at.localtime %></td>
+          <td><%= user.updated_at.localtime %></td>
+          <td><%= link_to '', admins_user_path(user),class: "btn btn-info fas fa-eye" %></td>
+          <td><%= link_to '', edit_admins_user_path(user),class: "btn btn-warning fas fa-edit" %></td>
           <td>
-            <%= link_to '', admin, method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
+            <%= link_to '', user, method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
           </td>
         </tr>
         <% end %>
-      <script>
-          $(document).ready(function() {
-            $('#example').DataTable( {
-              language: {
-                searchPlaceholder: "Nhap thong tin can tim",
-                search: "",
-              },
-                "footerCallback": function ( row, data, start, end, display ) {
-                    var api = this.api(), data;
-         
-                    // Remove the formatting to get integer data for summation
-                    var intVal = function ( i ) {
-                        return typeof i === 'string' ?
-                            i.replace(/[\$,]/g, '')*1 :
-                            typeof i === 'number' ?
-                                i : 0;
-                    };
-         
-                    // Total over all pages
-                    total = api
-                        .column( 0 )
-                        .data()
-                        .reduce( function (a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0 );
-         
-                    // Total over this page
-                    pageTotal = api
-                        .column( 0, { page: 'current'} )
-                        .data()
-                        .reduce( function (a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0 );
-         
-                    // Update footer
-                    $( api.column( 0 ).footer() ).html(
-                        'ID'+pageTotal +' ( ID'+ total +' total)'
-                    );
-                }
-                
-            } );
-        } );
-      </script>
+      
       </tbody>
-      <tfoot>
-          <tr>
-              <th colspan="4" style="text-align:right">Example tien Total:</th>
-              <th></th>
-          </tr>
-      </tfoot>
+     
     </table>
   </div>
 </div>
