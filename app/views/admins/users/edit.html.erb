@@ -1,6 +1,6 @@
 <%= render 'layouts/adminshome' %>
 <div class="container">
-  <%= form_for [:admins, user2] do |f| %>
+  <%= form_for @user1 do |f| %>
  
   <div class="form-inputs">
     <%= f.text_field :email,disabled: true %>

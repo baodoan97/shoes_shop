@@ -28,9 +28,12 @@
 //= require_editors
 //= require_custom
 //= require_calendar
-//= require_jquery.dataTables
+//= require_jquery.dataTables.min
+//= require_dataTables.bootstrap
+//= require_dataTables.jqueryui.min
 $( document ).on('turbolinks:load', function() {
-
+  $("table").dataTable();
+  
   $( "#a" ).click(function() {
   $('#file-input').trigger('click'); 
   });
