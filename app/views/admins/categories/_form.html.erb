@@ -1,11 +1,11 @@
 <%= render 'layouts/adminshome' %>
-<%= form_for @category do |f| %>
+<%= form_tag admins_categories_path do |f| %>
   <div>
-    <%= f.text_field :name %>
-    <%= f.text_field :description %>
+    <%= text_field_tag :name %>
+    <%= text_field_tag :description %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%=  submit_tag %>
   </div>
 <% end %>

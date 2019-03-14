@@ -1,11 +1,11 @@
-class Admins::CategoriesController < ApplicationController
+class CategoriesController < ApplicationController
   #layout 'layouts/adminshome'
   before_action :set_category, only: [:show, :edit, :update, :destroy]
   #include ActiveModel::AttributeMethods
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Admins::Category.all
+    @categories = Category.all
   end
 
   # GET /categories/1
@@ -16,7 +16,7 @@ class Admins::CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    @category = Admins::Category.new
+    @category = Category.new
   end
 
   # GET /categories/1/edit
@@ -26,11 +26,11 @@ class Admins::CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = Admins::Category.new(category_params)
+    @category = Category.new(category_params)
     if @category.save
 			#session[:user_id] = @categories.id
 		#	flash[:success] = "ssASAs, #{@categories.name}"
-			redirect_to admins_category_path()
+			redirect_to categories_path
 		else
 			render 'new'
 		end
@@ -43,7 +43,7 @@ class Admins::CategoriesController < ApplicationController
       if @category.update(category_params)
       
       flash[:success] =  'Category was successfully updated.'
-      redirect_to admins_category_path(@categories)
+      redirect_to categories_path
       else
        render 'edit'
       end
@@ -54,7 +54,7 @@ class Admins::CategoriesController < ApplicationController
   # DELETE /categories/1.json
   def destroy
     @category.destroy
-    redirect_to admins_categories_path()
+    redirect_to categories_path
   end
 
   private
@@ -65,6 +65,6 @@ class Admins::CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      params.require(:category).permit(:name, :description, :display_in_navbar)
+      params.require(:category).permit(:name, :description)
     end
 end

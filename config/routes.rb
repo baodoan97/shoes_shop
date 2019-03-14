@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
-
+    resources :categories
     resource :manages 
     #resources :statistics
     #resources :layouts
@@ -36,7 +36,6 @@ end
 
 namespace :admins do
   resources :users
-  resources :categories
 end
   #user
   root 'pages#home'
