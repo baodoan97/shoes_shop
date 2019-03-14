@@ -12,6 +12,9 @@
 //
 //= require activestorage
 //= require jquery2
+//= require jquery
+//= require jquery_ujs
+//= require turbolinks
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap
@@ -30,6 +33,7 @@
 //= require_calendar
 //= require_jquery.dataTables
 $( document ).on('turbolinks:load', function() {
+
 
   $( "#a" ).click(function() {
   $('#file-input').trigger('click'); 
