@@ -27,20 +27,17 @@ Rails.application.routes.draw do
     resources :admins
     resources :products
 
-    #resource :charts, 
+    resource :manages 
     #resources :statistics
     #resources :layouts
     #delete 'admins/sign_out',to: 'sessions#destroy'
   end
 end
-scope '/' do
 
-  resources :categories,only: [:show]
-  resources :products,only: [:show]
-
-
+namespace :admins do
+  resources :users
+  resources :categories
 end
- 
   #user
   root 'pages#home'
    resource :carts

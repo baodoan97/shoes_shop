@@ -1,0 +1,15 @@
+<%= render 'layouts/adminshome' %>
+<div class="container">
+  <%= render 'layouts/adminshome' %>
+  <%= form_tag  admins_users_path do |f| %>
+    <div>
+      <%= text_field_tag :email %>
+      <%= text_field_tag :password %>
+    </div>
+  
+    <div class="form-actions">
+      <%= submit_tag %>
+    </div>
+  <% end %>
+  <%= link_to 'Back', admins_users_path %>
+</div>
