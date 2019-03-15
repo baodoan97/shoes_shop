@@ -104,7 +104,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def sign_up_params
-    debugger
+    # debugger
         params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
 
   end

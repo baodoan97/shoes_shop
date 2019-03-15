@@ -25,6 +25,7 @@ body{
     position: relative;
     padding: 0;
     text-align: center;
+        margin: 55px 0px 0px 0px;
 }
 .login-bars{
     position: absolute;

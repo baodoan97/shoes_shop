@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
 	def new
-		 if current_cart.cart_products.count > 0
+		 if session[:cart_id] == nil
 
 	    	redirect_to '/', :notice => 'Your cart is empty'
 	     	return
