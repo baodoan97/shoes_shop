@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
-    resources :messages
+    resources :messages 
     get '/messages/:id/show',to: 'messages#show'
     post 'createmsgadmin', to: 'messages#createmsgadmin'
     resources :categories
@@ -75,11 +75,14 @@ end
   post 'add', to: 'cartproducts#create'
   get 'destroycart', to: 'carts#destroy'
 
+  resources :messages , except:[:show,:index]
+
+
   resources :payments, only: [:new, :create]
   resources :carts
   resources :cart_products
 
-  resources :messages , except:[:show]
+
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
 
