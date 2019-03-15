@@ -1,46 +1,128 @@
-<div class="footer-grid">
-        <div class="container">
-            <div class="col-md-2 re-ft-grd">
-                <h3>Categories</h3>
-                <ul class="categories">
-                     <!-- Category.all.each do |cat| %> -->
-                    <!-- <li>< link_to cat.name.upcase, category_path(cat) %></li> -->
-                    
-                    
-                </ul>
-            </div>
-            <div class="col-md-2 re-ft-grd">
-                <h3>Short links</h3>
-                <ul class="shot-links">
-                    <li><%= link_to 'Contact Us', contact_path %></li>
-                    <li><a href="#">Support</a></li>
-                    <li><a href="#">Delivery</a></li>
-                    <li><a href="#">Return Policy</a></li>
-                    <li><a href="#">Terms &amp; conditions</a></li>
-                    <li><a href="contact.html">Sitemap</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6 re-ft-grd">
-                <h3>Social</h3>
-                <ul class="social">
-                    <li><a href="#" class="fb">facebook</a></li>
-                    <li><a href="#" class="twt">twitter</a></li>
-                    <li><a href="#" class="gpls">g+ plus</a></li>
-                    <div class="clearfix"></div>
-                </ul>
-            </div>
-            <div class="col-md-2 re-ft-grd">
-                <div class="bt-logo">
-                    <div class="logo">
-                        <%= link_to 'AIR', root_path, class: "ft-log" %>
+<% if user_signed_in? %>
+<div class="container-fluid">
+    <div id="repohide" class="arrow">
+        <%= button_tag "Chat", :onclick => "openForm();" ,:remote => true, class: "open-button" , id: "chat-on" %>
+        <div class="chat-popup" id="myForm">
+            <div  class="data-chat">
+                <div id="setscroll" class="panel-body msg_container_base">
+                    <% Message.all.where("user_id == #{current_user.id}").each do |x| %>
+                    <% if x.usersend == false %>
+                    <div class="row msg_container base_receive">
+                        <div class="col-md-2 col-xs-2 avatar-custom">
+                            
+                        </div>
+                        <div class="col-xs-10 col-md-10">
+                            <div class="messages msg_receive">
+                                <p><%= x.content %></p>
+                                <time ><%= time_ago_in_words(x.created_at) %></time>
+                            </div>
+                        </div>
                     </div>
+                    <% else %>
+                    
+                    <div class="row msg_container base_sent">
+                        <div class="col-md-10 col-xs-10 ">
+                            <div class="messages msg_sent">
+                                <p><%= x.content %></p>
+                                <time ><%= time_ago_in_words(x.created_at) %></time>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-2 avatar">
+                            <%= image_tag x.user.avatar,class: "img-responsive " %>
+                        </div>
+                    </div>
+                    <% end %>
+                    <% end %>
                 </div>
             </div>
-    <div class="clearfix"></div>
+            <div class="clearfix"></div>
+            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
+            <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
+            <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
+            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
+            <%= f.submit "Send" , class: "btn"  %>
+            <%= button_tag "Close", :onclick => "closeForm();" ,class: "btn cancel"  %>
+            <% end %>
+        </div>
+    </div>
+</div>
+<% end %>
+<div class="footer-grid">
+    <div class="container">
+        <div class="col-md-2 re-ft-grd">
+            <h3>Categories</h3>
+            <ul class="categories">
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Kids</a></li>
+                <li><a href="#">Formal</a></li>
+                <li><a href="#">Casuals</a></li>
+                <li><a href="#">Sports</a></li>
+            </ul>
+        </div>
+        <div class="col-md-2 re-ft-grd">
+            <h3>Short links</h3>
+            <ul class="shot-links">
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Delivery</a></li>
+                <li><a href="#">Return Policy</a></li>
+                <li><a href="#">Terms &amp; conditions</a></li>
+                <li><a href="contact.html">Sitemap</a></li>
+            </ul>
         </div>
         <div class="copy-rt">
             <div class="container">
-        <p>©   2015 N-AIR All Rights Reserved. Design by <a href="http://www.w3layouts.com">w3layouts</a></p>
+                <p>©   2015 N-AIR All Rights Reserved. Design by <a href="http://www.w3layouts.com">w3layouts</a></p>
+                <div class="col-md-6 re-ft-grd">
+                    <h3>Social</h3>
+                    <ul class="social">
+                        <li><a href="#" class="fb">facebook</a></li>
+                        <li><a href="#" class="twt">twitter</a></li>
+                        <li><a href="#" class="gpls">g+ plus</a></li>
+                        <div class="clearfix"></div>
+                    </ul>
+                </div>
+                <div class="col-md-2 re-ft-grd">
+                    <div class="bt-logo">
+                        <div class="logo">
+                            <a href="index.html" class="ft-log">AIR</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="copy-rt">
+            <div class="container">
+                <p>©   2015 N-AIR All Rights Reserved. Design by <a href="http://www.w3layouts.com">w3layouts</a></p>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+    function myFunction(x) {
+    if (x.matches) { // If media query matches
+    
+    document.getElementById("repohide").style.display = "none";
+    }
+    if(!x.matches)
+    {
+    document.getElementById("repohide").style.display = "inherit";
+    }
+    }
+    var x = window.matchMedia("(max-width: 1200px)")
+    myFunction(x) // Call listener function at run time
+    x.addListener(myFunction)
+    document.getElementById("myForm").style.display = "none";
+    function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("chat-on").style.display = "none";
+    var mydiv = $("#setscroll");
+    mydiv.scrollTop(mydiv.prop("scrollHeight"));
+    // $("#setscroll").scrollTop(150);
+    }
+    function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("chat-on").style.display = "block";
+    }
+    </script>

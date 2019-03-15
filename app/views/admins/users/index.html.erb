@@ -1,0 +1,46 @@
+<%= render 'layouts/adminshome' %>
+<div class="container-fluid" >
+  <p id="notice"><%= notice %></p>
+  <h1>Users</h1>
+  <%= link_to ' Create', new_admins_user_path, class: "btn-lg btn btn-primary fas fa-plus-square "%>
+  <br>
+</div>
+<style>
+  
+</style>
+<div class="content-box-large"  >
+  <div class="panel-body">
+    <table id="example" class="display" width="100%">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Admin?</th>
+          <th>Create At</th>
+          <th>Update At</th>
+          <th>Edit</th>
+          <th>Show</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr class="gradeC">
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.admin %></td>
+          <td><%= user.created_at.localtime %></td>
+          <td><%= user.updated_at.localtime %></td>
+          <td><%= link_to '', admins_user_path(user),class: "btn btn-info fas fa-eye" %></td>
+          <td><%= link_to '', edit_admins_user_path(user),class: "btn btn-warning fas fa-edit" %></td>
+          <td>
+            <%= link_to '', user, method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+        <% end %>
+      
+      </tbody>
+     
+    </table>
+  </div>
+</div>

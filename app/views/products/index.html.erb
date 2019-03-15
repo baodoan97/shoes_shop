@@ -5,7 +5,7 @@
   <%= link_to 'New Products', new_product_path,class: "btn-lg btn btn-primary fas fa-plus-square " %>
   <div class="content-box-large">
     <div class="panel-body">
-      <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+      <table  id="example">
         <thead>
           <tr>
             <th>ID</th>
@@ -23,15 +23,16 @@
           </tr>
         </thead>
         <tbody>
+            number_to_currency(product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u")
           <% @product.each do |product| %>
           <tr class="gradeU">
             <td><%= product.id %></td>
             <td><%= product.name %></td>
-            <td><%=  number_to_currency(product.price, unit: "VND", separator: ",",precision: 3, format: "%n %u") %></td>
+            <td><%= product.price %></td>
             <td><%= product.quantity %></td>
             <td><%= product.description %></td>
             <td><%= product.size %></td>
-            <td><%= product.category_id %></td>
+            <td><%= product.size %></td>
             <td>
               <div class="row">
                 <% product.images.each do |image| %>
@@ -46,8 +47,14 @@
             <td><%= link_to '', product, class: "btn btn-danger far fa-trash-alt", method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
           </tr>
-          <% end %>
+          <% end %>    
         </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="10" style="text-align:left">Example Total:</th>
+                <th style="text-align:right"></th>
+            </tr>
+        </tfoot>
       </table>
     </div>
   </div>
