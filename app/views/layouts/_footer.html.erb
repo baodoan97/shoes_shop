@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 <div class="container-fluid">
     <div id="repohide" class="arrow">
-        <%= button_tag "Chat", :onclick => "openForm();" ,:remote => true, class: "open-button" , id: "chat-on" %>
+        <%= button_tag raw("&#xf075"), :onclick => "openForm();" ,:remote => true, class: "open-button fa" , id: "chat-on" %>
         <div class="chat-popup" id="myForm">
             <div  class="data-chat">
                 <div id="setscroll" class="panel-body msg_container_base">
@@ -35,13 +35,12 @@
                     <% end %>
                 </div>
             </div>
-            <div class="clearfix"></div>
             <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
             <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
             <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
             <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
             <%= f.submit "Send" , class: "btn"  %>
-            <%= button_tag "Close", :onclick => "closeForm();" ,class: "btn cancel"  %>
+            <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
             <% end %>
         </div>
     </div>
