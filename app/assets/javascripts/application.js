@@ -77,16 +77,15 @@ $( document ).on('turbolinks:load', function() {
       
   } );
 
-  $( "#a" ).click(function() {
-  $('#file-input').trigger('click'); 
-  });
+  // $( "#a" ).click(function() {
+  // $('#file-input').trigger('click'); 
+  // });
 
   $('#file-input').change(function () {
     // var fileToUpload = $('#file-input').prop('files')[0];
     //  $('#a').attr('src',fileToUpload.name);
     //   console.log(fileToUpload);
      if (this.files && this.files[0]) {
-      alert("x");
            if( checkTypeimg(this.files[0].type) == false){
             var input = $('#file-input');
              alert("only image type jpeg,png");
