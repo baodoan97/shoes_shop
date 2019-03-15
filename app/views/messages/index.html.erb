@@ -1,1 +1,20 @@
-<div id="abc"></div>
+ <% @list.each do |user| %>
+            <div class="card-body">
+            	<div class="row">
+	    		    <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+	     			    <%= image_tag user.avatar.attached? == false ? " ": user.avatar,class: "rounded-circle img-thumbnail" %>
+	 				</div>
+			   	    <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8" >
+			            <div class="container" >
+			         	    <h2><%= user.firstname %></h2>
+			            </div>
+			            <hr>
+			            <hr>
+			       	    <div class="col-sm-5 col-xs-6 tital " >
+			   				<%= link_to "", message_path(user), class: "btn btn-lg btn-success fa fa-eye" %>
+			       	    </div>
+			        </div>
+				</div>
+				<hr>
+			</div>
+			<% end %>

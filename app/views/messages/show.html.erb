@@ -1,8 +1,9 @@
-<div class="menu">
-	<div class="back"><i class="fa fa-chevron-left"></i> <%= image_tag @messages[0].user.avatar%></div>
+<div class="menu-chat">
+	<div class="back"><%= link_to raw("&#xf053"), messages_path , class: "fa "  %> <%= image_tag @messages[0].user.avatar%></div>
 	<div class="name"><%= @messages[0].user.firstname %></div>
 	<div class="last"><%= time_ago_in_words(@messages.last.created_at) %></div>
 </div>
+
 <ol id="admin_chat" class="chat">
 	<% @messages.each do |v|  %>
 	<% if v.usersend == true%> 
@@ -18,16 +19,24 @@
 		<div class="avatar"></div>
 		<div class="msg">
 			<p><%= v.content %></p>
-			<p><a href="https://codepen.io/Varo/pen/YPmwpQ" target="parent">Chat UI 2.0</a></p>
 			<time><%= time_ago_in_words(v.created_at) %></time>
 		</div>
 	</li>
 	<% end %>
 	<% end %>
 </ol>
-<%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "create"}, :html => {class: "textarea", role: "form" , :method => :POST}) do |f| %>
+<%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "createmsgadmin"}, :html => {class: "textarea", role: "form" , :method => :POST}) do |f| %>
             <%= hidden_field_tag "user_send[usersend]", "#{false}" %>
              <%= hidden_field_tag "user_id[user_id]", "#{@messages[0].user.id}" %>
-            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom" %>
+            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom",id: "adminchat" %>
             <%= f.submit "Send" , class: "btn pull-right"  %>
 <% end %>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+    $('html, body').animate({
+        scrollTop: $("#adminchat").offset().top
+    }, 2000);
+
+		})
+</script>

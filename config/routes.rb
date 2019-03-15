@@ -27,9 +27,9 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     resources :products
-
+    resources :messages
     get '/messages/:id/show',to: 'messages#show'
-
+    post 'createmsgadmin', to: 'messages#createmsgadmin'
     resources :categories
 
     resource :manages 
@@ -63,7 +63,7 @@ end
 
   #resources :categories
   resources :users, except: [:destroy, :index]
-  #resources :products
+  resources :products, only: [:show]
 
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'

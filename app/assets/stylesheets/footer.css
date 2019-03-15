@@ -11,7 +11,7 @@
   position: fixed;
   bottom: 23px;
   right: 28px;
-  width: 280px;
+  /*width: 280px;*/
 }
 
 /* The popup chat - hidden by default */
@@ -27,7 +27,7 @@
 /* Add styles to the form container */
 .form-container {
   max-width: 300px;
-  padding: 10px;
+  /*padding: 10px;*/
   background-color: white;
 }
 
@@ -50,14 +50,14 @@
 
 /* Set a style for the submit/login button */
 .form-container .btn {
-  background-color: #4CAF50;
+  background-color:#337ab7;
   color: white;
   padding: 16px 20px;
   border: none;
   cursor: pointer;
   width: 100%;
-  margin-bottom:10px;
   opacity: 0.8;
+
 }
 
 /* Add a red background color to the cancel button */
@@ -203,6 +203,8 @@ img {
 }
 .data-chat{
   width: 300px;
+      position: fixed;
+    margin-top: -281px;
 }
 textarea.form-container-custom {
     border: none;
@@ -234,7 +236,7 @@ a{
 
 /* M E N U */
 
-.menu {
+.menu-chat{
     position: fixed;
     top: 0px;
     left: 0px;
@@ -408,7 +410,7 @@ a{
     box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.07);
 }
 .msg p {
-    font-size: 0.8rem;
+    font-size: 3rem;
     margin: 0 0 0.2rem 0;
     color: #777;
 }
@@ -437,7 +439,7 @@ a{
 }
 
 .msg time {
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: #ccc;
     margin-top: 3px;
     float: right;
@@ -482,7 +484,7 @@ emoji.funny{background-image: url(https://i.imgur.com/qKia58V.png);}
   to { opacity: 0.5; }
 }
 
-::-webkit-scrollbar {
+/*::-webkit-scrollbar {
     min-width: 12px;
     width: 12px;
     max-width: 12px;
@@ -491,7 +493,7 @@ emoji.funny{background-image: url(https://i.imgur.com/qKia58V.png);}
     max-height: 12px;
     background: #e5e5e5;
     box-shadow: inset 0px 50px 0px rgba(82,179,217,0.9), inset 0px -52px 0px #fafafa;
-}
+}*/
 
 ::-webkit-scrollbar-thumb {
     background: #bbb;
@@ -549,4 +551,15 @@ input.textarea {
 }
 .emojis:active {
     opacity: 0.9;
+}
+.avatar-custom{
+width: 76px;
+}
+.avatar-custom1 {
+    width: 100%;
+    margin-left: 87px;
+}
+textarea#usechat {
+
+    margin: 21px 0px 0px 0px;
 }

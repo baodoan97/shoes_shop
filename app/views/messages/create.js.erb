@@ -1,3 +1,4 @@
+document.getElementById("usechat").value = " ";
 $(document).ready(function(){
 var messsage = {"usersend":"<%= @message.usersend %>","user_id":"<%= @message.user_id %>","avatar":'<%= url_for(@message.user.avatar) %>',"name":"<%= current_user.firstname %>","time":"<%= time_ago_in_words(@message.created_at) %>","content":"<%= @message.content %>"};
 App.message.send_msg(messsage);
@@ -24,11 +25,5 @@ x = "<%= current_user.id %>";
 	}
 	
 })
-	// 	    else
-	// {
-	
-	// // $('#admin_chat').append("<li class='self'> <div class='avatar'><img src="+keys[0]["message"]["avatar"]+" /></div> <div class='msg'> <p>"+keys[0]["message"]["content"]+"</p> <time>"+keys[0]["message"]["time"]+"</time> </div> </li>");
-	// // window.scrollTo(0, 9999999999999999999999999);
-	// }
 
 
