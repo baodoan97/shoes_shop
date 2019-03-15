@@ -38,8 +38,13 @@ Rails.application.routes.draw do
     #delete 'admins/sign_out',to: 'sessions#destroy'
   end
 
+  resources :categories,only: [:show]
+  resources :products,only: [:show]
+  resources :charges
+
 
 namespace :admins do
+
 
   resources :users
 end
@@ -69,7 +74,13 @@ end
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cartproducts#create'
   get 'destroycart', to: 'carts#destroy'
+
+  resources :payments, only: [:new, :create]
+  resources :carts
+  resources :cart_products
+
   resources :messages , except:[:show]
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
+
 end

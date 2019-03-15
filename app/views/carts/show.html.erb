@@ -6,7 +6,7 @@
                         <div class="price-details">
                             <h3>Price Details</h3>
                             <span>Total</span>
-                            <span class="total1">6200.00</span>
+                            <span class="total1"><%= @cart.total_price %></span>
                             <span>Discount</span>
                             <span class="total1">10%(Festival Offer)</span>
                             <span>Delivery Charges</span>
@@ -16,15 +16,15 @@
                         <hr class="featurette-divider">
                         <ul class="total_price">
                            <li class="last_price"> <h4>TOTAL</h4></li>	
-                           <li class="last_price"><span>6150.00</span></li>
+                           <li class="last_price"><span><%= @cart.total_price %></span></li>
                            <div class="clearfix"> </div>
                         </ul> 
                         <div class="clearfix"></div>
-                        <a class="order" href="#">Place Order</a>
+                        <%= link_to 'Place Order', new_payment_path, class: "order" %>
                     </div>
                     <div class="col-md-9 cart-items">
-                        <h1 id="countcart">My Shopping Bag (<%=get_carts.count if get_carts != nil  %>)  </h1>
-                        <% get_carts.each do |item| %>
+                        <h1 id="countcart">My Shopping Bag (<%= @cart.cart_products.count if @cart != nil  %>)  </h1>
+                        <% @cart.cart_products.each do |item| %>
                             <script>$(document).ready(function(c) {
                                 $('.close1').on('click', function(c){
                                     $('.cart-header').fadeOut('slow', function(c){
