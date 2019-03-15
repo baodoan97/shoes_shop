@@ -37,7 +37,7 @@ scope '/' do
 
   resources :categories,only: [:show]
   resources :products,only: [:show]
-
+  resources :charges
 
 end
  
@@ -66,4 +66,7 @@ end
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cartproducts#create'
   get 'destroycart', to: 'carts#destroy'
+  resources :payments, only: [:new, :create]
+  resources :carts
+  resources :cart_products
 end

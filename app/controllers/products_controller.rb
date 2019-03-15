@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
 	end
 	
      def show
-
+      
     end
     def new
     @product = Product.new
@@ -23,9 +23,11 @@ class ProductsController < ApplicationController
 		  @product = Product.new(paPRODUCT)
 		  @product.category = Category.find(product_params[:category].to_i)
              # debugger
-        if params[:product][:images] != nil 
-            @product.images.attach(params[:product][:images])
+        if params[:product][:images] == nil
+            render js: "alert('vui long chon hinh');"
+            return
         end
+        @product.images.attach(params[:product][:images])
 
         if @product.save
 	        flash[:success] = "Product was created successfully"
