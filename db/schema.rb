@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_14_035334) do
+
+
+ActiveRecord::Schema.define(version: 2019_03_15_020606) do
+
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,12 +63,18 @@ ActiveRecord::Schema.define(version: 2019_03_14_035334) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "carts", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+  create_table "cart_products", force: :cascade do |t|
+ t.integer "product_id"
     t.decimal "price"
     t.integer "size"
     t.integer "quantity"
+    t.integer "cart_id"
+    t.integer "pay_id"
+  end
+
+
+  create_table "carts", force: :cascade do |t|
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -85,6 +94,21 @@ ActiveRecord::Schema.define(version: 2019_03_14_035334) do
     t.boolean "usersend"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "payment_items", force: :cascade do |t|
+    t.integer "product_id"
+    t.decimal "price"
+    t.integer "size"
+    t.integer "quantity"
+    t.integer "payment_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.string "pay_type"
   end
 
   create_table "products", force: :cascade do |t|

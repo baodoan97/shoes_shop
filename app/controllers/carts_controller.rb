@@ -3,7 +3,7 @@ class CartsController < ApplicationController
     # def show
     #   debugger
     # end
-   before_action :check_cart, only: [:show]
+   # before_action :check_cart, only: [:show]
 
     def destroy
           carts = session[:cart]
@@ -23,47 +23,47 @@ class CartsController < ApplicationController
 			 end
     end
     def show
-       
+       	@cart = current_cart
     end
     def create
-    	carts = session[:cart]
-		if carts != nil
-			update = carts.find {|x| x['product_id'] == params[:product_id] && x['size'] == params[:addcart][:size] }
-           if update != nil 
-           	carts.map do |item|
-			  if item['product_id'] == params[:product_id] &&  item['size'] == params[:addcart][:size]
-               item['quantity'] = params[:addcart][:quantity].to_i + update['quantity'].to_i 
-			  end
-			end
-           else
-	           cartsnew = {
-	               "product_id" => params[:product_id],
-	               "price" => params[:price],
-	               "size"  => params[:addcart][:size] ,
-	               "quantity"  => params[:addcart][:quantity]
-				}
-	           	carts.push(cartsnew)
+  #   	carts = session[:cart]
+		# if carts != nil
+		# 	update = carts.find {|x| x['product_id'] == params[:product_id] && x['size'] == params[:addcart][:size] }
+  #          if update != nil 
+  #          	carts.map do |item|
+		# 	  if item['product_id'] == params[:product_id] &&  item['size'] == params[:addcart][:size]
+  #              item['quantity'] = params[:addcart][:quantity].to_i + update['quantity'].to_i 
+		# 	  end
+		# 	end
+  #          else
+	 #           cartsnew = {
+	 #               "product_id" => params[:product_id],
+	 #               "price" => params[:price],
+	 #               "size"  => params[:addcart][:size] ,
+	 #               "quantity"  => params[:addcart][:quantity]
+		# 		}
+	 #           	carts.push(cartsnew)
 
-		   end
-		else
-			carts = []
-			carts.push({
-               "product_id" => params[:product_id],
-               "price" => params[:price],
-               "size"  => params[:addcart][:size] ,
-               "quantity"  => params[:addcart][:quantity]
-			})
-		end
-		session[:cart] = carts
-		respond_to do |format|
-		       	format.html 
-		       	format.js
-	    end
+		#    end
+		# else
+		# 	carts = []
+		# 	carts.push({
+  #              "product_id" => params[:product_id],
+  #              "price" => params[:price],
+  #              "size"  => params[:addcart][:size] ,
+  #              "quantity"  => params[:addcart][:quantity]
+		# 	})
+		# end
+		# session[:cart] = carts
+		# respond_to do |format|
+		#        	format.html 
+		#        	format.js
+	 #    end
     end
-    private
-    def check_cart
-         if session[:cart] == nil
-         	redirect_to root_path
-         end
-    end
+    # private
+    # def check_cart
+    #      if session[:cart] == nil
+    #      	redirect_to root_path
+    #      end
+    # end
 end
