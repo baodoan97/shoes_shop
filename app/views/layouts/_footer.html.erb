@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-<div class="container-fluid">
+<div class="container-fluid ">
     <div id="repohide" class="arrow">
         <%= button_tag raw("&#xf075"), :onclick => "openForm();" ,:remote => true, class: "open-button fa" , id: "chat-on" %>
         <div class="chat-popup" id="myForm">
@@ -35,18 +35,19 @@
                     <% end %>
                 </div>
             </div>
-            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
+            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
             <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
             <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
             <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
             <%= f.submit "Send" , class: "btn"  %>
-            <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
             <% end %>
+            <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
+
         </div>
     </div>
 </div>
 <% end %>
-<div class="footer-grid">
+<div class="footer-grid ">
     <div class="container">
         <div class="col-md-2 re-ft-grd">
             <h3>Categories</h3>
@@ -109,7 +110,7 @@
     document.getElementById("repohide").style.display = "inherit";
     }
     }
-    var x = window.matchMedia("(max-width: 1200px)")
+    var x = window.matchMedia("(max-width: 640px)")
     myFunction(x) // Call listener function at run time
     x.addListener(myFunction)
     document.getElementById("myForm").style.display = "none";

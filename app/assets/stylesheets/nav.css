@@ -8,10 +8,45 @@ li.dropdown.open {
     font-size: 1.5em;
     padding: 13px 0px 0px 12px;
 }
-.navbar-nav {
-    margin: 8.5px 84px;
+@media (min-width: 768px)
+{
+    .navbar-collapse.collapse {
+        display: table!important;
+        height: auto!important;
+        padding-bottom: 0;
+        overflow: visible!important;
+    }
 }
-@media screen and (max-width: 1000px){
+.navbar {
+    position: relative;
+    min-height: 50px;
+     margin-bottom: 0px; 
+    border: 1px solid transparent;
+}
+.footer-grid {
+    padding: 3em 0;
+    background: #ebeaea;
+}
+.feel-fall {
+    padding: 3em 0;
+    background: #efefef47;
+}
+.shop-grid {
+    padding: 3em 0;
+    background: #efefef47;
+}
+.sub-news {
+    padding: 3em 0;
+    text-align: center;
+     background: #efefef47;
+}
+.container-fluid.pd {
+    padding: 0px;
+}
+/*.navbar-nav {
+    margin: 8.5px 84px;
+}*/
+/*@media screen and (max-width: 1000px){
 .navbar-toggle {
     position: relative;
      float: right; 
@@ -38,4 +73,4 @@ li.dropdown.open {
     border: 1px solid transparent;
     border-radius: 4px;
     display: block;
-}
+}*/

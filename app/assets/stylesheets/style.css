@@ -22,10 +22,13 @@ body{
 	
 }
 .header-top{
-    position: relative;
+   position: relative;
     padding: 0;
     text-align: center;
-        margin: 55px 0px 0px 0px;
+    /* margin: 42px 0px 0px 0px; */
+    line-height: 22px;
+    padding: 27px 0px 0px 0px;
+    background: #ebeaea;
 }
 .login-bars{
     position: absolute;
@@ -166,9 +169,9 @@ a.log-bar:hover,a.log-bar:focus{
     background-color: #f5f5f5;
 }
 .collapse-pdng {
-    padding: 0px 0px;
+ /*   padding: 0px 0px;*/
     margin: 0 auto;
-    width: 34%;
+   /* width: 34%;*/
 }
 ul.nav-font>li>a{
     font-size: 17px;
