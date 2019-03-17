@@ -37,11 +37,14 @@ class MessagesController < ApplicationController
 	end
 	def index
         @list = []
-        User.all.each {|v|
-           if v.messages != nil
-                 @list.push(v);
-           end
+        @messages = Message.order("created_at DESC").all.uniq{|e| e[:user_id] }
+        # @messages.select(:user_id).uniq
+        # Client.select(:name).uniq
+        @messages.each {|v|
+            
+                 @list.push(User.find(v.user.id)) 
         }
+        # .order("created_at DESC").all
 	end
 	private
 	def set_user_message

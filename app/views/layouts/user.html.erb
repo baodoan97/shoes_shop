@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>N-Air a E-commerce</title>
@@ -17,10 +17,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+  	 <%= render 'layouts/navtop' %>
     <%= yield %>
-    <div id="abc" >
-</div>
     <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <p class="alert"><%= alert %></p>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
