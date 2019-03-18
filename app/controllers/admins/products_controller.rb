@@ -1,4 +1,4 @@
-class Admins::ProductsController < ApplicationController
+class Admins::ProductsController < BaseController
     before_action :set_product , only: [:edit,:update, :show]
 	#include ActiveModel::AttributeMethods
 	def index
@@ -57,13 +57,13 @@ class Admins::ProductsController < ApplicationController
         	 "description" => product_params[:description],
         	 "size" => product_params[:size].to_i
          }
-         @product.category = Category.find(product_params[:category].to_i)
+         @product.category = Category.find(params[:product][:category_id].to_i)
       	if params[:product][:images] != nil 
        		@product.images.attach(params[:product][:images])
         end
 		if @product.update(paPRODUCT)       	
 			flash[:success] = "Product was updated"
-			# redirect_to task_path(@task)
+			redirect_to edit_admins_product_path(@product)
 		else
 			render 'edit'
 		end
