@@ -1,0 +1,106 @@
+
+
+<%= render 'layouts/navtop' %>
+<%= render 'layouts/breadcum' %>
+
+
+
+
+
+
+<div class="showcase-grid">
+    <div class="container">
+        <div class="col-md-8 showcase">
+            <div class="flexslider">
+
+                 <div class="clearfix"></div>
+                <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                    <ul class="slides">
+                        <li data-thumb="images/show.jpg" style="width: 720px; float: left; display: block;"
+                            class="clone" aria-hidden="true">
+                            <div class="thumb-image"> <img id="showlarge" src=<%= url_for(@product.images.first) %> data-imagezoom="true"
+                                    class="img-responsive" draggable="false"> </div>
+                        </li>
+                    </ul>
+                </div>
+                <ol class="flex-control-nav flex-control-thumbs">
+                    <% i = 0 %>
+                    <% @product.images.each do |image| %>
+                     <li><%= image_tag image,id: "show#{i}",:onClick => "showpictrue(#{i})".html_safe %></li>
+                     <% i = i + 1 %>
+                    <% end %>
+
+                </ol>
+              <!--   <ul class="flex-direction-nav">
+                    <li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li>
+                    <li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li>
+                </ul> -->
+            </div>
+        </div>
+        <div class="col-md-4 showcase">
+            <div class="showcase-rt-top">
+                <div class="pull-left shoe-name">
+                    <h3><%= @product.name%></h3>
+                    <p>Men's running shoes</p>
+                    <h4><%= number_to_currency(@product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u") %></h4>
+                </div>
+                <div class="pull-left rating-stars">
+                    <ul>
+                        <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn"
+                        aria-hidden="true"></span></a></li>
+                        <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn"
+                        aria-hidden="true"></span></a></li>
+                        <li><a href="#" class="active"><span class="glyphicon glyphicon-star star-stn"
+                        aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a>
+                    </li>
+                    <li><a href="#"><span class="glyphicon glyphicon-star star-stn" aria-hidden="true"></span></a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <hr class="featurette-divider">
+    <div class="shocase-rt-bot">
+        <div class="float-qty-chart">
+            <ul>
+                <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "cart_products", :action => "create"}) do |a| %>
+                <div class="form-group">
+                  <%= hidden_field_tag "product_id", [@product.id] %>
+                   
+                    <%= a.select :size,options_for_select((35..43).to_a, " "),{}, { :class => "form-control qnty-chrt" } %>
+                </div>
+                <div class="form-group">
+                    <%= a.select :quantity,options_for_select((1..@product.quantity.to_i).to_a, " " ),{}, { :class => "form-control qnty-chrt" } %>
+                </div>
+                <div class="form-group">
+                    <ul>
+                        <li class="ad-2-crt simpleCart_shelfItem">
+                             <%= a.submit "Add To Cart", class: "btn item_add" %>                            
+                        </li>
+                    </ul>
+                </div>
+                <% end %>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<%= render 'layouts/footer' %>
+      
+    <div class="showcase-last">
+        <h3>product details</h3>
+        <p><%= @product.description%></p>
+    </div>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+<script type="text/javascript">
+     function showpictrue(i)
+        {
+           
+            var x = "show"+i;
+            showlarge.src = document.getElementById(x).src;
+        }
+</script>
