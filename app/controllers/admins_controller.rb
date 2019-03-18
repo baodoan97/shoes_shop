@@ -5,9 +5,6 @@ class  AdminsController < BaseController
     def index
         @admins = Admin.all
     end
-    def  statistic
-        
-    end
    
     
       # GET /categories/1

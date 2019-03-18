@@ -1,6 +1,4 @@
 
-categories_path
-pages_home_path
 <div class="container">
 <h3 style="text-align:center">Login Admin</h3>
 <%= simple_form_for(resource, as: resource_name,html: { class: 'form' }, url:session_path(resource_name)) do |f| %>
@@ -18,10 +16,8 @@ pages_home_path
                 class: "form-control" %>
   </div>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
- 
-
   <div class="form-actions">
-    <%= f.button :submit, "Log in",class:  "btn btn-default" %>
+    <%= f.button :submit, "Log in",class:  "btn btn-success btn-block" %>
   </div>
 <% end %>
 <%= render "admins/shared/links" %>
