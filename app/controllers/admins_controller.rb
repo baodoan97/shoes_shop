@@ -1,4 +1,4 @@
-class  AdminsController < ApplicationController
+class  AdminsController < BaseController
    #s include Accessible
    #layout "_adminshome"
    before_action :set_admin, only: [:show, :edit, :update, :destroy]

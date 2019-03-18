@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   #get 'password_resets/:id/edit', to: 'password_reset#create', as: :send_password_reset
   #get 'categories/:category_id/:id' =>'products#show'
   get '/admins/homepage', to:'admins#homepage'
-  get '/admins/statistics', to:'manages#index'
+  
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
@@ -30,23 +30,23 @@ Rails.application.routes.draw do
     resources :messages 
     get '/messages/:id/show',to: 'messages#show'
     post 'createmsgadmin', to: 'messages#createmsgadmin'
-    resources :categories
+    
 
-    resource :manages 
+    
     #resources :statistics
     #resources :layouts
     #delete 'admins/sign_out',to: 'sessions#destroy'
   end
 
-  resources :categories,only: [:show]
-  resources :products,only: [:show]
+  #resources :categories,only: [:show]
+  #resources :products,only: [:show]
   resources :charges
 
 
 namespace :admins do
-
-
+  resources :categories
   resources :users
+  resources :manages
 end
 end
   #user
@@ -57,7 +57,6 @@ end
   get 'signup', to: 'users#new'
   get 'users/signup'
   get 'errors/loi'
-  resources :categories, only: [:show]
 
   #root :to 'admins#adminshome'
   #resources :admins, except: [:show]
