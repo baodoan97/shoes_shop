@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
 	       @message.admin = Admin.first
 	       @message.usersend = params[:user_send][:usersend]
 	       @message.save
-	       # render js: "alert('x')";
+
 	       respond_to do |format|
 	       	format.html 
 	       	format.js

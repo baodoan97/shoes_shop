@@ -96,6 +96,15 @@ ActiveRecord::Schema.define(version: 2019_03_15_020606) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "admin_id"
+    t.text "content"
+    t.boolean "usersend"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payment_items", force: :cascade do |t|
     t.integer "product_id"
     t.decimal "price"
