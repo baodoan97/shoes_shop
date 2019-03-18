@@ -1,21 +1,81 @@
-<%= form_for @payment do |f| %>
-    <div class="field">
-        <%= f.label :name %><br>
-        <%= f.text_field :name, :size => 40 %>
+<div class="container">
+    <div class="row">
+        <div class=col-12>
+            <div class="pay-form">
+                <h1 class="text-center">Payment</h1>
+            <%= form_for(@payment, :html => {:id => 'payment-form'}) do |f| %>
+                <div class="form-group">
+                    <%= f.label :name %>
+                    <%= f.text_field :name, :class => 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <%= f.label :phone %>
+                    <%= f.text_field :phone, :class => 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <%= f.label :address %>
+                    <%= f.text_area :address, :class => 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <%= f.label 'Payment Type' %>
+                    <%= f.select :pay_type, Payment.pay_types.keys, {},:class => 'form-control' %>
+                </div>
+                 <div class="form-group">
+                    <label>Card Number</label>
+                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="credit-number form-control", placeholder = "**** **** **** ****" pattern="[\d ]*" />
+                </div>
+
+                <div class="form-group">
+                    <label>Security Code/CVC</label>
+                    <input type="text" size="4" autocomplete="off" data-stripe="cvc" id="cvc" class="credit-scurity form-control" placeholder="***" pattern="\d*" />
+                </div>
+
+                <div class="form-group">
+                    <label>Expiration (MM/YYYY)</label>
+                    <input type="text" size="2" data-stripe="exp-month" id="exp-month" class="card-expiry-month form-control" placeholder="MM" pattern="\d*" />
+                    <span> / </span>
+                    <input type="text" size="4" data-stripe="exp-year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
+                </div>
+                <div class="actions">
+                    <%= f.submit 'Place order', :class => 'btn btn-primary btn-payment' %>
+                </div>
+             </div>
+            <% end %>
+            </div>
+        </div>
     </div>
-    <div class="field">
-        <%= f.label :phone %><br>
-        <%= f.text_field :phone, :size => 40 %>
-    </div>
-    <div class="field">
-        <%= f.label :address %><br>
-        <%= f.text_area :address, :rows => 3, :cols => 40 %>
-    </div>
-    
-    <div class="field">
-        <%= f.select :pay_type, Payment.pay_types.keys %>
-    </div>
-    <div class="actions">
-        <%= f.submit 'Place order' %>
-    </div>
-<% end %>
+</div>
+<script>
+    var stripeResponseHandler = function(status, response) {
+      var $form = $('#payment-form');
+
+      if (response.error) {
+        // Show the errors on the form
+        $form.find('.payment-errors').text(response.error.message);
+        $form.find('button').prop('disabled', false);
+      } else {
+        // token contains id, last4, and card type
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        // and re-submit
+        $form.get(0).submit();
+      }
+    };
+
+
+    jQuery(function($) {
+
+      $('#payment-form').submit(function(e) {
+      var $form = $(this);
+
+      // Disable the submit button to prevent repeated clicks
+      $form.find('button').prop('disabled', true);
+
+      Stripe.card.createToken($form, stripeResponseHandler);
+
+      // Prevent the form from submitting with the default action
+      return false;
+      });
+    });
+</script>

@@ -43,3 +43,14 @@ li {
   border-radius: 50%;
 }
 
+.footer-grid{
+	margin-top: 200px;
+}
+.btn-payment{
+	width:100%;
+}
+
+.pay-form{
+	margin: 0 auto;
+	width:60%;
+}
