@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
    authenticate :admin do
   get '/admins/homepage', to:'admins#homepage'
-
+  get '/admins/statistics', to:'manages#index'
+  
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
@@ -42,6 +43,7 @@ end
   get 'signup', to: 'users#new'
   get 'users/signup'
   get 'errors/loi'
+
 
   #root :to 'admins#adminshome'
   #resources :admins, except: [:show]

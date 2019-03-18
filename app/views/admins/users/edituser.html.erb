@@ -1,0 +1,16 @@
+<%= render 'layouts/adminshome' %>
+<div class="container">
+  <%= form_for [:admins, @user] do |f| %>
+ 
+  <div class="form-inputs">
+    <%= f.text_field :email,disabled: true %>
+    <%= f.text_field :password %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+  <%= link_to 'Show', @users %> |
+  <%= link_to 'Back', admins_user_path %>
+</div>

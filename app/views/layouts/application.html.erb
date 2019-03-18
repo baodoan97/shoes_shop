@@ -15,11 +15,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+     <script type="text/javascript" src="https://js.stripe.com/v2/">
+     </script>
+     <script>
+       Stripe.setPublishableKey('pk_test_2GtOFVYfb1TfR8pNqC201q5Y');
+     </script>
+
   </head>
   <body>
 
-     <%= render 'layouts/navtop' %>
+    <%= render 'layouts/navtop' %>
     <%= yield %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

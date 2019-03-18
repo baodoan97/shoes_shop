@@ -7,7 +7,7 @@ class Payment < ApplicationRecord
  	cod: 1,
  	atm: 2,
  }
- def add_line_items_from_cart(cart) 
+    def add_line_items_from_cart(cart) 
         cart.cart_products.each do |item|
             item[:cart_id] = nil
             payment_item = PaymentItem.new(
