@@ -1,5 +1,8 @@
 class Cart < ApplicationRecord
-
+  has_many :cart_products, :dependent => :destroy
+    def total_price
+      cart_products.to_a.sum { |item| item.total_price}
+    end
 	# def add_product(product_params)
  #    current_item = cart_products.find_by(product_id: product_params[:product][:product_id])
  #    if current_item
@@ -12,10 +15,7 @@ class Cart < ApplicationRecord
  #    end
  #    new_item
  #  end
-    has_many :cart_products, :dependent => :destroy
-    def total_price
-      cart_products.to_a.sum { |item| item.total_price}
-    end
+  
   # def add_carts(carts,user_id)
   #   # debugger
   #   # carts.each do |k,cart| 
@@ -34,7 +34,4 @@ class Cart < ApplicationRecord
   #   end
   # end
 
-# =
-# = =
-# ===
 end
