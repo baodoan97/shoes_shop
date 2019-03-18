@@ -563,3 +563,11 @@ textarea#usechat {
 
     margin: 21px 0px 0px 0px;
 }
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+

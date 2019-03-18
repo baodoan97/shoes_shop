@@ -25,7 +25,7 @@
 	<% end %>
 	<% end %>
 </ol>
-<%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "createmsgadmin"}, :html => {class: "textarea", role: "form" , :method => :POST}) do |f| %>
+<%= form_for([:admins,@message] ,as: :post,:remote=>true, :url => {:controller => "admins/messages", :action => "create"}, :html => {class: "textarea", role: "form" , :method => :POST}) do |f| %>
             <%= hidden_field_tag "user_send[usersend]", "#{false}" %>
              <%= hidden_field_tag "user_id[user_id]", "#{@messages[0].user.id}" %>
             <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom",id: "adminchat" %>

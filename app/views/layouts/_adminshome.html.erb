@@ -15,6 +15,7 @@
         </button>
          <a class="navbar-brand" href="/admins/homepage">Admin Manages</a>
       </div>
+      <% if admin_signed_in? %>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
@@ -44,6 +45,7 @@
           </li>
         </ul>
       </div>
+      <% end %>
       <!--/.nav-collapse -->
     </div>
     <!--/.container-fluid -->
