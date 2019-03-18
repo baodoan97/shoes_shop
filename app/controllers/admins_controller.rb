@@ -8,6 +8,9 @@ class  AdminsController < BaseController
     def  statistic
         
     end
+    def homepage
+
+    end
    
     
       # GET /categories/1

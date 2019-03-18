@@ -14,9 +14,7 @@ Rails.application.routes.draw do
     #root'admins#homepage'
     resources :admins
     # resources :products
-    resources :messages 
-    get '/messages/:id/show',to: 'messages#show'
-    post 'createmsgadmin', to: 'messages#createmsgadmin'
+    # get '/messages/:id/show',to: 'messages#show'
     resource :manages 
     #resources :statistics
     #resources :layouts
@@ -27,7 +25,7 @@ Rails.application.routes.draw do
 
 
 namespace :admins do
-
+  resources :messages 
   resources :products
   resources :categories
   resources :users
@@ -50,6 +48,7 @@ end
   #resources :uploads, only: [:index, :show, :update, :create]
   #resources :settings, only: [:index, :edit, :update]
  
+  resources :messages 
 
   resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
@@ -60,7 +59,6 @@ end
   post 'add', to: 'cartproducts#create'
   get 'destroycart', to: 'carts#destroy'
 
-  resources :messages , except:[:show,:index]
 
 
   resources :payments, only: [:new, :create]
