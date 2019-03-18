@@ -1,4 +1,3 @@
-<%= render 'layouts/adminshome' %>
 <% if @product.errors.any? %>
 <div class="alert alert-danger">
 	<ul>
@@ -13,7 +12,7 @@
 		<h1 class="text-center">
 		<%= yield(:title) %>
 		</h1>
-		<%= form_for @product , html: { multipart: true } do |f| %>
+		<%= form_for [:admins,@product] , html: { multipart: true } do |f| %>
 		<div class="input-group input-group-lg mb-4">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>

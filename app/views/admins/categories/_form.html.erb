@@ -1,11 +1,10 @@
-<%= render 'layouts/adminshome' %>
-<%= form_tag admins_categories_path do |f| %>
-  <div>
-    <%= text_field_tag :name %>
-    <%= text_field_tag :description %>
-  </div>
 
+<%= form_for [:admins,@category] , class:"form-group", html: { multipart: true } do |f| %>
+  
+    <%= f.text_field :name, class: 'form-control'%><br>
+    <%= f.text_field :description, class: 'form-control' %>
+    <br>
   <div class="form-actions">
-    <%=  submit_tag %>
+    <%= f.submit 'Create', class: 'btn btn-success btn-block' %>
   </div>
 <% end %>

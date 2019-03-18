@@ -1,8 +1,7 @@
-<%= render 'layouts/adminshome' %>
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
   <h1>Prodcuts</h1>
-  <%= link_to 'New Products', new_product_path,class: "btn-lg btn btn-primary fas fa-plus-square " %>
+  <%= link_to 'New Products', new_admins_product_path,class: "btn-lg btn btn-primary fas fa-plus-square " %>
   <div class="content-box-large">
     <div class="panel-body">
       <table  id="example">
@@ -42,8 +41,8 @@
                 <% end %>
               </div>
             </td>
-            <td><%= link_to '', product, class: "btn btn-info fas fa-eye" %></td>
-            <td><%= link_to '', edit_product_path(product), class: "btn btn-warning fas fa-edit" %></td>
+            <td><%= link_to '', admins_products_path, class: "btn btn-info fas fa-eye" %></td>
+            <td><%= link_to '', edit_admins_product_path(product), class: "btn btn-warning fas fa-edit" %></td>
             <td><%= link_to '', product, class: "btn btn-danger far fa-trash-alt", method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
           </tr>
