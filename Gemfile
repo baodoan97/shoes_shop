@@ -16,6 +16,7 @@ gem "chartkick"
 gem 'groupdate'
 gem 'simple_form'
 gem 'bootstrap-sass-extras', '~> 0.0.2'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record

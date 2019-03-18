@@ -1,3 +1,68 @@
+<script>
+    jQuery(function ($) {
+      var show_error, stripeResponseHandler;
+    
+      stripeResponseHandler = function (status, response) {
+        var $form, token;
+        $form = $("#payment-form");
+        if (response.error) {
+          show_error(response.error.message);
+          $form.find("input[type=submit]").prop("disabled", false);
+        } else {
+          token = response.id;
+          $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+          $form.get(0).submit();
+        }
+        return false;
+      };
+
+      show_error = function (message) {
+        $("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
+        $('.alert').delay(5000).fadeOut(3000);
+        return false;
+      };
+      $("#payment-form").submit(function (event) {
+        var $form;
+        $form = $(this);
+        $form.find("input[type=submit]").prop("disabled", true);
+        Stripe.card.createToken($form, stripeResponseHandler);
+        return false;
+      });
+    });
+
+    // var stripeResponseHandler = function(status, response) {
+    //   var $form = $('#payment-form');
+
+    //   if (response.error) {
+    //     // Show the errors on the form
+    //     $form.find('.payment-errors').text(response.error.message);
+    //     $form.find('button').prop('disabled', false);
+    //   } else {
+    //     // token contains id, last4, and card type
+    //     var token = response.id;
+    //     // Insert the token into the form so it gets submitted to the server
+    //     $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+    //     // and re-submit
+    //     $form.get(0).submit();
+    //   }
+    // };
+
+    // jQuery(function($) {
+
+    //   $('#payment-form').submit(function(e) {
+    //   var $form = $(this);
+
+    //   // Disable the submit button to prevent repeated clicks
+    //   $form.find('button').prop('disabled', true);
+
+    //   Stripe.card.createToken($form, stripeResponseHandler);
+
+    //   // Prevent the form from submitting with the default action
+    //   return false;
+    //   });
+    // });
+</script>
+
 <div class="container">
     <div class="row">
         <div class=col-12>
@@ -22,19 +87,19 @@
                 </div>
                  <div class="form-group">
                     <label>Card Number</label>
-                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="credit-number form-control", placeholder = "**** **** **** ****" pattern="[\d ]*" />
+                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
                 </div>
 
                 <div class="form-group">
                     <label>Security Code/CVC</label>
-                    <input type="text" size="4" autocomplete="off" data-stripe="cvc" id="cvc" class="credit-scurity form-control" placeholder="***" pattern="\d*" />
+                    <input type="text" size="4" autocomplete="off" data-stripe="cvc" id="cvc" class="card-cvc form-control" placeholder="***" value = "123" pattern="\d*" />
                 </div>
 
                 <div class="form-group">
                     <label>Expiration (MM/YYYY)</label>
-                    <input type="text" size="2" data-stripe="exp-month" id="exp-month" class="card-expiry-month form-control" placeholder="MM" pattern="\d*" />
+                    <input type="text" size="2" data-stripe="exp_month" id="exp-month" class="card-expiry-month form-control" placeholder="MM" pattern="\d*" />
                     <span> / </span>
-                    <input type="text" size="4" data-stripe="exp-year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
+                    <input type="text" size="4" data-stripe="exp_year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
                 </div>
                 <div class="actions">
                     <%= f.submit 'Place order', :class => 'btn btn-primary btn-payment' %>
@@ -45,37 +110,4 @@
         </div>
     </div>
 </div>
-<script>
-    var stripeResponseHandler = function(status, response) {
-      var $form = $('#payment-form');
 
-      if (response.error) {
-        // Show the errors on the form
-        $form.find('.payment-errors').text(response.error.message);
-        $form.find('button').prop('disabled', false);
-      } else {
-        // token contains id, last4, and card type
-        var token = response.id;
-        // Insert the token into the form so it gets submitted to the server
-        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-        // and re-submit
-        $form.get(0).submit();
-      }
-    };
-
-
-    jQuery(function($) {
-
-      $('#payment-form').submit(function(e) {
-      var $form = $(this);
-
-      // Disable the submit button to prevent repeated clicks
-      $form.find('button').prop('disabled', true);
-
-      Stripe.card.createToken($form, stripeResponseHandler);
-
-      // Prevent the form from submitting with the default action
-      return false;
-      });
-    });
-</script>

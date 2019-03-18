@@ -1,6 +1,7 @@
 class PaymentsController < ApplicationController
-    def new
-		 if current_cart.cart_products == nil?
+
+	def new
+		 if session[:cart_id] == nil
 
 	    	redirect_to '/', :notice => 'Your cart is empty'
 	     	return
@@ -10,31 +11,23 @@ class PaymentsController < ApplicationController
 
 	def create
 		@payment = Payment.new(payment_params)
-        Stripe.api_key = "sk_test_Hm0ywtd94a4e27SHOfzVJLpZ"
+        # Stripe.api_key = "sk_test_Hm0ywtd94a4e27SHOfzVJLpZ"
         @cart = current_cart
-
-         debugger
-         @amount = @cart.total_price.to_i * 100
-
-          token = params[:stripeToken]
+        @amount = @cart.total_price.to_i * 100
+        token = params[:stripeToken]
 
           # Create a Customer
-          customer = Stripe::Customer.create(
+          customer = Stripe::Customer.create({
+            :description => params[:name], 
+            :card => token,
+        })
 
-            :description => params[:email], 
-            :card => token, 
-
-          )
-
-
-      charge = Stripe::Charge.create(
-
-        :customer    => customer.id,
-        :amount => @amount, # amount in cents, again
-        :currency => 'usd',
-       # :card => token,
-        :description => params[:email]
-      )
+          charge = Stripe::Charge.create({
+            :customer => customer.id,
+            :amount => @amount, # amount in cents, again
+            :currency => 'usd',
+            :description => params[:name],
+          })
         if @payment.save
             @payment.add_line_items_from_cart(current_cart)
             Cart.destroy(session[:cart_id])

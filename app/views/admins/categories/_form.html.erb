@@ -1,15 +1,11 @@
-
-<%= simple_form_for(@category) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :display_in_navbar %>
+<%= render 'layouts/adminshome' %>
+<%= form_tag admins_categories_path do |f| %>
+  <div>
+    <%= text_field_tag :name %>
+    <%= text_field_tag :description %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%=  submit_tag %>
   </div>
 <% end %>
