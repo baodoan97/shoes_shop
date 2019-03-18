@@ -49,7 +49,7 @@ end
   #resources :settings, only: [:index, :edit, :update]
  
 
-  #resources :categories
+  resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
   resources :products, only: [:show]
 
