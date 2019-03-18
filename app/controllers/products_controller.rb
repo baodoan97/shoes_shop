@@ -4,10 +4,14 @@ class ProductsController < ApplicationController
 	def index
 		@product = Product.all
 	end
-	
      def show
+
       
     end
+  def destroy
+
+	end
+
     def new
     @product = Product.new
     end
@@ -21,7 +25,7 @@ class ProductsController < ApplicationController
         	 "size" => product_params[:size].to_i
          }
 		  @product = Product.new(paPRODUCT)
-		  @product.category = Category.find(product_params[:category].to_i)
+		  @product.category = Category.find(params[:product][:category_id].to_i)
              # debugger
         if params[:product][:images] == nil
             render js: "alert('vui long chon hinh');"

@@ -1,0 +1,17 @@
+<%= render 'layouts/adminshome' %>
+<div class="container">
+    <h1 style="text-align:center">Create User With Admin</h1><br>
+  <%= form_for @user1 do |f| %>
+ 
+  <div class="form-inputs">
+    <%= f.text_field :email,disabled: true, class: 'form-control' %><br>
+    <%= f.text_field :password, class: 'form-control', type: 'password' %>
+  </div>
+  <br><br>
+  <div class="form-actions">
+    <%= submit_tag 'Update', class: 'btn btn-success btn-block' %>
+  </div>
+  <% end %>
+  <%= link_to 'Show', admins_user_path %> |
+  <%= link_to 'Back', admins_users_path %>
+</div>

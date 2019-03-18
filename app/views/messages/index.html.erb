@@ -1,0 +1,26 @@
+<% @list.each do |user| %>
+<div class="card-body">
+	<div class="row">
+		<div class="col-md-1 col-xs-12 col-sm-2 col-lg-2">
+			<%= image_tag user.avatar.attached? == false ? " ": user.avatar,class: "rounded-circle img-thumbnail" %>
+		</div>
+		<div class="col-md-11 col-xs-12 col-sm-10 col-lg-10" >
+			<div class="container" >
+				<h2><%= user.firstname %></h2>
+				<hr>
+				<b><%= user.messages.last.content %>
+                   <% if user.messages.last.usersend == true %>
+                   <p class="checkmessage">Check message of user , please !!!</p>
+                   <% end %>
+
+				 </b>
+				<hr>
+				<div class="col-sm-5 col-xs-6 tital " >
+					<%= link_to "", message_path(user), class: "btn btn-lg btn-success fa fa-eye" %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+</div>
+<% end %>

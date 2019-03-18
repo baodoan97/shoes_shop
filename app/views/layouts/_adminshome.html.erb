@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid-1">
 <style>
   .c{color:white}
 </style>
@@ -13,20 +13,19 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Project name</a>
+         <a class="navbar-brand" href="/admins/homepage">Admin Manages</a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Home</a></li>
-         <!-- <li>link_to 'Category', categories_path %></li> -->
-          <li><%= link_to 'Products', products_path %></li>
-          <li><%= link_to 'Admins User', admins_path %></li>
+         <li><%= link_to 'Category', categories_path %></li>
+          <li><%= link_to 'Product', products_path %></li>
+          <li><%=  link_to 'Admin', admins_path %></li> 
+          <li><%= link_to 'User', admins_users_path %></li>
+          <li><%= link_to 'Message', messages_path %></li>
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-          <li><a href="../navbar-static-top/">Static top</a></li>
-          <li><a href="../navbar-fixed-top/">Fixed top</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
               aria-expanded="false"><%= current_admin.email %><span class="caret"></span></a>
@@ -46,9 +45,5 @@
   </nav>
 
   <!-- Main component for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <h1>Admins</h1>
-    <p>This example is a quick exercise to illustrate how the default</p>
-  </div>
 
 </div>

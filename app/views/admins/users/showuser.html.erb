@@ -1,0 +1,24 @@
+<%= render 'layouts/adminshome' %>
+
+<div class="container" style="max-width: 40%;font-size:16px">
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="" style="text-align:center;">
+        <div class="panel panel-success" >
+            <div class="panel-heading"><strong style="font-size:20px">Info User</strong></div>
+            <div class="panel-body">
+              <strong>ID:</strong>
+              <%= @users.id %><br>
+              <strong>Email:</strong>
+              <%= @users.email %><br>
+              <strong>Create at:</strong>
+              <%= @users.created_at %><br>
+              <strong>Update at:</strong>
+              <%= @users.updated_at %><br>
+            </div>
+          </div>
+    </div>
+  </div>
+  <%= link_to 'Edit', edit_admins_user_path(@users) %> |
+  <%= link_to 'Back', admins_user_path %>
+</div>

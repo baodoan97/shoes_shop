@@ -1,0 +1,15 @@
+<%= render 'layouts/adminshome' %>
+<div class="container">
+  <h1 style="text-align:center">Create User With Admin</h1><br>
+  <%= form_tag  admins_users_path, class:"form-group" do |f| %>
+    <div>
+      <div ><%= text_field_tag :email, nil, class: 'form-control' %></div><br>
+      <%= text_field_tag :password, nil, class: 'form-control', type: 'password' %>
+    </div>
+    <br><br>
+    <div class="form-actions">
+      <%= submit_tag 'Create', class: 'btn btn-success btn-block' %>
+    </div>
+  <% end %>
+  <%= link_to 'Back', admins_users_path %>
+</div>
