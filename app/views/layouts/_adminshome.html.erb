@@ -28,16 +28,18 @@
           <li><%= link_to 'Message', messages_path %></li>
 
         </ul>
+        <% if admin_signed_in? %>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
               aria-expanded="false"><%= current_admin.email %><span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Something else here</a></li>
+              <li><%= link_to 'Edit Profile',edit_admin_registration_path %></li>
+              <li><%= link_to "View Profile", current_admin %></li>
               <li role="separator" class="divider"></li>
               <li class="dropdown-header">Nav header</li>
               <li><%= link_to 'Log Out', destroy_admin_session_path,method: :delete %></li>
-
+              <% end %>
             </ul>
           </li>
         </ul>

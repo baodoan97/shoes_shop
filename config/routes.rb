@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   #resources :categories
   #get 'admins/categories', to: 'categories#index'
   root 'pages#home'
-  devise_for :admins, controllers: { sessions: 'admins/sessions' }
+  devise_for :admins, controllers: { sessions: 'admins/sessions', registrations: 'admins/registrations' }
   devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
    authenticate :admin do
   get '/admins/homepage', to:'admins#homepage'
-  
+
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :admins
     # resources :products
     resources :messages 
+    
     get '/messages/:id/show',to: 'messages#show'
     post 'createmsgadmin', to: 'messages#createmsgadmin'
     resource :manages 
@@ -26,7 +27,7 @@ Rails.application.routes.draw do
 
 
 namespace :admins do
-
+  
   resources :products
   resources :categories
   resources :users
