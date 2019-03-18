@@ -8,7 +8,7 @@ class Admins::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   #layout "adminshome"
   # GET /resource/sign_in
- 
+  layout "layouts/admin"
    def new
      super
    end

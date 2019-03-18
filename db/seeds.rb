@@ -29,11 +29,71 @@ User.create(:firstname => 'user3',
       :created_at => "2019-03-18 03:40:02" ,
       :updated_at => "2019-03-18 03:40:02" 
    )
-User.create(:firstname => 'user4',
-   :lastname => 'user44',
+User.create(:firstname => 'user5',
+   :lastname => 'user5',
+   :email => 'user5@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-02-14 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+User.create(:firstname => 'user5',
+   :lastname => 'user5',
    :email => 'user4@example.com',
    :password => '123456',
    :gender => true,
-   :created_at => 2019-03-11 10:20:55 ,
-   :updated_at => 2019-03-14 10:20:55 
+   :created_at => '2019-03-13 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+User.create(:firstname => 'user6',
+   :lastname => 'user6',
+   :email => 'user6@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-02-01 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+User.create(:firstname => 'user7',
+   :lastname => 'user7',
+   :email => 'user7@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-01-11 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+)   
+User.create(:firstname => 'user8',
+   :lastname => 'user8',
+   :email => 'user8@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-01-21 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+User.create(:firstname => 'user9',
+   :lastname => 'user9',
+   :email => 'user9@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-02-13 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+User.create(:firstname => 'user10',
+   :lastname => 'user10',
+   :email => 'user10@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-01-21 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+User.create(:firstname => 'user11',
+   :lastname => 'user11',
+   :email => 'user11@example.com',
+   :password => '123456',
+   :gender => true,
+   :created_at => '2019-01-24 10:20:55' ,
+   :updated_at => '2019-03-14 10:20:55' 
+) 
+Admin.create(
+   :email => 'admin@gmail.com',
+   :password => '123456',
 )        

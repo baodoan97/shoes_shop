@@ -24,38 +24,41 @@
                     </div>
                     <div class="col-md-9 cart-items">
                         <h1 id="countcart">My Shopping Bag (<%= @cart.cart_products.count if @cart != nil  %>)  </h1>
+                        
+                        <% i = 1 %>
                         <% @cart.cart_products.each do |item| %>
                             <script>$(document).ready(function(c) {
-                                $('.close1').on('click', function(c){
-                                    $('.cart-header').fadeOut('slow', function(c){
-                                        $('.cart-header').remove();
+                                $('.close<%= i %>').on('click', function(c){
+                                    $('.cart-header<%= i if i > 1%>').fadeOut('slow', function(c){
+                                        $('.cart-header<%= i %>').remove();
                                     });
                                     });	  
                                 });
                            </script>
-                        <div class="cart-header">
-                <div class="close1"><span  aria-hidden="true">  <%= link_to raw("&#xf068"), destroycart_path(:product_id => item['product_id'],:size => item.size),:remote => true, class: "fas"  %></span></div>
-                            <div class="cart-sec simpleCart_shelfItem">
+                            <div class="cart-header<%= i if i > 1 %>">
+                                <div class="close<%= i %>"><span  aria-hidden="true">  <%= link_to '<i class="fas fa-minus"></i>'.html_safe, destroycart_path(:product_id => item['product_id'],:size => item.size),:remote => true, class: "fas"  %></span></div>
+                                <% i = i + 1 %>
+                                <div class="cart-sec simpleCart_shelfItem">
                                     <div class="cart-item cyc">
-                                       <%= image_tag Product.find(item['product_id']).images.first ,class: "img-responsive gri-wid" %>
+                                       <%= image_tag Product.find(item['product_id']).images.first ,class: "img-responsive" %>
                                     </div>
-                                   <div class="cart-item-info">
+                                    <div class="cart-item-info">
                                         <ul class="qty">
-                                             <li><p>Product name :  <%= Product.find(item['product_id']).name %></p></li>
-                                            <li><p>Size : <%= item['size'] %></p></li>
-                                            <li><p>Qty : <%= item['quantity'] %></p></li>
-                                            <li><p>Price : $<%= item['price'] %></p></li>
-                                            <li><p>total : $<%= item['price'].to_f * item['quantity'].to_i %></p></li>
+                                            <li><p>Product name:  <%= Product.find(item['product_id']).name %></p></li>
+                                            <li><p>Size: <%= item['size'] %></p></li>
+                                            <li><p>Qty: <%= item['quantity'] %></p></li>
+                                            <li><p>Price: $<%= item['price'] %></p></li>
+                                            <li><p>Total: $<%= item['price'].to_f * item['quantity'].to_i %></p></li>
                                         </ul>
-                                 <div class="delivery">
-                                             <p>Service Charges : Rs.190.00</p>
-                                             <span>Delivered in 2-3 bussiness days</span>
-                                             <div class="clearfix"></div>
+                                        <div class="delivery">
+                                            <p>Service Charges : Rs.190.00</p>
+                                            <span>Delivered in 2-3 bussiness days</span>
+                                            <div class="clearfix"></div>
                                         </div>	
-                                   </div>
-                                   <div class="clearfix"></div>
-                              </div>
-                         </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                             </div>
                          <% end %>
                     </div>
                     <div class="clearfix"> </div>
