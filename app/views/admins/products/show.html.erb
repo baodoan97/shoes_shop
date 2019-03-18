@@ -49,34 +49,7 @@
             </ul>
         </div>
         <div class="clearfix"></div>
-    </div>
-    <hr class="featurette-divider">
-    <div class="shocase-rt-bot">
-        <div class="float-qty-chart">
-            <ul>
-                <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "cart_products", :action => "create"}) do |a| %>
-                <div class="form-group">
-                  <%= hidden_field_tag "product_id", [@product.id] %>
-                   
-                    <%= a.select :size,options_for_select((35..43).to_a, " "),{}, { :class => "form-control qnty-chrt" } %>
-                </div>
-                <div class="form-group">
-                    <%= a.select :quantity,options_for_select((1..@product.quantity.to_i).to_a, " " ),{}, { :class => "form-control qnty-chrt" } %>
-                </div>
-                <div class="form-group">
-                    <ul>
-                        <li class="ad-2-crt simpleCart_shelfItem">
-                             <%= a.submit "Add To Cart", class: "btn item_add" %>                            
-                        </li>
-                    </ul>
-                </div>
-                <% end %>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-      
+    </div>      
     <div class="showcase-last">
         <h3>product details</h3>
         <p><%= @product.description%></p>
