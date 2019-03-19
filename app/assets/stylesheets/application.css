@@ -1,3 +1,4 @@
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -18,7 +19,8 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "dataTables.bootstrap";
-@import "dataTables.jqueryui.min";
+@import "dataTables.js";
+queryui.min";
 @import "jquery.dataTables.min"
 .logon {
 	width: 80%;
@@ -53,4 +55,7 @@ li {
 .pay-form{
 	margin: 0 auto;
 	width:60%;
+}
+.grid-gallery, .grid-details {
+    padding: 20px;
 }
