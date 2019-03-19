@@ -65,7 +65,6 @@ group :development do
   gem 'spring'
   gem "letter_opener"
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pg'
 end
 
 group :test do
