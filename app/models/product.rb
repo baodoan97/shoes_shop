@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
 	#associate
-
+    
 	has_many_attached :images
 	belongs_to :category, optional: true
 	has_many :cart_products

@@ -1,3 +1,3 @@
 class Voucher < ApplicationRecord
-	has_one :voucher
+	belongs_to :payment, optional: true
 end

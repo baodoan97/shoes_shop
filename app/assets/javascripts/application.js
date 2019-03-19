@@ -36,6 +36,8 @@
 //= require_dataTables.jqueryui.min
 //= require highcharts
 $( document ).on('turbolinks:load', function() {
+
+  
   $("#sendusermessage").button().click(function(){
         alert("button");
     });   
