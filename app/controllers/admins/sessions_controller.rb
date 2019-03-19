@@ -1,5 +1,5 @@
 class Admins::SessionsController < Devise::SessionsController
-  # layout "layouts/admin"
+  layout "layouts/admin"
   #include Accessible
   #skip_before_action :check_user, only: :destroy
   # before_action :configure_sign_in_params, only: [:create]
@@ -11,13 +11,13 @@ class Admins::SessionsController < Devise::SessionsController
    end
 
   # POST /resource/sign_in
-   # def create
-     # super
-   #   #self.resource = warden.authenticate!(auth_options)
-   #   #set_flash_message!(:notice, :signed_in)
-   #   #yield resource if block_given?
-   #  # redirect_to rails_admin_path()
-   # end
+   def create
+     super
+     #self.resource = warden.authenticate!(auth_options)
+     #set_flash_message!(:notice, :signed_in)
+     #yield resource if block_given?
+    # redirect_to rails_admin_path()
+   end
 
   # DELETE /resource/sign_out
    def destroy

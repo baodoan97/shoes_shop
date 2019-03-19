@@ -18,11 +18,11 @@
             <th></th>
             <th></th>
             <th></th>
-           
+            
           </tr>
         </thead>
         <tbody>
-            number_to_currency(product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u")
+          number_to_currency(product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u")
           <% @product.each do |product| %>
           <tr class="gradeU">
             <td><%= product.id %></td>
@@ -43,19 +43,22 @@
             </td>
             <td><%= link_to '', admins_products_path, class: "btn btn-info fas fa-eye" %></td>
             <td><%= link_to '', edit_admins_product_path(product), class: "btn btn-warning fas fa-edit" %></td>
-            <td><%= link_to '', product, class: "btn btn-danger far fa-trash-alt", method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
+            <td>
+              <%= link_to "", admins_product_path(product), method: :delete,
+              data: { confirm: "Are you sure you want to delete the product?"},
+              class: "btn btn-danger far fa-trash-alt" %>
+            </td>
+            
           </tr>
-          <% end %>    
+          <% end %>
         </tbody>
         <tfoot>
-            <tr>
-                <th colspan="10" style="text-align:left">Example Total:</th>
-                <th style="text-align:right"></th>
-            </tr>
+        <tr>
+          <th colspan="10" style="text-align:left">Example Total:</th>
+          <th style="text-align:right"></th>
+        </tr>
         </tfoot>
       </table>
     </div>
   </div>
-
 </div>

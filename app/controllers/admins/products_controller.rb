@@ -1,20 +1,26 @@
 class Admins::ProductsController < BaseController
-    before_action :set_product , only: [:edit,:update, :show]
+    before_action :set_product , only: [:edit,:update, :show,:destroy]
 	#include ActiveModel::AttributeMethods
 	def index
 		@product = Product.all
 	end
-     def show
 
-      
-    end
+  def show
+
+  end
+
   def destroy
-
+      if @product.destroy
+        flash[:success] = "Product was successfully deleted"
+        redirect_to  admins_homepage_path
+      else
+        redirect_to  admins_homepage_path
+      end
 	end
 
-    def new
+  def new
     @product = Product.new
-    end
+  end
     def create
     	# debugger
 		paPRODUCT = {
@@ -28,18 +34,18 @@ class Admins::ProductsController < BaseController
 		  @product.category = Category.find(params[:product][:category_id].to_i)
              # debugger
         if params[:product][:images] == nil
-            render js: "alert('vui long chon hinh');"
-            return
+            
+           return
         end
         @product.images.attach(params[:product][:images])
 
         if @product.save
 	        flash[:success] = "Product was created successfully"
 	       
-			redirect_to product_path(@product)
+			redirect_to admins_product_path(@product)
 			# debugger
 		else
-			render 'new'
+			render 'products/new'
 		end
 	end
 
@@ -47,9 +53,7 @@ class Admins::ProductsController < BaseController
 		
 	end
 
-
-
-    def update
+  def update
        paPRODUCT = {
         	 "name" => product_params[:name],
         	 "price" => product_params[:price],
@@ -70,13 +74,11 @@ class Admins::ProductsController < BaseController
     end
 
 	def destroyimage
-		
 		   if params[:product] 
             @product = Product.find(params[:product])
              @product.images[params[:images].to_i].destroy
 		   end
 		   redirect_to edit_product_path(@product.id.to_i)
-		
 	end
     	private
 

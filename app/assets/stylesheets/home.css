@@ -19,3 +19,19 @@ b.new {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+.item.imagesilde{
+    height: 408px;  
+    width: 1286px;
+}
+.hot{
+    color: #be6565;
+    text-shadow: 9px 0px 2px #333;
+}
+.carousel-inner>.item>a>img, .carousel-inner>.item>img,  .thumbnail a>img, .thumbnail>img {
+    display: block;
+    max-width: 100%;
+    /* height: auto; */
+    height: 1286 px;
+    height: 408px;
+    width: 1286px;
+}
