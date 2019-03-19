@@ -1,0 +1,78 @@
+<%= form_for([:admins,@voucher] ,as: :post,:remote=>true, :url => {:controller => "vouchers", :action => "create"}, :html => {class: "textarea", role: "form" , :method => :POST}) do |f| %>
+<%= f.text_field :code, class: 'form-control',value: SecureRandom.hex(32) , :id => "codestring"%><br>
+<%= f.text_field :percent, class: 'form-control' %>
+<br>
+<div class="form-actions">
+	<%= f.submit 'Create', class: 'btn btn-success btn-block' %>
+</div>
+<% end %>
+<div class="content-box-large" align="center">
+	<div class="panel-body">
+		<table id="voucherstable" border="1px">
+			<thead>
+				<tr>
+					<th>
+						Product was Actived
+					</th>
+					<th>
+						code
+					</th>
+					<th>
+						percent
+					</th>
+				</tr>
+			</thead>
+			<% @vouchers.each do |v| %>
+			<tbody>
+				<tr>
+					<td>
+						<%= v.payment == nil ? " " : v.payment.id %>
+					</td>
+					<td>
+						<%= v.code %>
+					</td>
+					<td>
+						<%= v.percent %>
+					</td>
+				</tr>
+			</tbody>
+			<% end %>
+		</table>
+		<%= will_paginate @vouchers, :param_name => 'vouchers_page' %>
+	</div>
+</div>
+<div class="content-box-large" align="center">
+	<div class="panel-body">
+		<table id="voucherstable" border="1px">
+			<thead>
+				<tr>
+					<th>
+						Product was Actived
+					</th>
+					<th>
+						code
+					</th>
+					<th>
+						percent
+					</th>
+				</tr>
+			</thead>
+			<% @voucherss.each do |v| %>
+			<tbody>
+				<tr>
+					<td>
+						<%= v.payment == nil ? " " : v.payment.id %>
+					</td>
+					<td>
+						<%= v.code %>
+					</td>
+					<td>
+						<%= v.percent %>
+					</td>
+				</tr>
+			</tbody>
+			<% end %>
+		</table>
+		<%= will_paginate @voucherss, :param_name => 'voucherss_page' %>
+	</div>
+</div>

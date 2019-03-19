@@ -1,5 +1,5 @@
 class Payment < ApplicationRecord
-    has_one :voucher
+    has_one  :voucher
 	has_many :payment_items, :dependent => :destroy
 	has_many :products, through: :payment_item
 	accepts_nested_attributes_for :payment_items
