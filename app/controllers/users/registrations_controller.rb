@@ -14,6 +14,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   # POST /resource
   def create
+    if sign_up_params[:avatar] == nil
+       flash[:notice] = 'choose image for avatar'
+       redirect_to new_user_registration_path
+       return
+    end
     build_resource(sign_up_params)
     resource.save
     yield resource if block_given?

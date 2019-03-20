@@ -1,5 +1,5 @@
 <div class="menu-chat">
-	<div class="back"><%= link_to raw("&#xf053"), messages_path , class: "fa "  %> <%= image_tag @messages[0].user.avatar%></div>
+	<div class="back"><%= link_to raw("&#xf053"), admins_messages_path , class: "fa "  %> <%= image_tag @messages[0].user.avatar%></div>
 	<div class="name"><%= @messages[0].user.firstname %></div>
 	<div class="last"><%= time_ago_in_words(@messages.last.created_at) %></div>
 </div>
