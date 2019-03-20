@@ -60,7 +60,7 @@ class CartProductsController < ApplicationController
  
     def update
         respond_to do |format|
-            if @cart_product.update(line_item_params)
+            if @cart_product.update(cart_product_params)
                 format.html { redirect_to @cart_product, notice: 'Line item was successfully updated.' }
                 format.json { render :show, status: :ok, location: @cart_product }
             else
@@ -75,6 +75,7 @@ class CartProductsController < ApplicationController
         if Cart.find(session[:cart_id]).cart_products.size  == 0 
            redirect_to root_path 
         end
+
     end
  
 private
