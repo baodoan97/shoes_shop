@@ -36,12 +36,8 @@
 //= require_dataTables.jqueryui.min
 //= require highcharts
 $( document ).on('turbolinks:load', function() {
+   
 
-  $("#sendusermessage").button().click(function(){
-        alert("button");
-    });   
-
-  
   $('#example').DataTable( {
     language: {
       searchPlaceholder: "Nhap thong tin can tim",
@@ -83,6 +79,9 @@ $( document ).on('turbolinks:load', function() {
       
   } );
 
+  $("#sendusermessage").button().click(function(){
+    alert("button");
+});
   // $( "#a" ).click(function() {
   // $('#file-input').trigger('click'); 
   // });

@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   #resources :categories
   #get 'admins/categories', to: 'categories#index'
   root 'pages#home'
-  devise_for :admins, controllers: { sessions: 'admins/sessions', registrations: 'admins/registrations' }
+  devise_for :admins, controllers: { sessions: 'admins/sessions', registrations: 'admins/registrations',passwords: 'admins/passwords',confirmations: 'admins/confirmations' }
   devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
    authenticate :admin do
   get '/admins/homepage', to:'admins#homepage'
-  get '/admins/statistics', to:'manages#index'
+ # get '/admins/statistics', to:'manages#index'
   
   
   #get '/admins/statistics', to:'admins#homepage'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :admins
     # resources :products
 
-    resource :manages 
+    #resource :manages 
     #resources :statistics
     #resources :layouts
     #delete 'admins/sign_out',to: 'sessions#destroy'
@@ -37,7 +37,7 @@ end
   #user
   root 'pages#home'
    resource :carts
-  get 'contact', to: 'pages#contact'
+  get 'contacts', to: 'contacts#new'
    get 'login', to: 'sessions#new'
   get 'signup', to: 'users#new'
   get 'users/signup'
@@ -49,7 +49,7 @@ end
   #resources :users, except: [:show]
   #resources :uploads, only: [:index, :show, :update, :create]
   #resources :settings, only: [:index, :edit, :update]
- 
+  resources :contacts,only: [:new,:create]
   resources :messages 
 
   resources :categories, only: [:show]

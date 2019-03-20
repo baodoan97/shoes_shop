@@ -1,6 +1,6 @@
 <div class="jumbotron">
         <h1>Admins</h1>
-        <p>This example is a quick exercise to illustrate how the default</p>
+        <p>This page manage admins</p>
       </div>
 <div class="container">
   <div class="row tile_count">
@@ -28,6 +28,10 @@
       <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%=User.where(gender: true).count %>Males</span>
     </div>
   </div>
+</div>
+<div class="dark" style="background-color: #d1d1d4;padding: 10px">
+  <h3><b>User chart</b></h3>
+    <%= pie_chart User.group_by_day(:created_at).count %>
 </div>
 <style>
 .tile_count {

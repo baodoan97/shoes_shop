@@ -1,6 +1,8 @@
 <div class="container-fluid-1">
 <style>
   .c{color:white}
+ 
+}
 </style>
   <!-- Static navbar -->
   <nav class="navbar navbar-default">
@@ -27,7 +29,7 @@
           <li><%=  link_to 'Admin', admins_path %></li> 
           <li><%= link_to 'User', admins_users_path %></li>
           <li><%= link_to 'Message', messages_path %></li>
-
+          <li><%= link_to 'Statistic', admins_manages_path %></li>
         </ul>
         <% if admin_signed_in? %>
         <ul class="nav navbar-nav navbar-right">
