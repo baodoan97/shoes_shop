@@ -43,17 +43,24 @@ class CartProductsController < ApplicationController
             @cart_product.cart_id = @cart.id
             @cart_product.price = product.price
         end
-            if @cart_product.save
-                redirect_to cart_path(@cart)
-            else
-                redirect_to root_path
-            end
+        @cart_product.save
+        render js: "$('.fas').css('color', 'red');"
+        # respond_to do |format| 
+        #     if 
+        #         format.html { redirect_to('/', :notice => 'Product was add to cart successfully') }
+        #         format.js 
+        #         format.json { render :show, status: :created, location: @cart_product }
+        #     else
+        #         format.html { render :new }
+        #         format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        #     end
+        # end
         
     end
  
     def update
         respond_to do |format|
-            if @cart_product.update(line_item_params)
+            if @cart_product.update(cart_product_params)
                 format.html { redirect_to @cart_product, notice: 'Line item was successfully updated.' }
                 format.json { render :show, status: :ok, location: @cart_product }
             else
@@ -65,7 +72,10 @@ class CartProductsController < ApplicationController
  
     def destroy
         @cart_product.destroy
-        redirect_to cart_path
+        if Cart.find(session[:cart_id]).cart_products.size  == 0 
+           redirect_to root_path 
+        end
+
     end
  
 private

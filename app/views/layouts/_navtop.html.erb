@@ -36,8 +36,8 @@
                             <li><%= link_to 'Contact', contacts_path, class: "menu" %></li>
                             <li>
                                 <div class="iconcart">
-                                    <% if session[:cart] != nil %>
-                                    <%= link_to raw("&#xf07a"), carts_path, class: "fas" ,id: "cartnotification" %>
+                                    <% if Cart.find(session[:cart_id]).cart_products.size > 0 %>
+                                    <%= link_to ("<i class='fas fa-shopping-cart'></i>").html_safe + "(#{Cart.find(session[:cart_id]).cart_products.size})", carts_path, class: "fas" ,id: "cartnotification" %>
                                     <% else %>
                                     <%= link_to raw("&#xf07a"), carts_path, class: "fas"%>
                                     <% end %>
