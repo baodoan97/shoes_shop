@@ -4,11 +4,11 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="form-inputs">
     <%= f.input :email,disabled: true %>
-    <%= f.input :password %>
+    <%= f.input :password,placeholder: "password"%>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit,class: "btn-block" %>
   </div>
   <% end %>
   <%= link_to 'Show', @admins %> |
