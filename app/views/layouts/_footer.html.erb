@@ -101,17 +101,18 @@
         </div>
     </div>
     <script type="text/javascript">
-
+  
 
     function myFunction(x) {
     if (x.matches) { // If media query matches
     
     document.getElementById("repohide").style.display = "none";
+
     }
-    if(!x.matches)
-    {
-    document.getElementById("repohide").style.display = "inherit";
-    }
+        if(!x.matches)
+        {
+        document.getElementById("repohide").style.display = "inherit";
+        }
     }
     var x = window.matchMedia("(max-width: 640px)")
     myFunction(x) // Call listener function at run time

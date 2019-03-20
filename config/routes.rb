@@ -13,26 +13,27 @@ Rails.application.routes.draw do
   scope '/admins' do
     #root'admins#homepage'
     resources :admins
+
     # resources :products
 
     #resource :manages 
     #resources :statistics
     #resources :layouts
     #delete 'admins/sign_out',to: 'sessions#destroy'
+
   end
 
   resources :charges
 
+  namespace :admins do
+    resources :vouchers
+    resources :messages 
+    resources :products
+    resources :categories
+    resources :users
+    resources :manages
+  end
 
-namespace :admins do
-
-  resources :messages 
-
-  resources :products
-  resources :categories
-  resources :users
-  resources :manages
-end
 end
   #user
   root 'pages#home'
@@ -51,7 +52,7 @@ end
   #resources :settings, only: [:index, :edit, :update]
   resources :contacts,only: [:new,:create]
   resources :messages 
-
+  get 'show', to: 'messages#show'
   resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
   resources :products, only: [:show]

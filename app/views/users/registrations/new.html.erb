@@ -56,16 +56,17 @@
 </div>
 <%= render "users/shared/links" %>
 <script type="text/javascript">
-  ( "#a" ).click(function() {
-  $('#file-input').trigger('click'); 
-  });
+  $( document ).ready(function() {
+
+    // $('.fa-exchange').hover(function(){
+    //       $(this).fadeOut( 100 );
+    //         $(this).fadeIn( 500 );
+    // });
 
   $('#file-input').change(function () {
-    // var fileToUpload = $('#file-input').prop('files')[0];
-    //  $('#a').attr('src',fileToUpload.name);
-    //   console.log(fileToUpload);
-     if (this.files && this.files[0]) {
-      alert("x");
+          if (this.files && this.files[0]) {
+      
+    
            if( checkTypeimg(this.files[0].type) == false){
             var input = $('#file-input');
              alert("only image type jpeg,png");
@@ -80,9 +81,19 @@
             reader.readAsDataURL(this.files[0]);
         }
     });
+  function checkTypeimg(type){
+        switch (type) {
+          case "image/png":
+           return true;
+            break;
+          case "image/jpeg":
+           return true;
+            break;
+         default:
+            return false 
+            break;
+        }
+    }
+})
 
-    $('.fa-exchange').hover(function(){
-          $(this).fadeOut( 100 );
-            $(this).fadeIn( 500 );
-    });
 </script>

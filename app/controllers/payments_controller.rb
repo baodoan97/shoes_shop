@@ -32,6 +32,11 @@ class PaymentsController < ApplicationController
             @payment.add_line_items_from_cart(current_cart)
             Cart.destroy(session[:cart_id])
             session[:cart_id] = nil
+            @payment.payment_items.each do |item|
+                @product = Product.find(item.product_id)
+                @product.quantity = @product.quantity - item.quantity
+                @product.save
+            end
             redirect_to root_path
         else
             render 'new'

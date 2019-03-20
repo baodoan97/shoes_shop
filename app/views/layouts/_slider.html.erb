@@ -1,3 +1,7 @@
+ <%  p =  PaymentItem.group(:product_id).count %>
+ <%  p.sort_by {|_key, value| value}.to_h %>
+ <% c = p %>
+ <% c.reverse_each.to_h %>
 <div class="header-end">
         <div class="container">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -7,33 +11,29 @@
                 <li data-target="#myCarousel" data-slide-to="1" class=""></li>
                 <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
               </ol>
-
+ 
               <!-- Wrapper for slides -->
               <div class="carousel-inner" role="listbox">
-                <div class="item">
-                        <%= image_tag("shoe3.jpg") %>
-                    <div class="carousel-caption car-re-posn">
-                        <h3>AirMax</h3>
-                        <h4>You feel to fall</h4>
-                        <span class="color-bar"></span>
-                    </div>
-                </div>
-                <div class="item">
-                        <%= image_tag("shoe1.jpg") %>
-                    <div class="carousel-caption car-re-posn">
-                        <h3>AirMax</h3>
-                        <h4>You feel to fall</h4>
-                        <span class="color-bar"></span>
-                    </div>
-                </div>
                 <div class="item active">
-                       <%= image_tag("shoe2.jpg") %>
+                    <%= image_tag Product.find(c.keys[0]).images[0] ,class: "imagesilde" %>
                     <div class="carousel-caption car-re-posn">
-                        <h3>AirMax</h3>
-                        <h4>You feel to fall</h4>
+                        <h3 class="hot">A lot for people Buy</h3>
+                        <h4><%= truncate(Product.find(c.keys[0]).description , length: 17) %></h4>
                         <span class="color-bar"></span>
                     </div>
                 </div>
+                <% c.shift %>
+                  <% c.first(4).each do |k,v|  %> 
+                     <div class="item">
+                        <%= image_tag Product.find(k.to_i).images[0] ,class: "imagesilde" %>
+                      <div class="carousel-caption car-re-posn">
+                          <h3><%= truncate(Product.find(k.to_i).description , length: 17) %></h3>
+                          <h4>You feel to fall</h4>
+                          <span class="color-bar"></span>
+                      </div>
+                  </div>
+                 <% end %>
+
               </div>
 
               <!-- Controls -->

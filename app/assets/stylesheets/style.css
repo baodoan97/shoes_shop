@@ -224,10 +224,10 @@ a.left.carousel-control,a.right.carousel-control {
     font-weight: 400;
     font-size: 75px;
     text-transform: capitalize;
-    color: #100b0b;
-    font-family: 'Fredoka One', cursive;
-    text-shadow: none;
-}
+/*    color: #100b0b;
+*/    font-family: 'Fredoka One', cursive;
+/*    text-shadow: none;
+*/}
 .car-re-posn h4{
     font-family: 'Pathway Gothic One' !important;
     font-weight: 400;

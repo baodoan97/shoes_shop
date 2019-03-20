@@ -51,6 +51,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'bootstrap-will_paginate', '~> 1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -65,7 +67,6 @@ group :development do
   gem 'spring'
   gem "letter_opener"
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'pg'
 end
 
 group :test do

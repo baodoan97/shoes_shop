@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   
   def show
-    
+    @product = @category.products.where("quantity > 0")
   end
 
   # GET /categories/new

@@ -16,6 +16,9 @@ class MessagesController < ApplicationController
 	       # respond_to(:js)
 	       
 	end
+	def show
+
+	end
 
     
 
