@@ -4,28 +4,24 @@
       </div>
 <div class="container">
   <div class="row tile_count">
-    <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
       <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-      <div class="count"><%=User.all.count %></div>
+      <div class="count"><%=User.all.count %></div> 
       <span class="count_bottom"><i class="green"><%=User.where('created_at > ?', Time.zone.now - 10.minute).count %></i> User from last 10 minutes</span><br>
       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> <%=User.where(gender: false).count %> Males</span> |
       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> <%=User.where(gender: true).count %> Females</span>
     </div>
-    <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
+    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
       <span class="count_top"><i class="fa fa-clock-o"></i> Total Category</span>
       <div class="count"> <%=Category.all.count %></div>
       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i><%=Category.where('created_at > ?', Time.zone.now - 1.days).count %></i> Category create from last 1 day.</span></span><br>
       <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> <%=Category.where('updated_at > ?', Time.zone.now - 1.hours).count %> Category Update from last 1 hours.</span>
     </div>
-    <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
-      <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
-      <div class="count green"><%=User.all.count %></div>
-      <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> <%=User.where(gender: false).count %> Males</span>
-    </div>
-    <div class="col-md-3 col-sm-3 col-xs-6 tile_stats_count">
-      <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
-      <div class="count"><%=User.all.count %></div>
-      <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i><%=User.where(gender: true).count %>Males</span>
+    <div class="col-md-4 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-"></i> Total Products</span>
+      <div class="count green"><%=Product.all.count %></div>
+      <span class="count_bottom"><i class="green"><%=Product.where('created_at > ?', Time.zone.now - 10.minute).count %></i> Product from last 10 minutes</span><br>
+      <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i></i> <%=Product.where('updated_at > ?', Time.zone.now - 1.hours).count %> Product Update from last 1 hours.</span>
     </div>
   </div>
 </div>

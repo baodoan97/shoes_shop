@@ -1,10 +1,11 @@
 <div class="container">
-    <h1 style="text-align:center">Create User With Admin</h1><br>
+    <h1 style="text-align:center">Edit User With Admin</h1><br>
   <%= form_for @user1 do |f| %>
  
   <div class="form-inputs">
     <%= f.text_field :email,disabled: true, class: 'form-control' %><br>
-    <%= f.text_field :password, class: 'form-control', type: 'password' %>
+    <%= f.text_field :password, class: 'form-control', type: 'password',placeholder: "Password" %>
+    <%= f.text_field :password, class: 'form-control', type: 'password',placeholder: "Password" %>
   </div>
   <br><br>
   <div class="form-actions">
