@@ -46,7 +46,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text"><i class="fa fa-tasks" aria-hidden="true"></i></span>
 			</div>
-			<%= f.collection_select(:category_id,Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %>
+			<%= f.collection_select(:category,Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %>
 		</div>
 		<div class="input-group input-group-lg mb-4">
 			<div class="input-group-prepend">

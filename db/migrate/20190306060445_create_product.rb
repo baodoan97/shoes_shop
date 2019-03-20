@@ -6,7 +6,8 @@ class CreateProduct < ActiveRecord::Migration[5.2]
 			
     	t.integer :quantity
     	t.string :description
-    	t.integer :size
+			t.integer :size
+		
     end
   end
 end

@@ -31,7 +31,7 @@ class Admins::ProductsController < BaseController
         	 "size" => product_params[:size].to_i
          }
 		  @product = Product.new(paPRODUCT)
-		  @product.category = Category.find(params[:product][:category_id].to_i)
+		  @product.category = Category.find(params[:product][:category].to_i)
              # debugger
         if params[:product][:images] == nil
             
@@ -61,7 +61,7 @@ class Admins::ProductsController < BaseController
         	 "description" => product_params[:description],
         	 "size" => product_params[:size].to_i
          }
-         @product.category = Category.find(params[:product][:category_id].to_i)
+         @product.category = Category.find(params[:product][:category].to_i)
       	if params[:product][:images] != nil 
        		@product.images.attach(params[:product][:images])
         end
@@ -83,7 +83,7 @@ class Admins::ProductsController < BaseController
     	private
 
 	def product_params     
-		params.require(:product).permit(:name, :price, :quantity, :description, :size, :category)
+		params.require(:product).permit(:name, :price, :quantity, :description, :size, :category_id)
 	end
     
 	def set_product
