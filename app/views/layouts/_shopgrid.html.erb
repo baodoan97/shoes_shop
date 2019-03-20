@@ -58,6 +58,43 @@
              <div class="clearfix"></div>
 <% end %>
  </div>
+ <!-- best liked -->
+ <div class="shop-grid">
+   <div class="container topfivenew" id="viewtopcategory<%=i%>"
+      onmouseover="mouseOver(<%=i%>)" onmouseout="mouseOut(<%=i%>)">
+       <h1>Best <b class="new<%=i%>" >Liked</b> Product</h1>
+   </div>
+   <% i= i + 1%>
+   <br>
+       <div  class="container">
+   <% Product.all.order("liked DESC").limit(3).each do |pro|  %>
+
+          <div class="col-md-4 grid-stn simpleCart_shelfItem">
+              <!-- normal -->
+              <div class="ih-item square effect3 bottom_to_top">
+                  <div class="bottom-2-top">
+                      <div class="img"><%= image_tag(pro.images[0],class:"img-responsive gri-wid")%></div>
+                      <div class="info">
+                          <div class="pull-left styl-hdn">
+                              <h3><%= pro.name %></h3>
+                          </div>
+                          <div class="pull-right styl-price">
+                              <p><a href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart"
+                                          aria-hidden="true"></span> <span class=" item_price">$<%= pro.price %></span></a></p>
+                          </div>
+                          <div class="clearfix"></div>
+                      </div>
+                  </div>
+              </div>
+              <!-- end normal -->
+              <div class="quick-view">
+                      <%= link_to "Quick View", product_path(pro) %>
+              </div>
+          </div>
+   <% end %>
+       </div>
+               <div class="clearfix"></div>
+ </div>
 <script type="text/javascript">
     function mouseOver(i) {
       $(".new"+i).fadeOut(1000);

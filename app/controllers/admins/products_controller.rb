@@ -12,7 +12,7 @@ class Admins::ProductsController < BaseController
   def destroy
       if @product.destroy
         flash[:success] = "Product was successfully deleted"
-        redirect_to  admins_homepage_path
+        redirect_to  admins_products_path
       else
         redirect_to  admins_homepage_path
       end
@@ -30,7 +30,8 @@ class Admins::ProductsController < BaseController
         	 "description" => product_params[:description],
         	 "size" => product_params[:size].to_i
          }
-		  @product = Product.new(paPRODUCT)
+			@product = Product.new(paPRODUCT)
+			#	debugger
 		  @product.category = Category.find(params[:product][:category].to_i)
              # debugger
         if params[:product][:images] == nil
@@ -38,11 +39,11 @@ class Admins::ProductsController < BaseController
            return
         end
         @product.images.attach(params[:product][:images])
-
+				#debugger
         if @product.save
 	        flash[:success] = "Product was created successfully"
 	       
-			redirect_to admins_product_path(@product)
+			redirect_to admins_products_path
 			# debugger
 		else
 			render 'products/new'
@@ -83,7 +84,7 @@ class Admins::ProductsController < BaseController
     	private
 
 	def product_params     
-		params.require(:product).permit(:name, :price, :quantity, :description, :size, :category_id)
+		params.require(:product).permit(:name, :price, :quantity, :description, :size)
 	end
     
 	def set_product
