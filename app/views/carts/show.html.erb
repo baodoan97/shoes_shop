@@ -26,7 +26,7 @@
                         <h1 id="countcart">My Shopping Bag (<%= @cart.cart_products.count if @cart != nil  %>)  </h1>
                         
                         <% i = 1 %>
-                        <% @cart.cart_products.each do |item| %>
+                        <% Cart.find(session[:cart_id]).cart_products.each do |item| %>
                             <script>$(document).ready(function(c) {
                                 $('.close<%= i %>').on('click', function(c){
                                     $('.cart-header<%= i if i > 1%>').fadeOut('slow', function(c){
