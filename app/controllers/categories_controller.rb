@@ -6,7 +6,7 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   
   def show
-    @product = @category.products.where("quantity > 0")
+    @product = @category.products.where("quantity > 0").paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /categories/new
@@ -18,7 +18,12 @@ class CategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:id])
+      if Category.exists? id: params[:id] 
+        @category = Category.find(params[:id])
+      else
+        redirect_to root_path
+        flash[:danger] = "Category with ID = #{params[:id]} is not exist"
+    end 
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

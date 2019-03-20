@@ -43,11 +43,16 @@ class CartProductsController < ApplicationController
             @cart_product.cart_id = @cart.id
             @cart_product.price = product.price
         end
+        respond_to do |format| 
             if @cart_product.save
-                redirect_to cart_path(@cart)
+                format.html { redirect_to('/', :notice => 'Product was add to cart successfully') }
+                format.js 
+                format.json { render :show, status: :created, location: @cart_product }
             else
-                redirect_to root_path
+                format.html { render :new }
+                format.json { render json: @line_item.errors, status: :unprocessable_entity }
             end
+        end
         
     end
  
