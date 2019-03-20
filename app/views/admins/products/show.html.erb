@@ -31,7 +31,7 @@
             <div class="showcase-rt-top">
                 <div class="pull-left shoe-name">
                     <h3><%= @product.name%></h3>
-                    <p>Men's running shoes</p>
+                    <p><%= @product.category_id%></p>
                     <h4><%= number_to_currency(@product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u") %></h4>
                 </div>
                 <div class="pull-left rating-stars">

@@ -1,11 +1,11 @@
-<div class="row">
-    <div class="col-md-4 col-md-offset-4">
-        <div class="well">
-            <%= simple_form_for @contact do |f| %>
-            <%= f.input :name %>
-            <%= f.input :email %>
-            <%= f.input :message %>
-            <%= f.submit "Get in touch!", class: "btn btn-info" %>
-            <% end %>
-        </div>
-    </div>
+<div style="padding-bottom:10px">
+<%= simple_form_for @contact do |f| %>
+  <%= f.input :name, label: 'Full Name', error: 'Username is mandatory, please specify one', placeholder: 'vinova sg'%>
+  <%= f.input :email , placeholder: 'user@domain.com'%>
+  <%= f.input :message, placeholder: 'Vinova. We as one!' %>
+  <%= f.submit "Send", class: "btn btn-info btn-block" %>
+<% end %>
+ 
+</div>        
+        
+    

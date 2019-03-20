@@ -1,6 +1,6 @@
 <%= form_for [:admins,@category] , class:"form-group", html: { multipart: true } do |f| %>
 <p style="padding:2px">Name</p>
-<%= f.text_field :name, class: 'form-control',placeholder: "Name Category",maxlength:"15",minlength:"3",required:"required"%><br>
+<%= f.text_field :name, class: 'form-control',placeholder: "Name Category",maxlength:"30",minlength:"3",required:"required"%><br>
 <p style="padding:2px">Description</p>
 <%= f.text_area :description, class: 'form-control',placeholder: "Description Category",maxlength:"200",minlength:"10",required:"required" %>
 <br>
