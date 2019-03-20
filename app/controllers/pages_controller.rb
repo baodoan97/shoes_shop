@@ -4,6 +4,7 @@ class PagesController < ApplicationController
     end
 
     def contact
-
+        #debugger
+        @contact = Contact.new
     end
 end
