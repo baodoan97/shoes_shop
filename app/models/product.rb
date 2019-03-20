@@ -7,7 +7,19 @@ class Product < ApplicationRecord
     before_destroy :check_if_has_line_item
   
 private
-  
+     
+   def content_type
+            i = 0
+        self.images.each{ |image|
+             if image.content_type != "image/png" && image.content_type != "image/jpeg"
+                self.images[i].destroy
+                return
+             end  
+             i = i + 1
+        }
+       
+    end 
+
     def check_if_has_line_item
         if cart_products.empty?
             return true
