@@ -35,7 +35,7 @@
                     <% end %>
                 </div>
             </div>
-            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
+            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
             <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
             <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
             <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
