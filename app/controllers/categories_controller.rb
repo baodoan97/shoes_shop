@@ -6,7 +6,8 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   
   def show
-    @product = @category.products.where("quantity > 0").paginate(:page => params[:page], :per_page => 10)
+    @product = @category.products.where("quantity > 0")
+    @product = @product.paginate(page: params[:page], per_page: 3)
   end
 
   # GET /categories/new

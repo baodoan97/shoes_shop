@@ -44,6 +44,8 @@ class CartProductsController < ApplicationController
             @cart_product.price = product.price
         end
         @cart_product.save
+        product.liked = product.liked + 1
+        product.save
         render js: "$('.fas').css('color', 'red');"
         # respond_to do |format| 
         #     if 

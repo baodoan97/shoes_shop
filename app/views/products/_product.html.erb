@@ -1,6 +1,7 @@
 <div class="products-gallery">
     <div class="container">
         <div class="col-md-9 grid-gallery">
+            <div class="col-md-12" style="min-height: 450px">
             <% obj.each do |pro| %>
             <div class="col-md-4 grid-stn simpleCart_shelfItem">
                 <!-- normal -->
@@ -30,7 +31,9 @@
                 </div>
             </div>
             <% end %>
+            </div>
             <div class="clearfix"></div>
+            <div class="text-center"><%= will_paginate obj %></div>
         </div>
         <div class="col-md-3 grid-details">
             <div class="grid-addon">
@@ -93,21 +96,7 @@
                         <!-- script -->
                     </div>
                 </section>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>DISCOUNTS</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10%
-                                (20)</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
-                        </div>
-                    </div>
-                </section>
+               
                 <!---->
                 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
                 <script type="text/javascript">//<![CDATA[ 
@@ -126,45 +115,10 @@
                     });//]]>  
 
                 </script>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Type</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Air Max
-                                (30)</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Armagadon (30)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Helium (30)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kyron (30)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Napolean (30)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Foot Rock (30)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Radiated (30)</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Spiked (30)</label>
-                        </div>
-                    </div>
-                </section>
-                <section class="sky-form">
-                    <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Brand</h4>
-                    <div class="row row1 scroll-pane">
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"
-                                    checked=""><i></i>Roadstar</label>
-                        </div>
-                        <div class="col col-4">
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Tornado</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kissan</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Oakley</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Manga</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Wega</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Kings</label>
-                            <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Zumba</label>
-                        </div>
-                    </div>
-                </section>
+                
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-<%= will_paginate obj %>
+ 
