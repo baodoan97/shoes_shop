@@ -37,7 +37,7 @@
                             <li>
                                 <div class="iconcart">
                                     <% if session[:cart] != nil %>
-                                    <%= link_to raw("&#xf07a"), carts_path, class: "fas" ,id: "cartnotification" %>
+                                    <%= link_to "#{raw("&#xf07a")} Item(#{current_cart.cart_products.size})", carts_path, class: "fas" ,id: "cartnotification" %>
                                     <% else %>
                                     <%= link_to raw("&#xf07a"), carts_path, class: "fas"%>
                                     <% end %>
