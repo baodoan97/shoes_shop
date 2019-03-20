@@ -83,15 +83,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_034249) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.boolean "display_in_navbar"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "chats", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "admin_id"
-    t.text "content"
+    t.boolean "display_in_navbar", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
