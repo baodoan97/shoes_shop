@@ -37,10 +37,7 @@
 //= require highcharts
 $( document ).on('turbolinks:load', function() {
    
-
-  $("#sendusermessage").button().click(function(){
-        alert("button");
-    });   
+ 
 
   $('#example').DataTable( {
     language: {

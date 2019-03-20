@@ -1,4 +1,5 @@
- <%  p =  PaymentItem.group(:product_id).count %>
+<% if PaymentItem.all.count > 0 %>
+<%  p =  PaymentItem.group(:product_id).count %>
  <%  p.sort_by {|_key, value| value}.to_h %>
  <% c = p %>
  <% c.reverse_each.to_h %>
@@ -49,3 +50,4 @@
             <div class="clearfix"></div>
         </div>
     </div>
+    <% end %>

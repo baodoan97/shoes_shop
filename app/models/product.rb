@@ -29,6 +29,6 @@ private
         end
     end
 	#validates
-	# validates :name, presence: true, uniqueness: true, length: {maximum: 40}
-	# validates :description, presence:true, length: {maximum: 100}
+	 validates :name, presence: true, uniqueness: true, length: {maximum: 30,minimum: 5}
+	 validates :description, presence:true, length: {maximum: 100,minimum: 20}
 end
