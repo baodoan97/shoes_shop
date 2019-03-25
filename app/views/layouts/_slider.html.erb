@@ -1,3 +1,8 @@
+
+
+
+
+
 <% if PaymentItem.all.count > 0 %>
 <%  p =  PaymentItem.group(:product_id).count %>
  <%  p.sort_by {|_key, value| value}.to_h %>

@@ -43,7 +43,7 @@ end
   get 'signup', to: 'users#new'
   get 'users/signup'
   get 'errors/loi'
-
+  
 
   #root :to 'admins#adminshome'
   #resources :admins, except: [:show]
