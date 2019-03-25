@@ -27,7 +27,7 @@
 </div>
 <div class="dark" style="background-color: #d1d1d4;padding: 10px">
   <h3><b>User chart</b></h3>
-    <%= pie_chart User.group_by_day(:created_at).count %>
+    <%= pie_chart User.group(:created_at).count %>
 </div>
 <style>
 .tile_count {
