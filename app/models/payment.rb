@@ -6,8 +6,15 @@ class Payment < ApplicationRecord
  validates :name, :address, :phone, :pay_type, :presence => true
  enum pay_type: {
  	cod: 1,
- 	atm: 2,
+ 	atm: 2
  }
+
+ enum status: {
+        no_process: 0,
+        processing: 1,
+        shipping: 2,
+        cancel: 3
+    }
     def add_line_items_from_cart(cart) 
         cart.cart_products.each do |item|
             item[:cart_id] = nil

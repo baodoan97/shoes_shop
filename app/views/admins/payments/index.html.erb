@@ -1,0 +1,77 @@
+<div class="content-box-large" align="center">
+	<div class="panel-body">
+		<table id="voucherstable" border="1px">
+			<thead>
+				<tr>
+					<th>
+						STT
+					</th>
+					<th>
+						name
+					</th>
+					<th>
+						phone
+					</th>
+					<th>
+						address
+					</th>
+					<th>
+						pay_type
+					</th>
+					<th>
+						status
+					</th>
+				</tr>
+			</thead>
+			<% @payments.each do |v|  %>
+			<tbody>
+				<tr>
+					<td>
+						<%= v.id %>
+					</td>
+					<td>
+						<%= v.name %>
+					</td>
+					<td>
+						<%= v.phone %>
+					</td>
+					<td>
+						<%= v.address %>
+					</td>
+					<td>
+						<%= v.pay_type %>
+					</td>
+					<td>
+						<%= select_tag "status", options_for_select(Payment.statuses.to_h , :selected => Payment.statuses[v.status] ) ,{ :onchange => "changeon(#{v.id},this.value);"} %>
+						
+					</td>
+					<td class="changestatus" id=change<%=v.id %> >
+						<%= link_to "Change","#",{ :onclick => "update_status(#{v.id});" ,:remote=>true }  %>
+					</td>
+				</tr>
+			</tbody>
+			<% end %>
+			
+		</table>
+		<%= will_paginate @payments, :param_name => 'payments_noprocess_page' %>
+	</div>
+</div>
+<script type="text/javascript">
+	  var i = 0;
+	  function changeon(id,e)
+	  {  
+           var x = "change"+id;
+           i = e;
+           document.getElementById(x).style.display = "block";
+	  }
+	function update_status(id) {
+		$.ajax({
+      url: "payments/changestatus",
+      type: "get",
+      dataType: "script",
+      data: { payment:{"status": i, "id" : id}}
+    });
+       var x = "change"+id;
+       document.getElementById(x).style.display = "none";
+	}
+</script>

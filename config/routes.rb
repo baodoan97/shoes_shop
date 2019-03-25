@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   resources :charges
 
   namespace :admins do
+     get 'payments/changestatus', to: 'payments#changestatus'
+    resources :payments
     resources :vouchers
     resources :messages 
     resources :products
