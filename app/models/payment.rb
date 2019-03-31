@@ -1,4 +1,5 @@
 class Payment < ApplicationRecord
+    has_one  :place
     has_one  :voucher
 	has_many :payment_items, :dependent => :destroy
 	has_many :products, through: :payment_item

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :places
+    post 'places/changestatus', to: 'places#changestatus'
+
   #resources :categories
   #get 'admins/categories', to: 'categories#index'
   root 'pages#home'
