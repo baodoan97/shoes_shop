@@ -13,11 +13,22 @@ class PaymentsController < ApplicationController
       return
     else
   		@payment = Payment.new(payment_params)
+  		if payment_params[:address] != nil  
+                @location = Geocoder.search(payment_params[:address]).first.coordinates
+                @ship = (Geocoder::Calculations.distance_between([10.80076,106.679557], @location.to_a)).ceil(1) # km 
+                @place = Place.new
+                @place.name = payment_params[:address]
+                @place.latitude = @location[0]
+                 @place.longitude = @location[1]
+                @place.save
+                @payment.place = @place
+             end
       if(params[:payment][:pay_type] == "atm")
       # Stripe.api_key = "sk_test_Hm0ywtd94a4e27SHOfzVJLpZ"
         @cart = current_cart
         @amount = @cart.total_price.to_i * 100
         token = params[:stripeToken]
+    		
 
         # Create a Customer
         customer = Stripe::Customer.create({

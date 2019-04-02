@@ -1,22 +1,22 @@
-
-
 <div class="container">
     <div class="row">
         <div class=col-12>
             <div class="pay-form w-50">
                 <h1 class="text-center">Payment</h1>
-            <%= form_for(@payment, :html => {:id => 'payment-form'}) do |f| %>
+                <%= form_for(@payment, :html => {:id => 'payment-form'}) do |f| %>
                 <div class="form-group">
                     <%= f.label :name %>
-                    <%= f.text_field :name, :class => 'form-control' %>
+                    <%= f.text_field :name, :class => 'form-control',:onclick => "removesearch();" %>
                 </div>
                 <div class="form-group">
                     <%= f.label :phone %>
-                    <%= f.text_field :phone, :class => 'form-control' %>
+                    <%= f.text_field :phone, :class => 'form-control',:onclick => "removesearch();" %>
                 </div>
                 <div class="form-group">
                     <%= f.label :address %>
-                    <%= f.text_area :address, :class => 'form-control' %>
+                    <%= f.text_area :address, :class => 'form-control',:onkeyup => "search(this.value);" ,:onclick => "removesearch();" %>
+                   <ul id="datasearch">
+                   </ul>
                 </div>
                 <div class="form-group">
                     <%= f.label 'Payment Type' %>
@@ -27,11 +27,14 @@
                     <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
                 </div>
 
-                <div class="for d-nonem-group">
+                <div class="form-group">
                     <label id="lbl-cvc">Security Code/CVC</label>
+                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
+                </div>
+                <div class="form-group">
+                    <label>Security Code/CVC</label>
                     <input type="text" size="4" autocomplete="off" data-stripe="cvc" id="cvc" class="card-cvc form-control" placeholder="***" value = "123" pattern="\d*" />
                 </div>
-
                 <div class="form-group">
                     <label id="lbl-month">Expiration (MM/YYYY)</label>
                     <input type="text" size="2" data-stripe="exp_month" id="exp-month" class="card-expiry-month form-control" placeholder="MM" pattern="\d*" />
@@ -41,16 +44,17 @@
                 <div class="form-group">
                     <label><strong>Total Price: <h3><%= Cart.find(session[:cart_id]).total_price %></h3></strong></label>
                 </div>
+                <div class="form-group">
+                    <label>Ship: <h3 id="ship"> </h3></label>
+                </div>
                 <div class="actions">
                     <%= f.submit 'Place order', :class => 'btn btn-primary btn-payment' %>
                 </div>
-             </div>
-            <% end %>
             </div>
+            <% end %>
         </div>
     </div>
 </div>
-
 <!-- validate card credit information -->
 <script>
   jQuery(function ($) {
@@ -114,3 +118,31 @@
 </script>
 
 
+
+<script>  
+
+
+                function removesearch()
+                {
+                $('#datasearch li').remove();
+
+                }
+                function search(e) {
+                    $.ajax({
+                    url: "/places/changestatus",
+                    type: "post",
+                    dataType: "script",
+                    data: { search: {"address": e}}
+                    });
+                }
+               $("#datasearch").on("click","li", function(e){
+                $('#datasearch li').remove();
+                $("#payment_address").val($(this).attr("value"));
+                     $.ajax({
+                      url: "/places/changestatus",
+                      type: "post",
+                      dataType: "script",
+                      data: { location: {"address": $(this).attr("value")}}
+                    });
+              });
+</script>
