@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class=col-12>
-            <div class="pay-form">
+            <div class="pay-form w-50">
                 <h1 class="text-center">Payment</h1>
                 <%= form_for(@payment, :html => {:id => 'payment-form'}) do |f| %>
                 <div class="form-group">
@@ -22,8 +22,13 @@
                     <%= f.label 'Payment Type' %>
                     <%= f.select :pay_type, Payment.pay_types.keys, {},:class => 'form-control' %>
                 </div>
+                 <div class="form-group">
+                    <label id="lbl-number">Card Number</label>
+                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
+                </div>
+
                 <div class="form-group">
-                    <label>Card Number</label>
+                    <label id="lbl-cvc">Security Code/CVC</label>
                     <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
                 </div>
                 <div class="form-group">
@@ -31,13 +36,13 @@
                     <input type="text" size="4" autocomplete="off" data-stripe="cvc" id="cvc" class="card-cvc form-control" placeholder="***" value = "123" pattern="\d*" />
                 </div>
                 <div class="form-group">
-                    <label>Expiration (MM/YYYY)</label>
+                    <label id="lbl-month">Expiration (MM/YYYY)</label>
                     <input type="text" size="2" data-stripe="exp_month" id="exp-month" class="card-expiry-month form-control" placeholder="MM" pattern="\d*" />
-                    <span> / </span>
+                    <span id="lbl-year"> / </span>
                     <input type="text" size="4" data-stripe="exp_year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
                 </div>
                 <div class="form-group">
-                    <label>Total Price: <h3><%= Cart.find(session[:cart_id]).total_price %></h3></label>
+                    <label><strong>Total Price: <h3><%= Cart.find(session[:cart_id]).total_price %></h3></strong></label>
                 </div>
                 <div class="form-group">
                     <label>Ship: <h3 id="ship"> </h3></label>
@@ -50,62 +55,70 @@
         </div>
     </div>
 </div>
-</div>
+<!-- validate card credit information -->
 <script>
-jQuery(function ($) {
-var show_error, stripeResponseHandler;
-stripeResponseHandler = function (status, response) {
-var $form, token;
-$form = $("#payment-form");
-if (response.error) {
-show_error(response.error.message);
-$form.find("input[type=submit]").prop("disabled", false);
-} else {
-token = response.id;
-$form.append($('<input type="hidden" name="stripeToken" />').val(token));
-$form.get(0).submit();
-}
-return false;
-};
-show_error = function (message) {
-$("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
-$('.alert').delay(5000).fadeOut(3000);
-return false;
-};
-$("#payment-form").submit(function (event) {
-var $form;
-$form = $(this);
-$form.find("input[type=submit]").prop("disabled", true);
-Stripe.card.createToken($form, stripeResponseHandler);
-return false;
-});
-});
-// var stripeResponseHandler = function(status, response) {
-//   var $form = $('#payment-form');
-//   if (response.error) {
-//     // Show the errors on the form
-//     $form.find('.payment-errors').text(response.error.message);
-//     $form.find('button').prop('disabled', false);
-//   } else {
-//     // token contains id, last4, and card type
-//     var token = response.id;
-//     // Insert the token into the form so it gets submitted to the server
-//     $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-//     // and re-submit
-//     $form.get(0).submit();
-//   }
-// };
-// jQuery(function($) {
-//   $('#payment-form').submit(function(e) {
-//   var $form = $(this);
-//   // Disable the submit button to prevent repeated clicks
-//   $form.find('button').prop('disabled', true);
-//   Stripe.card.createToken($form, stripeResponseHandler);
-//   // Prevent the form from submitting with the default action
-//   return false;
-//   });
-// });
+  jQuery(function ($) {
+    $("#number").hide();
+    $("#cvc").hide();
+    $("#exp-month").hide();
+    $("#exp-year").hide();
+    $("#lbl-number").hide();
+    $("#lbl-cvc").hide();
+    $("#lbl-month").hide();
+    $("#lbl-year").hide();
+    $("#payment_pay_type").change(function(){
+      var value = $("#payment_pay_type").val()
+      if ( value == "atm") {
+        $("#number").fadeIn(1000);
+        $("#cvc").fadeIn(1000);
+        $("#exp-month").fadeIn(1000);
+        $("#exp-year").fadeIn(1000);
+        $("#lbl-number").fadeIn(1000);
+        $("#lbl-cvc").fadeIn(1000);
+        $("#lbl-month").fadeIn(1000);
+        $("#lbl-year").fadeIn(1000);
+        var show_error, stripeResponseHandler;
+        stripeResponseHandler = function (status, response) {
+        var $form, token;
+        $form = $("#payment-form");
+        if (response.error) {
+          show_error(response.error.message);
+          $form.find("input[type=submit]").prop("disabled", false);
+        } else {
+          token = response.id;
+          $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+          $form.get(0).submit();
+        }
+        return false;
+      };
+      show_error = function (message) {
+        $("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
+        $('.alert').delay(5000).fadeOut(3000);
+        return false;
+      };
+      $("#payment-form").submit(function (event) {
+        var $form;
+        $form = $(this);
+        $form.find("input[type=submit]").prop("disabled", true);
+        Stripe.card.createToken($form, stripeResponseHandler);
+        return false;
+      });
+      } else{
+        $("#number").fadeOut(1000);
+        $("#cvc").fadeOut(1000);
+        $("#exp-month").fadeOut(1000);
+        $("#exp-year").fadeOut(1000);
+        $("#lbl-number").fadeOut(1000);
+        $("#lbl-cvc").fadeOut(1000);
+        $("#lbl-month").fadeOut(1000);
+        $("#lbl-year").fadeOut(1000);
+      }
+    });
+  });
 </script>
+
+
+
 <script>  
 
 

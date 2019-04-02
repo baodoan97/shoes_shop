@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 2019_03_31_162926) do
     t.string "address"
     t.integer "status"
     t.integer "pay_type"
+    t.string "charge_id"
   end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -1,119 +1,96 @@
-<!-- <div class="feel-fall">
-    <div class="container">
-        <div class="pull-left fal-box">
-            <div class=" fall-left">
-                <h3>Fall</h3>
-                 image_tag("f-l.png",class:"img-responsive fl-img-wid")%>
-                <p>Inspiration and innovation<br> for every athlete in the world</p>
-                <span class="fel-fal-bar"></span>
-            </div>
-        </div>
-        <div class="pull-right fel-box">
-            <div class="feel-right">
-                <h3>Feel</h3>
-                 image_tag("f-r.png",class:"img-responsive fl-img-wid")%>
-                <p>Inspiration and innovation<br> for every athlete in the world</p>
-                <span class="fel-fal-bar2"></span>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div> -->
-<% i = 0 %>
-<% Category.all.each do |v| %>
- <div class="shop-grid">
- <div class="container topfivenew" id="viewtopcategory<%=i%>"
-    onmouseover="mouseOver(<%=i%>)" onmouseout="mouseOut(<%=i%>)">
-     <h1>Product <b class="new<%=i%>" >New</b> For Category <%= v.name %></h1>
- </div>
- <% i= i + 1%>
- <br>
-     <div  class="container">
- <% Product.all.where("category_id = ?", v.id).order("id DESC").limit(3).each do |p|  %>
-
-        <div class="col-md-4 grid-stn simpleCart_shelfItem">
-            <!-- normal -->
-            <div class="ih-item square effect3 bottom_to_top">
-                <div class="bottom-2-top">
-                    <div class="img"><%= image_tag(p.images[0],class:"img-responsive gri-wid")%></div>
-                    <div class="info">
-                        <div class="pull-left styl-hdn">
-                            <h3><%= p.name %></h3>
-                        </div>
-                        <div class="pull-right styl-price">
-                            <p><a href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart"
-                                        aria-hidden="true"></span> <span class=" item_price">$<%= p.price %></span></a></p>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- end normal -->
-            <div class="quick-view">
-                    <%= link_to "Quick View", product_path(p) %>
-            </div>
-        </div>
- <% end %>
-     </div>
-             <div class="clearfix"></div>
-<% end %>
- </div>
- <!-- best liked -->
- <div class="shop-grid">
-   <div class="container topfivenew" id="viewtopcategory<%=i%>"
-      onmouseover="mouseOver(<%=i%>)" onmouseout="mouseOut(<%=i%>)">
-       <h1>Best <b class="new<%=i%>" >Liked</b> Product</h1>
-   </div>
-   <% i= i + 1%>
-   <br>
-       <div  class="container">
-   <% Product.all.order("liked DESC").limit(3).each do |pro|  %>
-
-          <div class="col-md-4 grid-stn simpleCart_shelfItem">
-              <!-- normal -->
-              <div class="ih-item square effect3 bottom_to_top">
-                  <div class="bottom-2-top">
-                      <div class="img"><%= image_tag(pro.images[0],class:"img-responsive gri-wid")%></div>
-                      <div class="info">
-                          <div class="pull-left styl-hdn">
-                              <h3><%= pro.name %></h3>
-                          </div>
-                          <div class="pull-right styl-price">
-                              <p><a href="#" class="item_add"><span class="glyphicon glyphicon-shopping-cart grid-cart"
-                                          aria-hidden="true"></span> <span class=" item_price">$<%= pro.price %></span></a></p>
-                          </div>
-                          <div class="clearfix"></div>
-                      </div>
-                  </div>
-              </div>
-              <!-- end normal -->
-              <div class="quick-view">
-                      <%= link_to "Quick View", product_path(pro) %>
-              </div>
+<!-- new product -->
+<div class="new-product mt-5">
+  <div class="container">
+    <h1 class="text-center">
+      <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">New Product</span>
+      <hr align="center" class="line mb-5"></hr>
+    </h1>
+    <div class="row mb-5">
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 001</p>
           </div>
-   <% end %>
-       </div>
-               <div class="clearfix"></div>
- </div>
-<script type="text/javascript">
-    function mouseOver(i) {
-      $(".new"+i).fadeOut(1000);
-    $(".new"+i).fadeIn("slow");
-}
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 002</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 003</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 004</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr/>
+  </div>
+</div>
 
-// function mouseOut(i) {
-//  $(".new"+i).fadeOut(1000);
-//     $(".new"+i).fadeIn("slow");
-// }
-
-// $( document ).ready(function() {
-
-       var newp = "<%= Category.all.count %>";
-       i = 0;
-       while(i < newp){
-           document.getElementsByClassName("new"+i)[0].style.color = "#be6565";
-        i++;
-       }
- 
-// })
-</script>
+<!-- best-product -->
+<div class="new-product mt-5">
+  <div class="container">
+    <h1 class="text-center">
+      <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">Best Sells</span>
+      <hr align="center" class="line mb-5"></hr>
+    </h1>
+    <div class="row mb-5">
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 001</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 002</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 003</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-lg-3 mb-5">
+        <div class="card" style="width: 100%; height: 16rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body">
+            <p class="card-text">Product 004</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
