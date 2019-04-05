@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 
 ruby '2.5.3'
+gem 'delayed_job_active_record'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'devise'

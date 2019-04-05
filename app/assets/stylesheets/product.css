@@ -22,4 +22,26 @@ textarea#product_description {
     border: rgba(0, 0, 0, 0.075);
     border-style: outset;
 }
+img#showlarge {
+    position: inherit;
+    width: 1200px;
+    /* text-align: center; */
+}
+.imageshow{
+    width: 1200px;
+}
+.prenex-image {
+    height: 120px;
+}
+.p-2 {
+    float: left;
+    padding: 0.5rem !important;
+}
+.image-list-show {
+    text-align: center;
+}
+.form-group.btn-center {
+    margin: te;
+    text-align: center;
+}
 

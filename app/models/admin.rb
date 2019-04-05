@@ -3,7 +3,7 @@ class Admin < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   #devise :database_authenticatable,:rememberable, :trackable, :timeoutable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable,:confirmable
+  :recoverable, :rememberable, :validatable
   has_many :messages
   # after_create :welcome_send
   # def welcome_send
