@@ -1,124 +1,176 @@
-<div class="products-gallery">
-    <div class="container">
-        <div class="col-md-9 grid-gallery">
-            <div class="col-md-12" style="min-height: 450px">
-            <% obj.each do |pro| %>
-            <div class="col-md-4 grid-stn simpleCart_shelfItem">
-                <!-- normal -->
-                <div class="ih-item square effect3 bottom_to_top">
-                    <div class="bottom-2-top">
-                        <div class="img">
-                            <% if pro.images.attached? %>
-                            <%= image_tag pro.images.first ,class: "img-responsive gri-wid" %>
-                             <% end %>
-                        </div>  
-                        <div class="info">
-                            <div class="pull-left styl-hdn">
-                                <h3><%= pro.name %></h3>
-                            </div>
-                            <div class="pull-right styl-price">
-                                <p><a href="#" class="item_add"><span
-                                            class="fa fa-shopping-cart grid-cart"
-                                            aria-hidden="true"></span> <span class=" item_price"><%= pro.price %> VND</span></a></p>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end normal -->
-                <div class="quick-view">
-                    <%= link_to "Quick View", product_path(pro) %>
-                </div>
+<div class="wrapper">
+  <div class="container">
+    <div class="row pt-5">
+      <div class="col-lg-9 col-sm-12">
+        <div class="row mb-5 border pt-2 justify-content-center">
+          <div class="col-lg-4 col-sm-12 float-right">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1" class="d-inline w-25">Show:</label>
+              <select class="form-control w-75 d-inline" id="exampleFormControlSelect1">
+                <option>8</option>
+                <option>12</option>
+                <option>16</option>
+                <option>20</option>
+              </select>
             </div>
-            <% end %>
+          </div>
+          <div class="col-lg-4 col-sm-12 float-right">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1" class="d-inline w-25">Sort by:</label>
+              <select class="form-control w-75 d-inline" id="exampleFormControlSelect1">
+                <option>Latest</option>
+                <option>Price (Low to High)</option>
+                <option>Price (High to Low)</option>
+                <option>Name (A -> Z)</option>
+                <option>Name (Z -> A)</option>
+              </select>
             </div>
-            <div class="clearfix"></div>
-            <div class="text-center"><%= will_paginate obj %></div>
+          </div>
         </div>
-        <div class="col-md-3 grid-details">
-            <div class="grid-addon">
-                <section class="sky-form">
-                    <div class="product_right">
-                        <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Categories
-                        </h4>
-                        <div class="tab1">
-                            <% Category.all.each do |cat| %>
-                            <h5 class="sort">
-                                <%= link_to cat.name, category_path(cat) %>
-                            </h5>
-                            <% end %>
-                        <!--script-->
-                        <script>
-                            $(document).ready(function () {
-                                $(".tab1 .single-bottom").hide();
-                                $(".tab2 .single-bottom").hide();
-                                $(".tab3 .single-bottom").hide();
-                                $(".tab4 .single-bottom").hide();
-                                $(".tab5 .single-bottom").hide();
-
-                                $(".tab1 ul").click(function () {
-                                    $(".tab1 .single-bottom").slideToggle(300);
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab5 .single-bottom").hide();
-                                })
-                                $(".tab2 ul").click(function () {
-                                    $(".tab2 .single-bottom").slideToggle(300);
-                                    $(".tab1 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab5 .single-bottom").hide();
-                                })
-                                $(".tab3 ul").click(function () {
-                                    $(".tab3 .single-bottom").slideToggle(300);
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab5 .single-bottom").hide();
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab1 .single-bottom").hide();
-                                })
-                                $(".tab4 ul").click(function () {
-                                    $(".tab4 .single-bottom").slideToggle(300);
-                                    $(".tab5 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab1 .single-bottom").hide();
-                                })
-                                $(".tab5 ul").click(function () {
-                                    $(".tab5 .single-bottom").slideToggle(300);
-                                    $(".tab4 .single-bottom").hide();
-                                    $(".tab3 .single-bottom").hide();
-                                    $(".tab2 .single-bottom").hide();
-                                    $(".tab1 .single-bottom").hide();
-                                })
-                            });
-                        </script>
-                        <!-- script -->
-                    </div>
-                </section>
-               
-                <!---->
-                <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-                <script type="text/javascript">//<![CDATA[ 
-                    $(window).load(function () {
-                        $("#slider-range").slider({
-                            range: true,
-                            min: 0,
-                            max: 400000,
-                            values: [2500, 350000],
-                            slide: function (event, ui) {
-                                $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-                            }
-                        });
-                        $("#amount").val("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
-
-                    });//]]>  
-
-                </script>
-                
+        <div class="row mb-5">
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
             </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 002</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+            <div class="card" style="width: 100%; height: 16rem">
+              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+              <a href="#" class="show_detail">View Detail</a>
+              <div class="card-body">
+                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
+                <p class="card-text d-inline product-price"><strong>$120</strong></p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
- 
+        <div class="row">
+          <div class="col-12">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>    
+      </div>       <!-- end col product-list -->
+          <div class="col-lg-3 col-sm-12 border">
+            <h5 class="d-block"><strong>Price Range</strong></h5>
+            <label for="customRange2">Example range</label>
+            <input type="range" class="custom-range" min="100" max="500" id="customRange2">
+            <h5 class="d-block mt-5"><strong>Categories</strong></h5>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Nike</a>
+                <span class="badge badge-primary badge-pill">12</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Adidas</a>
+                <span class="badge badge-primary badge-pill">50</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Converse</a>
+                <span class="badge badge-primary badge-pill">99</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Vans</a>
+                <span class="badge badge-primary badge-pill">99</span>
+              </li>
+            </ul>
+          </div>
+      </div>
+  </div>
+</div>      

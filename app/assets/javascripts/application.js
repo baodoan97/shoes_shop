@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require activestorage
+//= require jquery3
 //= require jquery2
 //= require jquery
 //= require jquery_ujs
