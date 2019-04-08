@@ -24,14 +24,14 @@ textarea#product_description {
 }
 img#showlarge {
     position: inherit;
-    width: 1200px;
+    width: 661px;
     /* text-align: center; */
 }
 .imageshow{
     width: 1200px;
 }
 .prenex-image {
-    height: 120px;
+    height: 50px;
 }
 .p-2 {
     float: left;
@@ -41,7 +41,36 @@ img#showlarge {
     text-align: center;
 }
 .form-group.btn-center {
-    margin: te;
     text-align: center;
 }
+.image-show-center{
+    text-align: center;
+}
+@media only screen and (max-width: 1178px) {
+img#showlarge {
+    position: inherit;
+    width: 461px;
+    /* text-align: center; */
+}
+}
+@media only screen and (max-width: 802px) {
+img#showlarge {
+    position: inherit;
+    width: 425px;
+    /* text-align: center; */
+}
+}
+.form-control-product-show{
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
+}
