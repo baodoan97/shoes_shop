@@ -1,7 +1,9 @@
+<br>
 <div class="container-fluid">
     <div class="row" >
-        <div class="col-md-8">
-            <div> <img id="showlarge" src=<%= url_for(@product.images.first) %> data-imagezoom="true" class="img-responsive" draggable="false">
+        <div class="col-md-7">
+            <div class="image-show-center">
+                <img id="showlarge" src=<%= url_for(@product.images.first) %> data-imagezoom="true" class="img-responsive" draggable="false">
             </div>
             <div class="image-list-show ">
                 <% i = 0 %>
@@ -11,7 +13,7 @@
                 <% end %>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="showcase-rt-top">
                 <div class="pull-left shoe-name">
                     <h3><%= @product.name%></h3>
@@ -42,11 +44,11 @@
             <div class="form-group btn-center">
                 <%= hidden_field_tag "product_id", [@product.id] %>
                 
-                <%= a.select :size,options_for_select((35..43).to_a, " "),{}, { :class => "form-control qnty-chrt" } %>
+                <%= a.select :size,options_for_select((35..43).to_a, " "),{}, { :class => "form-control-product-show qnty-chrt" } %>
                 <% if @product.quantity <= 10 %>
-                <%= a.select :quantity,options_for_select((1..@product.quantity.to_i).to_a, " " ),{}, { :class => "form-control qnty-chrt" } %>
+                <%= a.select :quantity,options_for_select((1..@product.quantity.to_i).to_a, " " ),{}, { :class => "form-control-product-show qnty-chrt" } %>
                 <% else %>
-                <%= a.select :quantity,options_for_select((1..10), " " ),{}, { :class => "form-control qnty-chrt" } %>
+                <%= a.select :quantity,options_for_select((1..10), " " ),{}, { :class => "form-control-product-show qnty-chrt" } %>
                 <% end %>
             </div>
             <div class="form-group">
@@ -62,7 +64,7 @@
         <div class="clearfix"></div>
     </div>
     <div class="showcase-last">
-        <h3>product details</h3>
+        <h3>Details</h3>
         <p><%= @product.description%></p>
     </div>
 </div>
@@ -70,13 +72,13 @@
 </div>
 </div>
 <script type="text/javascript">
-    var saveshow = "";
+var saveshow = "";
 function showpictrue(i)
 {
-  if(saveshow != "")
-  {
-    document.getElementById(saveshow).style.opacity = 1;
-  }
+if(saveshow != "")
+{
+document.getElementById(saveshow).style.opacity = 1;
+}
 var x = "show"+i;
 saveshow = x;
 document.getElementById(x).style.opacity = 0.3;

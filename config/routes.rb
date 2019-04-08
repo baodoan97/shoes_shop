@@ -44,8 +44,11 @@ end
   root 'pages#home'
    resource :carts
   get 'contacts', to: 'contacts#new'
-   get 'login', to: 'sessions#new'
-  get 'signup', to: 'users#new'
+  #  get 'login', to: 'sessions#new'
+  # get 'signup', to: 'users#new'
+  devise_scope :user do
+  get 'users/show', to: 'users/registrations#show'
+  end
   get 'users/signup'
   get 'errors/loi'
   

@@ -7,19 +7,15 @@
 @import "dataTables.jqueryui.min";
 @import "jquery.dataTables.min";
 @import "product";
+@import "user";
+@import "footer";
 
 *{
   font-family: time new roman, times, serif;
 }
 
-.logon {
-	width: 80%;
-}
-img.img {
-height: 15em;
-width: 15em;
-border-radius: 5em;
-}
+
+
 
 li {
     list-style-type: none;

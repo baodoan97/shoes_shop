@@ -48,6 +48,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
      self.resource = User.find(current_user.id)
     # respond_with self.resource
   end
+  def show
+    @user = current_user
+  end
 
   # PUT /resource
   def update
