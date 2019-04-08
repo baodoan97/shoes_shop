@@ -50,6 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   def show
     @user = current_user
+    @payments = Payment.all.where("user_id = ?",current_user.id).order("id DESC").paginate(page: params[:page], per_page: 1)
   end
 
   # PUT /resource
