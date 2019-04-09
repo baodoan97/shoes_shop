@@ -42,8 +42,9 @@ Rails.application.routes.draw do
 end
   #user
   root 'pages#home'
-   resource :carts
+  resource :carts
   get 'contacts', to: 'contacts#new'
+  get 'about', to: 'pages#about'
   #  get 'login', to: 'sessions#new'
   # get 'signup', to: 'users#new'
   devise_scope :user do

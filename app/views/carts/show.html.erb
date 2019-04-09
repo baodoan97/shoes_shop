@@ -1,65 +1,231 @@
+<!-- <div class="container pt-5">
+  <div class="row cart">
+    <div class="col-lg-9 col-md-8">
+      <div class="row border-bottom">
+        <h3>Your Shopping Bag (0)</h3>
+      </div>
+      <div class="row">
+        <div class="cart-item border-bottom">
+          <div class="row pt-2">
+            <div class="col-lg-2">
+              <%= image_tag "slide.jpg", style:"width: 100%; height: 150px" %>
+            </div>
+            <div class="col-lg-8 pl-3">
+              <p><strong>Product 001</strong></p>
+              <p>Size: 36</p>
+              <p>QTY: 1</p>
+              <p>Price: 200$</p>
+            </div>
+            <div class="col-lg-2">
+              <p>Total: 200$</p>
+            </div>
+          </div>
+        </div>
+        <div class="cart-item border-bottom">
+          <div class="row pt-2">
+            <div class="col-lg-2">
+              <%= image_tag "slide.jpg", style:"width: 100%; height: 150px" %>
+            </div>
+            <div class="col-lg-8 pl-3">
+              <p><strong>Product 001</strong></p>
+              <p>Size: 36</p>
+              <p>QTY: 1</p>
+              <p>Price: 200$</p>
+            </div>
+            <div class="col-lg-2">
+              <p>Total: 200$</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <div class="col-lg-3 col-md-4">
+        
+    </div> 
+  </div>
+</div>      -->
 
- <div class="check">
-                <div class="container">	 
-                    <div class="col-md-3 cart-total">
-                        <%= link_to 'Continue to Shopping', root_path, class: 'continue' %>
-                        <div class="price-details">
-                            <h3>Price Details</h3>
-                            <span>Total</span>
-                            <span class="total1"><%= @cart.total_price %></span>
-                            <span>Discount</span>
-                            <span class="total1">10%(Festival Offer)</span>
-                            <span>Delivery Charges</span>
-                            <span class="total1">150.00</span>
-                            <div class="clearfix"></div>				 
-                        </div>
-                        <hr class="featurette-divider">
-                        <ul class="total_price">
-                           <li class="last_price"> <h4>TOTAL</h4></li>	
-                           <li class="last_price"><span><%= @cart.total_price %></span></li>
-                           <div class="clearfix"> </div>
-                        </ul> 
-                        <div class="clearfix"></div>
-                        <%= link_to 'Place Order', new_payment_path, class: "order" %>
-                    </div>
-                    <div class="col-md-9 cart-items">
-                        <h1 id="countcart">My Shopping Bag (<%= @cart.cart_products.count if @cart != nil  %>)  </h1>
-                        
-                        <% i = 1 %>
-                        <% Cart.find(session[:cart_id]).cart_products.each do |item| %>
-                            <script>$(document).ready(function(c) {
-                                $('.close<%= i %>').on('click', function(c){
-                                    $('.cart-header<%= i if i > 1%>').fadeOut('slow', function(c){
-                                        $('.cart-header<%= i %>').remove();
-                                    });
-                                    });	  
-                                });
-                           </script>
-                            <div class="cart-header<%= i if i > 1 %>">
-                                <div class="close<%= i %>"><span  aria-hidden="true">  <%= link_to '<i class="fas fa-minus"></i>'.html_safe, cart_product_path(item), method: :delete, data: { confirm: "Delete this order?"} %></span></div>
-                                <% i = i + 1 %>
-                                <div class="cart-sec simpleCart_shelfItem">
-                                    <div class="cart-item cyc">
-                                       <%= image_tag Product.find(item['product_id']).images.first ,class: "img-responsive" %>
-                                    </div>
-                                    <div class="cart-item-info">
-                                        <ul class="qty">
-                                            <li><p>Product name:  <%= Product.find(item['product_id']).name %></p></li>
-                                            <li><p>Size: <%= item['size'] %></p></li>
-                                            <li><p>Qty: <%= item['quantity'] %></p></li>
-                                            <li><p>Price: $<%= item['price'] %></p></li>
-                                            <li><p>Total: $<%= item['price'].to_f * item['quantity'].to_i %></p></li>
-                                        </ul>
-                                        <div class="delivery">
-                                            <p>Service Charges : Rs.190.00</p>
-                                            <span>Delivered in 2-3 bussiness days</span>
-                                            <div class="clearfix"></div>
-                                        </div>	
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                             </div>
-                         <% end %>
-                    </div>
-                    <div class="clearfix"> </div>
-                </div>
+<!-- <div class="container">
+  <table class="mt-5 w-100 table table-hover">
+    <thead>
+      <tr class="d-flex">
+        <th class="col-5">Product</th>
+        <th class="col-2">QTY</th>
+        <th class="col-2">Unit Price</th>      
+        <th class="col-2">Sub Total</th>
+        <th class="col-1"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="d-flex">
+        <td class="col-5">
+          <%= image_tag "slide.jpeg", style: "width: 120px; height:120px" %>
+          <p class="d-inline"><strong>Product 001</strong></p>
+        </td>
+        <td class="col-2">5 columns wide content</td>
+        <td class="col-2">4 columns wide content</td>
+        <td class="col-2">4 columns wide content</td>
+        <td class="col-1">
+          <a href="#"><i class="fas fa-times fa-2x" style="color: red"></i></a>
+        </td>  
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <table class="table table-hover w-100 mt-5">
+        <thead>
+          <tr>
+              <th>Product</th>
+              <th>Size</th>
+              <th>Quantity</th>
+              <th class="text-center">Unit Price</th>
+              <th class="text-center">Sub Total</th>
+              <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td class="col-md-4">
+              <div class="media">
+                  <a class="thumbnail pull-left" href="#"> 
+                    <%= image_tag "slide.jpeg", class:"media-object", style:"width: 150px; height: 150px" %>
+                  </a>
+                  <div class="media-body">
+                      <h4 class="media-heading"><a href="#">Product 001</a></h4>
+                      <h5 class="media-heading"><a href="#">Brand name</a></h5>
+              </div>
+              </td>
+              <td class="col-md-2" style="text-align: center">
+              <input type="email" class="form-control" id="exampleInputEmail1" value="35">
+              </td>
+              <td class="col-md-2" style="text-align: center">
+              <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+              </td>
+              <td class="col-md-2 text-center"><strong>$4.87</strong></td>
+              <td class="col-md-1 text-center"><strong>$14.61</strong></td>
+              <td class="col-md-1">
+              <button type="button" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-remove"></span> Remove
+              </button></td>
+          </tr>
+          <tr>
+              <td class="col-md-4">
+              <div class="media">
+                  <a class="thumbnail pull-left" href="#"> 
+                    <%= image_tag "slide.jpeg", class:"media-object", style:"width: 150px; height: 150px" %>
+                  </a>
+                  <div class="media-body">
+                      <h4 class="media-heading"><a href="#">Product name</a></h4>
+                      <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
+                  </div>
+              </div></td>
+              <td class="col-md-2" style="text-align: center">
+              <input type="email" class="form-control" id="exampleInputEmail1" value="35">
+              </td>
+              <td class="col-md-2" style="text-align: center">
+              <input type="email" class="form-control" id="exampleInputEmail1" value="2">
+              </td>
+              <td class="col-md-2 text-center"><strong>$4.99</strong></td>
+              <td class="col-md-1 text-center"><strong>$9.98</strong></td>
+              <td class="col-md-1">
+              <button type="button" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-remove"></span> Remove
+              </button></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+              <td>   </td>
+              <td>   </td>
+              <td>   </td>
+              <td><h5>Subtotal<br>Estimated shipping</h5><h3>Total</h3></td>
+              <td class="text-right"><h5><strong>$24.59<br>$6.94</strong></h5><h3>$31.53</h3></td>
+          </tr>
+          <tr>
+              <td>   </td>
+              <td>   </td>
+              <td>   </td>
+              <td>
+              <button type="button" class="btn btn-secondary"> Continue Shopping
+              </button></td>
+              <td>
+              <button type="button" class="btn btn-success">
+                  Checkout <span class="glyphicon glyphicon-play"></span>
+              </button></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="cart">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-lg-9 col-md-6">
+        <h3>Your Shopping Bag(2)</h3>
+        <div class="cart-item-list border-top pt-4">
+          <div class="row cart-item m-0">
+            <div class="col-lg-2 p-0">
+              <%=image_tag "slide.jpeg", style:"width:100%; height:150px" %>
+            </div>
+            <div class="col-lg-4">
+              <h5><strong>Product 001</strong></h5>
+              <p class="badge badge-primary">Brand</p>
+              <p><span>Lorem ipsum basdaslklzcxz asdadasdadasdsadsads</span></p>
+              <p>Size: 42</p>
+            </div>
+            <div class="col-lg-1 p-0">
+              <p>QTY: 2</p>
+            </div>
+            <div class="col-lg-2">
+              <p>Price: 42$</p>
+            </div>
+            <div class="col-lg-2 p-0">
+              <p>SubTotal: 42$</p>
+            </div>
+            <div class="col-lg-1 p-0">
+              <a href="#" class="btn btn-danger"><i class="fas fa-times"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="cart-item-list border-top pt-4">
+          <div class="row cart-item m-0">
+            <div class="col-lg-2 p-0">
+              <%=image_tag "slide.jpeg", style:"width:100%; height:150px" %>
+            </div>
+            <div class="col-lg-4">
+              <h5><strong>Product 002</strong></h5>
+              <p class="badge badge-primary">Brand</p>
+              <p><span>Lorem ipsum basdaslklzcxz asdadasdadasdsadsads</span></p>
+              <p>Size: 42</p>
+            </div>
+            <div class="col-lg-1 p-0">
+              <p>QTY: 3</p>
+            </div>
+            <div class="col-lg-2">
+              <p>Price: 42$</p>
+            </div>
+            <div class="col-lg-2 p-0">
+              <p>SubTotal: 42$</p>
+            </div>
+            <div class="col-lg-1 p-0">
+              <a href="#" class="btn btn-danger"><i class="fas fa-times"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 border-left">
+        <h3>ORDER SUMMARY</h3>
+        <p class="pt-4 border-top">Total: 100$</p>
+        <h4 class ="border-top">TOTAL: 100$ </h4>
+        <a href="#" class="btn btn-dark w-100">PROCEED TO CHECKOUT</a>
+      </div>
+    </div>
+  </div>
+</div>

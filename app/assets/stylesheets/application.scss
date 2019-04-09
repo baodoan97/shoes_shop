@@ -14,6 +14,12 @@
   font-family: time new roman, times, serif;
 }
 
+body{
+  overflow-x:hidden;
+  padding:0;
+  margin:0;
+  background: rgba(247, 247, 247, 0.51);
+}
 
 
 
@@ -123,7 +129,7 @@ li {
   padding: 10px 20px;
   font-size: 15px;
   font-weight: bold;
-  background-color: #000000;
+  background-color: rgba(13, 14, 23, .7);
   color: white;
 }
 
@@ -140,7 +146,7 @@ li {
 .show_detail:hover{
   font-size:16px;
   color: white;
-  background-color: purple
+  background-color: #000000
 }
 
 .card-text{
@@ -156,14 +162,14 @@ li {
 
 .carousel-item {
   width: 100%;
-  height: 500px;
+  height: 600px;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .carousel-item .image{
   width: 100%;
-  height: 500px;
+  height: 600px;
 }
 
 .creator{
@@ -224,7 +230,7 @@ footer hr{
 }
 
 .overlay{
-  background: rgba(0, 0, 0, .7);
+  background: rgba(13, 14, 23, .7);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -255,4 +261,8 @@ footer hr{
 
 #news .btn{
   width:100%;
+}
+
+.cart-item:hover{
+  background: rgba(7, 1, 3, .6)
 }
