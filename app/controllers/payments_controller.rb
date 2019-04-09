@@ -1,4 +1,11 @@
 class PaymentsController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
+  def paymentdetail
+
+    @payment_items = PaymentItem.find_by(payment_id: params[:payment][:payment_id])
+  end
+
 	def new
 		if current_cart.cart_products.size == 0
     	redirect_to '/', :notice => 'Your cart is empty'
@@ -71,6 +78,8 @@ class PaymentsController < ApplicationController
       end
     end
   end
+
+
 
     private
     def payment_params

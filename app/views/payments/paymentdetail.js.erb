@@ -1,0 +1,12 @@
+// 	
+var table = $('<table>').addClass('foo');
+for(i=0; i<3; i++){
+    var row = $('<tr>').append("<td><%= @payment_items.product_id %></td><td><%= @payment_items.quantity %></td><td><%= @payment_items.size %></td><td><%= @payment_items.price %></td> ");
+    // var col = 
+    table.append(row);
+}
+$('#showdetail'+'<%=@payment_items.payment_id%>').css("display", "block");
+$('#showdetail'+'<%=@payment_items.payment_id%>').append(table);
+$('#btn'+'<%=@payment_items.payment_id%>').attr('value', 'x');
+$( '#btn'+'<%=@payment_items.payment_id%>' ).removeClass( "btn-primary" );
+$( '#btn'+'<%=@payment_items.payment_id%>' ).addClass( "btn-danger" );

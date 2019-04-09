@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :places
     post 'places/changestatus', to: 'places#changestatus'
-
+   post 'payments/paymentdetail', to: 'payments#paymentdetail'  
   #resources :categories
   #get 'admins/categories', to: 'categories#index'
   root 'pages#home'
