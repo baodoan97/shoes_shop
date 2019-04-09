@@ -2,6 +2,13 @@
 <!-- Links -->
   <ul class="navbar-nav ml-auto">
     <li>
+      <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>
+            <div class="showdetailcart"  >
+           
+            </div>
+      </a>
+    </li>
+    <li>
       <a class="nav-link" href="#">Sign up</a>
     </li>
     <span class="navbar-text">
@@ -46,3 +53,39 @@
     </div>
   </div>
 </nav>
+
+<% if session[:cart_id] != nil %>
+<script type="text/javascript">
+     var flag = false;
+  $(".fa-shopping-cart").hover(function(){
+       if (!flag){
+       flag = true;
+       var table = $('<table>').addClass('foo');
+        "<% Cart.find(session[:cart_id]).cart_products.each do |item| %>"
+            var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= Product.find(item['product_id']).name %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
+            table.append(row);
+        "<% end %>"
+      $('.showdetailcart').append(table);
+       $('.showdetailcart').css("display", "block");
+      }
+      else{
+        $('.showdetailcart').css("display", "block");
+      }
+});
+
+
+
+
+  $(".showdetailcart").hover(function(){
+    $('.showdetailcart').css("display", "block");
+  });
+  $(".showdetailcart").mouseout(function(){
+    $('.showdetailcart').css("display", "none");
+  });
+ $(".showdetailcart").mouseover(function(){
+ $('.showdetailcart').css("display", "block");
+});
+
+
+</script>
+<% end %>

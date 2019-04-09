@@ -25,37 +25,64 @@
       <tr>
         <th colspan="3" class="showprofile ">Email : <%= @user.email %></th>
       </tr>
-       <tr>
+      <tr>
         <th colspan="3" class="showprofile "><%= link_to "Edit Profile",edit_user_registration_path,class: "btn btn-primary"  %></th>
       </tr>
     </tbody>
   </table>
 </div>
 <div class="container">
-	  <table class="table">
+  <h1 >History payment</h1>
+  <table class="table">
     <thead class="thead-light">
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Pay type</th>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
+      <% @payments.each do |k| %>
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+        <td><%= k.phone %> </td>
+        <td><%= k.address %></td>
+        <td><%= k.status %></td>
+        <td><%= k.pay_type %></td>
+        <td id=<%=k.id%> >
+          <input id=btn<%= k.id %> class="btn btn-primary" onclick="showdetailpayment(<%= k.id %>);" type="button" value="Detail">
+            <div class="showdetail " id=showdetail<%=k.id %> >
+           
+            </div>
+        </td>
       </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
+  <div class="showhistorypayments ">
+    <%= will_paginate @payments , renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+  </div>
 </div>
+<script type="text/javascript">
+function showdetailpayment(v) {
+    if($('#btn'+v).val() == "x")
+    {     
+        $('#showdetail'+v).css("display", "none");
+         $('#showdetail'+v).empty();
+        $('#showdetail'+v).css("display", "none");
+         $('#btn'+v).attr('value', 'Detail');
+        $( '#btn'+v ).removeClass( "btn-danger" );
+        $( '#btn'+v ).addClass(  "btn-primary");
+    }
+    else{
+       $.ajax({
+    url: "/payments/paymentdetail",
+    type: "post",
+    dataType: "script",
+    data: { payment: {"payment_id": v}}
+    });
+    }
+   
+}
+</script>

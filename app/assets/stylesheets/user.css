@@ -29,3 +29,35 @@ th.showprofile {
     border-top: 1px solid #dee2e6;
     border-top-style: dashed;
 }
+.showdetail{
+	position: absolute;
+    /* bottom: 40px; */
+    /* right: 20px; */
+    z-index: 999;
+/*    width: 100%;
+*/    background: #dddddd;
+/*    left: 61%;*/
+    overflow-y: scroll;
+    height: 18%;
+}
+.showdetail{
+	display: none;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
