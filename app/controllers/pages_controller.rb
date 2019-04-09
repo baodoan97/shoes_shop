@@ -7,4 +7,8 @@ class PagesController < ApplicationController
         #debugger
         @contact = Contact.new
     end
+
+    def about
+
+    end
 end
