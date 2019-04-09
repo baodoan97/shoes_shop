@@ -40,6 +40,7 @@
         <th>Address</th>
         <th>Status</th>
         <th>Pay type</th>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
@@ -49,11 +50,39 @@
         <td><%= k.address %></td>
         <td><%= k.status %></td>
         <td><%= k.pay_type %></td>
+        <td id=<%=k.id%> >
+          <input id=btn<%= k.id %> class="btn btn-primary" onclick="showdetailpayment(<%= k.id %>);" type="button" value="Detail">
+            <div class="showdetail " id=showdetail<%=k.id %> >
+           
+            </div>
+        </td>
       </tr>
       <% end %>
     </tbody>
   </table>
   <div class="showhistorypayments ">
-  <%= will_paginate @payments , renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+    <%= will_paginate @payments , renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+  </div>
 </div>
-</div>
+<script type="text/javascript">
+function showdetailpayment(v) {
+    if($('#btn'+v).val() == "x")
+    {     
+        $('#showdetail'+v).css("display", "none");
+         $('#showdetail'+v).empty();
+        $('#showdetail'+v).css("display", "none");
+         $('#btn'+v).attr('value', 'Detail');
+        $( '#btn'+v ).removeClass( "btn-danger" );
+        $( '#btn'+v ).addClass(  "btn-primary");
+    }
+    else{
+       $.ajax({
+    url: "/payments/paymentdetail",
+    type: "post",
+    dataType: "script",
+    data: { payment: {"payment_id": v}}
+    });
+    }
+   
+}
+</script>
