@@ -60,9 +60,12 @@
   $(".fa-shopping-cart").hover(function(){
        if (!flag){
        flag = true;
+
        var table = $('<table>').addClass('foo');
+              var row = $('<tr>').append("<td></td><td>Name</td><td>Size</td><td>Quantity</td>");
+       table.append(row);
         "<% Cart.find(session[:cart_id]).cart_products.each do |item| %>"
-            var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= Product.find(item['product_id']).name %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
+            var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= truncate(Product.find(item['product_id']).name,length: 5) %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
             table.append(row);
         "<% end %>"
       $('.showdetailcart').append(table);
@@ -74,7 +77,7 @@
 });
 
 
-
+  $('table').css("border", "#DCDCDC solid 1px");
 
   $(".showdetailcart").hover(function(){
     $('.showdetailcart').css("display", "block");

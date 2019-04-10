@@ -1,14 +1,17 @@
 .showdetailcart {
        position: absolute;
     /* bottom: 40px; */
-    /* right: 20px; */
+     right: -6px; 
     z-index: 999;
-    width: 18%;
-    background: #dddddd;
-    left: 82%;
+    // width: 18%;
+    background: #fafafa3d;
+    left: auto;
     overflow-y: scroll;
-    line-height: 11px;
+        line-height: 16px;
 }
 img.cartnavdropdow {
     height: 32px;
+}
+.foo td{
+    border: 0.8px solid #c7c7c752;
 }
