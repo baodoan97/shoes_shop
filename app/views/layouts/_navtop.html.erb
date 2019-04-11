@@ -1,32 +1,23 @@
-<nav class="navbar navbar-expand-lg bg-light navbar-light" style="height:30px">
-<!-- Links -->
-  <ul class="navbar-nav ml-auto">
-    <li>
-      <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i>
-            <div class="showdetailcart"  >
-           
-            </div>
-      </a>
-    </li>
-    <li>
-      <a class="nav-link" href="#">Sign up</a>
-    </li>
-    <span class="navbar-text">
-    /
-    </span>
-    <li>
-      <a class="nav-link" href="#">Sign in</a>
-    </li>
-  </ul>
-  <!-- Navbar text-->
-  
-</nav>
-
+<div class="topnav " id="myTopnav">
+  <% if user_signed_in? %>
+     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>   
+   <%= link_to current_user.firstname,users_show_path  %>
+  <% else %>
+  <%= link_to "Sign In",new_user_session_path  %>
+  <%= link_to "Sign Up",new_user_registration_path  %>
+  <% end %>
+  <%= link_to carts_path do %>
+   <i class="fas fa-shopping-cart"></i>
+   <div class="showdetailcart"  >
+    </div>
+  <% end %>
+  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunctionnav()">&#9776;</a>
+</div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <%= link_to 'N-AIR SHOP', root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav m-auto">
@@ -34,15 +25,15 @@
           <%= link_to 'Home', root_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown mr-3">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Shop
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <% Category.all.each do |cat| %>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Shop
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% Category.all.each do |cat| %>
             <%= link_to cat.name, category_path(cat), class:"dropdown-item" %>
-          <% end %>
-        </div>
-      </li>
+            <% end %>
+          </div>
+        </li>
         <li class="nav-item mr-3">
           <a class="nav-link" href="#">About</a>
         </li>
@@ -53,42 +44,45 @@
     </div>
   </div>
 </nav>
-
 <% if session[:cart_id] != nil %>
 <script type="text/javascript">
-     var flag = false;
-  $(".fa-shopping-cart").hover(function(){
-       if (!flag){
-       flag = true;
-
-       var table = $('<table>').addClass('foo');
-              var row = $('<tr>').append("<td></td><td>Name</td><td>Size</td><td>Quantity</td>");
-       table.append(row);
-        "<% Cart.find(session[:cart_id]).cart_products.each do |item| %>"
-            var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= truncate(Product.find(item['product_id']).name,length: 5) %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
-            table.append(row);
-        "<% end %>"
-      $('.showdetailcart').append(table);
-       $('.showdetailcart').css("display", "block");
-      }
-      else{
-        $('.showdetailcart').css("display", "block");
-      }
-});
-
-
+var flag = false;
+$(".fa-shopping-cart").hover(function(){
+if (!flag){
+flag = true;
+var table = $('<table>').addClass('foo');
+  var row = $('<tr>').append("<td></td><td>Name</td><td>Size</td><td>Quantity</td>");
+  table.append(row);
+  "<% Cart.find(session[:cart_id]).cart_products.each do |item| %>"
+  var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= truncate(Product.find(item['product_id']).name,length: 5) %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
+  table.append(row);
+  "<% end %>"
+  $('.showdetailcart').append(table);
+  $('.showdetailcart').css("display", "block");
+  }
+  else{
+  $('.showdetailcart').css("display", "block");
+  }
+  });
   $('table').css("border", "#DCDCDC solid 1px");
-
   $(".showdetailcart").hover(function(){
-    $('.showdetailcart').css("display", "block");
+  $('.showdetailcart').css("display", "block");
   });
   $(".showdetailcart").mouseout(function(){
-    $('.showdetailcart').css("display", "none");
+  $('.showdetailcart').css("display", "none");
   });
- $(".showdetailcart").mouseover(function(){
- $('.showdetailcart').css("display", "block");
-});
-
-
-</script>
-<% end %>
+  $(".showdetailcart").mouseover(function(){
+  $('.showdetailcart').css("display", "block");
+  });
+  </script>
+  <% end %>
+  <script type="text/javascript">
+  function myFunctionnav() {
+  var z = document.getElementById("myTopnav");
+  if (z.className === "topnav") {
+  z.className += " responsive";
+  } else {
+  z.className = "topnav";
+  }
+  }
+  </script>
