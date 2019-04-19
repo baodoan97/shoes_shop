@@ -41,12 +41,14 @@
 					<td>
 						<%= v.pay_type %>
 					</td>
-					<td>
-						<%= select_tag "status", options_for_select(Payment.statuses.to_h , :selected => Payment.statuses[v.status] ) ,{ :onchange => "changeon(#{v.id},this.value);"} %>
-						
+					<td id="<%= v.id %>">
+						<%= v.status %>
 					</td>
 					<td class="changestatus" id=change<%=v.id %> >
-						<%= link_to "Change","#",{ :onclick => "update_status(#{v.id});" ,:remote=>true }  %>
+						<%= link_to "Change","#",{ :onclick => "update_status(#{v.id});" ,:remote=>true, :class => 'btn btn-primary' } %>
+					</td>
+					<td>
+						<%= link_to "Cancel", admins_payments_cancel_payment_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-danger'%>
 					</td>
 				</tr>
 			</tbody>
@@ -58,20 +60,21 @@
 </div>
 <script type="text/javascript">
 	  var i = 0;
-	  function changeon(id,e)
-	  {  
-           var x = "change"+id;
-           i = e;
-           document.getElementById(x).style.display = "block";
-	  }
+	  // function changeon(id,e)
+	  // {  
+   //         var x = "change"+id;
+   //         i = e;
+   //         document.getElementById(x).style.display = "block";
+	  // }
 	function update_status(id) {
+			var status = 	$("#"+id).text();
 		$.ajax({
       url: "payments/changestatus",
       type: "get",
       dataType: "script",
-      data: { payment:{"status": i, "id" : id}}
+      data: { payment:{"status": status.trim(), "id" : id}}
     });
-       var x = "change"+id;
-       document.getElementById(x).style.display = "none";
+       // var x = "change"+id;
+       // document.getElementById(x).style.display = "none";
 	}
 </script>

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/admins/homepage', to:'admins#homepage'
  # get '/admins/statistics', to:'manages#index'
   
+
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
@@ -30,13 +31,14 @@ Rails.application.routes.draw do
 
   namespace :admins do
      get 'payments/changestatus', to: 'payments#changestatus'
-    resources :payments
+    resources :payments, except: [:update]
     resources :vouchers
     resources :messages 
     resources :products
     resources :categories
     resources :users
     resources :manages
+    put 'payments/cancel_payment', to: 'payments#cancel_payment'
   end
 
 end
