@@ -1,15 +1,15 @@
 <div class="topnav " id="myTopnav">
   <% if user_signed_in? %>
-     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>   
-   <%= link_to current_user.firstname,users_show_path  %>
+  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  <%= link_to current_user.firstname,users_show_path  %>
   <% else %>
   <%= link_to "Sign In",new_user_session_path  %>
   <%= link_to "Sign Up",new_user_registration_path  %>
   <% end %>
   <%= link_to carts_path do %>
-   <i class="fas fa-shopping-cart"></i>
-   <div class="showdetailcart"  >
-    </div>
+  <i class="fas fa-shopping-cart"></i>
+  <div class="showdetailcart"  >
+  </div>
   <% end %>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunctionnav()">&#9776;</a>
 </div>
@@ -21,9 +21,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav m-auto">
-        <li class="nav-item mr-3 active">
-          <%= link_to 'Home', root_path, class: "nav-link" %>
-        </li>
         <li class="nav-item dropdown mr-3">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Shop
@@ -44,7 +41,7 @@
     </div>
   </div>
 </nav>
-<% if session[:cart_id] != nil %>
+<% if session[:cart_id] != nil && Cart.find(session[:cart_id]).cart_products.count > 0 %>
 <script type="text/javascript">
 var flag = false;
 $(".fa-shopping-cart").hover(function(){
@@ -85,4 +82,9 @@ var table = $('<table>').addClass('foo');
   z.className = "topnav";
   }
   }
+  window.addEventListener("click", function(){
+         if (!event.target.matches('.showdetailcart')){
+           $('.showdetailcart').css("display", "none");
+         }
+    });
   </script>
