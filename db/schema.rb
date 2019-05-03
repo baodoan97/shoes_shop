@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_19_060341) do
+ActiveRecord::Schema.define(version: 2019_05_02_110019) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -158,13 +158,17 @@ ActiveRecord::Schema.define(version: 2019_04_19_060341) do
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 10
-    t.integer "quantity"
     t.string "description"
-    t.integer "size"
     t.integer "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "liked", default: 0
+  end
+
+  create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "size"
+    t.integer "quantity"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
