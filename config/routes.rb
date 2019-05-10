@@ -15,19 +15,18 @@ Rails.application.routes.draw do
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
-    #root'admins#homepage'
+  #   #root'admins#homepage'
     resources :admins
 
-    # resources :products
+  #   # resources :products
 
-    #resource :manages 
-    #resources :statistics
-    #resources :layouts
-    #delete 'admins/sign_out',to: 'sessions#destroy'
+  #   #resource :manages 
+  #   #resources :statistics
+  #   #resources :layouts
+  #   #delete 'admins/sign_out',to: 'sessions#destroy'
 
   end
 
-  resources :charges
 
   namespace :admins do
      get 'payments/changestatus', to: 'payments#changestatus'

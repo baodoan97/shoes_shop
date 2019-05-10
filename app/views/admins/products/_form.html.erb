@@ -16,7 +16,7 @@
 		<p style="padding:2px">Name</p>
 		<%= f.text_field :name, class: 'form-control',placeholder: "Product Name",maxlength:"30",minlength:"3",required:"required"%><br>
 		<p style="padding:2px">Price</p>
-		<%= f.text_field :name, type: "number", class: 'form-control',placeholder: "Price",required:"required"%><br>
+		<%= f.text_field :price, type: "number", class: 'form-control',placeholder: "Price",required:"required"%><br>
 		<p style="padding:2px">Category</p>
 		<%= f.collection_select(:category,Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %><br>
 		<%= f.fields_for :stocks do |stock| %>
