@@ -1,176 +1,19 @@
-<div class="wrapper mb-3">
-  <div class="container">
-    <div class="row pt-5">
-      <div class="col-lg-9 col-sm-12">
-        <div class="row mb-5 border pt-2 justify-content-center">
-          <div class="col-lg-4 col-sm-12 float-right">
-            <div class="form-group">
-              <label for="exampleFormControlSelect1" class="d-inline w-25">Show:</label>
-              <select class="form-control w-75 d-inline" id="exampleFormControlSelect1">
-                <option>8</option>
-                <option>12</option>
-                <option>16</option>
-                <option>20</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-4 col-sm-12 float-right">
-            <div class="form-group">
-              <label for="exampleFormControlSelect1" class="d-inline w-25">Sort by:</label>
-              <select class="form-control w-75 d-inline" id="exampleFormControlSelect1">
-                <option>Latest</option>
-                <option>Price (Low to High)</option>
-                <option>Price (High to Low)</option>
-                <option>Name (A -> Z)</option>
-                <option>Name (Z -> A)</option>
-              </select>
-            </div>
-          </div>
+<div class="row mb-5">
+  <% obj.each do |product| %>
+    <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
+      <div class="card" style="width: 100%; height: 18rem">
+        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+        <a href="#" class="show_detail">View Detail</a>
+        <div class="card-body">
+          <p class="card-text d-inline product-name"><strong><%= product.name %></strong></p>
+          <p class="card-text d-inline product-price"><strong>$<%= product.price %></strong></p>
         </div>
-        <div class="row mb-5">
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 002</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-            <div class="card" style="width: 100%; height: 16rem">
-              <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-              <a href="#" class="show_detail">View Detail</a>
-              <div class="card-body">
-                <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
-                <p class="card-text d-inline product-price"><strong>$120</strong></p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>    
-      </div>       <!-- end col product-list -->
-          <div class="col-lg-3 col-sm-12 border">
-            <h5 class="d-block"><strong>Price Range</strong></h5>
-            <label for="customRange2">Example range</label>
-            <input type="range" class="custom-range" min="100" max="500" id="customRange2">
-            <h5 class="d-block mt-5"><strong>Categories</strong></h5>
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="#" class="cat-item">Nike</a>
-                <span class="badge badge-primary badge-pill">12</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="#" class="cat-item">Adidas</a>
-                <span class="badge badge-primary badge-pill">50</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="#" class="cat-item">Converse</a>
-                <span class="badge badge-primary badge-pill">99</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="#" class="cat-item">Vans</a>
-                <span class="badge badge-primary badge-pill">99</span>
-              </li>
-            </ul>
-          </div>
       </div>
+    </div>
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-12" id="paginate">
+    <%= will_paginate obj %>
   </div>
-</div>      
+</div> 

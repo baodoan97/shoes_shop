@@ -23,7 +23,6 @@ class Admins::ProductsController < BaseController
     @product.stocks.new
   end
     def create
-    	debugger
 		paPRODUCT = {
         	 "name" => product_params[:name],
         	 "price" => product_params[:price],

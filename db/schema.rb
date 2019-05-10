@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_02_110019) do
+ActiveRecord::Schema.define(version: 2019_05_06_115302) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -50,28 +50,12 @@ ActiveRecord::Schema.define(version: 2019_05_02_110019) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "bill_details", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "bill_id"
-    t.integer "product_id"
-    t.integer "quantity"
-    t.decimal "price", precision: 10
-    t.decimal "subtotal", precision: 10
-  end
-
-  create_table "bills", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "user_id"
-    t.decimal "total", precision: 10
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "cart_products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "product_id"
     t.decimal "price", precision: 10
     t.integer "size"
     t.integer "quantity"
     t.integer "cart_id"
-    t.integer "pay_id"
   end
 
   create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
