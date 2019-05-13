@@ -20,35 +20,32 @@ class Admins::ProductsController < BaseController
 
   def new
     @product = Product.new
+    @product.stocks.new
   end
     def create
-    	# debugger
 		paPRODUCT = {
         	 "name" => product_params[:name],
         	 "price" => product_params[:price],
-        	 "quantity" => product_params[:quantity],
+           "stocks_attributes" => product_params[:stocks_attributes],
         	 "description" => product_params[:description],
-        	 "size" => product_params[:size].to_i
          }
 			@product = Product.new(paPRODUCT)
 			#	debugger
 		  @product.category = Category.find(params[:product][:category].to_i)
              # debugger
         if params[:product][:images] == nil
-            
            return
         end
         @product.images.attach(params[:product][:images])
 				#debugger
         if @product.save
 	        flash[:success] = "Product was created successfully"
-	       
-			redirect_to admins_products_path
+    			redirect_to admins_products_path
 			# debugger
-		else
-			render 'products/new'
-		end
-	end
+    		else
+    			render 'products/new'
+    		end
+    	end
 
 	def edit
 		
@@ -58,9 +55,8 @@ class Admins::ProductsController < BaseController
        paPRODUCT = {
         	 "name" => product_params[:name],
         	 "price" => product_params[:price],
-        	 "quantity" => product_params[:quantity],
+        	 "stocks" => product_params[:quantity],
         	 "description" => product_params[:description],
-        	 "size" => product_params[:size].to_i
          }
          @product.category = Category.find(params[:product][:category].to_i)
       	if params[:product][:images] != nil 
@@ -84,7 +80,7 @@ class Admins::ProductsController < BaseController
     	private
 
 	def product_params     
-		params.require(:product).permit(:name, :price, :quantity, :description, :size)
+		params.require(:product).permit(:name, :price, :description, :category_id, stocks_attributes: [:size, :quantity, :_destroy])
 	end
     
 	def set_product

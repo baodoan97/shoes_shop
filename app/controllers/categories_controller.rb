@@ -1,15 +1,32 @@
 class CategoriesController < ApplicationController
   #layout 'layouts/adminshome'
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show]
   #include ActiveModel::AttributeMethods
   # GET /categories
   # GET /categories.json
   
   def show
-    @product = @category.products.where("quantity > 0")
-    @product = @product.paginate(page: params[:page], per_page: 3)
+    if params[:sort] && params[:show]
+      case params[:sort]
+      when "1"
+        @products = @category.products.order(id: :desc).paginate(page: params[:page], per_page: params[:show])
+      when "2"
+        @products = @category.products.order(:price).paginate(page: params[:page], per_page: params[:show])
+      when "3"
+        @products = @category.products.order(price: :desc).paginate(page: params[:page], per_page: params[:show])
+      when "4"
+        @products = @category.products.order(:name).paginate(page: params[:page], per_page: params[:show])
+      else
+        @products = @category.products.order(name: :desc).paginate(page: params[:page], per_page: params[:show])
+      end
+    else
+      @products = @category.products.order(id: :desc).paginate(page: params[:page], per_page: 8)
+    end
+    respond_to do |format|
+      format.html 
+      format.js   
+    end
   end
-
   # GET /categories/new
   
 
@@ -24,7 +41,7 @@ class CategoriesController < ApplicationController
       else
         redirect_to root_path
         flash[:danger] = "Category with ID = #{params[:id]} is not exist"
-    end 
+      end 
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

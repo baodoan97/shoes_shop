@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
 	#associate
-    
+    has_many :stocks, dependent: :destroy
+    accepts_nested_attributes_for :stocks, allow_destroy: true, reject_if: :all_blank
 	has_many_attached :images
 	belongs_to :category, optional: true
 	has_many :cart_products

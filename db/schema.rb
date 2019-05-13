@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_05_13_050115) do
+
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -50,21 +52,6 @@ ActiveRecord::Schema.define(version: 2019_05_13_050115) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "bill_details", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "bill_id"
-    t.integer "product_id"
-    t.integer "quantity"
-    t.decimal "price", precision: 10
-    t.decimal "subtotal", precision: 10
-  end
-
-  create_table "bills", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "user_id"
-    t.decimal "total", precision: 10
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "cart_products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "product_id"
     t.decimal "price", precision: 10
@@ -73,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_05_13_050115) do
     t.integer "cart_id"
     t.integer "pay_id"
     t.string "temp_cart"
+
   end
 
   create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -93,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_05_13_050115) do
     t.integer "user_id"
     t.integer "admin_id"
     t.text "content"
+    t.boolean "display_in_navbar", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -141,10 +130,10 @@ ActiveRecord::Schema.define(version: 2019_05_13_050115) do
     t.string "name"
     t.string "phone"
     t.string "address"
-    t.integer "status"
     t.integer "pay_type"
     t.string "charge_id"
     t.integer "user_id"
+    t.integer "status", default: 0, null: false
   end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -159,13 +148,17 @@ ActiveRecord::Schema.define(version: 2019_05_13_050115) do
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 10
-    t.integer "quantity"
     t.string "description"
-    t.integer "size"
     t.integer "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "liked", default: 0
+  end
+
+  create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "size"
+    t.integer "quantity"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|

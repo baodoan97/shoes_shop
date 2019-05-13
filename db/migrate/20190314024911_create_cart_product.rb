@@ -6,7 +6,6 @@ class CreateCartProduct < ActiveRecord::Migration[5.2]
 	    t.integer   :size
 	    t.integer :quantity
     	t.integer :cart_id
-    	t.integer :pay_id
     end
   end
 end
