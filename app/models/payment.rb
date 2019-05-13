@@ -12,9 +12,9 @@ class Payment < ApplicationRecord
  }
 
  enum status: {
-        no_process: 0,
-        processing: 1,
-        shipping: 2,
+        in_progress: 0,
+        shipping: 1,
+        complete: 2,
         cancel: 3
     }
     def add_line_items_from_cart(cart) 

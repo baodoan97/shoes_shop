@@ -11,32 +11,33 @@ Rails.application.routes.draw do
   get '/admins/homepage', to:'admins#homepage'
  # get '/admins/statistics', to:'manages#index'
   
+
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
-    #root'admins#homepage'
+  #   #root'admins#homepage'
     resources :admins
 
-    # resources :products
+  #   # resources :products
 
-    #resource :manages 
-    #resources :statistics
-    #resources :layouts
-    #delete 'admins/sign_out',to: 'sessions#destroy'
+  #   #resource :manages 
+  #   #resources :statistics
+  #   #resources :layouts
+  #   #delete 'admins/sign_out',to: 'sessions#destroy'
 
   end
 
-  resources :charges
 
   namespace :admins do
      get 'payments/changestatus', to: 'payments#changestatus'
-    resources :payments
+    resources :payments, except: [:update]
     resources :vouchers
     resources :messages 
     resources :products
     resources :categories
     resources :users
     resources :manages
+    put 'payments/cancel_payment', to: 'payments#cancel_payment'
   end
 
 end

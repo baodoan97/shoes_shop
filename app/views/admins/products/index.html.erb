@@ -10,9 +10,9 @@
             <th>ID</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Size</th>
             <th>Quantity</th>
             <th>Description</th>
-            <th>Size</th>
             <th>Category</th>
             <th>Picture</th>
             <th></th>
@@ -28,9 +28,17 @@
             <td><%= product.id %></td>
             <td><%= product.name %></td>
             <td><%= product.price %></td>
-            <td><%= product.quantity %></td>
+            <td>
+              <% product.stocks.each do |stock| %>
+                <%= stock.size %><br>
+              <% end %>
+            </td>
+            <td>
+              <% product.stocks.each do |stock| %>
+                <%= stock.quantity %><br>
+              <% end %>
+            </td>
             <td><%= product.description %></td>
-            <td><%= product.size %></td>
             <td><%= product.category_id %></td>
             <td>
               <div class="row">

@@ -9,12 +9,12 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+
+//= require cocoon
 //= require activestorage
 //= require jquery3
 //= require jquery2
 //= require jquery
-//= require jquery_ujs
 //= require turbolinks
 //= require rails-ujs
 //= require activestorage

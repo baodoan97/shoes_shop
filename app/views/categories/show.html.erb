@@ -1,2 +1,83 @@
-<%= render 'products/product', obj: @product %>
+<div class="wrapper mb-3">
+  <%= hidden_field_tag :cat_id, @category.id, :id => "cat_id" %>
+  <div class="container">
+    <div class="row pt-5">
+      <div class="col-lg-9 col-sm-12">
+        <div class="row mb-5 border pt-2 justify-content-center">
+          <div class="col-lg-4 col-sm-12 float-right">
+            <div class="form-group show">
+              <label for="show" class="d-inline w-25">Show:</label>
+              <select class="form-control w-100 d-inline" id="show">
+                <option value="8">8</option>
+                <option value="12" >12</option>
+                <option value="16">16</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-12 float-right">
+            <div class="form-group">
+              <label for="sort" class="d-inline w-25">Sort:</label>
+              <select class="form-control w-100 d-inline" id="sort">
+                <option value="1">Latest</option>
+                <option value="2">Price (Low to High)</option>
+                <option value="3">Price (High to Low)</option>
+                <option value="4">Name (A -> Z)</option>
+                <option value="5">Name (Z -> A)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="product-wrap">
+					<%= render 'products/product', obj: @products %>  
+				</div> 
+      </div>       <!-- end col product-list -->
+          <div class="col-lg-3 col-sm-12 border">
+            <h5 class="d-block"><strong>Price Range</strong></h5>
+            <label for="customRange2">Example range</label>
+            <input type="range" class="custom-range" min="100" max="500" id="customRange2">
+            <h5 class="d-block mt-5"><strong>Categories</strong></h5>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Nike</a>
+                <span class="badge badge-primary badge-pill">12</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Adidas</a>
+                <span class="badge badge-primary badge-pill">50</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Converse</a>
+                <span class="badge badge-primary badge-pill">99</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="#" class="cat-item">Vans</a>
+                <span class="badge badge-primary badge-pill">99</span>
+              </li>
+            </ul>
+          </div>
+      </div>
+  </div>
+</div>      
+<script>
+  
+	$('#show').on('change', function() {
+    requestAjax();
+});
 
+	$('#sort').on('change', function() {
+    requestAjax();
+});
+	
+	function requestAjax(){
+    var id = $('#cat_id').val();
+		$.ajax({
+      url: "/categories/"+ id,
+      type: "get",
+      dataType: "script",
+      data: {
+      	"sort": $('#sort').find(":selected").val(),
+      	"show": $('#show').find(":selected").val()}
+    });
+	}
+</script>
