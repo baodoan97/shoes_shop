@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2019_05_13_050115) do
     t.integer "status", default: 0, null: false
   end
 
+
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.float "latitude"
