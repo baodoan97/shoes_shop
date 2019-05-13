@@ -1,3 +1,4 @@
+<div id="animation-x" class="x">
 <div class="topnav " id="myTopnav">
   <% if user_signed_in? %>
   <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
@@ -7,13 +8,18 @@
   <%= link_to "Sign Up",new_user_registration_path  %>
   <% end %>
   <%= link_to carts_path do %>
-  <i class="fas fa-shopping-cart"></i>
+  <% if cookies[:temp_cart] != nil %>
+   <i class="fas red fa-shopping-cart"></i>
+   <% else %> 
+    <i class="fas fa-shopping-cart"></i>
+  <% end %>
   <div class="showdetailcart"  >
   </div>
   <% end %>
   <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunctionnav()">&#9776;</a>
 </div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+</div>
+<nav  class="navbar navbar-expand-lg navbar-dark bg-dark y">
   <div class="container">
     <%= link_to 'N-AIR SHOP', root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,4 +93,33 @@ var table = $('<table>').addClass('foo');
            $('.showdetailcart').css("display", "none");
          }
     });
-  </script>
+
+//   window.onscroll = function() {scrollFunction()};
+//   function scrollFunction() {
+//   if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+
+//      $(".x").css("float", "right");
+//        $(".x").css("width", "221");
+//        $(".x").css("margin-top", "3em");
+//         $(".y").css("margin-top", "0");
+//      $(".topnav").css("width", "auto");
+
+//   } else {
+//     $(".topnav").css("width", "100%");
+//     $(".x").css("float", "none");
+//        $(".x").css("width", "auto");
+//         $(".x").css("margin-top", "0");
+//         $(".y").css("margin-top", "3em");
+//   }
+
+//     var elem = document.getElementById("animation-x"); 
+//   var pos = 0;
+
+//       pos++; 
+//       elem.style.top = 1000 + 'px'; 
+   
+ 
+   
+// } // chua xu ly xong nav position fixed kem aftect 
+//   
+</script>

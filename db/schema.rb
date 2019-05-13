@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_06_115302) do
+
+ActiveRecord::Schema.define(version: 2019_05_13_050115) do
+
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -56,12 +58,14 @@ ActiveRecord::Schema.define(version: 2019_05_06_115302) do
     t.integer "size"
     t.integer "quantity"
     t.integer "cart_id"
+    t.integer "pay_id"
+    t.string "temp_cart"
   end
 
   create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "temp_cart"
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -130,7 +134,8 @@ ActiveRecord::Schema.define(version: 2019_05_06_115302) do
     t.integer "status", default: 0, null: false
   end
 
-  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+
+  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.float "latitude"
     t.float "longitude"
