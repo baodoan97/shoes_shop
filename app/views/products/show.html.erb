@@ -1,5 +1,8 @@
+
 <br>
-<div class="container-fluid">
+<%= cookies[:temp_cart] %>
+<!--  cookies.delete :temp_cart 
+ --><div class="container-fluid ">
     <div class="row" >
         <div class="col-md-7">
             <div class="image-show-center">
@@ -40,7 +43,7 @@
     <div class="shocase-rt-bot">
         <div class="float-qty-chart">
             
-            <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "cart_products", :action => "create"}) do |a| %>
+            <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "carts", :action => "create"}) do |a| %>
             <div class="form-group btn-center">
                 <%= hidden_field_tag "product_id", [@product.id] %>
                 

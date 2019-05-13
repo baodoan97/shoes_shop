@@ -22,6 +22,9 @@ h2 {
 .topnav {
     overflow: hidden;
     background-color: #5656565e !important;
+     // position: fixed; // chua xu ly xong nav position fixed kem aftect 
+     width: 100%;
+     z-index: 999;
 }
  
 .topnav a {
@@ -37,6 +40,8 @@ h2 {
 .topnav a:hover {
     background-color: #ddd;
     color: black;
+    opacity: 0.6;
+    transition: 1s;
 }
  
 .topnav .icon {
@@ -133,4 +138,7 @@ h2 {
     /* line-height: 16px; */
         text-align: -webkit-center
 }
+}
+.red{
+    color:red;
 }
