@@ -170,31 +170,32 @@
       <div class="col-lg-9 col-md-6">
         <h3>Your Shopping Bag(2)</h3>
        <% @carts.each do |item| %>
-        <div class="cart-item-list border-top pt-4">
+        <div id=item<%= item["product_id"]%> class="cart-item-list border-top pt-4">
           <div class="row cart-item m-0">
             <div class="col-lg-2 p-0">
-              <%=image_tag Product.find(item.product_id).images.first, style:"width:100%; height:150px" %>
+              <%=image_tag Product.find(item["product_id"]).images.first, style:"width:100%; height:150px" %>
             </div>
             <div class="col-lg-4">
-              <h5><strong><%= Product.find(item.product_id).name %> </strong></h5>
+              <h5><strong><%= Product.find(item["product_id"]).name %> </strong></h5>
               <p class="badge badge-primary">Brand</p>
-              <p><span>Name: <%= truncate(Product.find(item.product_id).description, :length => 17)  %></span></p>
-              <p>Size: <%= item.size %></p>
+              <p><span>Name: <%= truncate(Product.find(item["product_id"]).description, :length => 17)  %></span></p>
+              <p >Size: <%= item["size"] %></p>
             </div>
             <div class="col-lg-1 p-0">
-              <p>Qty: <%= item.quantity %></p>
+              <p>Qty: <%= item["quantity"] %></p>
+              <input type="number" name="">
             </div>
             <div class="col-lg-2">
-              <p>Price: <%= item.price %>$</p>
+              <p>Price: <%= item["price"] %>$</p>
             </div>
             <div class="col-lg-2 p-0">
-              <p>SubTotal: <%= item.price.to_i*item.quantity.to_i %>$</p>
+              <p>SubTotal: <%= item["price"].to_i*item["item"].to_i %>$</p>
             </div>
             <div class="col-lg-1 p-0">
             <!--     link_to '<i class="fas fa-minus"></i>'.html_safe, destroycart_path(item), method: :delete, data: { confirm: "Delete this order?"} %>
               <a href="#" class="btn btn-danger">
                 <i class="fas fa-times"></i></a> -->
-                  <input id=btn<%= item.id %> class="btn btn-primary" onclick="deleteitemcart(<%= item.id %>);" type="button" value="Detail">
+                  <input id=btn<%= item["id"] %> class="btn btn-primary" onclick="deleteitemcart(<%= item["product_id"]%>,<%= item["size"]%>);" type="button" value="Detail">
             </div>
           </div>
         </div>
@@ -210,24 +211,17 @@
   </div>
 </div>
 <script type="text/javascript">
-function deleteitemcart(v) {
-    if($('#btn'+v).val() == "x")
-    {     
-        // $('#showdetail'+v).css("display", "none");
-        //  $('#showdetail'+v).empty();
-        // $('#showdetail'+v).css("display", "none");
-        //  $('#btn'+v).attr('value', 'Detail');
-        // $( '#btn'+v ).removeClass( "btn-danger" );
-        // $( '#btn'+v ).addClass(  "btn-primary");
-    }
-    else{
-       $.ajax({
+function deleteitemcart(id,s) {
+  if (confirm("You will lost this item")) {
+      $("#item"+id).fadeOut('1000', function(c){
+        $("#item"+id).remove();
+      });
+      $.ajax({
       url: "/carts/destroycart",
       type: "post",
       dataType: "script",
-      data: { item: {"id": v}}
+      data: { item: {"id": id , "size": s}}
       });
-    }
-   
+    }    
 }
 </script>
