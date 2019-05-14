@@ -13,6 +13,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :messages
   has_many :payments
+  has_many :carts
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
    private
 

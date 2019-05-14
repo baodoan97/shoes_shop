@@ -14,11 +14,11 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    super
-         if session[:cart] != nil
-       @cart = Cart.create
-       @cart.add_carts(session[:cart],current_user.id)
-    end
+       super
+       if session[:cart] != nil
+           @cart = Cart.create
+           @cart.add_carts(session[:cart],current_user.id)
+        end
   end
 
   # DELETE /resource/sign_out
