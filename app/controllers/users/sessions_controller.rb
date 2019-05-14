@@ -19,6 +19,7 @@ class Users::SessionsController < Devise::SessionsController
            @cart = Cart.create
            @cart.add_carts(session[:cart],current_user.id)
         end
+        session[:cart] = nil
   end
 
   # DELETE /resource/sign_out

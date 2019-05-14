@@ -7,58 +7,76 @@ class CartsController < ApplicationController
    before_action :check_cart, only: [:show]
 
     def destroycart
-       carts = session[:cart]
-       i = 0
-       # debugger
-       carts.map do |item|
-					 if item['id'] ==  params[:item][:id]
-					 	debugger
-		               carts.delete_at(i)
-					 end
-			  i = i + 1
-			  end
-			     session[:cart] = carts
-			  if carts.count == 0
-			      session[:cart] = nil
-            render js: "$('#countcart').html(<p>a</p>);"
-			  end
+    	  if user_signed_in?  
+           Cart.where(user_id: current_user.id).where(product_id: params[:item][:id]).where(size: params[:item][:size]).first.destroy
+           if Cart.where(user_id: current_user.id).count == 0
+           	redirect_to root_path
+           end    
+    	  else 
+    	  	 @cartss = get_carts
+		       	i = 0
+		       	while i < @cartss.count do 
+		       		if @cartss[i]['product_id'] == params[:item][:id] && @cartss[i]['size'] == params[:item][:size]
+		              @cartss.delete_at(i)
+		       		end
+		       		i = i + 1
+		       	end
+		       	if @cartss.count == 0
+		           session[:cart] = nil
+		           redirect_to root_path
+		        else
+		        	 session[:cart] = @cartss
+		       	end
+    	  end
+       	
+
+        
+       
 			# render js: "alert(1);"
     end
     def show
        	# @cart = current_cart
     end
     def create
-    	if user_signed_in?
-                @checkcarts = Cart.where(user_id: current_user.id)
-                debugger
-               if @checkcarts != nil
-		             	  @checkcarts.each do |item|
-					    		    if ((item.product_id != params[:product_id].to_i) || ((item.product_id == params[:product_id].to_i) && (item.size != params[:addcart][:size].to_i)) )		
-					    		      
+    	if user_signed_in? 
+               @checkcarts = Cart.where(user_id: current_user.id) 
+               @checkpresent = Cart.where(user_id: current_user.id).where(product_id: params[:product_id]).where(size: params[:addcart][:size])   
+               if @checkcarts != nil && @checkcarts.count != 0
+	             	  @checkcarts.each do |item|
+				    		    if (item.product_id == params[:product_id].to_i) && (item.size != params[:addcart][:size].to_i)		      
 					    		         @cart = Cart.new
 									         @cart.product_id = Product.find(params[:product_id]).id
 											     @cart.size = params[:addcart][:size]
 											     @cart.quantity = params[:addcart][:quantity]
-											     @cart.price = params[:price]
+											     @cart.price =  Product.find(params[:product_id]).price
 											     @cart.user = current_user
 									         @cart.save
-					    	    	else
-					    	    		# debugger
-					    	    	# 	# item.quantity = item.quantity + params[:addcart][:quantity].to_i
-					              @cart = Cart.find(item.id)
-					    	    		@cart.quantity = @cart.quantity + params[:addcart][:quantity].to_i
-			                  @cart.save
-					    		    end
-	    		          end
+								    end
+				    	    	if (item.product_id == params[:product_id].to_i) && (item.size == params[:addcart][:size].to_i)	
+				              @cart = Cart.find(item.id)
+				    	    		@cart.quantity = @cart.quantity + params[:addcart][:quantity].to_i
+		                  @cart.save
+		                end
+    		          end          
 	    		     else
 					         @cart = Cart.new
 					         @cart.product_id = Product.find(params[:product_id]).id
 							     @cart.size = params[:addcart][:size]
 							     @cart.quantity = params[:addcart][:quantity]
-							     @cart.price = params[:price]
+							     @cart.price =  Product.find(params[:product_id]).price
 							     @cart.user = current_user
 					         @cart.save
 		            end
+		            if @checkpresent.count == 0
+                   @cart = Cart.new
+					         @cart.product_id = Product.find(params[:product_id]).id
+							     @cart.size = params[:addcart][:size]
+							     @cart.quantity = params[:addcart][:quantity]
+							     @cart.price =  Product.find(params[:product_id]).price
+							     @cart.user = current_user
+					         @cart.save
+		            end
+              
     	else
     	# debugger
 		    carts = session[:cart]
@@ -73,7 +91,7 @@ class CartsController < ApplicationController
 		           else
 			           cartsnew = {
 			               "product_id" => params[:product_id],
-			               "price" => params[:price],
+			               "price" =>  Product.find(params[:product_id]).price,
 			               "size"  => params[:addcart][:size] ,
 			               "quantity"  => params[:addcart][:quantity]
 						}
@@ -83,7 +101,7 @@ class CartsController < ApplicationController
 					carts = []
 					carts.push({
 		               "product_id" => params[:product_id],
-		               "price" => params[:price],
+		               "price" =>  Product.find(params[:product_id]).price,
 		               "size"  => params[:addcart][:size] ,
 		               "quantity"  => params[:addcart][:quantity]
 					})
@@ -96,20 +114,32 @@ class CartsController < ApplicationController
       end
     end
     private
+
     def check_cart
-    	@carts = nil
+    	@carts = 0
+    	 @total = 0
     	if user_signed_in? 
-         @carts = Cart.where(user_id: current_user.id)  
+         @carts = Cart.where(user_id: current_user.id)
+         if @carts.count == 0
+         	redirect_to root_path
+         else
+	         @carts.each do |item|
+	         @total = @total + (item["price"].to_i*item["quantity"].to_i)
+	         end
+         end
       else 
-          if  session[:cart] != nil
-          	@carts = get_carts
+          if session[:cart] != nil
+          	@carts = session[:cart]
+          	i = 0
+		       	while i < @carts.count do 
+		       	 @total = @total + (@carts[i]["price"].to_i*@carts[i]["quantity"].to_i)
+		       		i = i + 1
+		       	end
           else
             redirect_to root_path
           end
-       end
-         @total = 0
-	       @carts.each do |item|
-         @total = @total + (item.price.to_i*item.quantity.to_i)
       end
-    end
+        
+	       
+      end
 end
