@@ -13,6 +13,7 @@
             <div class="col-md-2 col-xs-2 avatar-custom">
               
             </div>
+
             <div class="col-xs-10 col-md-10">
               <div class="messages msg_receive">
                 <p><%= x.content %></p>
@@ -36,6 +37,16 @@
           <% end %>
           <% end %>
           <% end %>
+
+            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
+            <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
+            <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
+            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
+            <%= f.submit "Send" , class: "btn" ,id: "sendusermessage"  %>
+            <% end %>
+            <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
+
+
         </div>
       </div>
       <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>

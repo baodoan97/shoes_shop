@@ -5,6 +5,7 @@ class Product < ApplicationRecord
 	has_many_attached :images
 	belongs_to :category, optional: true
 	has_many :cart_products
+    has_many :carts
     before_destroy :check_if_has_line_item
   
 private

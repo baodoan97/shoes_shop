@@ -70,7 +70,7 @@ end
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'
-  get 'destroycart', to: 'carts#destroy'
+  post '/carts/destroycart', to: 'carts#destroycart'
 
 
 
