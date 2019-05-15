@@ -71,6 +71,7 @@ end
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'
   post 'carts/destroycart', to: 'carts#destroycart'
+  post 'carts/changeqt', to: 'carts#changeqt'
 
 
 

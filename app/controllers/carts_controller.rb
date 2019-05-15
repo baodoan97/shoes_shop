@@ -1,10 +1,44 @@
 class CartsController < ApplicationController
-	skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 	CartProductsHelper
-    # def show
-    #   debugger
-    # end
-   before_action :check_cart, only: [:show]
+  before_action :check_cart, only: [:show]
+    def changeqt 
+    	@checkqt = 0
+			@resetvalue = 0 
+    	if user_signed_in? == true
+	         @cartss = Cart.where(user_id: current_user.id).where(product_id: params[:item][:id]).where(size: params[:item][:size])         
+	         if Product.find(@cartss.first.product_id).stocks.find_by(size: params[:item][:size]) == nil
+	          	@checkqt = 2
+	      	    @cartss.first.destroy                 
+	         elsif (Product.find(@cartss.first.product_id).stocks.find_by(size: params[:item][:size]).quantity.to_i < params[:item][:qt].to_i)
+	             @checkqt = 1 
+	             @resetvalue = Product.find(@cartss.first.product_id).stocks.find_by(size: params[:item][:size]).quantity.to_i   
+	         else
+	         	  @cartss.first.quantity = params[:item][:qt]
+	            @cartss.first.save  
+	         end       	 
+    	 else 	
+          @cartss = get_carts
+			   	i = 0
+			   	while i < @cartss.count do 
+			   		if @cartss[i]['product_id'] == params[:item][:id] && @cartss[i]['size'] == params[:item][:size] 		           
+			          if Product.find(@cartss[i]['product_id']).stocks.find_by(size: params[:item][:size]) == nil
+			                 @checkqt = 2
+			                 @cartss.delete_at(i)
+			          elsif (Product.find(@cartss[i]['product_id']).stocks.find_by(size: params[:item][:size]).quantity.to_i < params[:item][:qt].to_i)
+			                 @checkqt = 1 
+			                 @resetvalue = Product.find(@cartss[i]['product_id']).stocks.find_by(size: params[:item][:size]).quantity.to_i   
+			          else	           	
+			                 @cartss[i]['quantity'] = params[:item][:qt]
+			          end
+			   		end
+			   		i = i + 1
+			   	end
+			   	@cartss = nil if @cartss.count == 0
+			   	session[:cart] = @cartss
+    	end
+   
+    end
 
     def destroycart
     	  if user_signed_in?  
