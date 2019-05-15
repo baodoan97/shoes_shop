@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :users
     resources :manages
+    post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
   end
 
@@ -63,6 +64,7 @@ end
   resources :contacts,only: [:new,:create]
   resources :messages 
   get 'show', to: 'messages#show'
+  post 'messages/received', to: 'messages#received'
   resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
   resources :products, only: [:show]

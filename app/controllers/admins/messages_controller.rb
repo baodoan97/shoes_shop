@@ -1,4 +1,5 @@
 class Admins::MessagesController < BaseController
+    skip_before_action :verify_authenticity_token
 
 	before_action :set_user_message , only: [:show]
 
@@ -35,6 +36,11 @@ class Admins::MessagesController < BaseController
         }
         # .order("created_at DESC").all
 	end
+    
+     def received
+         # debugger
+    end
+
 	private
 	def set_user_message
         @messages = Message.all.where(user_id: params[:id])

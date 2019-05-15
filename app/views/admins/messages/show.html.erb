@@ -4,7 +4,7 @@
 	<div class="last"><%= time_ago_in_words(@messages.last.created_at) %></div>
 </div>
 
-<ol id="admin_chat" class="chat">
+<ol id=admin_chat<%= @messages[0].user.id %> class="chat">
 	<% @messages.each do |v|  %>
 	<% if v.usersend == true%> 
 	<li class="other">                        

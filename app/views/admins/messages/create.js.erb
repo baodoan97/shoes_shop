@@ -8,7 +8,7 @@ App.message_admin.received = function(data){
 	if(data != null)
 	{
 	console.log(keys);
-	$('#admin_chat').append("<li class='self'> <div class='avatar'></div> <div class='msg'> <p>"+keys[0]["message"]["content"]+"</p> <time>"+keys[0]["message"]["time"]+"</time> </div> </li>");
+	$('#admin_chat'+keys[0]["message"]["user_id"]).append("<li class='self'> <div class='avatar'></div> <div class='msg'> <p>"+keys[0]["message"]["content"]+"</p> <time>"+keys[0]["message"]["time"]+"</time> </div> </li>");
 	window.scrollTo(0, 9999999999999999999999999);
 	}
 	}
