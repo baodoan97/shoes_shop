@@ -4,8 +4,9 @@
   <div id="repohide" class="arrow">
     <%= button_tag raw("&#xf075"), :onclick => "openForm();" ,:remote => true, class: "open-button fa" , id: "chat-on" %>
     <div class="chat-popup" id="myForm">
+      <%= button_tag "X", :onclick => "closeForm();" ,class: "btn btn-danger right-x"  %>
       <div  class="data-chat">
-        <div id="setscroll" class="panel-body msg_container_base">
+        <div id=setscroll<%= current_user.id %> class="panel-body msg_container_base">
           <% if Message.find_by(user_id: current_user.id) %>
           <% Message.all.where("user_id=?", current_user.id).each do |x| %>
           <% if x.usersend == false %>
@@ -38,14 +39,6 @@
           <% end %>
           <% end %>
 
-            <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
-            <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
-            <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
-            <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
-            <%= f.submit "Send" , class: "btn" ,id: "sendusermessage"  %>
-            <% end %>
-            <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
-
 
         </div>
       </div>
@@ -55,7 +48,6 @@
       <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
       <%= f.submit "Send" , class: "btn" ,id: "sendusermessage"  %>
       <% end %>
-      <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
     </div>
   </div>
 </div>
@@ -116,6 +108,12 @@
   </div>
 </footer>
 
+<% if user_signed_in? %>
+   <script type="text/javascript">
+     var mydiv = $("#setscroll"+"<%= current_user.id %>");
+     mydiv.scrollTop(mydiv.prop("scrollHeight"));
+   </script>
+<% end %>
 
 
   <script type="text/javascript">
@@ -137,8 +135,8 @@
   function openForm() {
   document.getElementById("myForm").style.display = "block";
   document.getElementById("chat-on").style.display = "none";
-  var mydiv = $("#setscroll");
-  mydiv.scrollTop(mydiv.prop("scrollHeight"));
+
+  
   // $("#setscroll").scrollTop(150);
   }
   function closeForm() {
