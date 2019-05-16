@@ -37,6 +37,9 @@ Rails.application.routes.draw do
     resources :categories
     resources :users
     resources :manages
+    resources :comments
+    post 'comments/newcomment', to: 'comments#newcomment'
+    post 'comments/returncomment', to: 'comments#returncomment'
     post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
   end
@@ -80,6 +83,9 @@ end
   resources :payments, only: [:new, :create]
   resources :carts
   resources :cart_products
+  resources :comments
+  post 'comments/watchedmore', to: 'comments#watchedmore'
+
 
 
   post 'create', to: 'messages#create'

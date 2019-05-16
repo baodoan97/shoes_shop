@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
 
 	end
     def received
-
+        
     end
 
     
