@@ -1,0 +1,45 @@
+<div class="container-fluid">
+	<div id="appendcomment" >
+		<%  @listcomments.each do |v| %>
+		<div id=commentcheck<%= v.id %> class="d-flex justify-content-between bg-light-custom mb-3">
+			<div class="p-2  bg-info"><img style="height: 25px;,width: 25px;" src=<%= url_for(Product.find(v.product_id ).images.first) %> >
+			<%= Product.find(v.product_id).name %></div>
+			<div class="p-2 "><%= v.content %></div>
+			<div class="p-2 bg-primary"><%= time_ago_in_words(v.created_at) %>
+				 <button type="button" onclick="checkcomment(<%= v.id %>,'apply');" class="btn btn-success">Success</button>
+				<button type="button" onclick="checkcomment(<%= v.id %>,'delete');" class="btn btn-danger ">Warning</button>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript">
+	function checkcomment(id,notf) {
+
+		 if(notf == 'apply'){
+			if (confirm("Apply comment this")) {
+				$("#commentcheck"+id).fadeOut('1000', function(c){
+				$("#commentcheck"+id).remove();
+				 });
+				 $.ajax({
+			     url: "/admins/comments/returncomment",
+			     type: "post",
+			     dataType: "script",
+			     data: { comment: { "id": id,"request": 'apply' }}
+			     });
+		    }           	 
+		 }else{
+		     if (confirm("Apply comment this")) {
+				$("#commentcheck"+id).fadeOut('1000', function(c){
+				$("#commentcheck"+id).remove();
+				 });		 	  
+              $.ajax({
+		      url: "/admins/comments/returncomment",
+		      type: "post",
+		      dataType: "script",
+		      data: { comment: { "id": id,"request": 'delete' }}
+		      });
+             }
+		 }
+	}
+</script>

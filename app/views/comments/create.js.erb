@@ -1,0 +1,10 @@
+$(document).ready(function(){
+	if("<%= @check %>" == 'false'){
+	  alert("Login , Pleace!!!");
+	}
+	else{
+     var comment = {"product_id":"<%= @comment.product_id %>","user_id":"<%= @comment.user_id %>","content":"<%= @comment.content %>","display": false};
+	 App.comment.send_comment(comment);
+	 alert("User was comment, Admin will browse comments this");
+	}
+})

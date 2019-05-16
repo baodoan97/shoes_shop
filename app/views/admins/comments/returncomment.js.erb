@@ -1,0 +1,5 @@
+if ("<%= @comment %>" != 'nil')
+{
+	var comment = {"product_id":"<%= @comment.product_id %>","user_id":"<%= @comment.user_id %>","content":"<%= @comment.content %>","display": true,"avatar": "<%= url_for(@comment.user.avatar) %>" ,"name": "<%= @comment.user.lastname %>","updated_at": " less than a minute" };
+	App.comment.return_comment(comment);
+}
