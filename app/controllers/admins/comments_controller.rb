@@ -13,13 +13,20 @@ class Admins::CommentsController < BaseController
      def returncomment
          
          @comment = nil
+         @notification = nil
          if params[:comment][:request] == 'delete'
             Comment.find(params[:comment][:id].to_i).destroy
          else
             @comment = Comment.find(params[:comment][:id].to_i)
             @comment.display = true 
             @comment.save
+
+            @notification = Notification.new
+            @notification.user = @comment.user
+            @notification.content = "comment on product #{@comment.product.name} was browse"
+            @notification.save
          end
+
      
      end
 
