@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post 'notifications/create'
+  get 'notifications/:id' , to: 'notifications#show'
+
   resources :places
     post 'places/changestatus', to: 'places#changestatus'
    post 'payments/paymentdetail', to: 'payments#paymentdetail'  
