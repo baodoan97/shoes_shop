@@ -1,5 +1,6 @@
 document.getElementById("adminchat").value = null;
 $(document).ready(function(){
+$('#admin_chat'+"<%= @message.user_id %>"+' li').first().remove();
 var messsage = {"usersend":"<%= @message.usersend %>","user_id":"<%= @message.user_id %>","avatar":'<%= url_for(@message.user.avatar) %>',"name":"<%= @message.user.firstname %>","time":"<%= time_ago_in_words(@message.created_at) %>","content":"<%= @message.content %>"};
 App.message_admin.admin_send_msg(messsage);
 App.message_admin.received = function(data){

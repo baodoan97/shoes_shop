@@ -22,6 +22,11 @@ class MessagesController < ApplicationController
         
     end
 
+    def watchedmore
+       @messages = Message.where(user_id: params[:info][:user_id].to_i).order('created_at desc').limit(10).offset(params[:info][:offset].to_i)
+
+    end
+
     
 
 

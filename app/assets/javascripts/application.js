@@ -82,7 +82,7 @@ $( document ).on('turbolinks:load', function() {
   } );
 
   $("#sendusermessage").button().click(function(){
-    alert("button");
+     
 });
   // $( "#a" ).click(function() {
   // $('#file-input').trigger('click'); 

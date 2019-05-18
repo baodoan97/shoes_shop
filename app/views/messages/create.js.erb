@@ -1,5 +1,6 @@
 document.getElementById("usechat").value = " ";
 $(document).ready(function(){
+$('#setscroll'+"<%= @message.user_id %>").find('div:eq(1)').remove();
 var messsage = {"usersend":"<%= @message.usersend %>","user_id":"<%= @message.user_id %>","avatar":'<%= url_for(@message.user.avatar) %>',"name":"<%= current_user.firstname %>","time":"<%= time_ago_in_words(@message.created_at) %>","content":"<%= @message.content %>"};
 App.message.send_msg(messsage);
 App.message.received = function(data)

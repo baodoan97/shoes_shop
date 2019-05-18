@@ -32,8 +32,11 @@
       <%= button_tag "X", :onclick => "closeForm();" ,class: "btn btn-danger right-x"  %>
       <div  class="data-chat">
         <div id=setscroll<%= current_user.id %> class="panel-body msg_container_base">
+          <div id="btn-loadmessage" align="center" class="mt-3">
+             <button  id="loadmessage" class="btn btn-info">More</button>
+          </div>
           <% if Message.find_by(user_id: current_user.id) %>
-          <% Message.all.where("user_id=?", current_user.id).each do |x| %>
+          <% Message.all.where("user_id=?", current_user.id).order('created_at desc').limit(10).reverse.each do |x| %>
           <% if x.usersend == false %>
           <div class="row msg_container base_receive">
             <div class="col-md-2 col-xs-2 avatar-custom">
@@ -159,8 +162,23 @@ $( "#closetoast" ).click(function() {
                $("#closetoast").css('display','none');
 
 });
-</script>
 
+</script>
+<% if user_signed_in? %>
+<script type="text/javascript">
+  var count_message = 1; 
+$( "#loadmessage" ).click(function() {
+      count_message = count_message + 5;
+      var user_id = "<%= current_user.id %>";
+       $.ajax({
+       url: "/messages/watchedmore",
+       type: "post",
+       dataType: "script",
+       data: { info: { "offset": count_message,"user_id": user_id }}
+       });
+  });
+</script>
+<% end %>
 
 
 
