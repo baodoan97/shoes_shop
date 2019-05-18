@@ -32,7 +32,8 @@ Rails.application.routes.draw do
 
 
   namespace :admins do
-     get 'payments/changestatus', to: 'payments#changestatus'
+
+    get 'payments/changestatus', to: 'payments#changestatus'
     resources :payments, except: [:update]
     resources :vouchers
     resources :messages 
@@ -45,6 +46,8 @@ Rails.application.routes.draw do
     post 'comments/returncomment', to: 'comments#returncomment'
     post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
+    post 'messages/watchedmore', to: 'messages#watchedmore'
+
   end
 
 end
@@ -88,6 +91,7 @@ end
   resources :cart_products
   resources :comments
   post 'comments/watchedmore', to: 'comments#watchedmore'
+  post 'messages/watchedmore', to: 'messages#watchedmore'
 
 
 
