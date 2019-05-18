@@ -32,6 +32,6 @@ class Payment < ApplicationRecord
         end
     end
      def total_price
-      cart_products.to_a.sum { |item| item.total_price}
+      payment_items.to_a.sum { |item| item.total_price}
     end
 end

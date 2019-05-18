@@ -1,18 +1,21 @@
-<div class="topnav " id="myTopnav">
-  <% if user_signed_in? %>
-  <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-  <%= link_to current_user.firstname,users_show_path  %>
-  <% else %>
-  <%= link_to "Sign In",new_user_session_path  %>
-  <%= link_to "Sign Up",new_user_registration_path  %>
-  <% end %>
-  <%= link_to carts_path do %>
-  <i class="fas fa-shopping-cart"></i>
-  <div class="showdetailcart"  >
+<nav class="pt-1">
+  <div class="container">
+    <div class="row first-nav">
+      <div class="w-100">
+        <div class="col-sm-7  col-lg-4 col-xs-12 float-left p-0">
+          <i class="fas fa-phone"><span class="ml-1">0909999999 |</span></i>
+          <i class="fas fa-envelope"><span class="ml-1">example@gmail.com</span></i>
+        </div>
+        <div class="col-sm-5 col-lg-4 col-xs-12 float-right p-0 first-right">
+          <i class="fas fa-shopping-bag cart mr-2"><span class="cart-text badge-danger">1</span></i> |
+          <i class="fas fa-user ml-1"><span class="ml-1">My Account</span></i> |
+          <i class="fas fa-envelope ml-1"><span class="ml-1"> Sign Up</span></i>
+        </div>
+      </div>
+    </div>
   </div>
-  <% end %>
-  <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunctionnav()">&#9776;</a>
-</div>
+</nav>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <%= link_to 'N-AIR SHOP', root_path, class: "navbar-brand" %>
@@ -21,6 +24,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav m-auto">
+        <li class="nav-item mr-3">
+          <%= link_to 'Home', root_path, class:"nav-link" %>
+        </li>
         <li class="nav-item dropdown mr-3">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Shop
@@ -41,50 +47,3 @@
     </div>
   </div>
 </nav>
-<% if session[:cart_id] != nil && Cart.find(session[:cart_id]).cart_products.count > 0 %>
-<script type="text/javascript">
-var flag = false;
-$(".fa-shopping-cart").hover(function(){
-if (!flag){
-flag = true;
-var table = $('<table>').addClass('foo');
-  var row = $('<tr>').append("<td></td><td>Name</td><td>Size</td><td>Quantity</td>");
-  table.append(row);
-  "<% Cart.find(session[:cart_id]).cart_products.each do |item| %>"
-  var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= truncate(Product.find(item['product_id']).name,length: 5) %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
-  table.append(row);
-  "<% end %>"
-  $('.showdetailcart').append(table);
-  $('.showdetailcart').css("display", "block");
-  }
-  else{
-  $('.showdetailcart').css("display", "block");
-  }
-  });
-  $('table').css("border", "#DCDCDC solid 1px");
-  $(".showdetailcart").hover(function(){
-  $('.showdetailcart').css("display", "block");
-  });
-  $(".showdetailcart").mouseout(function(){
-  $('.showdetailcart').css("display", "none");
-  });
-  $(".showdetailcart").mouseover(function(){
-  $('.showdetailcart').css("display", "block");
-  });
-  </script>
-  <% end %>
-  <script type="text/javascript">
-  function myFunctionnav() {
-  var z = document.getElementById("myTopnav");
-  if (z.className === "topnav") {
-  z.className += " responsive";
-  } else {
-  z.className = "topnav";
-  }
-  }
-  window.addEventListener("click", function(){
-         if (!event.target.matches('.showdetailcart')){
-           $('.showdetailcart').css("display", "none");
-         }
-    });
-  </script>
