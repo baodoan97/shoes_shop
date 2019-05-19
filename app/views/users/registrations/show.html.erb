@@ -1,88 +1,91 @@
-<div class="container">
-  <h1 align="center">P r o f i l e</h1>
-  <table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th class="showprofile " colspan="3"><%= image_tag(@user.avatar,class: "img",id: "a")%></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th colspan="3" class="showprofile ">First name : <%= @user.firstname %></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="showprofile ">Last name : <%= @user.lastname %></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="showprofile ">Gender : <%= @user.gender == false ? "Female" : "Male" %></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="showprofile ">Address : <%= @user.address %></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="showprofile ">Phone : <%= @user.phone %></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="showprofile ">Email : <%= @user.email %></th>
-      </tr>
-      <tr>
-        <th colspan="3" class="showprofile "><%= link_to "Edit Profile",edit_user_registration_path,class: "btn btn-primary"  %></th>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div class="container">
-  <h1 >History payment</h1>
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Status</th>
-        <th>Pay type</th>
-        <th> </th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @payments.each do |k| %>
-      <tr>
-        <td><%= k.phone %> </td>
-        <td><%= k.address %></td>
-        <td><%= k.status %></td>
-        <td><%= k.pay_type %></td>
-        <td id=<%=k.id%> >
-          <input id=btn<%= k.id %> class="btn btn-primary" onclick="showdetailpayment(<%= k.id %>);" type="button" value="Detail">
-            <div class="showdetail " id=showdetail<%=k.id %> >
-           
+<section class="user pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="row" style="height:50px;">
+          <div class="col-sm-3 user-avatar">
+            <%= image_tag 'giay.jpg', style:"width:50px; height:50px; border-radius: 50%"%>
+          </div>
+          <div class="col-sm-9 username">
+            <p class="mb-1"><strong><%= @user.firstname %></strong></p>
+            <i class="fas fa-edit" style="color:grey"> Edit my profile</i>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-12 d-flex align-items-center" style="font-size: 15px">
+            <i class="fas fa-user-circle fa-2x text-warning mr-2"></i>
+            <p class="mb-0"><%= link_to 'My Account', users_profile_path, class: "sidebar-item"  %></p><br/>
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col-12 d-flex align-items-center" style="font-size: 15px">
+            <i class="fas fa-list-alt fa-2x text-danger mr-2"></i>
+            <p class="mb-0"><%= link_to 'Order', users_order_path, class: "sidebar-item"  %></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="col-12 p-4" style="height:600px; background-color:white">
+            <h4 pb-0>My Profile</h4>
+            <p>Manange profile to secure account</p>
+            <hr/>
+            <div class="row">
+              <div class="col-8 border-right">
+                <div class=row>
+                  <div class="col-2"> 
+                    <p class="text-right">Name:</p>
+                  </div>
+                  <div class="col-10"><%= "#{@user.firstname} #{@user.lastname}" %></div>
+                </div>
+                <div class=row>
+                  <div class="col-2"> 
+                    <p class="text-right">Email:</p>
+                  </div>
+                  <div class="col-10"><%= @user.email %></div>
+                </div>
+                <%= form_for @user do |f| %>
+                <div class=row>
+                  <div class="col-2"> 
+                    <p class="text-right">Phone:</p>
+                  </div>
+                  <div class="col-10"><%=f.text_field :phone %></div>
+                </div>
+                <div class=row>
+                  <div class="col-2"> 
+                    <p class="text-right">Address:</p>
+                  </div>
+                  <div class="col-10"><%= f.text_field :address%></div>
+                </div>
+                <div class=row>
+                  <div class="col-2"> 
+                    <p class="text-right">Gender:</p>
+                  </div>
+                  <div class="col-10">
+                    <%= f.radio_button :gender, true  %>
+                    <%= f.label :gender, "Male", :value => "true"  %>
+                    <%= f.radio_button :gender, false %>
+                    <%= f.label :gender, "Female", :value => "false" %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2"></div>
+                  <div class="col-10"><%= f.submit 'Save', class:"btn btn-danger" %></div>
+                </div>
+                <% end %>
+              </div>
+              <div class="col-4 d-flex align-items-center justify-content-center">
+                <div>
+                  <%= image_tag 'giay.jpg', style:"width: 100px;height:100px;border-radius:50%"%>
+                  <br/>
+                  <a href="#" class="btn btn-lg btn-secondary mt-2">Change</a>
+                </div>
+              </div>
             </div>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <div class="showhistorypayments ">
-    <%= will_paginate @payments , renderer: WillPaginate::ActionView::BootstrapLinkRenderer%>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<script type="text/javascript">
-function showdetailpayment(v) {
-    if($('#btn'+v).val() == "x")
-    {     
-        $('#showdetail'+v).css("display", "none");
-         $('#showdetail'+v).empty();
-        $('#showdetail'+v).css("display", "none");
-         $('#btn'+v).attr('value', 'Detail');
-        $( '#btn'+v ).removeClass( "btn-danger" );
-        $( '#btn'+v ).addClass(  "btn-primary");
-    }
-    else{
-       $.ajax({
-    url: "/payments/paymentdetail",
-    type: "post",
-    dataType: "script",
-    data: { payment: {"payment_id": v}}
-    });
-    }
-   
-}
-</script>
+</section>

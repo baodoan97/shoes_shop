@@ -53,23 +53,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @payments = Payment.all.where("user_id = ?",current_user.id).order("id DESC").paginate(page: params[:page], per_page: 2)
   end
 
+  def order
+    @user = current_user
+    if params[:status]
+      case params[:status]
+        when "0"  
+          @payments = @user.payments.where("status = 0").order("id DESC").paginate(page: params[:page], per_page: 2)
+        when "1"
+          @payments = @user.payments.where("status = 1").order("id DESC").paginate(page: params[:page], per_page: 2)
+        when "2"
+          @payments = @user.payments.where("status = 2").order("id DESC").paginate(page: params[:page], per_page: 2)
+        else
+          @payments = @user.payments.where("status = 3").order("id DESC").paginate(page: params[:page], per_page: 2)
+      end
+    else
+      @payments = @user.payments.where("status = 0").order("id DESC").paginate(page: params[:page], per_page: 2)
+    end
+    respond_to do |format|
+      format.html
+      format.js   
+    end
+  end
   # PUT /resource
   def update
-
-    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-
-    resource_updated = update_resource(resource, configure_account_update_params)
-    yield resource if block_given?
-    if resource_updated
-      set_flash_message_for_update(resource, prev_unconfirmed_email)
-      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
-
-      respond_with resource, location: after_update_path_for(resource)
+    @user = current_user
+    if @user.update(configure_account_update_params)
+      flash[:success] = "Update was saved"
+      render 'show'
     else
-      clean_up_passwords resource
-      set_minimum_password_length
-      respond_with resource
+      flash[:danger] = "Update wasnt saved"
+      render 'show'
     end
     # @user = User.find(current_user.id)
     # if @user.update(configure_account_update_params)
@@ -104,7 +117,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-     params.require(:user).permit(:firstname,:lastname ,:email, :password,:password_confirmation,:current_password,:phone,:address,:avatar)
+     params.require(:user).permit(:firstname,:lastname ,:email, :gender, :phone,:address,:avatar)
   end
 
   # The path used after sign up.
