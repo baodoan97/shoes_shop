@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
     post 'messages/watchedmore', to: 'messages#watchedmore'
-
+      delete 'images', to:  'products#destroyimage'
   end
 
 end
