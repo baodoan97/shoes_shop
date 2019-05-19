@@ -1,5 +1,7 @@
 class Cart < ApplicationRecord
-  has_many :cart_products, :dependent => :destroy
+  belongs_to :product
+  belongs_to :user
+
     def total_price
       cart_products.to_a.sum { |item| item.total_price}
     end
@@ -16,22 +18,51 @@ class Cart < ApplicationRecord
  #    new_item
  #  end
   
-  # def add_carts(carts,user_id)
-  #   # debugger
-  #   # carts.each do |k,cart| 
-   
-  #   # end
-  #   i = 0 
-  #   while i < carts.count do
-  #     new_item = Cart.new
-  #     new_item.user_id = user_id
-  #     new_item.product_id = carts[i]['product_id'].to_i
-  #     new_item.price = carts[i]['price'].to_f
-  #     new_item.size = carts[i]['size'].to_i
-  #     new_item.quantity = carts[i]['quantity'].to_i
-  #     new_item.save
-  #     i = i + 1
-  #   end
-  # end
+  def add_carts(carts,user_id)
+    @checkcarts = Cart.where(user_id: user_id)
+    if @checkcarts != nil || @checkcarts.count > 0
+       i = 0 
+       while i < carts.count do
+          @checkcarts.map do |item|
+            if (carts[i]['product_id'].to_i == item.product_id) && (carts[i]['size'].to_i != item.size)   
+                  new_item = Cart.new
+                  new_item.user = User.find(user_id)
+                  new_item.product_id = carts[i]['product_id'].to_i
+                  new_item.price = carts[i]['price'].to_f
+                  new_item.size = carts[i]['size'].to_i
+                  new_item.quantity = carts[i]['quantity'].to_i
+                  new_item.save
+            end
+            if (carts[i]['product_id'].to_i == item.product_id) && (carts[i]['size'].to_i == item.size) 
+                  @cart = Cart.find(item.id)
+                  @cart.quantity = @cart.quantity + carts[i]['quantity'].to_i
+                  @cart.save 
+            end  
+          end
+          @checkpresent = Cart.where(user_id: user_id).where(product_id: carts[i]['product_id'].to_i).where(size: carts[i]['size'].to_i)   
+          if @checkpresent.count == 0
+                new_item = Cart.new
+                new_item.user = User.find(user_id)
+                new_item.product_id = carts[i]['product_id'].to_i
+                new_item.price = carts[i]['price'].to_f
+                new_item.size = carts[i]['size'].to_i
+                new_item.quantity = carts[i]['quantity'].to_i
+                new_item.save
+          end
+        i = i + 1
+      end
+    else
+       i = 0 
+       while i < carts.count do
+          new_item = Cart.new
+          new_item.user = User.find(user_id)
+          new_item.product_id = carts[i]['product_id'].to_i
+          new_item.price = carts[i]['price'].to_f
+          new_item.size = carts[i]['size'].to_i
+          new_item.quantity = carts[i]['quantity'].to_i
+          new_item.save
+       end
+    end
 
+end
 end

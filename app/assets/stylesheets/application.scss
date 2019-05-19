@@ -11,6 +11,8 @@
 @import "footer";
 @import "nav";
 @import "home";
+@import "cart";
+@import "comments";
 
 
 body{
@@ -260,10 +262,22 @@ footer hr{
     background-repeat: no-repeat;
 }
 
+
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark {
+       // position: fixed; // chua xu ly xong nav position fixed kem aftect 
+       z-index: 999;
+       width: 100%;
+      
+}
+// .y{
+//        margin-top: 3em; // chua xu ly xong nav position fixed kem aftect 
+// }
+
 #paginate nav{
   width: 25%;
   margin: auto;
 }
+
 
 .brand {
   width: 100%;
@@ -416,3 +430,4 @@ footer hr{
     width: 75%;
   }
 }
+

@@ -6,9 +6,12 @@ App.message_admin = App.cable.subscriptions.create "MessageAdminChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
-  	keys = Object.values(data)
-   $('#setscroll').append(" <div class='row msg_container base_receive'><div class='col-md-2 col-xs-2 avatar-custom1'><div class='col-xs-10 col-md-10'><div class='messages msg_receive'><p>"+keys[0]["message"]["content"]+"</p><time >"+keys[0]["message"]["time"]+"</time</div></div></div></div>");
-    # Called when there's incoming data on the websocket for this channel
+     $.ajax '/messages/received',
+     type: 'POST'
+     dataType: 'script'
+     data: { data }
+     success: (data, textStatus, jqXHR) ->
+     console.log(data)
 
   admin_send_msg: (data)->
     @perform 'admin_send_msg', message:data

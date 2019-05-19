@@ -4,7 +4,10 @@
 	<div class="last"><%= time_ago_in_words(@messages.last.created_at) %></div>
 </div>
 
-<ol id="admin_chat" class="chat">
+<ol id=admin_chat<%= @messages[0].user.id %> class="chat">
+	<div id="btn-loadmessage" align="center" class="mt-3">
+        <button  id="loadmessage" class="btn btn-info">More</button>
+     </div>
 	<% @messages.each do |v|  %>
 	<% if v.usersend == true%> 
 	<li class="other">                        
@@ -39,4 +42,17 @@
     }, 2000);
 
 		})
+</script>
+<script type="text/javascript">
+		  var count_message = 1; 
+		     $( "#loadmessage" ).click(function() {
+	      count_message = count_message + 5;
+	      var user_id = "<%= @messages[0].user.id %>";
+	       $.ajax({
+	       url: "/admins/messages/watchedmore",
+	       type: "post",
+	       dataType: "script",
+	       data: { info: { "offset": count_message,"user_id": user_id }}
+	       });
+	  });
 </script>

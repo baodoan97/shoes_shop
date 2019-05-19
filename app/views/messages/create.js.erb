@@ -1,5 +1,6 @@
 document.getElementById("usechat").value = " ";
 $(document).ready(function(){
+$('#setscroll'+"<%= @message.user_id %>").find('div:eq(1)').remove();
 var messsage = {"usersend":"<%= @message.usersend %>","user_id":"<%= @message.user_id %>","avatar":'<%= url_for(@message.user.avatar) %>',"name":"<%= current_user.firstname %>","time":"<%= time_ago_in_words(@message.created_at) %>","content":"<%= @message.content %>"};
 App.message.send_msg(messsage);
 App.message.received = function(data)
@@ -14,8 +15,8 @@ x = "<%= current_user.id %>";
 	if (keys[0]["message"]["user_id"] == x)
 	{
 
-		$("#setscroll").append("<div class='row msg_container base_sent'> <div class='col-md-10 col-xs-10 '> <div class='messages msg_sent'> <p>"+keys[0]["message"]["content"]+"</p> <time> "+keys[0]["message"]["time"]+"</time> </div> </div> <div class='col-md-2 col-xs-2 avatar'> <img src="+keys[0]["message"]["avatar"]+" class=' img-responsive '> </div> </div>");
-		var mydiv = $("#setscroll");
+		$("#setscroll"+keys[0]["message"]["user_id"]).append("<div class='row msg_container base_sent'> <div class='col-md-10 col-xs-10 '> <div class='messages msg_sent'> <p>"+keys[0]["message"]["content"]+"</p> <time> "+keys[0]["message"]["time"]+"</time> </div> </div> <div class='col-md-2 col-xs-2 avatar'> <img src="+keys[0]["message"]["avatar"]+" class=' img-responsive '> </div> </div>");
+		var mydiv = $("#setscroll"+keys[0]["message"]["user_id"]);
 		    mydiv.scrollTop(mydiv.prop("scrollHeight"));
 		    // $("#setscroll").scrollTop(150);
 		    }

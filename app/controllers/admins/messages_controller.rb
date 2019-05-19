@@ -1,8 +1,12 @@
 class Admins::MessagesController < BaseController
+    skip_before_action :verify_authenticity_token
 
 	before_action :set_user_message , only: [:show]
 
-    
+    def watchedmore
+        @messages = Message.where(user_id: params[:info][:user_id].to_i).order('created_at desc').limit(10).offset(params[:info][:offset].to_i) 
+    end
+
     def create
     	# debugger
 		   @message = Message.new
@@ -35,9 +39,14 @@ class Admins::MessagesController < BaseController
         }
         # .order("created_at DESC").all
 	end
+    
+     def received
+         # debugger
+    end
+
 	private
 	def set_user_message
-        @messages = Message.all.where(user_id: params[:id])
+        @messages = Message.all.where(user_id: params[:id]).order('created_at desc').limit(10).reverse
         @message = Message.new
 	end
 

@@ -1,0 +1,16 @@
+// Place all the styles related to the comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.bg-light-custom {
+    background: #91919124;
+}
+img.imgcomment.align-self-start.mr-3 {
+    height: 28px;
+    margin: 17px 13px 1px 1px;
+    border: 105px black;
+    width: 1;
+    /* border: 15em black; */
+    border: rgba(0, 0, 0, 0.075);
+    /* border-style: outset; */
+    /* border: 2em red; */
+}

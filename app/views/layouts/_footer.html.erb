@@ -1,13 +1,42 @@
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
+
+<div style="float: right; position: fixed; bottom: 27px; right: 87px; z-index: 10;" >
+    <% if user_signed_in? %>
+    <div id=toast<%= current_user.id %> ><button style="display: none" id=closetoast type='button' class='ml-2 mb-1 close' data-dismiss='toast'>x</button>
+    
+   </div>
+   <% end %>
+  <div style="float: right;" class="dropup">
+    <button type="button" class="btn btn-danger " data-toggle="dropdown">
+    <i class="fas fa-bell"></i>
+    </button>
+    <% if user_signed_in? %>
+    <div class="dropdown-menu bg-light ">
+        <% Notification.where(user_id: current_user.id).where(watched: false).order('created_at desc').limit(5).each do |n| %>
+         <%= link_to (n.content.split(' ').include?('comment')? raw("<i class='fas fa-comments'></i> ")+n.content : "y" ) ,cart_path,class:  "dropdown-item text-muted"   %>
+<!--         <a class="dropdown-item text-muted" href="#"></a>
+ -->     <% end %>
+    </div>
+    <% end %>
+  </div>
+
+</div>
 <% if user_signed_in? %>
 <div class="container-fluid ">
   <div id="repohide" class="arrow">
     <%= button_tag raw("&#xf075"), :onclick => "openForm();" ,:remote => true, class: "open-button fa" , id: "chat-on" %>
     <div class="chat-popup" id="myForm">
+      <%= button_tag "X", :onclick => "closeForm();" ,class: "btn btn-danger right-x"  %>
       <div  class="data-chat">
-        <div id="setscroll" class="panel-body msg_container_base">
+        <div id=setscroll<%= current_user.id %> class="panel-body msg_container_base">
+          <div id="btn-loadmessage" align="center" class="mt-3">
+             <button  id="loadmessage" class="btn btn-info">More</button>
+          </div>
           <% if Message.find_by(user_id: current_user.id) %>
-          <% Message.all.where("user_id=?", current_user.id).each do |x| %>
+          <% Message.all.where("user_id=?", current_user.id).order('created_at desc').limit(10).reverse.each do |x| %>
           <% if x.usersend == false %>
           <div class="row msg_container base_receive">
             <div class="col-md-2 col-xs-2 avatar-custom">
@@ -44,16 +73,10 @@
       <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
       <%= f.submit "Send" , class: "btn" ,id: "sendusermessage"  %>
       <% end %>
-      <%= button_tag "X", :onclick => "closeForm();" ,class: "btn cancel"  %>
     </div>
   </div>
 </div>
 <% end %>
-
-
-
-
-
 <footer>
   <div class="bg-dark">
     <div class="container pt-3">
@@ -61,30 +84,28 @@
         <div class="col-md-6 col-sm-12">
           <h6 style="color: #fff; letter-spacing: 2px"><span>ABOUT</span></h6>
           <p class="text-justify" style="color: #757570">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae magna vitae ipsum feugiat ultrices. Phasellus ultricies elementum tincidunt. Ut congue malesuada dui, a dictum tortor auctor ac. In ut efficitur lectus, laoreet congue odio. Quisque nec tincidunt felis. Maecenas posuere nec odio ornare vestibulum. Quisque eu est dictum enim convallis vehicula id sit amet odio. Ut volutpat sapien mi.
-
-          Proin bibendum varius justo ut efficitur. Aliquam imperdiet ex tincidunt sapien scelerisque vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam non justo in leo eleifend gravida. Donec rhoncus ipsum nec iaculis ultrices. Nam at elit malesuada, sollicitudin sem vel, pulvinar diam. Curabitur eu gravida urna, rhoncus vehicula tortor.
+            Proin bibendum varius justo ut efficitur. Aliquam imperdiet ex tincidunt sapien scelerisque vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam non justo in leo eleifend gravida. Donec rhoncus ipsum nec iaculis ultrices. Nam at elit malesuada, sollicitudin sem vel, pulvinar diam. Curabitur eu gravida urna, rhoncus vehicula tortor.
           </p>
         </div>
         <div class="col-xs-12 col-md-3">
-           <h6 style="color: #fff; letter-spacing: 2px"><span>CATEGORIES</span></h6>
-           <ul class="categories"style="">
-             <a href="#" class="cat-item"><li>Adidas</li></a>
-             <a href="#" class="cat-item"><li>Nike</li></a>
-             <a href="#" class="cat-item"><li>Converse</li></a>
-             <a href="#" class="cat-item"><li>Vans</li></a>
-           </ul>
+          <h6 style="color: #fff; letter-spacing: 2px"><span>CATEGORIES</span></h6>
+          <ul class="categories"style="">
+            <a href="#" class="cat-item"><li>Adidas</li></a>
+            <a href="#" class="cat-item"><li>Nike</li></a>
+            <a href="#" class="cat-item"><li>Converse</li></a>
+            <a href="#" class="cat-item"><li>Vans</li></a>
+          </ul>
         </div>
         <div class="col-xs-12 col-md-3">
-           <h6 style="color: #fff; letter-spacing: 2px"><span>QUICK LINKS</span></h6>
-           <ul class="categories"style="">
-             <a href="#" class="cat-item"><li>About Us</li></a>
-             <a href="#" class="cat-item"><li>Contact Us</li></a>
-             <a href="#" class="cat-item"><li>Privacy Policy</li></a>
-           </ul>
+          <h6 style="color: #fff; letter-spacing: 2px"><span>QUICK LINKS</span></h6>
+          <ul class="categories"style="">
+            <a href="#" class="cat-item"><li>About Us</li></a>
+            <a href="#" class="cat-item"><li>Contact Us</li></a>
+            <a href="#" class="cat-item"><li>Privacy Policy</li></a>
+          </ul>
         </div>
       </div>
-              <hr/>
-
+      <hr/>
       <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
             <p class="copyright-text">Copyright &copy; 2019 All Rights Reserved by 
@@ -100,37 +121,65 @@
             </ul>
           </div>
         </div>    
+
     </div>
   </div>
 </footer>
+<% if user_signed_in? %>
+<script type="text/javascript">
+var mydiv = $("#setscroll"+"<%= current_user.id %>");
+mydiv.scrollTop(mydiv.prop("scrollHeight"));
+</script>
+<% end %>
+<script type="text/javascript">
+
+function myFunction(x) {
+if (x.matches) { // If media query matches
+
+document.getElementById("repohide").style.display = "none";
+}
+if(!x.matches)
+{
+document.getElementById("repohide").style.display = "inherit";
+}
+}
+var x = window.matchMedia("(max-width: 640px)")
+myFunction(x) // Call listener function at run time
+x.addListener(myFunction)
+document.getElementById("myForm").style.display = "none";
+function openForm() {
+document.getElementById("myForm").style.display = "block";
+document.getElementById("chat-on").style.display = "none";
+
+// $("#setscroll").scrollTop(150);
+}
+function closeForm() {
+document.getElementById("myForm").style.display = "none";
+document.getElementById("chat-on").style.display = "block";
+}
+$( "#closetoast" ).click(function() {
+   
+        $(".toast").remove();
+               $("#closetoast").css('display','none');
+
+});
+
+</script>
+<% if user_signed_in? %>
+<script type="text/javascript">
+  var count_message = 1; 
+$( "#loadmessage" ).click(function() {
+      count_message = count_message + 5;
+      var user_id = "<%= current_user.id %>";
+       $.ajax({
+       url: "/messages/watchedmore",
+       type: "post",
+       dataType: "script",
+       data: { info: { "offset": count_message,"user_id": user_id }}
+       });
+  });
+</script>
+<% end %>
 
 
 
-  <script type="text/javascript">
-  
-  function myFunction(x) {
-  if (x.matches) { // If media query matches
-  
-  document.getElementById("repohide").style.display = "none";
-  }
-  if(!x.matches)
-  {
-  document.getElementById("repohide").style.display = "inherit";
-  }
-  }
-  var x = window.matchMedia("(max-width: 640px)")
-  myFunction(x) // Call listener function at run time
-  x.addListener(myFunction)
-  document.getElementById("myForm").style.display = "none";
-  function openForm() {
-  document.getElementById("myForm").style.display = "block";
-  document.getElementById("chat-on").style.display = "none";
-  var mydiv = $("#setscroll");
-  mydiv.scrollTop(mydiv.prop("scrollHeight"));
-  // $("#setscroll").scrollTop(150);
-  }
-  function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-  document.getElementById("chat-on").style.display = "block";
-  }
-  </script>

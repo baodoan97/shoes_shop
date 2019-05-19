@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post 'notifications/create'
+  get 'notifications/:id' , to: 'notifications#show'
+
   resources :places
     post 'places/changestatus', to: 'places#changestatus'
    post 'payments/paymentdetail', to: 'payments#paymentdetail'  
@@ -21,7 +24,8 @@ Rails.application.routes.draw do
 
 
   namespace :admins do
-     get 'payments/changestatus', to: 'payments#changestatus'
+
+    get 'payments/changestatus', to: 'payments#changestatus'
     resources :payments, except: [:update]
     resources :vouchers
     resources :messages 
@@ -29,7 +33,13 @@ Rails.application.routes.draw do
     resources :categories
     resources :users
     resources :manages
+    resources :comments
+    post 'comments/newcomment', to: 'comments#newcomment'
+    post 'comments/returncomment', to: 'comments#returncomment'
+    post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
+    post 'messages/watchedmore', to: 'messages#watchedmore'
+
   end
 
 end
@@ -49,6 +59,7 @@ end
   resources :contacts,only: [:new,:create]
   resources :messages 
   get 'show', to: 'messages#show'
+  post 'messages/received', to: 'messages#received'
   resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
   resources :products, only: [:show]
@@ -56,11 +67,16 @@ end
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'
-  get 'destroycart', to: 'carts#destroy'
+  post 'carts/destroycart', to: 'carts#destroycart'
+  post 'carts/changeqt', to: 'carts#changeqt'
 
   resources :payments, only: [:new, :create]
   resources :carts
   resources :cart_products
+  resources :comments
+  post 'comments/watchedmore', to: 'comments#watchedmore'
+  post 'messages/watchedmore', to: 'messages#watchedmore'
+
 
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
