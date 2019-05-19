@@ -101,7 +101,7 @@
             let reader = new FileReader();
             reader.onload = function(e) {
             var span = document.createElement('span');
-            span.innerHTML = ['<img class="imgtask" src="', e.target.result,
+            span.innerHTML = ['<img class="imgproduct_form" src="', e.target.result,
                 '" title="', escape(file.name), '">'
               ].join('');
               document.getElementById('imagetaskss').insertBefore(span, null);
