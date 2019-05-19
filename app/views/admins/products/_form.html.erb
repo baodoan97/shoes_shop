@@ -23,7 +23,7 @@
 		  <%= render "stock_fields", f: stock %>
 		<% end %>
 		<div class="links">
-		  <%= link_to_add_association 'Add Stock', f, :stocks %>
+		    <%= link_to_add_association 'Add Stock', f, :stocks , class: "btn btn-primary ml-3 mt-3" %>
 		</div>
 		<p style="padding:2px">Description</p>
 		<%= f.text_area :description, class: "form-control", placeholder:"Description" ,maxlength:"100",minlength:"20",required:"required"%>
@@ -32,30 +32,58 @@
 				Browse&hellip; <%= f.file_field :images, multiple: true ,id: "imagetsask",required: "required" %>
 			</label>
 		<div class="form-group">
-			<div>
+			<div class="bg-secondary" align="center">
 				<span id="imagetaskss"></span>
 			</div>
 		</div>
 		<div class="form-actions">
-		  <%= f.submit 'Create', class: 'btn btn-success btn-block' %>
+		  <%= f.submit  class: 'btn btn-success btn-block' %>
 		</div>
 		</div>
 		<% end %>
 		<% if @product.new_record? == false %>
 		<div class="form-group">
+      <div class="bg-light" align="center">
 			<% i = 0 %>
 			<% @product.images.each do |image| %>
-			<%= image_tag image ,class: "imgtask", style: "width: 50%" %>
-			<%= link_to "x",images_path(:product => @product.id,:images => i), method: :delete, data: {dismiss: "alert", confirm: "Are you sure you want to delete the user?"},class: "btn btn-md btn-danger"
+			<%= image_tag image ,class: "imgproduct_form" %>
+			<%= link_to "x",admins_images_path(:product => @product.id,:images => i), method: :delete, data: {dismiss: "alert", confirm: "Are you sure you want to delete the user?"},class: "btn btn-danger remove_image_newproduct"
 			%>
 			<% i = i + 1 %>
-			<br>
 			<% end %>
+      </div>
 		</div>
 		<% end %>
 	</div>
 </div>
 <script type="text/javascript">
+//    $(document).on('click','#img_product_form',function(){
+
+//   alert('Clicked');
+
+// });
+function FileListItemUpdate(a) {
+  a = [].slice.call(Array.isArray(a) ? a : arguments)
+  for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File
+  if (!d) throw new TypeError("expected argument to FileList is File or array of File objects")
+  for (b = (new ClipboardEvent("")).clipboardData || new DataTransfer; c--;) b.items.add(a[c])
+  return b.files
+}
+
+
+function remove_image(index)
+{
+
+var newFileList = Array.from(document.getElementById("imagetsask").files);
+newFileList.splice(index,1);
+console.log(newFileList);
+
+
+document.getElementById("imagetsask").files =new FileListItemUpdate(newFileList)
+ newFileList;
+console.log(document.getElementById("imagetsask").files);
+}
+
 	function checknumber(e){
      if(isNaN(parseInt(e.value)))
      {
@@ -80,9 +108,10 @@
 
 
 
-
  $( document ).ready(function() {
 	$('#imagetsask').change(function () {
+    var j = 0;
+
       var myNode = document.getElementById("imagetaskss");
           myNode.innerHTML = '';
      if (this.files && this.files) {
@@ -102,13 +131,14 @@
             reader.onload = function(e) {
             var span = document.createElement('span');
             span.innerHTML = ['<img class="imgproduct_form" src="', e.target.result,
-                '" title="', escape(file.name), '">'
+                '" title="', escape(file.name), '"> <a class="btn btn-danger remove_image_newproduct" onclick=remove_image('+j+++');>x</a> '
               ].join('');
               document.getElementById('imagetaskss').insertBefore(span, null);
             };
             reader.readAsDataURL(file);
           }
-  }    
+          console.log($('#imagetsask').get(0).files);
+  }  
     
 });
     function checkTypeimg(type){
@@ -125,4 +155,5 @@
         }
     }
 })
+
 </script>

@@ -75,7 +75,7 @@ class Admins::ProductsController < BaseController
             @product = Product.find(params[:product])
              @product.images[params[:images].to_i].destroy
 		   end
-		   redirect_to edit_product_path(@product.id.to_i)
+		   redirect_to edit_admins_product_path(@product.id.to_i)
 	end
     	private
 
