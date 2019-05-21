@@ -1,0 +1,32 @@
+<% obj.each do |order| %>
+		<div class="row">
+			<div class="col-12">
+				<p><strong>Order ID: </strong> <%= order.id %></p>
+				<table class="table text-center border">
+				  <thead class="thead-dark">
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Product Name</th>
+				      <th scope="col">Size</th>
+				      <th scope="col">Quantity</th>
+				      <th scope="col">UnitPrice</th>
+				      <th scope="col">SubTotal</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+					<% order.payment_items.each do |item| %>
+				    <tr>
+				      <th scope="row">1</th>
+				      <td><%= item.product.name %></td>
+				      <td><%= item.size %></td>
+				      <td><%= item.quantity %></td>
+				      <td><%= item.price %></td>
+				      <td>$<%= item.total_price %></td>
+				    </tr>
+					<% end %>
+				  </tbody>
+				</table>
+				<p class="float-right"><strong>Total:</strong> $<%= order.total_price %></p>
+			</div>
+		</div>
+<% end %>

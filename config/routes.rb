@@ -18,15 +18,7 @@ Rails.application.routes.draw do
   
   #get '/admins/statistics', to:'admins#homepage'
   scope '/admins' do
-  #   #root'admins#homepage'
     resources :admins
-
-  #   # resources :products
-
-  #   #resource :manages 
-  #   #resources :statistics
-  #   #resources :layouts
-  #   #delete 'admins/sign_out',to: 'sessions#destroy'
 
   end
 
@@ -59,17 +51,11 @@ end
   #  get 'login', to: 'sessions#new'
   # get 'signup', to: 'users#new'
   devise_scope :user do
-  get 'users/show', to: 'users/registrations#show'
+  get 'users/profile', to: 'users/registrations#show'
+  get 'users/order', to: 'users/registrations#order'
   end
   get 'users/signup'
   get 'errors/loi'
-  
-
-  #root :to 'admins#adminshome'
-  #resources :admins, except: [:show]
-  #resources :users, except: [:show]
-  #resources :uploads, only: [:index, :show, :update, :create]
-  #resources :settings, only: [:index, :edit, :update]
   resources :contacts,only: [:new,:create]
   resources :messages 
   get 'show', to: 'messages#show'
@@ -86,15 +72,12 @@ end
   post 'carts/destroycart', to: 'carts#destroycart'
   post 'carts/changeqt', to: 'carts#changeqt'
 
-
-
   resources :payments, only: [:new, :create]
   resources :carts
   resources :cart_products
   resources :comments
   post 'comments/watchedmore', to: 'comments#watchedmore'
   post 'messages/watchedmore', to: 'messages#watchedmore'
-
 
 
   post 'create', to: 'messages#create'
