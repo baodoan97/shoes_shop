@@ -1,4 +1,3 @@
-
 var width_scrollbar = parseInt($(".scrollbar-Related").css("width").replace("px", ""))+(1100/ parseInt('<%= @Related_products.count %>'));
     $(".scrollbar-Related").css("width", width_scrollbar+"px");
 '<% @Related_products.each do |product|%>'

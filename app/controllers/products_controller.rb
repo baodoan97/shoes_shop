@@ -32,11 +32,11 @@ class ProductsController < ApplicationController
                 if Cart.where(user_id: current_user.id).count == 0
                     @Related_products = Find_related_products_of_product(@product)
                 else
-                    # @Related_products = Find_related_products_of_product_user(Cart.where(user_id: current_user.id)) 
+                    @Related_products = Find_related_products_of_product_user(Cart.where(user_id: current_user.id)) 
                 end
             end
         else
-            redirect_to root_path
+             redirect_to root_path
             flash[:danger] = "Product is not exist"
         end
 

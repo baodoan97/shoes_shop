@@ -2,9 +2,12 @@
       <h2 align="center" >Related products</h2>
   <div class='Related_products' >
     <div class='scrollbar-Related'>
-      <% products.limit(4).each do |product|%>
+<!--              products.instance_of? Array  %>
+ -->
+      <% products.take(4).each do |product|%>
       <div class="card ml-4 related_item" >
-        <%= image_tag(product.images[0], alt: "Product", class: "card-img-top" ) %>
+
+         <%= image_tag((Product.find(product['id'].to_i).images[0]), alt: "Product", class: "card-img-top" ) %>
         <a href="#" class="show_detail">View Detail</a>
         <div class="card-body">
           <p class="card-text d-inline product-name"><strong>product name</strong></p>
