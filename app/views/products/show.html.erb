@@ -1,6 +1,4 @@
 <br>
-<%= session[:cart].inspect %>
-<%= @Related_products.inspect %>
 <div class="container-fluid " >
     <div class="row" >
         <div class="col-md-7" >
@@ -75,9 +73,14 @@
 </div>
 </div>
 </div>
-    <div class="container">
-    <%= render 'comments/new' , product_id: @product.id %>
-     </div>
+<div class="container">
+  <%= render 'related_products' , products: @Related_products %>
+
+</div>
+</div>
+<div class="container">
+<%= render 'comments/new' , product_id: @product.id %>
+</div>
 <script type="text/javascript">
 var saveshow = "";
 function showpictrue(i)

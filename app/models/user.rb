@@ -2,10 +2,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one_attached :avatar
-  validate :content_type_avatar 
-   validates :phone, :presence => {:message => 'Phone errors'},
-                     :numericality => true,
-                     :length => { :minimum => 9, :maximum => 11 }
+  # validate :content_type_avatar 
+   # validates :phone, :presence => {:message => 'Phone errors'},
+   #                   :numericality => true,
+   #                   :length => { :minimum => 9, :maximum => 11 }
    validates :firstname , presence: true
    validates :lastname , presence: true
    validates :address , presence: true

@@ -63,6 +63,8 @@ end
   resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
   resources :products, only: [:show]
+  post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
+
 
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
