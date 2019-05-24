@@ -1,0 +1,17 @@
+
+<%= simple_form_for([:admins,@brand]) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+   <div class="form-group">
+     <%= f.label 'Brand name' %>
+     <%= f.text_field :brand_name,class: "form-control" %>
+  </div> 
+    <div class="form-group">
+     <%= f.label 'Category' %>
+     <%= f.collection_select(:category_id, Category.all, :id, :name, {:prompt => 'Chooses Category'},{:class=>'form-control'} ) %>
+
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit , class: "btn btn-primary" %>
+  </div>
+<% end %>

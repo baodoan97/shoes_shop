@@ -1,1 +1,3 @@
-alert("<%= @cartss[0]['product_id'] %>");
+var total =  parseInt("<%= @location['price']*@location['quantity'] %>");
+var update = parseInt($('#total_carts').text().replace('TOTAL:','').replace('$','')) - total;
+$('#total_carts').text('TOTAL: '+update+' $');
