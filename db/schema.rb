@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_132706) do
+ActiveRecord::Schema.define(version: 2019_05_24_152143) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,13 @@ ActiveRecord::Schema.define(version: 2019_05_17_132706) do
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "brand_name"
+    t.integer "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "cart_products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|

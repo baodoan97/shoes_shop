@@ -1,5 +1,9 @@
-var width_scrollbar = parseInt($(".scrollbar-Related").css("width").replace("px", ""))+(1100/ parseInt('<%= @Related_products.count %>'));
+var width_scrollbar = parseInt($(".scrollbar-Related").css("width").replace("px", ""))+1100;
     $(".scrollbar-Related").css("width", width_scrollbar+"px");
 '<% @Related_products.each do |product|%>'
 $( "<div class='card ml-4 related_item' > <img src=<%=url_for(product.images[0])%> class='card-img-top' >  <a href='#' class='show_detail'>View Detail</a> <div class='card-body'> <p class='card-text d-inline product-name'><strong>product name</strong></p> <p class='card-text d-inline product-price'><strong>$product price</strong></p> </div> </div>" ).insertBefore( "#more_related_products" );
  '<% end %>'
+
+'<% if @Related_products.count <= 3 %>'
+ $('.scrollbar-Related > div:last-child').remove(); 
+'<% end %>'

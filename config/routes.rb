@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 
 
   namespace :admins do
-
+     
     get 'payments/changestatus', to: 'payments#changestatus'
     resources :payments, except: [:update]
     resources :vouchers
@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :users
     resources :manages
     resources :comments
+    resources :brands
     post 'comments/newcomment', to: 'comments#newcomment'
     post 'comments/returncomment', to: 'comments#returncomment'
     post 'messages/received', to: 'messages#received'

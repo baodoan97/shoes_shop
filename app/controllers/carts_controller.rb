@@ -41,8 +41,9 @@ class CartsController < ApplicationController
     end
 
     def destroycart
+    	@location = nil
     	  if user_signed_in?  
-           Cart.where(user_id: current_user.id).where(product_id: params[:item][:id]).where(size: params[:item][:size]).first.destroy
+           @location = Cart.where(user_id: current_user.id).where(product_id: params[:item][:id]).where(size: params[:item][:size]).first.destroy
            if Cart.where(user_id: current_user.id).count == 0
            	redirect_to root_path
            end    
@@ -51,7 +52,8 @@ class CartsController < ApplicationController
 		       	i = 0
 		       	while i < @cartss.count do 
 		       		if @cartss[i]['product_id'] == params[:item][:id] && @cartss[i]['size'] == params[:item][:size]
-		              @cartss.delete_at(i)
+		            @location = @cartss.delete_at(i)
+		            break
 		       		end
 		       		i = i + 1
 		       	end
