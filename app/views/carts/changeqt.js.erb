@@ -1,8 +1,9 @@
-if ("<%= @checkqt %>" == '1'){
-	alert("only sell quantities <%= @resetvalue %>");
-	$('input[name=item'+"<%= params[:item][:id] %>"+"<%= params[:item][:size] %>"+']').val("<%= @resetvalue %>");
+if ("<%= @checkqt %>" == '1') {
+    alert("only sell quantities <%= @resetvalue %>");
+    $('input[name=item' + "<%= params[:item][:id] %>" + "<%= params[:item][:size] %>" + ']').val("<%= @resetvalue %>");
 }
-if("<%= @checkqt %>" == '2')
-{
-	alert("Sorry! Out of stock");
+if ("<%= @checkqt %>" == '2') {
+    alert("Sorry! Out of stock");
+}else{
+	  location.reload();
 }
