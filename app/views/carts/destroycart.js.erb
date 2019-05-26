@@ -1,3 +1,4 @@
-var total =  parseInt("<%= @location['price']*@location['quantity'] %>");
-var update = parseInt($('#total_carts').text().replace('TOTAL:','').replace('$','')) - total;
-$('#total_carts').text('TOTAL: '+update+' $');
+alert("Delete item was success!");
+var total = parseInt("<%= @location['price'].to_i*@location['quantity'].to_i %>");
+var update = parseInt($('#total_carts').text().replace('TOTAL:', '').replace('$', '')) - total;
+$('#total_carts').text('TOTAL: ' + update + ' $');
