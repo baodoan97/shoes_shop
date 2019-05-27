@@ -57,13 +57,13 @@ class CartsController < ApplicationController
               break
             end
             i = i + 1
-        end
-		  if @cartss.count == 0
-		    session[:cart] = nil
-		    redirect_to root_path
-		  else
-		    session[:cart] = @cartss
-		  end
+          end
+          if @cartss.count == 0
+            session[:cart] = nil
+            redirect_to root_path
+          else
+            session[:cart] = @cartss
+          end
         end
       end
       def show
@@ -162,9 +162,10 @@ class CartsController < ApplicationController
           end
         else
           if session[:cart] != nil
-            @carts = checkallquantity_cart_session(session[:cart])
-            i = 0
-            while i < @carts.count do
+              @carts = checkallquantity_cart_session(session[:cart])
+              redirect_to root_path  if @carts.count == 0
+              i = 0
+              while i < @carts.count do
                 @total = @total + (@carts[i]["price"].to_i*@carts[i]["quantity"].to_i)
                 i = i + 1
               end
