@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'brands/show'
   post 'notifications/create'
   get 'notifications/:id' , to: 'notifications#show'
 
@@ -40,7 +41,7 @@ Rails.application.routes.draw do
     post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
     post 'messages/watchedmore', to: 'messages#watchedmore'
-      delete 'images', to:  'products#destroyimage'
+    delete 'images', to:  'products#destroyimage'
   end
 
 end
@@ -61,7 +62,7 @@ end
   resources :messages 
   get 'show', to: 'messages#show'
   post 'messages/received', to: 'messages#received'
-  resources :categories, only: [:show]
+  # resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
   resources :products, only: [:show]
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
@@ -80,6 +81,8 @@ end
   post 'comments/watchedmore', to: 'comments#watchedmore'
   post 'messages/watchedmore', to: 'messages#watchedmore'
 
+  
+  get '/categories/:id/:brand_id', to: 'categories#show', as: 'category'
 
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'

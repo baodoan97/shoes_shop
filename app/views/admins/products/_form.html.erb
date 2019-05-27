@@ -17,11 +17,13 @@
 		<%= f.text_field :name, class: 'form-control',placeholder: "Product Name",maxlength:"30",minlength:"3",required:"required"%><br>
 		<p style="padding:2px">Price</p>
 		<%= f.text_field :price, type: "number", class: 'form-control',placeholder: "Price",required:"required"%><br>
-		<p style="padding:2px">Category</p>
-		<%= f.collection_select(:category,Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %><br>
+		<p style="padding:2px">Brand</p>
+	<!-- 	f.collection_select(:category,Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %><br> -->
+    <%= f.collection_select(:brand_id, Brand.all, :id, :brand_name, {:prompt =>  'Chooses Brand'},{:class=>'form-control'} ) %>
 		<%= f.fields_for :stocks do |stock| %>
 		  <%= render "stock_fields", f: stock %>
 		<% end %>
+
 		<div class="links">
 		    <%= link_to_add_association 'Add Stock', f, :stocks , class: "btn btn-primary ml-3 mt-3" %>
 		</div>
@@ -29,7 +31,8 @@
 		<%= f.text_area :description, class: "form-control", placeholder:"Description" ,maxlength:"100",minlength:"20",required:"required"%>
 		<p style="padding:2px">Image</p>
 		<label class="btn btn-block btn-primary">
-				Browse&hellip; <%= f.file_field :images, multiple: true ,id: "imagetsask",required: "required" %>
+				Browse&hellip; <%= f.file_field :images, multiple: true ,id: "imagetsask" %>
+        <!-- ,required: "required" neu bat buoc them hinh them thuoc tinh vao f.file_field -->
 			</label>
 		<div class="form-group">
 			<div class="bg-secondary" align="center">
