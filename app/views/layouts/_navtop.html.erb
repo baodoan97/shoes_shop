@@ -7,9 +7,23 @@
           <i class="fas fa-envelope"><span class="ml-1">example@gmail.com</span></i>
         </div>
         <div class="col-sm-5 col-lg-4 col-xs-12 float-right p-0 first-right">
-          <i class="fas fa-shopping-bag cart mr-2"><span class="cart-text badge-danger">1</span></i> |
-          <i class="fas fa-user ml-1"><span class="ml-1">My Account</span></i> |
-          <i class="fas fa-envelope ml-1"><span class="ml-1"> Sign Up</span></i>
+          <%= link_to carts_path do %>
+          <i class="fas fa-shopping-bag cart mr-2 text-secondary">
+          <span class="cart-text badge-danger"><%= session[:cart] == nil ? 0 : session[:cart].count %></span></i> |
+          <% end %>
+          <% if user_signed_in? %>
+          <i class="fas fa-user ml-1 "><span class="ml-1">
+            <%= link_to 'My account',users_profile_path  %>
+            <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+          </span></i> |
+          <% else %>
+          <i class="fas fa-envelope ml-1">
+          <span class="ml-1 ">
+            <%= link_to "Sign Up",new_user_registration_path , class: "text-secondary" %> | 
+            <%= link_to "Sign In",new_user_session_path , class: "text-secondary" %>
+          </span>
+          </i>
+          <% end %>
         </div>
       </div>
     </div>
@@ -53,11 +67,11 @@
             <ul class="dropdown-menu">
               <% Category.all.each do |cat| %>
               <li>  <!-- link_to cat.name, category_path(cat), class:"dropdown-item" %> -->
-              <li class="dropdown-submenu">
+              <li class="dropdown-submenu ">
                 <%= link_to cat.name, category_path(:id => cat.id ,:brand_id => 0), class:"test dropdown-item" %>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu aaa">
                   <% Brand.where(category_id: cat.id).each do |brand| %>
-                  <li><%= link_to brand.brand_name, category_path(:id => cat.id ,:brand_id => brand.id), class:"dropdown-item " %></li>
+                  <li><%= link_to brand.brand_name, category_path(:id => cat.id ,:brand_id => brand.id), class: "dropdown-item " %></li>
                   <% end %>
                 </ul>
               </li>
@@ -151,10 +165,25 @@ var table = $('<table>').addClass('foo');
   </script>
   <script>
   $(document).ready(function(){
-  $('.dropdown-submenu a.test').on("mouseover", function (e) {
-  $(this).next('ul').toggle();
-  e.stopPropagation();
-  e.preventDefault();
+  $('.dropdown-submenu a.test').hover(
+        
+               function (e) {
+                var x = window.matchMedia("(max-width: 640px)")
+                  if (!x.matches) { 
+                     $('.aaa').css( "display", "none" ); 
+                  }
+
+                   $(this).next('ul').toggle("slow");
+                    e.stopPropagation();
+                    e.preventDefault();
+               }, 
+        
+               function () {
+
+               }
+            );
+
+
   });
-  });
+
   </script>

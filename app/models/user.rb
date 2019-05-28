@@ -11,18 +11,22 @@ class User < ApplicationRecord
    validates :address , presence: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         # ,:confirmable
   has_many :messages
   has_many :payments
   has_many :carts
   has_many :comments
   has_many :notifications
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-   private
-
-	   def content_type_avatar
-	         if self.avatar.content_type != "image/png" && self.avatar.content_type != "image/jpeg" 
-	         	 errors.add(:notice, "avatar file errors")
-	           return false
-	         end 
-	    end 
+  after_create :welcome_send
+  def welcome_send
+    # WelcomeMailer.welcome_send(self).deliver
+  end 
+   # private
+	  #  def content_type_avatar
+	  #        if self.avatar.content_type != "image/png" && self.avatar.content_type != "image/jpeg" 
+	  #        	 errors.add(:notice, "avatar file errors")
+	  #          return false
+	  #        end 
+	  #   end 
 end
