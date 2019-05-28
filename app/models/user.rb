@@ -10,8 +10,7 @@ class User < ApplicationRecord
    validates :lastname , presence: true
    validates :address , presence: true
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-         # ,:confirmable
+         :recoverable, :rememberable, :validatable,:confirmable
   has_many :messages
   has_many :payments
   has_many :carts

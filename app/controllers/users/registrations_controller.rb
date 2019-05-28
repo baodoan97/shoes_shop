@@ -6,15 +6,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  def new
-   build_resource
-    yield resource if block_given?
-    respond_with resource
-  end
+  # def new
+  #  build_resource
+  #   yield resource if block_given?
+  #   respond_with resource
+  # end
   
   # POST /resource
   def create
     super
+   sign_out(current_user) 
     # if sign_up_params[:avatar] == nil
     #    flash[:notice] = 'choose image for avatar'
     #    redirect_to new_user_registration_path
