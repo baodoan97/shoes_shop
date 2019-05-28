@@ -17,9 +17,9 @@ class User < ApplicationRecord
   has_many :comments
   has_many :notifications
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-  after_create :welcome_send
+  # after_create :welcome_send
   def welcome_send
-    # WelcomeMailer.welcome_send(self).deliver
+    WelcomeMailer.welcome_send(self).deliver
   end 
    # private
 	  #  def content_type_avatar

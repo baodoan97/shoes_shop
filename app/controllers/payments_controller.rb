@@ -15,7 +15,7 @@ class PaymentsController < ApplicationController
 	end
 
 	def create
-       SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
+       # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
     if current_cart.cart_products.size == 0
       redirect_to '/', :notice => 'Your cart is empty'
       return
