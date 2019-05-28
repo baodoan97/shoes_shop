@@ -21,6 +21,8 @@ class Users::SessionsController < Devise::SessionsController
       render 'new'
     else
       super
+      SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
+
       if session[:cart] != nil
         @cart = Cart.create
         @cart.add_carts(session[:cart],current_user.id)

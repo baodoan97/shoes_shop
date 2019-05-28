@@ -15,7 +15,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-   sign_out(current_user) 
+    SendEmailJob.set(wait: 50.seconds).perform_later(User.find_by(email: sign_up_params[:email]))
+   # sign_out(current_user) 
     # if sign_up_params[:avatar] == nil
     #    flash[:notice] = 'choose image for avatar'
     #    redirect_to new_user_registration_path
@@ -136,8 +137,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   end
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    super(resource)
+  end
 
 end
