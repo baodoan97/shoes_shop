@@ -9,6 +9,7 @@ gem 'devise'
 gem 'stripe'
 gem 'hirb'
 gem 'cocoon'
+gem 'whenever', require: false
 #Bootstrap 4
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass', '~> 5.6.1'
