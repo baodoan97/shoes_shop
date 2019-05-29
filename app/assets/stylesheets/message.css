@@ -4,3 +4,20 @@
 .user-reponstive-chat{
 	max-width:100%;
 }
+.right-icon-plane{
+	    float: right;
+    font-size: 25px;
+}
+textarea.form-container-custom-admin {
+    border: none;
+    border: 1px solid #e6e6e6;
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px;
+    font-weight: 100;
+    font-family: sans-serif;
+    color: #747779;
+    resize: none;
+    height: 10em;
+    outline: none;
+}
