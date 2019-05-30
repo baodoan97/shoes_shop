@@ -43,7 +43,7 @@
             </div>
             <div class="col-xs-10 col-md-10">
               <div class="messages msg_receive">
-                <p><%= x.content %></p>
+                <p><%= raw x.content  %></p>
                 <time ><%= time_ago_in_words(x.created_at) %></time>
               </div>
             </div>
@@ -53,7 +53,10 @@
           <div class="row msg_container base_sent">
             <div class="col-md-10 col-xs-10 ">
               <div class="messages msg_sent">
-                <p><%= x.content %></p>
+           <!--      z = x.content.split(' ').map do |k,v|  %>
+                 raw v = "<br />" %>
+                 end  %> -->
+                <p ><%= raw x.content %></p>
                 <time ><%= time_ago_in_words(x.created_at) %></time>
               </div>
             </div>
@@ -143,35 +146,31 @@ myFunction(x) // Call listener function at run time
 x.addListener(myFunction)
 document.getElementById("myForm").style.display = "none";
 function openForm() {
-  document.getElementById("dropup_notification").disabled = true;
-     $("#myForm")
-      .css('opacity', 0.2)
-      .slideDown("slow")
-      .animate(
-        { opacity: 1 },
-        { queue: false, duration: 1000 }
-      );
-    $('#chat-on').slideUp();
-
+document.getElementById("dropup_notification").disabled = true;
+$("#myForm")
+.css('opacity', 0.2)
+.slideDown("slow")
+.animate(
+{ opacity: 1 },
+{ queue: false, duration: 1000 }
+);
+$('#chat-on').slideUp();
 }
 function closeForm() {
-  document.getElementById("dropup_notification").disabled = false;
-  $( "#chat-on" ).slideDown( 1200,'linear' );
+document.getElementById("dropup_notification").disabled = false;
+$( "#chat-on" ).slideDown( 1200,'linear' );
 $('#myForm').slideUp(1000, function(){
-    console.log('Done!');
+console.log('Done!');
 }).fadeOut({
-    duration: 1000,
-    queue: false
+duration: 1000,
+queue: false
 });
-  
+
 }
-  $( "#closetoast" ).click(function() {
-  $(".toast").remove();
-  $("#closetoast").css('display','none');
-  });
-
-
-
+$( "#closetoast" ).click(function() {
+$(".toast").remove();
+$("#closetoast").css('display','none');
+});
 </script>
 <% if user_signed_in? %>
 <script type="text/javascript">

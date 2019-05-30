@@ -1,5 +1,5 @@
 document.body.scrollTop = document.body.scrollHeight;
-$('#admin_chat'+"<%=params[:data][:message][:message]['user_id'] %>").append("<li class='other'> <div class='avatar'><img src="+"<%=params[:data][:message][:message]['avatar'] %>"+" /></div> <div class='msg'> <p>"+"<%=params[:data][:message][:message]['content'] %>"+"</p> <time>"+"<%=params[:data][:message][:message]['time'] %>"+"</time> </div> </li>");
+$('#admin_chat'+"<%=params[:data][:message][:message]['user_id'] %>").append("<li class='other'> <div class='avatar'><img src="+"<%=params[:data][:message][:message]['avatar'] %>"+" /></div> <div class='msg'> <p>"+"<%= raw @content %>"+"</p> <time>"+"<%=params[:data][:message][:message]['time'] %>"+"</time> </div> </li>");
 window.scrollTo(0, 9999999999999999999999999);
 "<% if Message.all.where('user_id=?', params[:data][:message][:message]['user_id']).count > 10 %>"
 $('#admin_chat'+"<%=params[:data][:message][:message]['user_id'] %> "+' li').first().remove();
