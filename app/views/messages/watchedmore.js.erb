@@ -1,8 +1,8 @@
 
 "<% @messages.each do |message| %>"
   "<% if message.usersend == true  %>"
-    $( "<div class='row msg_container base_sent'> <div class='col-md-10 col-xs-10 '> <div class='messages msg_sent'> <p><%= message.content %></p> <time ><%= time_ago_in_words(message.created_at) %></time> </div> </div> <div class='col-md-2 col-xs-2 avatar'><img class='img-responsive' src=<%= url_for(message.user.avatar) %> > </div> </div>" ).insertAfter( "#btn-loadmessage" );
+    $( "<div class='row msg_container base_sent'> <div class='col-md-10 col-xs-10 '> <div class='messages msg_sent'> <p><%= raw message.content %></p> <time ><%= time_ago_in_words(message.created_at) %></time> </div> </div> <div class='col-md-2 col-xs-2 avatar'><img class='img-responsive' src=<%= url_for(message.user.avatar) %> > </div> </div>" ).insertAfter( "#btn-loadmessage" );
    "<% else %>"
-   $( "<div class='row msg_container base_receive'> <div class='col-md-2 col-xs-2 avatar-custom'> </div> <div class='col-xs-10 col-md-10'> <div class='messages msg_receive'> <p><%= message.content %></p> <time ><%= time_ago_in_words(message.created_at) %></time> </div> </div> </div>" ).insertAfter( "#btn-loadmessage" );
+   $( "<div class='row msg_container base_receive'> <div class='col-md-2 col-xs-2 avatar-custom'> </div> <div class='col-xs-10 col-md-10'> <div class='messages msg_receive'> <p><%= raw message.content %></p> <time ><%= time_ago_in_words(message.created_at) %></time> </div> </div> </div>" ).insertAfter( "#btn-loadmessage" );
   "<% end %>"
 "<% end %>"

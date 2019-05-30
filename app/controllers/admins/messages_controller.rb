@@ -10,7 +10,7 @@ class Admins::MessagesController < BaseController
     def create
     	# debugger
 		   @message = Message.new
-	       @message.content = params[:post][:content]
+	       @message.content = params[:post][:content].gsub(/[\r\n]/, '<br />')
 	       @message.user = User.find(params[:user_id][:user_id])
 	       @message.admin = Admin.first
 	       @message.usersend = params[:user_send][:usersend]
@@ -41,7 +41,7 @@ class Admins::MessagesController < BaseController
 	end
     
      def received
-         # debugger
+            @content = Message.where(user_id: params[:data][:message][:message][:user_id].to_i).last.content
     end
 
 	private

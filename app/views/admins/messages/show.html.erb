@@ -15,7 +15,7 @@
 	<li class="other">                        
 		<div class="avatar"><%= image_tag v.user.avatar%></div>
 		<div class="msg">
-			<p><%= v.content %></p>
+			<p><%= raw v.content %></p>
 			<time><%= time_ago_in_words(v.created_at) %></time>
 		</div>
 	</li>
@@ -23,7 +23,7 @@
 	<li class="self">
 		<div class="avatar"></div>
 		<div class="msg">
-			<p><%= v.content %></p>
+			<p><%= raw v.content %></p>
 			<time><%= time_ago_in_words(v.created_at) %></time>
 		</div>
 	</li>
