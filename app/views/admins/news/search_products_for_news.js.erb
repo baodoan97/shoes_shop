@@ -1,0 +1,10 @@
+
+"<% if params[:info][:name] == "" %>"
+ $('#list_seacrh_products_for_news').empty();
+"<% else %>"
+	var product_list = "";
+	"<% @products.each do |v| %>"
+	product_list = product_list + "<li  onclick=add_products(<%= v.id %>,'<%= v.name.gsub(' ', '') %>') ><a ><%= v.name %></a></li>";
+	"<% end %>"
+	$("#list_seacrh_products_for_news").html(product_list);
+"<% end %>"

@@ -10,6 +10,13 @@ gem 'stripe'
 gem 'hirb'
 gem 'cocoon'
 gem 'whenever', require: false
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'ckeditor', '4.2.4'
+
+
+
+
 #Bootstrap 4
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass', '~> 5.6.1'

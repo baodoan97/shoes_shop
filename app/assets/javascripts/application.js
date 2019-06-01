@@ -9,7 +9,6 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-
 //= require cocoon
 //= require activestorage
 //= require jquery3
@@ -20,6 +19,7 @@
 //= require activestorage
 //= require bootstrap
 //= require turbolinks
+//= require ckeditor/init
 //= require_tree .
 //= require_imagezoom
 //= require_jquery.flexslider
@@ -36,6 +36,7 @@
 //= require_dataTables.bootstrap
 //= require_dataTables.jqueryui.min
 //= require highcharts
+
 $( document ).on('turbolinks:load', function() {
    
  
