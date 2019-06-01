@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   get 'brands/show'
   post 'notifications/create'
   get 'notifications/:id' , to: 'notifications#show'
 
   resources :places
-    post 'places/changestatus', to: 'places#changestatus'
+   post 'places/changestatus', to: 'places#changestatus'
    post 'payments/paymentdetail', to: 'payments#paymentdetail'  
   #resources :categories
   #get 'admins/categories', to: 'categories#index'
@@ -25,7 +26,6 @@ Rails.application.routes.draw do
 
 
   namespace :admins do
-     
     get 'payments/changestatus', to: 'payments#changestatus'
     resources :payments, except: [:update]
     resources :vouchers
@@ -36,12 +36,16 @@ Rails.application.routes.draw do
     resources :manages
     resources :comments
     resources :brands
+    resources :news
+
     post 'comments/newcomment', to: 'comments#newcomment'
     post 'comments/returncomment', to: 'comments#returncomment'
     post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
     post 'messages/watchedmore', to: 'messages#watchedmore'
     delete 'images', to:  'products#destroyimage'
+    post 'news/search_products_for_news', to: 'news#search_products_for_news'
+
   end
 
 end
@@ -83,8 +87,7 @@ end
 
   
   get '/categories/:id/:brand_id', to: 'categories#show', as: 'category'
-
+  
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
-
 end

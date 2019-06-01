@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>Title:</strong>
+  <%= raw @new.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= raw @new.body %>
+</p>
+<p>
+  <strong>products: </strong>
+  <% @new.products.each do |v| %>
+  <h3> <span class="badge badge-secondary"><%=
+  v.name
+  %></span></h3>
+  <% end %>
+</p>
+
+<%= link_to 'Edit',  edit_admins_news_path(@new) %> |
+<%= link_to 'Back', admins_news_index_path %>

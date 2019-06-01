@@ -1,0 +1,43 @@
+<%= simple_form_for([:admins, @new], :url => url_for(:controller => 'news', :action => @new.new_record?? 'create' : 'update' )  ) do |f| %>
+<%= f.error_notification %>
+<%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<div class="form-inputs">
+	<input id="seacrh_product_of_news" type="text" name="search" placeholder="Search product...">
+	<div >
+		<ul id="list_seacrh_products_for_news">
+		</ul>
+	</div>
+	<div id="checkbox_product">
+	</div>
+	<!--  f.input :product_id %> -->
+	<%= f.input :title , as: :ckeditor %>
+	<%= f.input :body , as: :ckeditor%>
+</div>
+<div class="form-actions">
+	<%= f.button :submit %>
+</div>
+<% end %>
+<script type="text/javascript">
+$("#seacrh_product_of_news").change(function() {
+    $.ajax({
+        url: "/admins/news/search_products_for_news",
+        type: "post",
+        dataType: "script",
+        data: {
+            info: {
+                "name": $(this).val()
+            }
+        }
+    });
+});
+
+function add_products(e,name) {
+    $("#checkbox_product").append("<div id=product" + e + " > "+name+" <input value='" + e + "' multiple='multiple' type='hidden' name='new[product_ids][]'> <button class='btn btn-danger' onclick='remove_product(" + e + ")'>x</button></div>");
+}
+function remove_product(e) {
+    if (confirm("Are you sure?") == true) {
+        var product_id = "#product" + e
+        $(product_id).remove();
+    }
+}
+</script>
