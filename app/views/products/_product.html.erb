@@ -3,7 +3,8 @@
     <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
       <div class="card" style="width: 100%; height: 18rem">
         <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
+     <!--    <a href="#" class="show_detail"></a> -->
+     <%= link_to "View Detail",products_path(:name =>product.name),class: "show_detail", method: :get  %>
         <div class="card-body">
           <p class="card-text d-inline product-name"><strong><%= product.name %></strong></p>
           <p class="card-text d-inline product-price"><strong>$<%= product.price %></strong></p>

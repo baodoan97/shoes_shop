@@ -68,7 +68,9 @@ end
   post 'messages/received', to: 'messages#received'
   # resources :categories, only: [:show]
   resources :users, except: [:destroy, :index]
-  resources :products, only: [:show]
+  # resources :products, only: [:show]
+
+
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
 
@@ -86,8 +88,9 @@ end
   post 'messages/watchedmore', to: 'messages#watchedmore'
 
   
-  get '/categories/:id/:brand_id', to: 'categories#show', as: 'category'
-  
+  get '/categories/:name/:brand_name', to: 'categories#show', as: 'category'
+  get 'products/:name', to: 'products#show' ,as: 'products'
+
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
 end
