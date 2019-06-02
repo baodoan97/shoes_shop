@@ -76,7 +76,7 @@
 	function requestAjax(){
     var id = $('#cat_id').val();
 		$.ajax({
-      url: "/categories/"+id+"/"+"<%= params[:brand_id] %>",
+      url: "/categories/"+"<%= params[:name] %>"+"/"+"<%= params[:brand_name] %>",
       type: "get",
       dataType: "script",
       data: {

@@ -68,10 +68,10 @@
               <% Category.all.each do |cat| %>
               <li>  <!-- link_to cat.name, category_path(cat), class:"dropdown-item" %> -->
               <li class="dropdown-submenu ">
-                <%= link_to cat.name, category_path(:id => cat.id ,:brand_id => 0), class:"test dropdown-item" %>
+                <%= link_to cat.name, category_path(:name => cat.name ,:brand_name => " "), class: "test dropdown-item" %>
                 <ul class="dropdown-menu aaa">
                   <% Brand.where(category_id: cat.id).each do |brand| %>
-                  <li><%= link_to brand.brand_name, category_path(:id => cat.id ,:brand_id => brand.id), class: "dropdown-item " %></li>
+                  <li><%= link_to brand.brand_name, category_path(:name => cat.name ,:brand_name => brand.brand_name), class: "dropdown-item " %></li>
                   <% end %>
                 </ul>
               </li>

@@ -20,7 +20,7 @@ class CategoriesController < ApplicationController
         @products = @category.order(name: :desc).paginate(page: params[:page], per_page: params[:show])
       end
     else
-      if params[:brand_id].to_i != 0
+      if params[:brand_name] != " "
         @products = @category.order(id: :desc).paginate(page: params[:page], per_page: 8)
       else
         @products = @category.paginate(page: params[:page], per_page: 8)
@@ -40,11 +40,11 @@ class CategoriesController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_category
-    if Category.exists? id: params[:id]
-      if params[:brand_id].to_i != 0
-        @category = Category.find(params[:id]).products.where(brand_id: params[:brand_id])
+    if Category.exists? name: params[:name]
+      if params[:brand_name] != " "
+        @category = Category.find_by_name(params[:name]).brands.find_by_brand_name(params[:brand_name]).products
       else
-        @category = Category.find(params[:id]).products
+        @category = Category.find_by_name(params[:name]).products
       end
     else
       redirect_to root_path
