@@ -1,6 +1,7 @@
 <%= simple_form_for([:admins, @new], :url => url_for(:controller => 'news', :action => @new.new_record?? 'create' : 'update' )  ) do |f| %>
 <%= f.error_notification %>
 <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
 <div class="form-inputs">
 	<input id="seacrh_product_of_news" type="text" name="search" placeholder="Search product...">
 	<div >
@@ -9,7 +10,7 @@
 	</div>
 	<div id="checkbox_product">
 	</div>
-	<!--  f.input :product_id %> -->
+	 <%= f.collection_select(:news_type_for_shoe_id, NewsTypeForShoe.all, :id, :name, {:prompt => 'Chooses Type of News'},{:class=>'form-control'} ) %>
 	<%= f.input :title , as: :ckeditor %>
 	<%= f.input :body , as: :ckeditor%>
 </div>

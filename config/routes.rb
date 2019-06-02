@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   mount Ckeditor::Engine => '/ckeditor'
   get 'brands/show'
   post 'notifications/create'
@@ -37,7 +39,8 @@ Rails.application.routes.draw do
     resources :comments
     resources :brands
     resources :news
-
+    resources :type_of_news
+  
     post 'comments/newcomment', to: 'comments#newcomment'
     post 'comments/returncomment', to: 'comments#returncomment'
     post 'messages/received', to: 'messages#received'
@@ -90,6 +93,9 @@ end
   
   get '/categories/:name/:brand_name', to: 'categories#show', as: 'category'
   get 'products/:name', to: 'products#show' ,as: 'products'
+
+  get 'news', to: 'news#index' ,as: 'news_index'
+  get 'news/show'
 
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'

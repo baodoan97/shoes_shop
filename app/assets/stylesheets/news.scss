@@ -1,37 +1,124 @@
 // Place all the styles related to the news controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
- input[type=text]#seacrh_product_of_news {
-  width: 130px;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
+input[type=text]#seacrh_product_of_news {
+width: 130px;
+-webkit-transition: width 0.4s ease-in-out;
+transition: width 0.4s ease-in-out;
 }
-
 /* When the input field gets focus, change its width to 100% */
- input[type=text]#seacrh_product_of_news:focus {
-  width: 50%;
+input[type=text]#seacrh_product_of_news:focus {
+width: 50%;
 }
-
-
-
 #list_seacrh_products_for_news {
-  /* Remove default list styling */
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+/* Remove default list styling */
+list-style-type: none;
+padding: 0;
+margin: 0;
 }
-
 #list_seacrh_products_for_news  li a {
-  border: 1px solid #ddd; /* Add a border to all links */
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6; /* Grey background color */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  font-size: 18px; /* Increase the font-size */
-  color: black; /* Add a black text color */
-  display: block; /* Make it into a block element to fill the whole list */
+border: 1px solid #ddd; /* Add a border to all links */
+margin-top: -1px; /* Prevent double borders */
+background-color: #f6f6f6; /* Grey background color */
+padding: 12px; /* Add some padding */
+text-decoration: none; /* Remove default text underline */
+font-size: 18px; /* Increase the font-size */
+color: black; /* Add a black text color */
+display: block; /* Make it into a block element to fill the whole list */
+}
+#list_seacrh_products_for_news li a:hover:not(.header) {
+background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+.main-news {
+    margin: 0 auto;
+    word-wrap: break-word;
+}
+.main-news p {
+vertical-align: middle;
+border-style: none;
+width: 584px;
+height: auto;
+background: #e6e6e6;
+box-shadow: 0px 0px 1px 1px #333;
+text-shadow: 0px 0px 2px #00000085;
+position: relative;
+}
+.main-news img {
+// position: absolute;
+width: 584px;
+z-index: -1;
+}
+.more-main-news li{
+margin-top: 2px;
+}
+.more-main-news img{
+width: 87px;
 }
 
-#list_seacrh_products_for_news li a:hover:not(.header) {
-  background-color: #eee; /* Add a hover effect to all links, except for headers */
+// .more-main-news {
+// height: 333px;
+// overflow-x: hidden;
+// }
+// @media screen and (max-width: 1413px) and (min-width:1063px) , (max-width: 934px) and (min-width:800px) {
+// .main-news  img {
+// width: 311px;
+// // border: 3px solid #73AD21;
+// }
+// .main-news  p {
+// width: 311px;
+// // border: 3px solid #73AD21;
+// }
+// }
+// @media screen and (max-width: 1063px)and (min-width:990px), (max-width: 799px) and (min-width:300px)  {
+// .main-news  img {
+//           width:385px;
+// }
+// .main-news  p {
+//             width: 385px;
+// }
+// .more-main-news img {
+// width: 44px;
+// }
+// .more-main-news p {
+//  font-size:11px;
+// }
+// .more-main-news {
+// width: 300px;
+// }
+// }
+// @media screen and (max-width: 1063px){
+// .main-news {
+
+// margin: 0 auto;
+// }
+// }
+// @media screen and (max-width: 441px){
+// .more-main-news {
+//     height: 333px;
+
+//     overflow-x: hidden;
+// }
+//  }
+.news_before {
+  margin: 0 auto;
+    border: 1px solid;
+    width: 74%;
+    border-style: ridge;
+    padding: 8px;
+    box-shadow: 1px 1px 1px 1px #333;
+    word-wrap: break-word;
+}
+.news_before img {
+        height: 81px;
+}
+.news_before p {
+    font-size: 14px;
+    font-weight: 700;
+}
+.news_before span {
+    float: right;
+}
+.paginate_news {
+    margin: 0 auto;
+    margin-top: 2em;
 }

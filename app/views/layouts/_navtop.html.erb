@@ -168,8 +168,8 @@ var table = $('<table>').addClass('foo');
   $('.dropdown-submenu a.test').hover(
         
                function (e) {
-                var x = window.matchMedia("(max-width: 640px)")
-                  if (!x.matches) { 
+                var x = window.matchMedia("(max-width: 990px)")
+                  if (!x.matches == true) { 
                      $('.aaa').css( "display", "none" ); 
                   }
 
@@ -185,5 +185,13 @@ var table = $('<table>').addClass('foo');
 
 
   });
+// $( ".navbar-toggler-icon" ).click(function() {
+  
+//   if($("#navbarNav").hasClass("show")){
+//       $('#navbarNav').removeClass('show');
+//        $("#navbarNav").hide();
+//   }else{
+//     }
+// });
 
   </script>
