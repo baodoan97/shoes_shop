@@ -1,0 +1,38 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-4">
+			<h2>Category</h2>
+			<ul class="list-group">
+				<li class="list-group-item">New <span class="badge">12</span></li>
+				<li class="list-group-item">Deleted <span class="badge">5</span></li>
+				<li class="list-group-item">Warnings <span class="badge">3</span></li>
+			</ul>
+		</div>
+		<div  class="col-lg-8">
+			<h2 align="center">News</h2>
+			<% if params[:news_page] == nil || params[:news_page].to_i == 1 %>
+			<div  class="row">
+				<div class="main-news" >
+					<%= raw New.last.title %>
+				</div>
+			</div>
+			<% end %>
+			<% @news.each do |v| %>
+			<div class="row mt-2">
+				<div class="news_before">
+					<%= raw v.title %>
+					<span><%= time_ago_in_words(v.created_at) %></span>
+				</div>
+			</div>
+		    <% end %>
+		</div>
+		<div class="paginate_news">
+			<%= will_paginate @news, :param_name => 'news_page' %>
+		</div>
+	</div>
+</div>
+<br>
+<script type="text/javascript">
+	$(".main-news img").removeAttr('style');
+	$(".news_before img").removeAttr('style');
+</script>

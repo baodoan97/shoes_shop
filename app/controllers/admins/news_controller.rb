@@ -1,4 +1,4 @@
-class Admins::NewsController < ApplicationController
+class Admins::NewsController < BaseController
   before_action :set_new, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
 
@@ -84,6 +84,6 @@ class Admins::NewsController < ApplicationController
 
 
   end
-    params.require(:new).permit(:title, :body,product_ids: [])
+    params.require(:new).permit(:title, :body,:news_type_for_shoe_id,product_ids: [])
   end
 end
