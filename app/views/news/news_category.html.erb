@@ -17,6 +17,7 @@
 				<div class="news_before">
 					<%= link_to news_path(:type => v.news_type_for_shoe != nil ? v.news_type_for_shoe.name : " " ,:title => v.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
 					<%= raw v.title %>
+					<%=  raw (v.body.gsub!(%r{</?[^>]+?>},''))[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"")  %>
 					<% end %>
 				</div>
 				<span class="time_news_span"><%=  time_ago_in_words(v.created_at) %></span>

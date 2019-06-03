@@ -54,16 +54,17 @@ background-color: #eee; /* Add a hover effect to all links, except for headers *
     text-decoration: none;
 }
 .main-news > a > h1{
-        font-size: 15px;
+       font-size: 15px;
     vertical-align: middle;
     border-style: none;
     height: auto;
     background: #e6e6e6;
-    box-shadow: 0px 0px 1px 1px #333;
+    box-shadow: 0px 0px 1px 1px #47444429;
     text-shadow: 0px 0px 2px #00000085;
     position: relative;
     width: 50%;
     margin: 0 auto;
+    border: none;
 }
 
 .main-news img {
@@ -123,14 +124,15 @@ width: 87px;
 // }
 //  }
 .news_before {
- margin: 0 auto;
+     margin: 0 auto;
     border: 1px solid;
     width: 67%;
     border-style: ridge;
     padding: 8px;
-    box-shadow: 1px 1px 1px 1px #333;
+    box-shadow: 1px 1px 1px 1px #e3e3e3;
     word-wrap: break-word;
     height: 118px;
+    border: none;
 }
 .news_before img {
          height: 95px;
@@ -143,6 +145,19 @@ width: 87px;
      position: relative; 
     margin: -4px;
     padding-left: 156px;
+}
+.news_before span {
+    font-size: 11px;
+    /* font-weight: 700; */
+    position: relative;
+    /* margin: 2px; */
+    padding-left: 174px;
+    float: right;
+    text-shadow: 1px 1px 1px #00000040;
+    /* border-top: 1px solid; */
+    /* border: 1px solid #333; */
+    border-top-width: -13%;
+    padding-top: 5px;
 }
 
 .news_before > a > h1 {
