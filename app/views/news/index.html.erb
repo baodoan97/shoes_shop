@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-4">
@@ -14,29 +15,29 @@
 			<div  class="row">
 				<div class="main-news" >
 					<%= link_to news_path(:type => New.last.news_type_for_shoe.name ,:title => New.last.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
-						<%= raw New.last.title %>
-						<% end %>
-					</div>
+					<%= raw New.last.title %>
+					<% end %>
 				</div>
-				<% end %>
-				<% @news.each do |v| %>
-				<div class="row mt-2">
-					<div class="news_before">
-						<%= link_to carts_path do %>
-						<%= raw v.title %>
-						<span><%= time_ago_in_words(v.created_at) %></span>
-						<% end %>
-					</div>
+			</div>
+			<% end %>
+			<% @news.each do |v| %>
+			<div class="row mt-2">
+				<div class="news_before">
+					<%= link_to news_path(:type => v.news_type_for_shoe.name ,:title => v.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
+					<%= raw v.title %>
+					<% end %>
 				</div>
-				<% end %>
+				<span class="time_news_span"><%=  time_ago_in_words(v.created_at) %></span>
 			</div>
-			<div class="paginate_news">
-				<%= will_paginate @news, :param_name => 'news_page' %>
-			</div>
+			<% end %>
+		</div>
+		<div class="paginate_news">
+			<%= will_paginate @news, :param_name => 'news_page' %>
 		</div>
 	</div>
-	<br>
-	<script type="text/javascript">
-		$(".main-news img").removeAttr('style');
-		$(".news_before img").removeAttr('style');
-	</script>
+</div>
+<br>
+<script type="text/javascript">
+	$(".main-news img").removeAttr('style');
+	$(".news_before img").removeAttr('style');
+</script>

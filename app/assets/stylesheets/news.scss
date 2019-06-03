@@ -32,22 +32,43 @@ display: block; /* Make it into a block element to fill the whole list */
 background-color: #eee; /* Add a hover effect to all links, except for headers */
 }
 .main-news {
+    width: 60%;
     margin: 0 auto;
     word-wrap: break-word;
 }
-.main-news p {
-vertical-align: middle;
-border-style: none;
-width: 584px;
-height: auto;
-background: #e6e6e6;
-box-shadow: 0px 0px 1px 1px #333;
-text-shadow: 0px 0px 2px #00000085;
-position: relative;
+.main-news > a p{
+    font-size: 15px;
+    vertical-align: middle;
+    border-style: none;
+    height: auto;
+    background: #e6e6e6;
+    box-shadow: 0px 0px 1px 1px #333;
+    text-shadow: 0px 0px 2px #00000085;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
 }
+.main-news a{
+        color: black;
+       text-align: center;
+    text-decoration: none;
+}
+.main-news > a > h1{
+        font-size: 15px;
+    vertical-align: middle;
+    border-style: none;
+    height: auto;
+    background: #e6e6e6;
+    box-shadow: 0px 0px 1px 1px #333;
+    text-shadow: 0px 0px 2px #00000085;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+}
+
 .main-news img {
 // position: absolute;
-width: 584px;
+width: 100%;
 z-index: -1;
 }
 .more-main-news li{
@@ -102,23 +123,45 @@ width: 87px;
 // }
 //  }
 .news_before {
-  margin: 0 auto;
+ margin: 0 auto;
     border: 1px solid;
-    width: 74%;
+    width: 67%;
     border-style: ridge;
     padding: 8px;
     box-shadow: 1px 1px 1px 1px #333;
     word-wrap: break-word;
+    height: 118px;
 }
 .news_before img {
-        height: 81px;
+         height: 95px;
+    margin-left: -151px;
+    position: absolute;
 }
 .news_before p {
-    font-size: 14px;
+  font-size: 14px;
     font-weight: 700;
+     position: relative; 
+    margin: -4px;
+    padding-left: 156px;
 }
-.news_before span {
-    float: right;
+
+.news_before > a > h1 {
+  font-size: 14px;
+    font-weight: 700;
+     position: relative; 
+    margin: -4px;
+    padding-left: 156px;
+}
+.time_news_span {
+        position: absolute;
+        right: 17%;
+    /* bottom: 19px; */
+    margin-top: 94px;
+}
+.news_before a{
+color: black;
+
+    text-decoration: none;
 }
 .paginate_news {
     margin: 0 auto;
