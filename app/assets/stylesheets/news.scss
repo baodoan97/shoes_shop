@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 input[type=text]#seacrh_product_of_news {
-width: 130px;
+width: 19%;
 -webkit-transition: width 0.4s ease-in-out;
 transition: width 0.4s ease-in-out;
 }
@@ -11,10 +11,12 @@ input[type=text]#seacrh_product_of_news:focus {
 width: 50%;
 }
 #list_seacrh_products_for_news {
-/* Remove default list styling */
-list-style-type: none;
-padding: 0;
-margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    z-index: 999;
+    width: 34%;
 }
 #list_seacrh_products_for_news  li a {
 border: 1px solid #ddd; /* Add a border to all links */
@@ -122,3 +124,18 @@ width: 87px;
     margin: 0 auto;
     margin-top: 2em;
 }
+// .form-group-news {
+//     width: 20%;
+// }
+
+
+
+select#new_news_type_for_shoe_id {
+    width: 19%;
+  -webkit-transition: width .35s ease-in-out;
+  transition: width .35s ease-in-out;
+}
+select#new_news_type_for_shoe_id:focus {
+ width: 50%;
+}
+

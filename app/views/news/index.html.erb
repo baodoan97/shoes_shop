@@ -1,38 +1,42 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-4">
-			<h2>Category</h2>
+			<h2>News category</h2>
+			<% NewsTypeForShoe.all.each { |v| %>
 			<ul class="list-group">
-				<li class="list-group-item">New <span class="badge">12</span></li>
-				<li class="list-group-item">Deleted <span class="badge">5</span></li>
-				<li class="list-group-item">Warnings <span class="badge">3</span></li>
+				<li class="list-group-item"><%= v.name %><span class="badge float-right"><%= v.new.count %></span></li>
 			</ul>
+			<% } %>
 		</div>
 		<div  class="col-lg-8">
 			<h2 align="center">News</h2>
 			<% if params[:news_page] == nil || params[:news_page].to_i == 1 %>
 			<div  class="row">
 				<div class="main-news" >
-					<%= raw New.last.title %>
+					<%= link_to news_path(:type => New.last.news_type_for_shoe.name ,:title => New.last.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
+						<%= raw New.last.title %>
+						<% end %>
+					</div>
 				</div>
-			</div>
-			<% end %>
-			<% @news.each do |v| %>
-			<div class="row mt-2">
-				<div class="news_before">
-					<%= raw v.title %>
-					<span><%= time_ago_in_words(v.created_at) %></span>
+				<% end %>
+				<% @news.each do |v| %>
+				<div class="row mt-2">
+					<div class="news_before">
+						<%= link_to carts_path do %>
+						<%= raw v.title %>
+						<span><%= time_ago_in_words(v.created_at) %></span>
+						<% end %>
+					</div>
 				</div>
+				<% end %>
 			</div>
-		    <% end %>
-		</div>
-		<div class="paginate_news">
-			<%= will_paginate @news, :param_name => 'news_page' %>
+			<div class="paginate_news">
+				<%= will_paginate @news, :param_name => 'news_page' %>
+			</div>
 		</div>
 	</div>
-</div>
-<br>
-<script type="text/javascript">
-	$(".main-news img").removeAttr('style');
-	$(".news_before img").removeAttr('style');
-</script>
+	<br>
+	<script type="text/javascript">
+		$(".main-news img").removeAttr('style');
+		$(".news_before img").removeAttr('style');
+	</script>
