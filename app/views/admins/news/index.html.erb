@@ -17,8 +17,8 @@
           v.name
         %></span></h3>
       <% end %></td>
-      <td><%= news.title %></td>
-      <td><%= news.body %></td>
+      <td><%= raw news.title %></td>
+      <td><%= raw truncate(news.body, length: 25) %></td>
       <td><%= link_to 'Show', admins_news_path(news) %></td>
       <td><%= link_to 'Edit', edit_admins_news_path(news) %></td>
       <td><%= link_to 'Destroy', admins_news_path(news), method: :delete, data: { confirm: 'Are you sure?' } %></td>

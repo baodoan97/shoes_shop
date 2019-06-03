@@ -3,7 +3,7 @@
 		<div class="col-lg-4">
 			<h2>News category</h2>
 			<% NewsTypeForShoe.all.each { |v| %>
-			<ul class="list-group">
+			<ul class="list-group news_category_list">
 				<%= link_to news_category_path(:type => v.name) do  %>
 				<li class="list-group-item "><%= v.name %><span class="badge float-right"><%= v.new.count %></span></li>
 				<% end %>
@@ -12,16 +12,7 @@
 		</div>
 		<div  class="col-lg-8">
 			<h2 align="center">News</h2>
-			<% if params[:news_page] == nil || params[:news_page].to_i == 1 %>
-			<div  class="row">
-				<div class="main-news" >
-					<%= link_to news_path(:type => New.last.news_type_for_shoe != nil ? New.last.news_type_for_shoe.name : " " ,:title => New.last.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
-					<%= raw New.last.title %>
-					<% end %>
-				</div>
-			</div>
-			<% end %>
-			<% @news.each do |v| %>
+			<% @news_category.each do |v| %>
 			<div class="row mt-2">
 				<div class="news_before">
 					<%= link_to news_path(:type => v.news_type_for_shoe != nil ? v.news_type_for_shoe.name : " " ,:title => v.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
@@ -34,7 +25,7 @@
 			<% end %>
 		</div>
 		<div class="paginate_news">
-			<%= will_paginate @news, :param_name => 'news_page' %>
+			<%= will_paginate @news_category, :param_name => 'news_category' %>
 		</div>
 	</div>
 </div>

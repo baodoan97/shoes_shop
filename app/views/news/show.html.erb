@@ -1,2 +1,36 @@
-<h1>News#show</h1>
-<p>Find me in app/views/news/show.html.erb</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-4">
+			<h2>News category</h2>
+			<% NewsTypeForShoe.all.each { |v| %>
+			<ul class="list-group">
+				<li class="list-group-item"><%= v.name %><span class="badge float-right"><%= v.new.count %></span></li>
+			</ul>
+			<% } %>
+		</div>
+		<div  class="col-lg-8">
+			<div class="body-news">
+				<%= raw @item.title.gsub!(%r{</?[^>]+?>},'').insert(0, '<h1>').insert(-1, '</h1>').gsub(/&nbsp;/i,"")%>
+				<%= raw @item.body %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container center_related_products">
+	<div class="row ">
+		<div >
+			<% @item.products.each do |v| %>
+			<%= link_to products_path(name: v.name) ,method: :get do  %>
+			<h4> <span class="badge badge-secondary"><%=
+				v.name
+			%></span></h4>
+			<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<br>
+<script type="text/javascript">
+	// $(".body-news img").css( "width", "400px" );
+	// $("img").prev("p").css( "text-align", "content" );
+</script>

@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 input[type=text]#seacrh_product_of_news {
-width: 130px;
+width: 19%;
 -webkit-transition: width 0.4s ease-in-out;
 transition: width 0.4s ease-in-out;
 }
@@ -11,10 +11,12 @@ input[type=text]#seacrh_product_of_news:focus {
 width: 50%;
 }
 #list_seacrh_products_for_news {
-/* Remove default list styling */
-list-style-type: none;
-padding: 0;
-margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    z-index: 999;
+    width: 34%;
 }
 #list_seacrh_products_for_news  li a {
 border: 1px solid #ddd; /* Add a border to all links */
@@ -30,22 +32,44 @@ display: block; /* Make it into a block element to fill the whole list */
 background-color: #eee; /* Add a hover effect to all links, except for headers */
 }
 .main-news {
+    width: 60%;
     margin: 0 auto;
     word-wrap: break-word;
 }
-.main-news p {
-vertical-align: middle;
-border-style: none;
-width: 584px;
-height: auto;
-background: #e6e6e6;
-box-shadow: 0px 0px 1px 1px #333;
-text-shadow: 0px 0px 2px #00000085;
-position: relative;
+.main-news > a p{
+    font-size: 15px;
+    vertical-align: middle;
+    border-style: none;
+    height: auto;
+    background: #e6e6e6;
+    box-shadow: 0px 0px 1px 1px #333;
+    text-shadow: 0px 0px 2px #00000085;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
 }
+.main-news a{
+        color: black;
+       text-align: center;
+    text-decoration: none;
+}
+.main-news > a > h1{
+       font-size: 15px;
+    vertical-align: middle;
+    border-style: none;
+    height: auto;
+    background: #e6e6e6;
+    box-shadow: 0px 0px 1px 1px #47444429;
+    text-shadow: 0px 0px 2px #00000085;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    border: none;
+}
+
 .main-news img {
 // position: absolute;
-width: 584px;
+width: 100%;
 z-index: -1;
 }
 .more-main-news li{
@@ -100,25 +124,82 @@ width: 87px;
 // }
 //  }
 .news_before {
-  margin: 0 auto;
+     margin: 0 auto;
     border: 1px solid;
-    width: 74%;
+    width: 67%;
     border-style: ridge;
     padding: 8px;
-    box-shadow: 1px 1px 1px 1px #333;
+    box-shadow: 1px 1px 1px 1px #e3e3e3;
     word-wrap: break-word;
+    height: 118px;
+    border: none;
 }
 .news_before img {
-        height: 81px;
+         height: 95px;
+    margin-left: -151px;
+    position: absolute;
 }
 .news_before p {
-    font-size: 14px;
+  font-size: 14px;
     font-weight: 700;
+     position: relative; 
+    margin: -4px;
+    padding-left: 156px;
 }
 .news_before span {
+    font-size: 11px;
+    /* font-weight: 700; */
+    position: relative;
+    /* margin: 2px; */
+    padding-left: 174px;
     float: right;
+    text-shadow: 1px 1px 1px #00000040;
+    /* border-top: 1px solid; */
+    /* border: 1px solid #333; */
+    border-top-width: -13%;
+    padding-top: 5px;
+}
+
+.news_before > a > h1 {
+  font-size: 14px;
+    font-weight: 700;
+     position: relative; 
+    margin: -4px;
+    padding-left: 156px;
+}
+.time_news_span {
+        position: absolute;
+        right: 17%;
+    /* bottom: 19px; */
+    margin-top: 94px;
+}
+.news_before a{
+color: black;
+
+    text-decoration: none;
 }
 .paginate_news {
     margin: 0 auto;
     margin-top: 2em;
 }
+// .form-group-news {
+//     width: 20%;
+// }
+
+
+
+select#new_news_type_for_shoe_id {
+    width: 19%;
+  -webkit-transition: width .35s ease-in-out;
+  transition: width .35s ease-in-out;
+}
+select#new_news_type_for_shoe_id:focus {
+ width: 50%;
+}
+.container.center_related_products {
+    width: 36%;
+}
+// .body-news > p > img:not(p){
+//  text-align: center;
+// }
+
