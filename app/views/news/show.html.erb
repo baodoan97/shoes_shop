@@ -10,12 +10,27 @@
 		</div>
 		<div  class="col-lg-8">
 			<div class="body-news">
-				<%= raw @item.body %>	
+				<%= raw @item.title.gsub!(%r{</?[^>]+?>},'').insert(0, '<h1>').insert(-1, '</h1>').gsub(/&nbsp;/i,"")%>
+				<%= raw @item.body %>
 			</div>
 		</div>
 	</div>
-	<br>
-	<script type="text/javascript">
-		$(".main-news img").removeAttr('style');
-		$(".news_before img").removeAttr('style');
-	</script>
+</div>
+<div class="container center_related_products">
+	<div class="row ">
+		<div >
+			<% @item.products.each do |v| %>
+			<%= link_to products_path(name: v.name) ,method: :get do  %>
+			<h4> <span class="badge badge-secondary"><%=
+				v.name
+			%></span></h4>
+			<% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+<br>
+<script type="text/javascript">
+	// $(".body-news img").css( "width", "400px" );
+	// $("img").prev("p").css( "text-align", "content" );
+</script>

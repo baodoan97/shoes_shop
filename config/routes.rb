@@ -96,6 +96,7 @@ end
 
   get 'news', to: 'news#index' ,as: 'news_index'
   get 'news/type=:type&&title=:title', to: 'news#show', as: 'news'
+  get 'news/type=:type', to: 'news#news_category', as: 'news_category'
 
 
   post 'create', to: 'messages#create'
