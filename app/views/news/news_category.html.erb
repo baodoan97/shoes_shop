@@ -1,6 +1,6 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-2">
 			<h2>News category</h2>
 			<% NewsTypeForShoe.all.each { |v| %>
 			<ul class="list-group news_category_list">
@@ -10,14 +10,14 @@
 			</ul>
 			<% } %>
 		</div>
-		<div  class="col-lg-8">
+		<div  class="col-lg-10">
 			<h2 align="center">News</h2>
 			<% @news_category.each do |v| %>
 			<div class="row mt-2">
 				<div class="news_before">
 					<%= link_to news_path(:type => v.news_type_for_shoe != nil ? v.news_type_for_shoe.name : " " ,:title => v.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
-					<%= raw v.title %>
-					<%=  raw (v.body.gsub!(%r{</?[^>]+?>},''))[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"")  %>
+					<%= raw v.title.gsub(/&nbsp;/i,"") %>
+					<%= raw (v.body.gsub!(%r{</?[^>]+?>},''))[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"")  %>
 					<% end %>
 				</div>
 				<span class="time_news_span"><%=  time_ago_in_words(v.created_at) %></span>

@@ -565,3 +565,17 @@ float: right; position: fixed; bottom: 27px; right: 87px; z-index: 10;
   100%  { transform: rotate(-10deg);border-radius:25%;}
 
 }
+.ring_ring_turn_off{
+	 animation: none;
+	-webkit-animation: none;
+	border:none;
+}
+button#closetoast {
+    position: absolute;
+    right: 0;
+}
+img.img-responsive {
+    width: 48px;
+    height: 42px;
+    margin-top: 1px;
+}

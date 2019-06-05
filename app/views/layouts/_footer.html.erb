@@ -131,57 +131,71 @@ mydiv.scrollTop(mydiv.prop("scrollHeight"));
 <% end %>
 <script type="text/javascript">
 function myFunction(x) {
-if (x.matches) { // If media query matches
-document.getElementById("repohide").style.display = "none";
-}
-if(!x.matches)
-{
-document.getElementById("repohide").style.display = "inherit";
-}
+    if (x.matches) { // If media query matches
+        document.getElementById("repohide").style.display = "none";
+    }
+    if (!x.matches) {
+        document.getElementById("repohide").style.display = "inherit";
+    }
 }
 var x = window.matchMedia("(max-width: 640px)")
 myFunction(x) // Call listener function at run time
 x.addListener(myFunction)
 document.getElementById("myForm").style.display = "none";
+
 function openForm() {
-document.getElementById("dropup_notification").disabled = true;
-$("#myForm")
-.css('opacity', 0.2)
-.slideDown("slow")
-.animate(
-{ opacity: 1 },
-{ queue: false, duration: 1000 }
-);
-$('#chat-on').slideUp();
+    document.getElementById("dropup_notification").disabled = true;
+    $("#myForm")
+        .css('opacity', 0.2)
+        .slideDown("slow")
+        .animate({
+            opacity: 1
+        }, {
+            queue: false,
+            duration: 1000
+        });
+    $('#chat-on').slideUp();
 }
+
 function closeForm() {
-document.getElementById("dropup_notification").disabled = false;
-$( "#chat-on" ).slideDown( 1200,'linear' );
-$('#myForm').slideUp(1000, function(){
-console.log('Done!');
-}).fadeOut({
-duration: 1000,
-queue: false
-});
+    document.getElementById("dropup_notification").disabled = false;
+    $("#chat-on").slideDown(1200, 'linear');
+    $('#myForm').slideUp(1000, function() {
+        console.log('Done!');
+    }).fadeOut({
+        duration: 1000,
+        queue: false
+    });
 
 }
-$( "#closetoast" ).click(function() {
-$(".toast").remove();
-$("#closetoast").css('display','none');
+$("#closetoast").click(function() {
+    $(".toast").remove();
+    $('.ring_ring').removeClass( "ring_ring_turn_off" );
+    $("#closetoast").css('display', 'none');
+});
+
+$( "#dropup_notification" ).click(function() {
+   $('.ring_ring').addClass( "ring_ring_turn_off" );
+
 });
 </script>
 <% if user_signed_in? %>
 <script type="text/javascript">
 var count_message = 1;
-$( "#loadmessage" ).click(function() {
-count_message = count_message + 5;
-var user_id = "<%= current_user.id %>";
-$.ajax({
-url: "/messages/watchedmore",
-type: "post",
-dataType: "script",
-data: { info: { "offset": count_message,"user_id": user_id }}
-});
+$("#loadmessage").click(function() {
+    count_message = count_message + 5;
+    var user_id = "<%= current_user.id %>";
+    $.ajax({
+        url: "/messages/watchedmore",
+        type: "post",
+        dataType: "script",
+        data: {
+            info: {
+                "offset": count_message,
+                "user_id": user_id
+            }
+        }
+    });
 });
 </script>
 <% end %>

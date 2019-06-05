@@ -1,6 +1,7 @@
+
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-2">
 			<h2>News category</h2>
 			<% NewsTypeForShoe.all.each { |v| %>
 			<ul class="list-group">
@@ -8,7 +9,7 @@
 			</ul>
 			<% } %>
 		</div>
-		<div  class="col-lg-8">
+		<div  class="col-lg-10">
 			<div class="body-news">
 				<%= raw @item.title.gsub!(%r{</?[^>]+?>},'').insert(0, '<h1>').insert(-1, '</h1>').gsub(/&nbsp;/i,"")%>
 				<%= raw @item.body %>

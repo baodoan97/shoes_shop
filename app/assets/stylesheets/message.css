@@ -21,3 +21,29 @@ textarea.form-container-custom-admin {
     height: 10em;
     outline: none;
 }
+.user_message {
+    position: fixed;
+    background: rgba(160, 151, 151, 0.075);
+    height: auto;
+    width: 16%;
+    border-radius: 16%;
+    margin-top: 2em;
+}
+.message_new img{
+
+    border-radius: 57%;
+    top: 5px;
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.98);
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    margin-left: 12px;
+
+}
+.message_new p{
+    font-size:12px;
+}
