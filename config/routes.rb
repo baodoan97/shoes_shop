@@ -70,13 +70,13 @@ end
   resources :messages 
   get 'show', to: 'messages#show'
   post 'messages/received', to: 'messages#received'
-  resources :categories, only: [:show]
+  # resources :categories, only: [:show]
   resources :users, except: [:destroy, :index] do
     collection do
       patch 'update_password'
     end
   end
-  resources :products, only: [:show, :index]
+  # resources :products, only: [:show, :index]
 
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
