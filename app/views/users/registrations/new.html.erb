@@ -1,4 +1,4 @@
-<div class="container usertoolview">
+<div class="container usertoolview p-5">
   <h2 align="center">Sign up</h2>
   <br>
   <%= form_for(resource, as: resource_name, url: registration_path(:user)) do |f| %>
@@ -28,7 +28,7 @@
   </div>
   <div class="form-group">
     <label for="file-input">Address</label>
-    <%= f.text_area :address, class: "form-control", placeholder:"Find name task" %>
+    <%= f.text_area :address, class: "form-control"%>
   </div>
   <div class="form-group">
     <%= f.label :phone %><br />
@@ -50,7 +50,7 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
   <div class="form-groups center">
-    <%= f.submit "Sign up", class: "btn btn-primary" %>
+    <%= f.submit "Sign up", class: "btn btn-primary w-100" %>
   </div>
   <% end %>
 </div>

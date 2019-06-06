@@ -6,81 +6,66 @@
           <i class="fas fa-phone"><span class="ml-1">0909999999 |</span></i>
           <i class="fas fa-envelope"><span class="ml-1">example@gmail.com</span></i>
         </div>
+        <% if !user_signed_in? %>
         <div class="col-sm-5 col-lg-4 col-xs-12 float-right p-0 first-right">
           <%= link_to carts_path do %>
           <i class="fas fa-shopping-bag cart mr-2 text-secondary">
           <span class="cart-text badge-danger"><%= session[:cart] == nil ? 0 : session[:cart].count %></span></i> |
           <% end %>
-          <% if user_signed_in? %>
-          <i class="fas fa-user ml-1 "><span class="ml-1">
-            <%= link_to 'My account',users_profile_path  %>
-            <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-          </span></i> |
-          <% else %>
+          <i class="fas fa-user ml-1">
+            <span class="ml-1"><%= link_to 'My Account', new_user_session_path %></span>
+          </i> |
           <i class="fas fa-envelope ml-1">
-          <span class="ml-1 ">
-            <%= link_to "Sign Up",new_user_registration_path , class: "text-secondary" %> | 
-            <%= link_to "Sign In",new_user_session_path , class: "text-secondary" %>
-          </span>
+            <span class="ml-1"><%= link_to 'Sign Up', new_user_registration_path %></span>
           </i>
-          <% end %>
         </div>
+        <% else %>
+        <div class="col-sm-5 col-lg-4 col-xs-12 float-right p-0 first-right">
+          <%= link_to carts_path do %>
+          <i class="fas fa-shopping-bag cart mr-2 text-secondary">
+          <span class="cart-text badge-danger"><%= session[:cart] == nil ? 0 : session[:cart].count %></span></i> |
+          <% end %>
+          <i>
+          <%= image_tag current_user.avatar, style:"width: 14px; height: 14px; border-radius: 50%" %>
+            <span class="ml-1"><%= link_to current_user.firstname, users_profile_path, style:"font-weight:900" %></span>
+          </i> |
+          <i class="fas fa-envelope ml-1">
+            <span class="ml-1"><%= link_to('Logout', destroy_user_session_path, method: :delete) %></span>
+          </i>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <!-- <div id="animation-x" class="x">
-    <div class="topnav " id="myTopnav">
-      if user_signed_in? %>
-      link_to('Logout', destroy_user_session_path, method: :delete) %>
-      = link_to current_user.firstname,users_show_path  %>
-      else %>
-      link_to "Sign In",new_user_session_path  %>
-      link_to "Sign Up",new_user_registration_path  %>
-      end %>
-      link_to carts_path do %>
-      if cookies[:temp_cart] != nil %>
-      <i class="fas red fa-shopping-cart"></i>
-      else %>
-      <i class="fas fa-shopping-cart"></i>
-      end %>
-      end %>
-      <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunctionnav()">&#9776;</a>
-    </div>
-  </div>
-  <nav  class="navbar navbar-expand-lg navbar-dark bg-dark y"> -->
-    <div class="container">
-      <%= link_to 'N-AIR SHOP', root_path, class: "navbar-brand" %>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav m-auto">
-          <li class="nav-item mr-3">
-            <%= link_to 'Home', root_path, class:"nav-link" %>
-          </li>
-          <li class="nav-item dropdown mr-3">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Shop
-            </a>
-            <ul class="dropdown-menu">
-              <% Category.all.each do |cat| %>
-              <li>  <!-- link_to cat.name, category_path(cat), class:"dropdown-item" %> -->
-              <li class="dropdown-submenu ">
-                <%= link_to cat.name, category_path(:name => cat.name ,:brand_name => " "), class: "test dropdown-item" %>
-                <ul class="dropdown-menu aaa">
-                  <% Brand.where(category_id: cat.id).each do |brand| %>
-                  <li><%= link_to brand.brand_name, category_path(:name => cat.name ,:brand_name => brand.brand_name), class: "dropdown-item " %></li>
-                  <% end %>
-                </ul>
-              </li>
-              
-            </li>
-            <% end %>
-            
-          </ul>
-          
+  <div class="container">
+    <%= link_to 'N-AIR SHOP', root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav m-auto">
+        <li class="nav-item mr-3">
+          <%= link_to 'Home', root_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item dropdown mr-3">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Shop
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <% Category.all.each do |cat| %>
+	              <%= link_to cat.name, category_path(cat), class:"dropdown-item" %>
+	              <li class="dropdown-submenu ">
+	                <%= link_to cat.name, category_path(:name => cat.name ,:brand_name => " "), class: "test dropdown-item" %>
+	                <ul class="dropdown-menu aaa">
+	                  <% Brand.where(category_id: cat.id).each do |brand| %>
+	                   <li><%= link_to brand.brand_name, category_path(:name => cat.name ,:brand_name => brand.brand_name), class: "dropdown-item " %></li>
+	                  <% end %>
+	                </ul>
+	              </li>
+             <% end %>
+          </div>
         </li>
         <li class="nav-item mr-3">
           <%= link_to 'News', news_index_path, class:"nav-link" %>
@@ -92,85 +77,40 @@
           <a class="nav-link" href="#">Contact</a>
         </li>
       </ul>
+      <div class="search" style="width: 270px; position:relative;">
+        <%= form_tag products_path, method: :get, class:"form-inline my-2 my-lg-0 float-right"  do %>
+          <%= text_field_tag :search,'', {class:"form-control", id:"search_input", type:"search", placeholder: "Enter name of product"} %>
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>
-<% if session[:cart_id] != nil && Cart.find(session[:cart_id]).cart_products.count > 0 %>
-<script type="text/javascript">
-var flag = false;
-$(".fa-shopping-cart").hover(function(){
-if (!flag){
-flag = true;
-var table = $('<table>').addClass('foo');
-  var row = $('<tr>').append("<td></td><td>Name</td><td>Size</td><td>Quantity</td>");
-  table.append(row);
-  "<% Cart.find(session[:cart_id]).cart_products.each do |item| %>"
-  var row = $('<tr>').append("<td><img src=<%=url_for(Product.find(item['product_id']).images.first)%> class='cartnavdropdow' ></td> <td><%= truncate(Product.find(item['product_id']).name,length: 5) %></td><td><%= item['size'] %></td><td><%= item['quantity'] %></td>");
-  table.append(row);
-  "<% end %>"
-  $('.showdetailcart').append(table);
-  $('.showdetailcart').css("display", "block");
-  }
-  else{
-  $('.showdetailcart').css("display", "block");
-  }
-  });
-  $('table').css("border", "#DCDCDC solid 1px");
-  $(".showdetailcart").hover(function(){
-  $('.showdetailcart').css("display", "block");
-  });
-  $(".showdetailcart").mouseout(function(){
-  $('.showdetailcart').css("display", "none");
-  });
-  $(".showdetailcart").mouseover(function(){
-  $('.showdetailcart').css("display", "block");
-  });
-  </script>
-  <% end %>
-  <script type="text/javascript">
-  function myFunctionnav() {
-  var z = document.getElementById("myTopnav");
-  if (z.className === "topnav") {
-  z.className += " responsive";
-  } else {
-  z.className = "topnav";
-  }
-  }
-  window.addEventListener("click", function(){
-  if (!event.target.matches('.showdetailcart')){
-  $('.showdetailcart').css("display", "none");
-  }
-  });
-  //   window.onscroll = function() {scrollFunction()};
-  //   function scrollFunction() {
-  //   if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
-  //      $(".x").css("float", "right");
-  //        $(".x").css("width", "221");
-  //        $(".x").css("margin-top", "3em");
-  //         $(".y").css("margin-top", "0");
-  //      $(".topnav").css("width", "auto");
-  //   } else {
-  //     $(".topnav").css("width", "100%");
-  //     $(".x").css("float", "none");
-  //        $(".x").css("width", "auto");
-  //         $(".x").css("margin-top", "0");
-  //         $(".y").css("margin-top", "3em");
-  //   }
-  //     var elem = document.getElementById("animation-x");
-  //   var pos = 0;
-  //       pos++;
-  //       elem.style.top = 1000 + 'px';
-  
-  
-  
-  // } // chua xu ly xong nav position fixed kem aftect
-  //
-  </script>
-  <script>
+<script>
+  $(document).ready(function(){
+    $("#search_input").autocomplete({
+      source: '/search',
+      minLength: 1,
+      autoFocus: true,
+      open: function() {
+        $("ul.ui-menu").width($(this).innerWidth());
+      },
+      focus: function(event, ui) {
+        $('#search_input').val(ui.item.name);
+      },
+      select: function(event, ui) {
+        $('#search_input').val(ui.item.name);
+      }
+    });
+    $("#search_input").data("ui-autocomplete")._renderItem = function (ul, item) {
+      return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "products/"+item.id})
+                                                   .append(item.value))
+                                                   .appendTo(ul);
+    };
+</script>
+<script>
   $(document).ready(function(){
    if(!window.matchMedia("(max-width: 990px)").matches == true){
      $('.dropdown-submenu a.test').hover(
-        
                function (e) {
                 var x = window.matchMedia("(max-width: 990px)")
                   if (!x.matches == true) { 
@@ -193,13 +133,7 @@ var table = $('<table>').addClass('foo');
     e.preventDefault();
   });
    }
- 
-
-
   });
-
-
-  
 // $( ".navbar-toggler-icon" ).click(function() {
   
 //   if($("#navbarNav").hasClass("show")){
@@ -209,4 +143,4 @@ var table = $('<table>').addClass('foo');
 //     }
 // });
 
-  </script>
+</script>

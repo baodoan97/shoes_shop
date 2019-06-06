@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_062824) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "brand_name"
     t.integer "category_id"
     t.datetime "created_at", null: false
@@ -91,7 +91,6 @@ ActiveRecord::Schema.define(version: 2019_06_03_062824) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
   create_table "ckeditor_assets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "data_file_name", null: false
     t.string "data_content_type"
@@ -173,7 +172,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_062824) do
     t.integer "status", default: 0, null: false
   end
 
-  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.float "latitude"
     t.float "longitude"
@@ -193,7 +192,7 @@ ActiveRecord::Schema.define(version: 2019_06_03_062824) do
     t.integer "brand_id"
   end
 
-  create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "product_id"
     t.integer "size"
     t.integer "quantity"

@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
      layout 'layouts/user'
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-
+  before_action :authenticate_user!
   # GET /resource/sign_up
   # def new
   #  build_resource
@@ -88,14 +88,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       flash[:danger] = "Update wasnt saved"
       render 'show'
     end
-    # @user = User.find(current_user.id)
-    # if @user.update(configure_account_update_params)
-    #     flash[:notice] = 'Profile users was updated , login please !'
-    #       sign_in(current_user, :bypass => true)
-    #   else
-    #     render :action => :show
-    #   end
   end
+
 
   # DELETE /resource
   # def destroy
@@ -130,15 +124,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def sign_up_params
-    # debugger
-    # super
-
-        params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
-
+    params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
   end
+  
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     super(resource)
   end
-
 end
