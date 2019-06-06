@@ -5,3 +5,4 @@ window.scrollTo(0, 9999999999999999999999999);
 $('#admin_chat'+"<%=params[:data][:message][:message]['user_id'] %> "+' li').first().remove();
 "<% end %>"
 $(".user_message").html("<%= j render 'new_message_to_user' , obj: @list_new_message.take(10) %>");
+

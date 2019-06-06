@@ -1,6 +1,5 @@
 class Admins::MessagesController < BaseController
   skip_before_action :verify_authenticity_token
-
   before_action :set_user_message , only: [:show]
 
   def watchedmore
@@ -15,6 +14,9 @@ class Admins::MessagesController < BaseController
     @message.admin = Admin.first
     @message.usersend = params[:user_send][:usersend]
     @message.save
+
+    @list_new_message = reload_new_messages.flatten
+
     respond_to do |format|
       format.html
       format.js
@@ -24,12 +26,8 @@ class Admins::MessagesController < BaseController
   def show
 
     @list_new_message = []
-    @list_messages = Message.where('user_id != ?', params[:id]).order("created_at DESC").all.uniq{|e| e[:user_id] }
-    @list_messages.each {|v|
-      if v.user.messages.last.usersend == true
-        @list_new_message.push(User.find(v.user.id))
-      end
-    }
+    @list_new_message = reload_new_messages.flatten
+
 
   end
 
@@ -44,6 +42,18 @@ class Admins::MessagesController < BaseController
 
   def received
     @content = Message.where(user_id: params[:data][:message][:message][:user_id].to_i).last.content
+    @list_new_message = reload_new_messages.flatten
+
+  end
+
+  private
+
+  def set_user_message
+    @messages = Message.all.where(user_id: params[:id]).order('created_at desc').limit(10).reverse
+    @message = Message.new
+  end
+
+  def reload_new_messages
     @list_new_message = []
     @list_messages = Message.order("created_at DESC").all.uniq{|e| e[:user_id] }
     @list_messages.each {|v|
@@ -51,12 +61,7 @@ class Admins::MessagesController < BaseController
         @list_new_message.push(User.find(v.user.id))
       end
     }
-  end
-
-  private
-  def set_user_message
-    @messages = Message.all.where(user_id: params[:id]).order('created_at desc').limit(10).reverse
-    @message = Message.new
+    @list_new_message
   end
 
 

@@ -1,4 +1,5 @@
 <% obj.each do |user| %>
+   <h3>New messages</h3>
 		<%= link_to admins_message_path(user),target: "_blank" do %>
 		<div class="media mt-3 message_new">
 			<%= image_tag user.avatar.attached? == false ? " ": user.avatar,class: "align-self-center mr-3" %>
