@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 
     before_action :set_product , only: [:show]
     def index
-      debugger
+
       if params[:search]
         @products = Product.search(params[:search]).paginate(page: params[:page], per_page: 8)
       else

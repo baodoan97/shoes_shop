@@ -77,7 +77,7 @@
     <%= render 'related_products' , products: @Related_products %>
 </div>
 <% end %>
-<% if true %>
+<% if @list_news.count != 0 %>
     <div class="container mt-3">
     <h3>News About Products</h3>
         <%= render 'news/related_news_product' , obj: @list_news %>

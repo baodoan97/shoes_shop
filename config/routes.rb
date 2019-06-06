@@ -76,12 +76,12 @@ end
       patch 'update_password'
     end
   end
-  # resources :products, only: [:show, :index]
+  resources :products, only: [ :index]
 
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
   get '/search', to: 'products#search', as: 'search'
-  get '/products', to: 'products#index'
+  # get '/products', to: 'products#index'
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'
