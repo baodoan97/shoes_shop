@@ -1,4 +1,8 @@
 class Product < ApplicationRecord
+
+    scope :search, ->q{where "name LIKE '%#{q}%'"}
+    scope :order_by_name, ->{order name: :asc}
+    
 	#associate
     has_many :stocks, dependent: :destroy
     accepts_nested_attributes_for :stocks, allow_destroy: true, reject_if: :all_blank

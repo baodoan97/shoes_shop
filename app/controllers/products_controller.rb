@@ -3,10 +3,33 @@ class ProductsController < ApplicationController
     include ProductsHelper
 
     before_action :set_product , only: [:show]
+    def index
+      debugger
+      if params[:search]
+        @products = Product.search(params[:search]).paginate(page: params[:page], per_page: 8)
+      else
+        @products =  Product.all
+      end
+    end
+    
     def show
 
       
     end
+
+    def search
+      @products = Product.search(params[:term]).order_by_name
+      @product_hash = []
+      @products.each do |p|
+        @product_hash << { 
+            label: p.name,
+            value: p.name,
+            id: p.id
+        }
+      end
+      render json: @product_hash
+    end
+
 
     def watched_more_related_products
         @Related_products = nil

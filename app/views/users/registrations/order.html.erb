@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-9 username">
             <p class="mb-1"><strong><%= @user.firstname %></strong></p>
-            <i class="fas fa-edit" style="color:grey"> Edit my profile</i>
+            <%= link_to '<i class="fas fa-edit" style="color:grey"> Edit my profile</i>'.html_safe, users_profile_path %>
           </div>
         </div>
         <hr/>

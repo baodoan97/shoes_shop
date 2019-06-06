@@ -52,8 +52,9 @@ end
   #  get 'login', to: 'sessions#new'
   # get 'signup', to: 'users#new'
   devise_scope :user do
-  get 'users/profile', to: 'users/registrations#show'
-  get 'users/order', to: 'users/registrations#order'
+    get 'users/profile', to: 'users/registrations#show'
+    get 'users/order', to: 'users/registrations#order'
+    get 'users/sign_out' => 'devise/sessions#destroy' 
   end
   get 'users/signup'
   get 'errors/loi'
@@ -62,11 +63,15 @@ end
   get 'show', to: 'messages#show'
   post 'messages/received', to: 'messages#received'
   resources :categories, only: [:show]
-  resources :users, except: [:destroy, :index]
-  resources :products, only: [:show]
+  resources :users, except: [:destroy, :index] do
+    collection do
+      patch 'update_password'
+    end
+  end
+  resources :products, only: [:show, :index]
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
-
+  get '/search', to: 'products#search', as: 'search'
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'

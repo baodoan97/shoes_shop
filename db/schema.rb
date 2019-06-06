@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_152143) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "brands", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "brand_name"
     t.integer "category_id"
     t.datetime "created_at", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_152143) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "product_id"
     t.integer "user_id"
     t.text "content"
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_152143) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "user_id"
     t.text "content"
     t.boolean "watched", default: false
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_152143) do
     t.integer "status", default: 0, null: false
   end
 
-  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
     t.float "latitude"
     t.float "longitude"
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_152143) do
     t.integer "liked", default: 0
   end
 
-  create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "product_id"
     t.integer "size"
     t.integer "quantity"

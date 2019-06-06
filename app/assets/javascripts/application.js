@@ -10,13 +10,13 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
-//= require cocoon
+
 //= require activestorage
-//= require jquery3
-//= require jquery2
 //= require jquery
-//= require turbolinks
-//= require rails-ujs
+//= require jquery_ujs
+//= require jquery-ui/widgets/autocomplete
+//= require owl.carousel.min
+//= require cocoon
 //= require activestorage
 //= require bootstrap
 //= require turbolinks

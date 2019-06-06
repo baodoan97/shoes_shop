@@ -3,18 +3,18 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "dataTables.bootstrap";
-
 @import "dataTables.jqueryui.min";
 @import "jquery.dataTables.min";
 @import "product";
 @import "user";
 @import "footer";
 @import "nav";
-@import "home";
 @import "cart";
 @import "comments";
-
-
+@import "owl.carousel.min";
+/*
+*= require jquery-ui/autocomplete
+*/
 body{
   overflow-x:hidden;
   padding:0;
@@ -75,16 +75,18 @@ li {
 }
 
 .dropdown-menu{
-  background-color: #fff;
+  background-color: #343a40 !important;
 }
 
 .dropdown-item{
   font-size: 20px;
-  color: black;
+  color: white;
+  font-weight: 600;
 }
 
 .dropdown-item:hover{
-  background-color: #e9e3f4
+  background-color: white;
+  color: #343a40 !important;
 }
 
 .w-48{
@@ -346,6 +348,7 @@ footer hr{
   width: 30%;
   text-align: center;
   font-weight: 600;
+  font-size: 22px;
 }
 
 .cart{
@@ -412,6 +415,141 @@ footer hr{
   color: red;
 }
 
+.sidebar-child-item{
+  color:black;
+}
+
+.sidebar-child-item.active{
+  color: red;
+}
+
+.sidebar-child-item:hover{
+  text-decoration: none;
+  color: red;
+}
+
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+/*
+.navbar-collapse .form-inline {
+  width: 280px;
+}
+.navbar-collapse .form-inline input[type="search"]{
+  visibility: hidden;
+  opacity: 0;
+  
+  transition: opacity .5s;
+}
+
+.navbar-collapse .form-inline input[type="search"].active{
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .5s;
+}
+*/
+
+.search .form-inline input[type="search"]{
+  background: white  url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  width: 15px;
+  padding-left: 10px;
+  color: transparent;
+  cursor: pointer;
+  padding: 9px 32px 9px 10px;
+  border-radius: 10em;
+  transition: all .5s;
+  outline: none;
+  border: none;
+  background-position: center;
+}
+
+.search .form-inline input[type="search"]:focus{
+  width: 270px;
+  padding-left: 32px;
+  color: #000;
+  background-color: #fff;
+  cursor: auto;
+  background-position:right;
+  background-origin: content-box;
+}
+
+.search .form-inline input::-webkit-search-cancel-button {
+  display: none; 
+}
+
+.ui-menu{
+  font-style:italic;
+  background-color: white;
+  width: 100%;
+  z-index: 2000;
+  padding:0;
+  color: black;
+  font-weight: 600;
+}
+
+.ui-menu-item a{
+  color: #343a40 !important;
+  font-weight: 300;
+}
+.ui-menu-item a:hover{
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ui-state-active{
+  color: #343a40 !important;
+}
+
+.owl-nav{
+  position: initial;
+}
+
+.owl-nav button{
+position: absolute;
+top: 40%;
+border:1px solid #000;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+}
+
+.owl-prev{
+  left: -20px;
+  display: flex;
+  background-color:white;
+}
+
+.owl-next{
+  right: -20px;
+  display: flex;
+  background-color:white;
+}
+
+.owl-prev i, .owl-next i{
+  margin: auto;
+  color: #b7b3b3
+}
+
+.owl-theme .owl-controls .owl-page {
+  display: inline-block;
+}
+
+.owl-theme .owl-controls .owl-page span {
+   background: none repeat scroll 0 0 #869791;
+   border-radius: 20px;
+   display: block;
+   height: 12px;
+   margin: 5px 7px;
+   opacity: 0.5;
+   width: 12px;
+}
+
+.first-right i span a{
+  color: rgba(0,0,0,0.5);
+  text-decoration:none;
+}
+
 @media only screen and (max-width: 575px) {
   .newsletter .container .news {
     width: 100%;
@@ -431,3 +569,8 @@ footer hr{
   }
 }
 
+@media only screen and (max-width: 991px) {
+  .brand-item{
+    margin-bottom: 10px;
+  }
+}

@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-9 username">
             <p class="mb-1"><strong><%= @user.firstname %></strong></p>
-            <i class="fas fa-edit" style="color:grey"> Edit my profile</i>
+            <%= link_to '<i class="fas fa-edit" style="color:grey"> Edit my profile</i>'.html_safe, users_profile_path %>
           </div>
         </div>
         <hr/>
@@ -18,7 +18,13 @@
             <p class="mb-0"><%= link_to 'My Account', users_profile_path, class: "sidebar-item"  %></p><br/>
           </div>
         </div>
-        <div class="row pt-3">
+        <div class="row user-action pt-1 pb-0 pl-3 pr-1">
+          <ul class="mb-0">
+            <li><%= link_to 'Profile', users_profile_path, class: "sidebar-child-item active"  %></li>
+            <li><%= link_to 'Change Password', edit_user_path(@user), class: "sidebar-child-item"%></li>
+          </ul>
+        </div>
+        <div class="row pt-2">
           <div class="col-12 d-flex align-items-center" style="font-size: 15px">
             <i class="fas fa-list-alt fa-2x text-danger mr-2"></i>
             <p class="mb-0"><%= link_to 'Order', users_order_path, class: "sidebar-item"  %></p>
@@ -45,7 +51,7 @@
                   </div>
                   <div class="col-10"><%= @user.email %></div>
                 </div>
-                <%= form_for @user do |f| %>
+                <%= form_for @user,:url => user_registration_path(@user), :method => :put do |f| %>
                 <div class=row>
                   <div class="col-2"> 
                     <p class="text-right">Phone:</p>
@@ -89,3 +95,10 @@
     </div>
   </div>
 </section>
+
+<script>
+  $('.sidebar-child-item').on('click', function(){
+    $('.sidebar-child-item').find('active').removeClass('active');
+    $(this).addClass('active');
+  });
+</script>
