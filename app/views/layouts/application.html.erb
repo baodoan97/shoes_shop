@@ -24,8 +24,9 @@
   </head>
   <body>
     <%= render 'layouts/navtop' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+<!--     <p class="notice"> notice %></p>
+    <p class="alert"> alert %></p> -->
+    <%= render 'layouts/messages' %>
     <div style="min-height: 500px">
     <%= yield %>
     </div>
