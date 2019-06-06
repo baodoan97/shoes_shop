@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+<h1>News</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @news.each do |news| %>
+    <tr>
+      <td><% news.products.each do |v| %>
+        <h3> <span class="badge badge-secondary"><%=
+          v.name
+        %></span></h3>
+      <% end %></td>
+      <td><%= raw news.title %></td>
+      <td><%= raw truncate(news.body, length: 25) %></td>
+      <td><%= link_to 'Show', admins_news_path(news) %></td>
+      <td><%= link_to 'Edit', edit_admins_news_path(news) %></td>
+      <td><%= link_to 'Destroy', admins_news_path(news), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New News', new_admins_news_path %>

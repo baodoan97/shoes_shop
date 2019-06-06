@@ -1,17 +1,21 @@
 document.getElementById("adminchat").value = null;
-$(document).ready(function(){
-$('#admin_chat'+"<%= @message.user_id %>"+' li').first().remove();
-var messsage = {"usersend":"<%= @message.usersend %>","user_id":"<%= @message.user_id %>","avatar":'<%= url_for(@message.user.avatar) %>',"name":"<%= @message.user.firstname %>","time":"<%= time_ago_in_words(@message.created_at) %>","content":"<%= @message.content %>"};
-App.message_admin.admin_send_msg(messsage);
-App.message_admin.received = function(data){
-	
-	const keys = Object.values(data);
-	if(data != null)
-	{
-	console.log(keys);
-	$('#admin_chat'+keys[0]["message"]["user_id"]).append("<li class='self'> <div class='avatar'></div> <div class='msg'> <p>"+keys[0]["message"]["content"]+"</p> <time>"+keys[0]["message"]["time"]+"</time> </div> </li>");
-	window.scrollTo(0, 9999999999999999999999999);
-	}
-	}
+$('#admin_chat' + "<%= @message.user_id %>").append("<li class='self'> <div class='avatar'></div> <div class='msg'> <p>" + "<%= raw @message.content %>" + "</p> <time>" + "<%= time_ago_in_words(@message.created_at) %>" + "</time> </div> </li>");
+window.scrollTo(0, 9999999999999999999999999);
+$(document).ready(function() {
+    "<% if Message.all.where('user_id=?',@message.user_id).count > 10 %>"
+    $('#admin_chat' + "<%= @message.user_id %>" + ' li').first().remove();
+    "<% end %>"
+    var messsage = {
+        "usersend": "<%= @message.usersend %>",
+        "user_id": "<%= @message.user_id %>",
+        "avatar": '<%= url_for(@message.user.avatar) %>',
+        "name": "<%= @message.user.firstname %>",
+        "time": "<%= time_ago_in_words(@message.created_at) %>",
+        "content": "<%= @message.content %>"
+    };
+    App.message_admin.admin_send_msg(messsage);
+    App.message_admin.received = function(data) {
+
+    }
 
 })

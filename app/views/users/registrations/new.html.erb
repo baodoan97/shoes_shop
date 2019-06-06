@@ -57,7 +57,8 @@
 <br>
 <script type="text/javascript">
   $( document ).ready(function() {
-
+  var resetinput = $('#file-input');
+   resetinput.replaceWith(resetinput.val('').clone(true));
     // $('.fa-exchange').hover(function(){
     //       $(this).fadeOut( 100 );
     //         $(this).fadeIn( 500 );

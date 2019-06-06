@@ -12,6 +12,10 @@ class Product < ApplicationRecord
     has_many :carts
     before_destroy :check_if_has_line_item
     has_many :comments
+    belongs_to :brand, optional: true
+    has_many :news_products
+    has_many :news, through: :news_products
+
     
 private
      

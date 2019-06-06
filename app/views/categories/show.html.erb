@@ -1,5 +1,5 @@
 <div class="wrapper mb-3">
-  <%= hidden_field_tag :cat_id, @category.id, :id => "cat_id" %>
+  <%= hidden_field_tag :cat_id, params[:id], :id => "cat_id" %>
   <div class="container">
     <div class="row pt-5">
       <div class="col-lg-9 col-sm-12">
@@ -76,7 +76,7 @@
 	function requestAjax(){
     var id = $('#cat_id').val();
 		$.ajax({
-      url: "/categories/"+ id,
+      url: "/categories/"+"<%= params[:name] %>"+"/"+"<%= params[:brand_name] %>",
       type: "get",
       dataType: "script",
       data: {

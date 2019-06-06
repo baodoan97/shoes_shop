@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 
 ruby '2.5.3'
-gem 'delayed_job_active_record'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -11,6 +10,14 @@ gem 'devise'
 gem 'stripe'
 gem 'hirb'
 gem 'cocoon'
+gem 'whenever', require: false
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'ckeditor', '4.2.4'
+
+
+
+
 #Bootstrap 4
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass', '~> 5.6.1'

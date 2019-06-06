@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+
+
+  mount Ckeditor::Engine => '/ckeditor'
+  get 'brands/show'
   post 'notifications/create'
   get 'notifications/:id' , to: 'notifications#show'
 
   resources :places
-    post 'places/changestatus', to: 'places#changestatus'
+   post 'places/changestatus', to: 'places#changestatus'
    post 'payments/paymentdetail', to: 'payments#paymentdetail'  
   #resources :categories
   #get 'admins/categories', to: 'categories#index'
@@ -24,7 +28,6 @@ Rails.application.routes.draw do
 
 
   namespace :admins do
-     
     get 'payments/changestatus', to: 'payments#changestatus'
     resources :payments, except: [:update]
     resources :vouchers
@@ -35,12 +38,17 @@ Rails.application.routes.draw do
     resources :manages
     resources :comments
     resources :brands
+    resources :news
+    resources :type_of_news
+  
     post 'comments/newcomment', to: 'comments#newcomment'
     post 'comments/returncomment', to: 'comments#returncomment'
     post 'messages/received', to: 'messages#received'
     put 'payments/cancel_payment', to: 'payments#cancel_payment'
     post 'messages/watchedmore', to: 'messages#watchedmore'
-      delete 'images', to:  'products#destroyimage'
+    delete 'images', to:  'products#destroyimage'
+    post 'news/search_products_for_news', to: 'news#search_products_for_news'
+
   end
 
 end
@@ -69,6 +77,7 @@ end
     end
   end
   resources :products, only: [:show, :index]
+
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
   get '/search', to: 'products#search', as: 'search'
@@ -85,8 +94,15 @@ end
   post 'comments/watchedmore', to: 'comments#watchedmore'
   post 'messages/watchedmore', to: 'messages#watchedmore'
 
+  
+  get '/categories/:name/:brand_name', to: 'categories#show', as: 'category'
+  get 'products/:name', to: 'products#show' ,as: 'products'
+
+  get 'news', to: 'news#index' ,as: 'news_index'
+  get 'news/type=:type&&title=:title', to: 'news#show', as: 'news'
+  get 'news/type=:type', to: 'news#news_category', as: 'news_category'
+
 
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
-
 end

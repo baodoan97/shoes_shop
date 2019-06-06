@@ -51,8 +51,8 @@ class ProductsController < ApplicationController
     
 	def set_product
         @Related_products = nil
-        if Product.exists? id: params[:id] 
-            @product = Product.find(params[:id])
+        if Product.exists? name: params[:name] 
+            @product = Product.find_by_name(params[:name])
             # if user_signed_in? == false && session[:cart] != nil && session[:cart].count >= 4
             #    @Related_products = Find_related_products_session(session[:cart])
             # elsif (user_signed_in? == false && (session[:cart] == nil || session[:cart].count <= 3))

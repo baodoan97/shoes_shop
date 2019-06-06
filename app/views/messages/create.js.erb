@@ -1,28 +1,18 @@
 document.getElementById("usechat").value = " ";
+$("#setscroll"+"<%= @message.user_id %>").append("<div class='row msg_container base_sent'> <div class='col-md-10 col-xs-10 '> <div class='messages msg_sent'> <p>"+"<%= raw @message.content %>"+"</p> <time> "+"<%= time_ago_in_words(@message.created_at) %>"+"</time> </div> </div> <div class='col-md-2 col-xs-2 avatar'> <img src="+"<%= url_for(@message.user.avatar) %>"+" class=' img-responsive '> </div> </div>");
+var mydiv = $("#setscroll"+"<%= @message.user_id %>"); 
+mydiv.scrollTop(mydiv.prop("scrollHeight"));
+
 $(document).ready(function(){
+"<% if Message.all.where('user_id=?',@message.user_id).count > 5 %>"
 $('#setscroll'+"<%= @message.user_id %>").find('div:eq(1)').remove();
+"<% end %>"
 var messsage = {"usersend":"<%= @message.usersend %>","user_id":"<%= @message.user_id %>","avatar":'<%= url_for(@message.user.avatar) %>',"name":"<%= current_user.firstname %>","time":"<%= time_ago_in_words(@message.created_at) %>","content":"<%= @message.content %>"};
 App.message.send_msg(messsage);
 App.message.received = function(data)
 {
 
-const keys = Object.values(data);
-if(data != null)
-{
-console.log(keys);
-console.log(keys[0]["message"]["avatar"]);
-x = "<%= current_user.id %>";
-	if (keys[0]["message"]["user_id"] == x)
-	{
 
-		$("#setscroll"+keys[0]["message"]["user_id"]).append("<div class='row msg_container base_sent'> <div class='col-md-10 col-xs-10 '> <div class='messages msg_sent'> <p>"+keys[0]["message"]["content"]+"</p> <time> "+keys[0]["message"]["time"]+"</time> </div> </div> <div class='col-md-2 col-xs-2 avatar'> <img src="+keys[0]["message"]["avatar"]+" class=' img-responsive '> </div> </div>");
-		var mydiv = $("#setscroll"+keys[0]["message"]["user_id"]);
-		    mydiv.scrollTop(mydiv.prop("scrollHeight"));
-		    // $("#setscroll").scrollTop(150);
-		    }
-
-
-		}
 	}
 	
 })
