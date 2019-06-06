@@ -6,22 +6,27 @@
           <i class="fas fa-phone"><span class="ml-1">0909999999 |</span></i>
           <i class="fas fa-envelope"><span class="ml-1">example@gmail.com</span></i>
         </div>
+        
+
         <div class="col-sm-5 col-lg-4 col-xs-12 float-right p-0 first-right">
           <%= link_to carts_path do %>
           <i class="fas fa-shopping-bag cart mr-2 text-secondary">
           <span class="cart-text badge-danger"><%= session[:cart] == nil ? 0 : session[:cart].count %></span></i> |
           <% end %>
           <% if user_signed_in? %>
-          <i class="fas fa-user ml-1 "><span class="ml-1">
-            <%= link_to 'My account',users_profile_path  %>
-            <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-          </span></i> |
-          <% else %>
+           <i>
+          <%= image_tag current_user.avatar, style:"width: 14px; height: 14px; border-radius: 50%" %>
+            <span class="ml-1"><%= link_to current_user.firstname, users_profile_path, style:"font-weight:900" %></span>
+          </i> |
           <i class="fas fa-envelope ml-1">
-          <span class="ml-1 ">
-            <%= link_to "Sign Up",new_user_registration_path , class: "text-secondary" %> | 
-            <%= link_to "Sign In",new_user_session_path , class: "text-secondary" %>
-          </span>
+            <span class="ml-1"><%= link_to('Logout', destroy_user_session_path, method: :delete) %></span>
+          </i>
+          <% else %>
+          <i class="fas fa-user ml-1">
+            <span class="ml-1"><%= link_to 'My Account', new_user_session_path %></span>
+          </i> |
+          <i class="fas fa-envelope ml-1">
+            <span class="ml-1"><%= link_to 'Sign Up', new_user_registration_path %></span>
           </i>
           <% end %>
         </div>
@@ -92,6 +97,11 @@
           <a class="nav-link" href="#">Contact</a>
         </li>
       </ul>
+      <div class="search" style="width: 270px; position:relative;">
+        <%= form_tag products_path, method: :get, class:"form-inline my-2 my-lg-0 float-right"  do %>
+          <%= text_field_tag :search,'', {class:"form-control", id:"search_input", type:"search", placeholder: "Enter name of product"} %>
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>
@@ -112,37 +122,34 @@
       }
     });
     $("#search_input").data("ui-autocomplete")._renderItem = function (ul, item) {
-      return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "products/"+item.id})
+      return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "products/"+item.name})
                                                    .append(item.value))
                                                    .appendTo(ul);
     };
-</script>
-<script>
-  $(document).ready(function(){
-   if(!window.matchMedia("(max-width: 990px)").matches == true){
-     $('.dropdown-submenu a.test').hover(
-               function (e) {
-                var x = window.matchMedia("(max-width: 990px)")
-                  if (!x.matches == true) { 
-                     $('.aaa').css( "display", "none" ); 
-                  }
-
-                   $(this).next('ul').toggle("slow");
-                    e.stopPropagation();
-                    e.preventDefault();
-               }, 
-        
-               function () {
-
-               }
-            );
-   }else{
-    $('.dropdown-submenu a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
   });
-   }
+
+  $(document).ready(function(){
+    if(!window.matchMedia("(max-width: 990px)").matches == true){
+      $('.dropdown-submenu a.test').hover(
+        function (e) {
+          var x = window.matchMedia("(max-width: 990px)")
+          if (!x.matches == true) { 
+             $('.aaa').css( "display", "none" ); 
+          }
+          $(this).next('ul').toggle("slow");
+          e.stopPropagation();
+          e.preventDefault();
+        }, 
+        function () {
+        }
+      );
+   }else{
+      $('.dropdown-submenu a.test').on("click", function(e){
+      $(this).next('ul').toggle();
+      e.stopPropagation();
+      e.preventDefault();
+      });
+    }
   });
 // $( ".navbar-toggler-icon" ).click(function() {
   

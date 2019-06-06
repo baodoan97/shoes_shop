@@ -11,10 +11,9 @@
 // about supported directives.
 //= require activestorage
 //= require jquery
+//= require jquery_ujs
 //= require popper
 //= require turbolinks
-//= require rails-ujs
-//= require jquery_ujs
 //= require jquery-ui/widgets/autocomplete
 //= require owl.carousel.min
 //= require cocoon

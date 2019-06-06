@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
         @product_hash << { 
             label: p.name,
             value: p.name,
-            id: p.id
+            name: p.name
         }
       end
       render json: @product_hash
