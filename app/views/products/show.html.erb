@@ -54,7 +54,6 @@
                 <% end %>
             </div>
             <div class="form-group">
-                
             </div>
             <div class="form-group btn-center">
                 
@@ -75,8 +74,14 @@
 </div>
 <% if @Related_products.count != 0 %>
 <div class="container">
-<%= render 'related_products' , products: @Related_products %>
+    <%= render 'related_products' , products: @Related_products %>
 </div>
+<% end %>
+<% if true %>
+    <div class="container mt-3">
+    <h3>News About Products</h3>
+        <%= render 'news/related_news_product' , obj: @list_news %>
+    </div>
 <% end %>
 </div>
 <div class="container">
@@ -136,5 +141,4 @@ function imgnext(i) {
 $(window).load(function() {
     imagesilder(nextimg);
 });
-
 </script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_062824) do
+ActiveRecord::Schema.define(version: 2019_06_06_172629) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -155,6 +155,8 @@ ActiveRecord::Schema.define(version: 2019_06_03_062824) do
   create_table "news_products", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "new_id"
     t.integer "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "news_type_for_shoes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -203,8 +205,8 @@ ActiveRecord::Schema.define(version: 2019_06_03_062824) do
     t.decimal "price", precision: 10
     t.string "description"
     t.integer "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "liked", default: 0
     t.integer "brand_id"
   end

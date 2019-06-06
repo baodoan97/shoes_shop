@@ -13,8 +13,18 @@ class ProductsController < ApplicationController
     end
     
     def show
+        @list_news = []
+        @news_related = NewsProduct.where(product_id: Product.find_by_name(params[:name]).id).order('created_at desc').limit(5)
+        @news_related.each{ |n|
+            if New.exists?(n['new_id'])
+              @list_news.push(New.find(n.new_id))
+            end
+        }
+        @list_news
 
-      
+
+
+   
     end
 
     def search
@@ -68,8 +78,6 @@ class ProductsController < ApplicationController
              redirect_to root_path
             flash[:danger] = "Product is not exist"
         end
-
-
 
     end 
 end
