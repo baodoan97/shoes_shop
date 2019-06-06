@@ -81,6 +81,7 @@ end
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
   get '/search', to: 'products#search', as: 'search'
+  get '/products', to: 'products#index'
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'
@@ -96,7 +97,7 @@ end
 
   
   get '/categories/:name/:brand_name', to: 'categories#show', as: 'category'
-  get 'products/:name', to: 'products#show' ,as: 'products'
+  get 'products/:name', to: 'products#show' ,as: 'product'
 
   get 'news', to: 'news#index' ,as: 'news_index'
   get 'news/type=:type&&title=:title', to: 'news#show', as: 'news'

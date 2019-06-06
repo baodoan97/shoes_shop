@@ -12,12 +12,19 @@
           <span class="cart-text badge-danger"><%= session[:cart] == nil ? 0 : session[:cart].count %></span></i> |
           <% end %>
           <% if user_signed_in? %>
-          <i class="fas fa-user ml-1 "><span class="ml-1">
-            <%= link_to 'My account',users_profile_path  %>
-            <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-          </span></i> |
-          <% else %>
+           <i>
+          <%= image_tag current_user.avatar, style:"width: 14px; height: 14px; border-radius: 50%" %>
+            <span class="ml-1"><%= link_to current_user.firstname, users_profile_path, style:"font-weight:900" %></span>
+          </i> |
           <i class="fas fa-envelope ml-1">
+            <span class="ml-1"><%= link_to('Logout', destroy_user_session_path, method: :delete) %></span>
+          </i>
+          <% else %>
+          <i class="fas fa-user ml-1">
+            <span class="ml-1"><%= link_to 'My Account', new_user_session_path %></span>
+          </i> |
+          <i class="fas fa-envelope ml-1">
+
           <span class="ml-1 ">
             <%= link_to "Sign Up",new_user_registration_path , class: "text-secondary" %> |
             <%= link_to "Sign In",new_user_session_path , class: "text-secondary" %>
@@ -58,75 +65,80 @@
             
           </li>
           <% end %>
-          
+
         </ul>
-        
-      </li>
-      <li class="nav-item mr-3">
-        <%= link_to 'News',  news_index_path, class:"nav-link" %>
-      </li>
-      <li class="nav-item mr-3">
-        <%= link_to 'About', about_path, class:"nav-link" %>
-      </li>
-      <li class="nav-item mr-3">
-        <a class="nav-link" href="#">Contact</a>
-      </li>
-    </ul>
+
+        </li>
+         <li class="nav-item mr-3">
+          <%= link_to 'News',  news_index_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item mr-3">
+          <%= link_to 'About', about_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item mr-3">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+      <div class="search" style="width: 270px; position:relative;">
+        <%= form_tag products_path, method: :get, class:"form-inline my-2 my-lg-0 float-right"  do %>
+          <%= text_field_tag :search,'', {class:"form-control", id:"search_input", type:"search", placeholder: "Enter name of product"} %>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>
 </nav>
 <script>
-$(document).ready(function() {
-            $("#search_input").autocomplete({
-                source: '/search',
-                minLength: 1,
-                autoFocus: true,
-                open: function() {
-                    $("ul.ui-menu").width($(this).innerWidth());
-                },
-                focus: function(event, ui) {
-                    $('#search_input').val(ui.item.name);
-                },
-                select: function(event, ui) {
-                    $('#search_input').val(ui.item.name);
-                }
-            });
-            $("#search_input").data("ui-autocomplete")._renderItem = function(ul, item) {
-                return $('<li/>', {
-                        'data-value': item.value
-                    }).append($('<a/>', {
-                            href: "products/" + item.id
-                        })
-                        .append(item.value))
-                    .appendTo(ul);
-            };
-</script>
-<script>
-    $(document).ready(function() {
-        if (!window.matchMedia("(max-width: 990px)").matches == true) {
-            $('.dropdown-submenu a.test').hover(
-                function(e) {
-                    var x = window.matchMedia("(max-width: 990px)")
+
+  $(document).ready(function(){
+    $("#search_input").autocomplete({
+      source: '/search',
+      minLength: 1,
+      autoFocus: true,
+      open: function() {
+        $("ul.ui-menu").width($(this).innerWidth());
+      },
+      focus: function(event, ui) {
+        $('#search_input').val(ui.item.name);
+      },
+      select: function(event, ui) {
+        $('#search_input').val(ui.item.name);
+      }
+    });
+    $("#search_input").data("ui-autocomplete")._renderItem = function (ul, item) {
+      return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "products/"+item.name})
+                                                   .append(item.value))
+                                                   .appendTo(ul);
+    };
+  });
+
+  $(document).ready(function(){
+    if(!window.matchMedia("(max-width: 990px)").matches == true){
+      $('.dropdown-submenu a.test').hover(
+        function (e) {
+          var x = window.matchMedia("(max-width: 990px)")
                     if (!x.matches == true) {
                         $('.aaa').css("display", "none");
                     } else {
                         $('.aaa').css("display", "block");
                     }
                     $(this).next('ul').toggle("slow");
-                    e.stopPropagation();
-                    e.preventDefault();
-                },
-
-                function() {}
-            );
-        } else {
-            $('.dropdown-submenu a.test').on("click", function(e) {
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
-            });
+          e.stopPropagation();
+          e.preventDefault();
+        }, 
+        function () {
         }
-    });
+      );
+   }else{
+      $('.dropdown-submenu a.test').on("click", function(e){
+      $(this).next('ul').toggle();
+      e.stopPropagation();
+      e.preventDefault();
+      });
+    }
+  });
+
 // $( ".navbar-toggler-icon" ).click(function() {
 
 //   if($("#navbarNav").hasClass("show")){
