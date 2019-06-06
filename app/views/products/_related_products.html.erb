@@ -1,28 +1,53 @@
-<div class="row">
-      <h2 align="center" >Related products</h2>
-  <div class='Related_products' >
-    <div class='scrollbar-Related'>
-<!--              products.instance_of? Array  %>
- -->
-      <% products.take(4).each do |product|%>
-      <div class="card ml-4 related_item" >
-
-         <%= image_tag((Product.find(product['id'].to_i).images[0]), alt: "Product", class: "card-img-top" ) %>
+<div class="new-product mt-5">
+  <div class="container">
+    <h1 class="text-center">
+    <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">Related Products</span>
+    <hr align="center" class="line mb-5"></hr>
+    </h1>
+    <div id="more_related_products" class="owl-carousel owl-theme">
+      <% products.take(5).each do |product|%>
+      <div class="card" style="width: 100%; height: 18rem">
+        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
         <a href="#" class="show_detail">View Detail</a>
         <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>product name</strong></p>
-          <p class="card-text d-inline product-price"><strong>$product price</strong></p>
+          <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+          <p class="card-text d-inline product-price"><strong>$120</strong></p>
         </div>
       </div>
       <% end %>
-      <% if products.count > 4 %>
-      <div id="more_related_products" style=" padding: 100px 0px;">
-        <button id='loadrelated' class="btn btn-info ml-3">More</button>
-      </div>
-      <% end %>
-    </div >
+    </div>
   </div>
 </div>
+<script>
+var owl = $('.owl-carousel');
+owl.owlCarousel({
+loop:false,
+margin:10,
+nav:true,
+dots: false,
+autoplay:false,
+autoplayTimeout:1000,
+autoplayHoverPause:true,
+navText: ["<i class='fa fa-angle-left fa-2x' aria-hidden='true'></i>"," <i id=loadrelated class='fa fa-angle-right fa-2x' aria-hidden='true'></i>"],
+responsive:{
+0:{
+items:1
+},
+600:{
+items:2
+},
+1000:{
+items:4
+}
+}
+});
+$('.play').on('click',function(){
+owl.trigger('play.owl.autoplay',[1000])
+})
+$('.stop').on('click',function(){
+owl.trigger('stop.owl.autoplay')
+})
+</script>
 <script type="text/javascript">
 var count_related = 1;
 $( "#loadrelated" ).click(function() {
