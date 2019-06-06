@@ -9,9 +9,11 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-
 //= require activestorage
 //= require jquery
+//= require popper
+//= require turbolinks
+//= require rails-ujs
 //= require jquery_ujs
 //= require jquery-ui/widgets/autocomplete
 //= require owl.carousel.min

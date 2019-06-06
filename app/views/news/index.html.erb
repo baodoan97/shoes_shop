@@ -1,6 +1,6 @@
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-2">
 			<h2>News category</h2>
 			<% NewsTypeForShoe.all.each { |v| %>
 			<ul class="list-group">
@@ -10,7 +10,7 @@
 			</ul>
 			<% } %>
 		</div>
-		<div  class="col-lg-8">
+		<div  class="col-lg-10">
 			<h2 align="center">News</h2>
 			<% if params[:news_page] == nil || params[:news_page].to_i == 1 %>
 			<div  class="row">

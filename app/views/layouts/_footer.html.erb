@@ -1,128 +1,141 @@
-
 <div class="ring_ring" >
   <% if user_signed_in? %>
   <div id=toast<%= current_user.id %> ><button style="display: none" id=closetoast type='button' class='ml-2 mb-1 close' data-dismiss='toast'>x</button>
     
   </div>
   <% end %>
-  <div  style="float: right;" class="dropup">
+  <div   class="dropup">
     <button id="dropup_notification" type="button" class="btn btn-danger " data-toggle="dropdown">
     <i class="fas fa-bell"></i>
     </button>
     <% if user_signed_in? %>
+    <div   class="dropdown-menu bg-light">
+      <% New.all.where('title LIKE ?', "%sale off%").order('created_at desc').limit(3).each do |n|%>
+      <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+      <% end %>
+      <% Notification.where(user_id: current_user.id).where(watched: false).order('created_at desc').limit(2).each do |n| %>
+      <span class="dropdown-item text-muted custom-size-popup"><%=(n.content.split(' ').include?('comment')? raw("<i class='fas fa-comments'></i> ")+n.content : " " )%></span>
+      <% end %>
+    </div>
+    <% else %>
     <div  class="dropdown-menu bg-light ">
-      <% Notification.where(user_id: current_user.id).where(watched: false).order('created_at desc').limit(5).each do |n| %>
-      <%= link_to (n.content.split(' ').include?('comment')? raw("<i class='fas fa-comments'></i> ")+n.content : "y" ) ,cart_path,class:  "dropdown-item text-muted"   %>
-      <!--         <a class="dropdown-item text-muted" href="#"></a>
-      -->     <% end %>
+      <% New.all.where('title LIKE ?', "%sale off%").order('created_at desc').limit(3).each do |n|%>
+      <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+      <% end %>
     </div>
     <% end %>
   </div>
 </div>
+</div>
 <% if user_signed_in? %>
 <div class="container-fluid ">
-  <div id="repohide" class="arrow">
-    <%= button_tag raw("&#xf075"), :onclick => "openForm();" ,:remote => true, class: "open-button fa" , id: "chat-on" %>
-    <div  class="chat-popup " id="myForm">
-      <%= button_tag "X", :onclick => "closeForm();" ,class: "btn btn-danger right-x"  %>
-      <div class="data-chat ">
-        <div id=setscroll<%= current_user.id %> class="panel-body msg_container_base">
-          <% if Message.find_by(user_id: current_user.id) %>
-          <% if Message.all.where("user_id=?", current_user.id).count > 5 %>
-          <div id="btn-loadmessage" align="center" class="mt-3">
-            <button  id="loadmessage" class="btn btn-info">More</button>
-          </div>
-          <% end %>
-          <% Message.all.where("user_id=?", current_user.id).order('created_at desc').limit(10).reverse.each do |x| %>
-          <% if x.usersend == false %>
-          <div class="row msg_container base_receive">
-            <div class="col-md-2 col-xs-2 avatar-custom">
-              
-            </div>
-            <div class="col-xs-10 col-md-10">
-              <div class="messages msg_receive">
-                <p><%= raw x.content  %></p>
-                <time ><%= time_ago_in_words(x.created_at) %></time>
-              </div>
-            </div>
-          </div>
-          <% else %>
-          
-          <div class="row msg_container base_sent">
-            <div class="col-md-10 col-xs-10 ">
-              <div class="messages msg_sent">
-           <!--      z = x.content.split(' ').map do |k,v|  %>
-                 raw v = "<br />" %>
-                 end  %> -->
-                <p ><%= raw x.content %></p>
-                <time ><%= time_ago_in_words(x.created_at) %></time>
-              </div>
-            </div>
-            <div class="col-md-2 col-xs-2 avatar">
-              <%= image_tag x.user.avatar,class: "img-responsive " %>
-            </div>
-          </div>
-          <% end %>
-          <% end %>
-          <% end %>
+<div id="repohide" class="arrow">
+  <%= button_tag raw("&#xf075"), :onclick => "openForm();" ,:remote => true, class: "open-button fa" , id: "chat-on" %>
+  <div  class="chat-popup " id="myForm">
+    <%= button_tag "X", :onclick => "closeForm();" ,class: "btn btn-danger right-x"  %>
+    <div class="data-chat ">
+      <div id=setscroll<%= current_user.id %> class="panel-body msg_container_base">
+        <% if Message.find_by(user_id: current_user.id) %>
+        <% if Message.all.where("user_id=?", current_user.id).count > 5 %>
+        <div id="btn-loadmessage" align="center" class="mt-3">
+          <button  id="loadmessage" class="btn btn-info">More</button>
         </div>
+        <% end %>
+        <% Message.all.where("user_id=?", current_user.id).order('created_at desc').limit(10).reverse.each do |x| %>
+        <% if x.usersend == false %>
+        <div class="row msg_container base_receive">
+          <div class="col-md-2 col-xs-2 avatar-custom">
+            
+          </div>
+          <div class="col-xs-10 col-md-10">
+            <div class="messages msg_receive">
+              <p><%= raw x.content  %></p>
+              <time ><%= time_ago_in_words(x.created_at) %></time>
+            </div>
+          </div>
+        </div>
+        <% else %>
+        
+        <div class="row msg_container base_sent">
+          <div class="col-md-10 col-xs-10 ">
+            <div class="messages msg_sent">
+              <!--      z = x.content.split(' ').map do |k,v|  %>
+              raw v = "<br />" %>
+              end  %> -->
+              <p ><%= raw x.content %></p>
+              <time ><%= time_ago_in_words(x.created_at) %></time>
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-2 avatar">
+            <%= image_tag x.user.avatar,class: "img-responsive " %>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+        <% end %>
       </div>
-      <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
-      <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
-      <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
-      <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
-      <%= f.submit raw("&#xf1d8") , class: "btn pull-right fa text-primary right-icon-plane ml-0" ,id: "sendusermessage"  %>
-      <% end %>
     </div>
+    <%= form_for(:message ,as: :post,:remote=>true, :url => {:controller => "/messages", :action => "create"}, :html => {class: "form-container", role: "form" , :method => :POST}) do |f| %>
+    <%= hidden_field_tag "user_send[usersend]", "#{true}" %>
+    <%= hidden_field_tag "user_id[user_id]", "#{current_user.id}" %>
+    <%= f.text_area :content, placeholder: "Type message..", autofocus: true , class: "form-container-custom", id: "usechat" %>
+    <%= f.submit raw("&#xf1d8") , class: "btn pull-right fa text-primary right-icon-plane ml-0" ,id: "sendusermessage"  %>
+    <% end %>
   </div>
+</div>
 </div>
 <% end %>
 <footer>
-  <div class="bg-dark">
-    <div class="container pt-3">
-      <div class="row">
-        <div class="col-md-6 col-sm-12">
-          <h6 style="color: #fff; letter-spacing: 2px"><span>ABOUT</span></h6>
-          <p class="text-justify" style="color: #757570">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae magna vitae ipsum feugiat ultrices. Phasellus ultricies elementum tincidunt. Ut congue malesuada dui, a dictum tortor auctor ac. In ut efficitur lectus, laoreet congue odio. Quisque nec tincidunt felis. Maecenas posuere nec odio ornare vestibulum. Quisque eu est dictum enim convallis vehicula id sit amet odio. Ut volutpat sapien mi.
-            Proin bibendum varius justo ut efficitur. Aliquam imperdiet ex tincidunt sapien scelerisque vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam non justo in leo eleifend gravida. Donec rhoncus ipsum nec iaculis ultrices. Nam at elit malesuada, sollicitudin sem vel, pulvinar diam. Curabitur eu gravida urna, rhoncus vehicula tortor.
-          </p>
-        </div>
-        <div class="col-xs-12 col-md-3">
-          <h6 style="color: #fff; letter-spacing: 2px"><span>CATEGORIES</span></h6>
-          <ul class="categories"style="">
-            <a href="#" class="cat-item"><li>Adidas</li></a>
-            <a href="#" class="cat-item"><li>Nike</li></a>
-            <a href="#" class="cat-item"><li>Converse</li></a>
-            <a href="#" class="cat-item"><li>Vans</li></a>
-          </ul>
-        </div>
-        <div class="col-xs-12 col-md-3">
-          <h6 style="color: #fff; letter-spacing: 2px"><span>QUICK LINKS</span></h6>
-          <ul class="categories"style="">
-            <a href="#" class="cat-item"><li>About Us</li></a>
-            <a href="#" class="cat-item"><li>Contact Us</li></a>
-            <a href="#" class="cat-item"><li>Privacy Policy</li></a>
-          </ul>
-        </div>
+<div class="bg-dark">
+  <div class="container pt-3">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <h6 style="color: #fff; letter-spacing: 2px"><span>ABOUT</span></h6>
+        <p class="text-justify" style="color: #757570">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae magna vitae ipsum feugiat ultrices. Phasellus ultricies elementum tincidunt. Ut congue malesuada dui, a dictum tortor auctor ac. In ut efficitur lectus, laoreet congue odio. Quisque nec tincidunt felis. Maecenas posuere nec odio ornare vestibulum. Quisque eu est dictum enim convallis vehicula id sit amet odio. Ut volutpat sapien mi.
+          Proin bibendum varius justo ut efficitur. Aliquam imperdiet ex tincidunt sapien scelerisque vehicula. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam non justo in leo eleifend gravida. Donec rhoncus ipsum nec iaculis ultrices. Nam at elit malesuada, sollicitudin sem vel, pulvinar diam. Curabitur eu gravida urna, rhoncus vehicula tortor.
+        </p>
       </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-8 col-sm-6 col-xs-12">
-          <p class="copyright-text">Copyright &copy; 2019 All Rights Reserved by
-            <a href="#" class="creator">Geogre</a>.
-          </p>
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <ul class="social-icons">
-            <li><a id="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a id="twitter" href="#"><i class="fab fa-twitter"></i></i></a></li>
-            <li><a id="instagram" href="#"><i class="fab fa-instagram"></i></a></li>
-          </ul>
-        </div>
+      <div class="col-xs-12 col-md-3">
+        <h6 style="color: #fff; letter-spacing: 2px"><span>CATEGORIES</span></h6>
+        <ul class="categories"style="">
+          <a href="#" class="cat-item"><li>Adidas</li></a>
+          <a href="#" class="cat-item"><li>Nike</li></a>
+          <a href="#" class="cat-item"><li>Converse</li></a>
+          <a href="#" class="cat-item"><li>Vans</li></a>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <h6 style="color: #fff; letter-spacing: 2px"><span>QUICK LINKS</span></h6>
+        <ul class="categories"style="">
+          <a href="#" class="cat-item"><li>About Us</li></a>
+          <a href="#" class="cat-item"><li>Contact Us</li></a>
+          <a href="#" class="cat-item"><li>Privacy Policy</li></a>
+        </ul>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <p class="copyright-text">Copyright &copy; 2019 All Rights Reserved by
+          <a href="#" class="creator">Geogre</a>.
+        </p>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <ul class="social-icons">
+          <li><a id="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a id="twitter" href="#"><i class="fab fa-twitter"></i></i></a></li>
+          <li><a id="instagram" href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
       </div>
     </div>
   </div>
+</div>
 </footer>
+<script type="text/javascript">
+  $("#dropup_notification" ).click(function() {
+$('.ring_ring').addClass( "ring_ring_turn_off" );
+});
+</script>
 <% if user_signed_in? %>
 <script type="text/javascript">
 var mydiv = $("#setscroll"+"<%= current_user.id %>");
@@ -131,56 +144,71 @@ mydiv.scrollTop(mydiv.prop("scrollHeight"));
 <% end %>
 <script type="text/javascript">
 function myFunction(x) {
-if (x.matches) { // If media query matches
-document.getElementById("repohide").style.display = "none";
+    if (x.matches) { // If media query matches
+        document.getElementById("repohide").style.display = "none";
+        closeForm();
+        $('.ring_ring').css("right", "11%");
+        $('.custom-size-popup').css("font-size", "8px");
+        $('.custom-size-popup').css("font-size", "8px");
+    }
+    if (!x.matches) {
+        document.getElementById("repohide").style.display = "inherit";
+         $('.ring_ring').css("right", "87px");
+         $('.custom-size-popup').css("font-size", "10px");
+         $('.custom-size-popup').css("font-size", "10px");
+    }
 }
-if(!x.matches)
-{
-document.getElementById("repohide").style.display = "inherit";
-}
-}
-var x = window.matchMedia("(max-width: 640px)")
+var x = window.matchMedia("(max-width: 990px)")
 myFunction(x) // Call listener function at run time
 x.addListener(myFunction)
 document.getElementById("myForm").style.display = "none";
-function openForm() {
-document.getElementById("dropup_notification").disabled = true;
-$("#myForm")
-.css('opacity', 0.2)
-.slideDown("slow")
-.animate(
-{ opacity: 1 },
-{ queue: false, duration: 1000 }
-);
-$('#chat-on').slideUp();
-}
-function closeForm() {
-document.getElementById("dropup_notification").disabled = false;
-$( "#chat-on" ).slideDown( 1200,'linear' );
-$('#myForm').slideUp(1000, function(){
-console.log('Done!');
-}).fadeOut({
-duration: 1000,
-queue: false
-});
 
+function openForm() {
+    document.getElementById("dropup_notification").disabled = true;
+    $("#myForm")
+        .css('opacity', 0.2)
+        .slideDown("slow")
+        .animate({
+            opacity: 1
+        }, {
+            queue: false,
+            duration: 1000
+        });
+    $('#chat-on').slideUp();
 }
-$( "#closetoast" ).click(function() {
-$(".toast").remove();
-$("#closetoast").css('display','none');
+
+function closeForm() {
+    document.getElementById("dropup_notification").disabled = false;
+    $("#chat-on").slideDown(1200, 'linear');
+    $('#myForm').slideUp(1000, function() {
+        console.log('Done!');
+    }).fadeOut({
+        duration: 1000,
+        queue: false
+    });
+}
+$("#closetoast").click(function() {
+    $(".toast").remove();
+    $('.ring_ring').removeClass("ring_ring_turn_off");
+    $("#closetoast").css('display', 'none');
 });
 </script>
 <% if user_signed_in? %>
 <script type="text/javascript">
 var count_message = 1;
-$( "#loadmessage" ).click(function() {
+$("#loadmessage").click(function() {
 count_message = count_message + 5;
 var user_id = "<%= current_user.id %>";
 $.ajax({
 url: "/messages/watchedmore",
 type: "post",
 dataType: "script",
-data: { info: { "offset": count_message,"user_id": user_id }}
+data: {
+info: {
+"offset": count_message,
+"user_id": user_id
+}
+}
 });
 });
 </script>
