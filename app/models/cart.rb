@@ -3,7 +3,7 @@ class Cart < ApplicationRecord
   belongs_to :user
 
     def total_price
-      cart_products.to_a.sum { |item| item.total_price}
+      cart_products.to_a.sum { |item| item.price}
     end
 	# def add_product(product_params)
  #    current_item = cart_products.find_by(product_id: product_params[:product][:product_id])

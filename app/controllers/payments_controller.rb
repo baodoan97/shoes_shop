@@ -1,79 +1,81 @@
 class PaymentsController < ApplicationController
-    skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def paymentdetail
 
     @payment_items = PaymentItem.find_by(payment_id: params[:payment][:payment_id])
   end
 
-	def new
-		if current_cart.cart_products.size == 0
-    	redirect_to '/', :notice => 'Your cart is empty'
-     	return
+  def new
+    if  user_signed_in? == false ||  Cart.where(user_id: current_user.id).size == 0
+      redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'Login please!'
+      return
     end
     @payment = Payment.new
-	end
+  end
 
-	def create
-       # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
-    if current_cart.cart_products.size == 0
+  def create
+    # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
+    if Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice => 'Your cart is empty'
       return
     else
-  		@payment = Payment.new(payment_params)
-  		if payment_params[:address] != nil  
-                @location = Geocoder.search(payment_params[:address]).first.coordinates
-                @ship = (Geocoder::Calculations.distance_between([10.80076,106.679557], @location.to_a)).ceil(1) # km 
-                @place = Place.new
-                @place.name = payment_params[:address]
-                @place.latitude = @location[0]
-                 @place.longitude = @location[1]
-                @place.save
-                @payment.place = @place
-             end
+      @payment = Payment.new(payment_params)
+      @payment.user = current_user
+      if payment_params[:address] != nil
+        @location = Geocoder.search(payment_params[:address]).first.coordinates
+        @ship = (Geocoder::Calculations.distance_between([10.80076,106.679557], @location.to_a)).ceil(1) # km
+        @place = Place.new
+        debugger
+        @place.name = payment_params[:address]
+        @place.latitude = @location[0]
+        @place.longitude = @location[1]
+        @place.save
+        @payment.place = @place
+      end
       if(params[:payment][:pay_type] == "atm")
-      # Stripe.api_key = "sk_test_Hm0ywtd94a4e27SHOfzVJLpZ"
-        @cart = current_cart
-        @amount = @cart.total_price.to_i * 100
+        Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
+        # @cart = current_cartart
+        @amount = Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity}.to_i * 100
         token = params[:stripeToken]
-    		
-
         # Create a Customer
         customer = Stripe::Customer.create({
-          :description => params[:payment][:name], 
-          :card => token,
+         :description => params[:payment][:name],
+         :card => token,
         })
-
         charge = Stripe::Charge.create({
-          :customer => customer.id,
-          :amount => @amount, # amount in cents, again
-          :currency => 'usd'
+         :customer => customer.id,
+         :amount => @amount, # amount in cents, again
+         :currency => 'usd'
         })
+        debugger
         @payment.charge_id = charge.id
         if @payment.save
-          @payment.add_line_items_from_cart(current_cart)
-          Cart.destroy(session[:cart_id])
-          session[:cart_id] = nil
+          @carts = Cart.where(user_id: current_user.id)
+          @payment.add_line_items_from_cart(@carts,@payment.id)
+          @carts.destroy_all
           @payment.payment_items.each do |item|
-              @product = Product.find(item.product_id)
-              @product.quantity = @product.quantity - item.quantity
-              @product.save
+            @product = Product.find(item.product_id).stocks.where(size: item.size).first
+            @product.quantity = @product.quantity - item.quantity
+            @product.save
+            redirect_to root_path
           end
-          redirect_to root_path
         else
           render 'new'
         end
       else
         if @payment.save
-          @payment.add_line_items_from_cart(current_cart)
-          Cart.destroy(session[:cart_id])
-          session[:cart_id] = nil
+          @carts = Cart.where(user_id: current_user.id)
+          @payment.add_line_items_from_cart(@carts,@payment.id)
+          @carts.destroy_all
           @payment.payment_items.each do |item|
-              @product = Product.find(item.product_id)
-              @product.quantity = @product.quantity - item.quantity
-              @product.save
-          end
+          @product = Product.find(item.product_id).stocks.where(size: item.size).first
+          @product.quantity = @product.quantity - item.quantity
+          @product.save
           redirect_to root_path
+          end
+        else
+          render 'new'
         end
       end
     end
@@ -81,8 +83,8 @@ class PaymentsController < ApplicationController
 
 
 
-    private
-    def payment_params
-      params.require(:payment).permit(:name, :phone, :address, :pay_type)
-    end
+  private
+  def payment_params
+    params.require(:payment).permit(:name, :phone, :address, :pay_type)
+  end
 end

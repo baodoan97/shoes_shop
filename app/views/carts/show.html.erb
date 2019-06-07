@@ -39,7 +39,7 @@
         <h3>ORDER SUMMARY</h3>
         <!--         <p class="pt-4 border-top">Total:  @total %>$</p>
         -->        <h4 id="total_carts" class="border-top">TOTAL: <%= @total %>$ </h4>
-        <a href="#" class="btn btn-dark w-100">PROCEED TO CHECKOUT</a>
+        <%= link_to "PROCEED TO CHECKOUT",new_payment_path(), class: "btn btn-dark w-100" %>
       </div>
     </div>
   </div>
