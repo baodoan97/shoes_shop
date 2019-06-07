@@ -17,18 +17,16 @@ class Payment < ApplicationRecord
         complete: 2,
         cancel: 3
     }
-    def add_line_items_from_cart(cart) 
-        cart.cart_products.each do |item|
-            item[:cart_id] = nil
+    def add_line_items_from_cart(cart,payment_id) 
+        cart.each do |item|
             payment_item = PaymentItem.new(
             	:product_id => item.product_id,
             	:price => item.price,
             	:size => item.size,
             	:quantity => item.quantity,
-            	:payment_id => id
+            	:payment_id => payment_id
             	)
             payment_item.save
-            payment_items << payment_item
         end
     end
      def total_price
