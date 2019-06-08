@@ -10,6 +10,7 @@ class Admins::TransportCostsController < BaseController
   def create
    if  TransportCost.import(params[:file])
     s3 = AmazonS3Helper.s3
+    params[:file].original_filename = 'list63provinces'+ File.extname(params[:file].original_filename)
     obj = s3.bucket('doanshoes').object(params[:file].original_filename)
     obj.upload_file(params[:file].path)
     redirect_to  admins_transport_costs_path

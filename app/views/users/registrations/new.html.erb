@@ -1,8 +1,10 @@
-<div class="container usertoolview p-5">
+<div class="container">
   <h2 align="center">Sign up</h2>
   <br>
+    <%= render "users/shared/error_messages", resource: resource %>
+</div>
+<div class="container usertoolview p-5">
   <%= form_for(resource, as: resource_name, url: registration_path(:user)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
   <div class="form-group ">
     <div align="center">
     </div>
@@ -14,7 +16,7 @@
           <%= image_tag "",class: "img",id: "a" %>
         </div>
       </label>
-      <%= f.file_field :avatar, id:"file-input" %>
+      <%= f.file_field :avatar, id:"file-input",accept: 'image/jpeg,image/png' %>
     </div>
     </center>
   </div>
@@ -68,13 +70,13 @@
           if (this.files && this.files[0]) {
       
     
-           if( checkTypeimg(this.files[0].type) == false){
-            var input = $('#file-input');
-             alert("only image type jpeg,png");
-             input.replaceWith(input.val('').clone(true));
-            document.getElementById("a").src = "";
-                  return;
-            }
+           // if( checkTypeimg(this.files[0].type) == false){
+           //  var input = $('#file-input');
+           //   alert("only image type jpeg,png");
+           //   input.replaceWith(input.val('').clone(true));
+           //  document.getElementById("a").src = "";
+           //        return;
+           //  }
             var reader = new FileReader();
             reader.onload = function (e) {
                 $('#a').attr('src', e.target.result);

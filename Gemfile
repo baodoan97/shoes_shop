@@ -17,7 +17,7 @@ gem 'ckeditor', '4.2.4'
 gem 'roo'
 gem "roo-xls"
 gem 'aws-sdk-s3'
-
+gem 'active_storage_validations'
 
 #Bootstrap 4
 gem 'bootstrap', '~> 4.3.1'
