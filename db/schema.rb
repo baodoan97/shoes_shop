@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_07_074100) do
+ActiveRecord::Schema.define(version: 2019_06_08_082804) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
-    t.text "metadata", limit: 16777215
+    t.text "metadata", limit: 4294967295
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.text "description", limit: 16777215
+    t.text "description", limit: 4294967295
     t.boolean "display_in_navbar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
   create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.text "content", limit: 16777215
+    t.text "content", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "user_id"
-    t.text "content"
+    t.text "content", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "display", default: false
@@ -122,15 +122,15 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.text "content", limit: 16777215
+    t.text "content", limit: 4294967295
     t.boolean "usersend"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "title"
-    t.text "body"
+    t.text "title", limit: 16777215
+    t.text "body", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "news_type_for_shoe_id"
@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
-    t.text "content"
+    t.text "content", limit: 16777215
     t.boolean "watched", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
     t.string "charge_id"
     t.integer "user_id"
     t.integer "status", default: 0, null: false
+    t.decimal "transport_cost", precision: 10
   end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -199,6 +200,11 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
     t.integer "product_id"
     t.integer "size"
     t.integer "quantity"
+  end
+
+  create_table "transport_costs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "province"
+    t.decimal "price", precision: 10
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

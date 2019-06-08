@@ -6,13 +6,7 @@ if (parseInt("<%= @search.length %>") > 0){
 	$( "#datasearch" ).append( "<li value='<%= v %>'  ><%= v %></li> "  );
 	"<% end %>"
 }
-else if("<%= @location %>"){
-	       document.getElementById('ship').innerHTML =" <%= @ship %>Km";
-   document.getElementById('place_latitude').value = "<%= @location[0] %>";
-   document.getElementById('place_longitude').value =" <%= @location[1] %>";
-   initMap2("<%= @location[0] %>"," <%= @location[1] %>")
 
-}
 if("<%= @place.name %>" != ""){
 $("#place_name").val("<%= @place.name %>");
 }

@@ -1,0 +1,4 @@
+<%= form_tag(admins_transport_costs_path ,method: :post, multipart: true) do %>  
+<%= file_field_tag 'file', class: 'profile_input' %>
+  <%= submit_tag "Import" %>    
+<% end %>  
