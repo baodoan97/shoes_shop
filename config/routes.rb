@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     resources :brands
     resources :news
     resources :type_of_news
+     resources :transport_costs
+
   
     post 'comments/newcomment', to: 'comments#newcomment'
     post 'comments/returncomment', to: 'comments#returncomment'
@@ -63,6 +65,7 @@ end
     get 'users/profile', to: 'users/registrations#show'
     get 'users/order', to: 'users/registrations#order'
     get 'users/sign_out' => 'devise/sessions#destroy' 
+    post 'users/change_avatar', to: 'users/registrations#change_avatar'
   end
   get 'users/signup'
   get 'errors/loi'
@@ -76,12 +79,12 @@ end
       patch 'update_password'
     end
   end
-  resources :products, only: [ :index]
+  # resources :products, only: [ :index]
 
   post 'products/watched_more_related_products', to: 'products#watched_more_related_products'
 
   get '/search', to: 'products#search', as: 'search'
-  # get '/products', to: 'products#index'
+  get '/products', to: 'products#index' 
   delete 'images', to:  'products#destroyimage'
   get '/cart', to: 'carts#show', as: 'cart'
   post 'add', to: 'cart_products#create'
@@ -94,7 +97,6 @@ end
   resources :comments
   post 'comments/watchedmore', to: 'comments#watchedmore'
   post 'messages/watchedmore', to: 'messages#watchedmore'
-
   
   get '/categories/:name/:brand_name', to: 'categories#show', as: 'category'
   get 'products/:name', to: 'products#show' ,as: 'product'
@@ -102,7 +104,7 @@ end
   get 'news', to: 'news#index' ,as: 'news_index'
   get 'news/type=:type&&title=:title', to: 'news#show', as: 'news'
   get 'news/type=:type', to: 'news#news_category', as: 'news_category'
-
+  post 'payments/transport_cost', to: 'payments#transport_cost'
 
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'

@@ -14,8 +14,9 @@ gem 'whenever', require: false
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'ckeditor', '4.2.4'
-
-
+gem 'roo'
+gem "roo-xls"
+gem 'aws-sdk-s3'
 
 
 #Bootstrap 4

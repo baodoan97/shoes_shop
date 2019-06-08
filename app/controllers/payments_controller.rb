@@ -1,12 +1,25 @@
 class PaymentsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  require 'roo'
 
   def paymentdetail
-
     @payment_items = PaymentItem.find_by(payment_id: params[:payment][:payment_id])
   end
 
+  def transport_cost
+    @ship = TransportCost.all.find(params[:info][:id])
+  end
+
   def new
+    if TransportCost.all.count == 0 #TransportCost.all is nil , using file on cloud amazon
+      s3 = AmazonS3Helper.s3
+      obj= s3.bucket('doanshoes').object('list63provinces.xlsx')
+      obj.get(response_target: Rails.root.join("public/list63provinces.xlsx"))
+      file = Rack::Test::UploadedFile.new(Rails.root.join("public/list63provinces.xlsx"))
+      TransportCost.import(file)
+      FileUtils.rm_f(Rails.root.join("public/list63provinces.xlsx"))
+    end
+
     if  user_signed_in? == false ||  Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'Login please!'
       return
@@ -23,10 +36,22 @@ class PaymentsController < ApplicationController
       @payment = Payment.new(payment_params)
       @payment.user = current_user
       if payment_params[:address] != nil
-        @location = Geocoder.search(payment_params[:address]).first.coordinates
-        @ship = (Geocoder::Calculations.distance_between([10.80076,106.679557], @location.to_a)).ceil(1) # km
+        if params[:province][:province_id] != "" && TransportCost.all.find(params[:province][:province_id]) != nil
+          @payment.transport_cost = TransportCost.all.find(params[:province][:province_id]).price
+        else
+          flash[:alert] = "Please! Choose province of your "
+          render 'new'
+          return
+        end
+        @location = nil
+        begin
+          @location = Geocoder.search(payment_params[:address]).first.coordinates
+        rescue => ex
+          flash[:alert] = "Addrress not present!"
+          render 'new'
+          return
+        end
         @place = Place.new
-        debugger
         @place.name = payment_params[:address]
         @place.latitude = @location[0]
         @place.longitude = @location[1]
@@ -40,13 +65,13 @@ class PaymentsController < ApplicationController
         token = params[:stripeToken]
         # Create a Customer
         customer = Stripe::Customer.create({
-         :description => params[:payment][:name],
-         :card => token,
+                                             :description => params[:payment][:name],
+                                             :card => token,
         })
         charge = Stripe::Charge.create({
-         :customer => customer.id,
-         :amount => @amount, # amount in cents, again
-         :currency => 'usd'
+                                         :customer => customer.id,
+                                         :amount => @amount, # amount in cents, again
+                                         :currency => 'usd'
         })
         debugger
         @payment.charge_id = charge.id
@@ -58,7 +83,7 @@ class PaymentsController < ApplicationController
             @product = Product.find(item.product_id).stocks.where(size: item.size).first
             @product.quantity = @product.quantity - item.quantity
             @product.save
-            redirect_to root_path
+            redirect_to root_path,:notice => 'Payment request success!!!'
           end
         else
           render 'new'
@@ -69,10 +94,10 @@ class PaymentsController < ApplicationController
           @payment.add_line_items_from_cart(@carts,@payment.id)
           @carts.destroy_all
           @payment.payment_items.each do |item|
-          @product = Product.find(item.product_id).stocks.where(size: item.size).first
-          @product.quantity = @product.quantity - item.quantity
-          @product.save
-          redirect_to root_path
+            @product = Product.find(item.product_id).stocks.where(size: item.size).first
+            @product.quantity = @product.quantity - item.quantity
+            @product.save
+            redirect_to root_path,:notice => 'Payment request success!!!'
           end
         else
           render 'new'
