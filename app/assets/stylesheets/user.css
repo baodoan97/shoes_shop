@@ -61,3 +61,9 @@ th.showprofile {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+input[type=number]#user_phone::-webkit-outer-spin-button,
+input[type=number]#user_phone::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
