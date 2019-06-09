@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   #get 'admins/categories', to: 'categories#index'
   root 'pages#home'
   devise_for :admins, controllers: { sessions: 'admins/sessions', registrations: 'admins/registrations',passwords: 'admins/passwords',confirmations: 'admins/confirmations' }
-  devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations'}
+  devise_for :users, controllers: {sessions: 'users/sessions', registrations: 'users/registrations',omniauth_callbacks: "users/omniauth_callbacks"}
    authenticate :admin do
   get '/admins/homepage', to:'admins#homepage'
  # get '/admins/statistics', to:'manages#index'
