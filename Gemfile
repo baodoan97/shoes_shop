@@ -20,6 +20,7 @@ gem 'aws-sdk-s3'
 gem 'active_storage_validations'
 gem 'omniauth'
 gem 'omniauth-facebook' 
+gem 'omniauth-google-oauth2'
 #Bootstrap 4
 gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-sass', '~> 5.6.1'

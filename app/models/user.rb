@@ -1,11 +1,10 @@
 class User < ApplicationRecord
   require 'open-uri'
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # validate :content_type_avatar,on: :create
   before_save :resize_avatar_image
   has_one_attached :avatar
-  validate :content_type_avatar,on: :create
   validates :phone, :presence => {:message => 'Empty phone'},
     numericality: { only_integer: true },
     :length => { :minimum => 9, :maximum => 11 }, uniqueness: true
@@ -18,11 +17,11 @@ class User < ApplicationRecord
 
 
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :validatable,:confirmable,:omniauthable, :omniauth_providers => [:facebook]
+    :recoverable, :rememberable, :validatable,:confirmable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
   has_many :messages,:dependent => :destroy
   has_many :payments
-  has_many :carts
-  has_many :comments
+  has_many :carts,:dependent => :destroy
+  has_many :comments,:dependent => :destroy
   has_many :notifications,:dependent => :destroy
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
 
@@ -40,7 +39,7 @@ class User < ApplicationRecord
     image.write attachment_path
 
     avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
-     delete_folder_empty
+    delete_folder_empty
   end
 
   def delete_folder_empty
@@ -82,7 +81,7 @@ class User < ApplicationRecord
       user.lastname = auth.info.name
       user.firstname = "user_user_id_#{user.id}"
       user.phone = "0000000000"
-      user.address = "Update address,Beacause it is form facebook! Thank"
+      user.address = "Update address,Beacause it is form #{auth.provider}! Thank"
       user.skip_confirmation!
       user.confirm
       user.save
@@ -97,17 +96,20 @@ class User < ApplicationRecord
       file
   end
 
-  private
-   def content_type_avatar
-         if self.avatar.attached? == false
-           errors.add(:avatar, "is empty")
-           return false
-         end
-         if self.avatar.content_type != "image/png" && self.avatar.content_type != "image/jpeg"
-           self.destroy
-           errors.add(:avatar, "type is errors")
-           return false
-         end
-         self.avatar.variant(resize_to_fit: [ 100, 100 ])
-    end
+
+
+  # private
+
+  #  def content_type_avatar
+  #        if self.avatar.attached? == false
+  #          errors.add(:avatar, "is empty")
+  #          return false
+  #        end
+  #        if self.avatar.content_type != "image/png" && self.avatar.content_type != "image/jpeg"
+  #          self.destroy
+  #          errors.add(:avatar, "type is errors")
+  #          return false
+  #        end
+  #        self.avatar.variant(resize_to_fit: [ 100, 100 ])
+  #   end
 end
