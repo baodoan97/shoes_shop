@@ -1,7 +1,7 @@
 <div class="container">
   <h2 align="center">Sign up</h2>
   <br>
-    <%= render "users/shared/error_messages", resource: resource %>
+  <%= render "users/shared/error_messages", resource: resource %>
 </div>
 <div class="container usertoolview p-5">
   <%= form_for(resource, as: resource_name, url: registration_path(:user)) do |f| %>
@@ -56,47 +56,44 @@
   </div>
   <% end %>
 </div>
-<br>
 <script type="text/javascript">
-  $( document ).ready(function() {
-  var resetinput = $('#file-input');
-   resetinput.replaceWith(resetinput.val('').clone(true));
-    // $('.fa-exchange').hover(function(){
-    //       $(this).fadeOut( 100 );
-    //         $(this).fadeIn( 500 );
-    // });
+$( document ).ready(function() {
+var resetinput = $('#file-input');
+resetinput.replaceWith(resetinput.val('').clone(true));
+// $('.fa-exchange').hover(function(){
+//       $(this).fadeOut( 100 );
+//         $(this).fadeIn( 500 );
+// });
+$('#file-input').change(function () {
+if (this.files && this.files[0]) {
 
-  $('#file-input').change(function () {
-          if (this.files && this.files[0]) {
-      
-    
-           // if( checkTypeimg(this.files[0].type) == false){
-           //  var input = $('#file-input');
-           //   alert("only image type jpeg,png");
-           //   input.replaceWith(input.val('').clone(true));
-           //  document.getElementById("a").src = "";
-           //        return;
-           //  }
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#a').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        }
-    });
-  function checkTypeimg(type){
-        switch (type) {
-          case "image/png":
-           return true;
-            break;
-          case "image/jpeg":
-           return true;
-            break;
-         default:
-            return false 
-            break;
-        }
-    }
+
+// if( checkTypeimg(this.files[0].type) == false){
+//  var input = $('#file-input');
+//   alert("only image type jpeg,png");
+//   input.replaceWith(input.val('').clone(true));
+//  document.getElementById("a").src = "";
+//        return;
+//  }
+var reader = new FileReader();
+reader.onload = function (e) {
+$('#a').attr('src', e.target.result);
+}
+reader.readAsDataURL(this.files[0]);
+}
+});
+function checkTypeimg(type){
+switch (type) {
+case "image/png":
+return true;
+break;
+case "image/jpeg":
+return true;
+break;
+default:
+return false
+break;
+}
+}
 })
-
 </script>

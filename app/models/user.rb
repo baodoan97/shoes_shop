@@ -1,24 +1,24 @@
 class User < ApplicationRecord
+  require 'open-uri'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  before_save :resize_avatar_image 
+  before_save :resize_avatar_image
   has_one_attached :avatar
   validate :content_type_avatar,on: :create
   validates :phone, :presence => {:message => 'Empty phone'},
-                    numericality: { only_integer: true },
-                    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true
+    numericality: { only_integer: true },
+    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true
   validates :firstname , presence: true, format: {with: /[a-zA-Z]/}
   validates :lastname , presence: true, format: {with: /[a-zA-Z]/}
   validates :address , presence: true
 
-  validates :avatar, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
-                                     dimension: { width: {  max: 1000 },
-                                                  height: {  max: 1000 }, message: 'is not given between dimension maximum 1000x1000  ' }, size: { less_than: 1.5.megabytes , message: 'is not given between size ,maximum 1.5mb ' }
+  validates :avatar, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1.5.megabytes , message: 'is not given between size ,maximum 1.5mb ' }
 
 
 
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :validatable,:confirmable
+    :recoverable, :rememberable, :validatable,:confirmable,:omniauthable, :omniauth_providers => [:facebook]
   has_many :messages,:dependent => :destroy
   has_many :payments
   has_many :carts
@@ -64,6 +64,39 @@ class User < ApplicationRecord
   #     end
   #   end
   # end
+  #login App 3rd part
+  def self.new_with_session params, session
+    super.tap do |user|
+      if data = session["devise.facebook_data"] &&
+        session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
+
+  def self.from_omniauth auth
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email.to_s
+      user.password = Devise.friendly_token[0,20]
+      user.avatar.attach(User.avatar_file(auth.info.image))
+      user.lastname = auth.info.name
+      user.firstname = "user_user_id_#{user.id}"
+      user.phone = "0000000000"
+      user.address = "Update address,Beacause it is form facebook! Thank"
+      user.skip_confirmation!
+      user.confirm
+      user.save
+    end
+  end
+
+  def self.avatar_file(url_for)
+      download = open(url_for.to_s)
+      IO.copy_stream(download, Rails.root.join("public/avatar.png"))
+      file = Rack::Test::UploadedFile.new(Rails.root.join("public/avatar.png"))
+      FileUtils.rm_f(Rails.root.join(Rails.root.join("public/avatar.png")))
+      file
+  end
+
   private
    def content_type_avatar
          if self.avatar.attached? == false
