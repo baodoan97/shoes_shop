@@ -60,97 +60,119 @@
 <!-- validate card credit information -->
 <script>
 jQuery(function($) {
-$("#number").hide();
-$("#cvc").hide();
-$("#exp-month").hide();
-$("#exp-year").hide();
-$("#lbl-number").hide();
-$("#lbl-cvc").hide();
-$("#lbl-month").hide();
-$("#lbl-year").hide();
-$("#payment_pay_type").change(function() {
-var value = $("#payment_pay_type").val()
-if (value == "atm") {
-$("#number").fadeIn(1000);
-$("#cvc").fadeIn(1000);
-$("#exp-month").fadeIn(1000);
-$("#exp-year").fadeIn(1000);
-$("#lbl-number").fadeIn(1000);
-$("#lbl-cvc").fadeIn(1000);
-$("#lbl-month").fadeIn(1000);
-$("#lbl-year").fadeIn(1000);
-var show_error, stripeResponseHandler;
-stripeResponseHandler = function(status, response) {
-var $form, token;
-$form = $("#payment-form");
-if (response.error) {
-show_error(response.error.message);
-$form.find("input[type=submit]").prop("disabled", false);
-} else {
-token = response.id;
-$form.append($('<input type="hidden" name="stripeToken" />').val(token));
-$form.get(0).submit();
-}
-return false;
-};
-show_error = function(message) {
-$("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
-$('.alert').delay(5000).fadeOut(3000);
-return false;
-};
-$("#payment-form").submit(function(event) {
-var $form;
-$form = $(this);
-$form.find("input[type=submit]").prop("disabled", true);
-Stripe.card.createToken($form, stripeResponseHandler);
-return false;
-});
-} else {
-$("#number").fadeOut(1000);
-$("#cvc").fadeOut(1000);
-$("#exp-month").fadeOut(1000);
-$("#exp-year").fadeOut(1000);
-$("#lbl-number").fadeOut(1000);
-$("#lbl-cvc").fadeOut(1000);
-$("#lbl-month").fadeOut(1000);
-$("#lbl-year").fadeOut(1000);
-}
-});
+    $("#number").hide();
+    $("#cvc").hide();
+    $("#exp-month").hide();
+    $("#exp-year").hide();
+    $("#lbl-number").hide();
+    $("#lbl-cvc").hide();
+    $("#lbl-month").hide();
+    $("#lbl-year").hide();
+    $("#payment_pay_type").change(function() {
+        var value = $("#payment_pay_type").val()
+        if (value == "atm") {
+            $("#number").fadeIn(1000);
+            $("#cvc").fadeIn(1000);
+            $("#exp-month").fadeIn(1000);
+            $("#exp-year").fadeIn(1000);
+            $("#lbl-number").fadeIn(1000);
+            $("#lbl-cvc").fadeIn(1000);
+            $("#lbl-month").fadeIn(1000);
+            $("#lbl-year").fadeIn(1000);
+            var show_error, stripeResponseHandler;
+            stripeResponseHandler = function(status, response) {
+                var $form, token;
+                $form = $("#payment-form");
+                if (response.error) {
+                    show_error(response.error.message);
+                    $form.find("input[type=submit]").prop("disabled", false);
+                } else {
+                    token = response.id;
+                    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                    $form.get(0).submit();
+                }
+                return false;
+            };
+            show_error = function(message) {
+                $("#flash-messages").html('<div class="alert alert-warning"><a class="close" data-dismiss="alert">×</a><div id="flash_alert">' + message + '</div></div>');
+                $('.alert').delay(5000).fadeOut(3000);
+                return false;
+            };
+            $("#payment-form").submit(function(event) {
+                var $form;
+                $form = $(this);
+                $form.find("input[type=submit]").prop("disabled", true);
+                Stripe.card.createToken($form, stripeResponseHandler);
+                return false;
+            });
+        } else {
+            $("#number").fadeOut(1000);
+            $("#cvc").fadeOut(1000);
+            $("#exp-month").fadeOut(1000);
+            $("#exp-year").fadeOut(1000);
+            $("#lbl-number").fadeOut(1000);
+            $("#lbl-cvc").fadeOut(1000);
+            $("#lbl-month").fadeOut(1000);
+            $("#lbl-year").fadeOut(1000);
+        }
+    });
 });
 </script>
 <script>
-function removesearch()
-{
-$('#datasearch li').remove();
+
+$(function() {
+    $('#payment_phone').on('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '');
+    });
+    $('#payment_name').on('input', function() {
+        this.value = this.value.replace(/[^A-Z]/ig, '');
+    });
+    $('#payment_address').on('input', function() {
+        this.value = this.value.replace(/[^A-Z0-9\,\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig, '');
+    });
+});
+
+function removesearch() {
+    $('#datasearch li').remove();
 }
+
 function search(e) {
-$.ajax({
-url: "/places/changestatus",
-type: "post",
-dataType: "script",
-data: { search: {"address": e}}
-});
+    $.ajax({
+        url: "/places/changestatus",
+        type: "post",
+        dataType: "script",
+        data: {
+            search: {
+                "address": e
+            }
+        }
+    });
 }
-$("#datasearch").on("click","li", function(e){
-$('#datasearch li').remove();
-$("#payment_address").val($(this).attr("value"));
-$.ajax({
-url: "/places/changestatus",
-type: "post",
-dataType: "script",
-data: { location: {"address": $(this).attr("value")}}
+$("#datasearch").on("click", "li", function(e) {
+    $('#datasearch li').remove();
+    $("#payment_address").val($(this).attr("value"));
+    $.ajax({
+        url: "/places/changestatus",
+        type: "post",
+        dataType: "script",
+        data: {
+            location: {
+                "address": $(this).attr("value")
+            }
+        }
+    });
 });
-});
-
-
-
-$( "#province_province_id" ).change(function() {
-  $.ajax({
-url: "/payments/transport_cost",
-type: "post",
-dataType: "script",
-data: { info: {"id": $(this).val()}}
-});
+$("#province_province_id").change(function() {
+    $.ajax({
+        url: "/payments/transport_cost",
+        type: "post",
+        dataType: "script",
+        data: {
+            info: {
+                "id": $(this).val()
+            }
+        }
+    });
 });
 
 </script>
