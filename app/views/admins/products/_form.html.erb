@@ -16,7 +16,7 @@
     <p style="padding:2px">Name</p>
     <%= f.text_field :name, class: 'form-control',placeholder: "Product Name",maxlength:"30",minlength:"3",required:"required"%><br>
     <p style="padding:2px">Price</p>
-    <%= f.text_field :price, type: "number", class: 'form-control',placeholder: "Price",required:"required"%><br>
+    <%= f.text_field :price, type: "number", class: 'form-control',placeholder: "Price",required:"required" , min: 1%><br>
     <p style="padding:2px">Brand</p>
     <!--  f.collection_select(:category,Category.all, :id, :name, {:prompt=>true}, {:class=>'form-control'}) %><br> -->
     <%= f.collection_select(:brand_id, Brand.all, :id, :brand_name, {:prompt =>  'Chooses Brand'},{:class=>'form-control'} ) %>
@@ -59,9 +59,14 @@
 </div>
 </div>
 <script type="text/javascript">
-//    $(document).on('click','#img_product_form',function(){
-//   alert('Clicked');
-// });
+$(function() {
+      $('#product_price').on('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '');
+        if(this.value ==""){
+          this.value= 1;
+        }
+      });
+  });
 function FileListItemUpdate(a) {
     a = [].slice.call(Array.isArray(a) ? a : arguments)
     for (var c, b = c = a.length, d = !0; b-- && d;) d = a[b] instanceof File

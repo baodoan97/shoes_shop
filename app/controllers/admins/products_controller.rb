@@ -30,7 +30,7 @@ class Admins::ProductsController < BaseController
       redirect_to admins_products_path
       # debugger
     else
-      render 'products/new'
+      render 'new'
     end
   end
 

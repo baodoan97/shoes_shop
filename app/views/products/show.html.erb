@@ -65,7 +65,7 @@
     </div>
     <div class="showcase-last">
         <h3>Details</h3>
-        <p><%= @product.description%></p>
+        <p><%= raw @product.description.gsub(/[\r\n]/, '<br />') %></p>
     </div>
 </div>
 </div>
