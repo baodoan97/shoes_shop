@@ -40,32 +40,32 @@
             <div class="row">
               <div class="col-8 border-right">
                 <div class=row>
-                  <div class="col-2"> 
+                  <div class="col-2">
                     <p class="text-right">Name:</p>
                   </div>
                   <div class="col-10"><%= "#{@user.firstname} #{@user.lastname}" %></div>
                 </div>
                 <div class=row>
-                  <div class="col-2"> 
+                  <div class="col-2">
                     <p class="text-right">Email:</p>
                   </div>
                   <div class="col-10"><%= @user.email %></div>
                 </div>
                 <%= form_for @user,:url => user_registration_path(@user), :method => :put do |f| %>
                 <div class=row>
-                  <div class="col-2"> 
+                  <div class="col-2">
                     <p class="text-right">Phone:</p>
                   </div>
                   <div class="col-10"><%=f.text_field :phone %></div>
                 </div>
                 <div class=row>
-                  <div class="col-2"> 
+                  <div class="col-2">
                     <p class="text-right">Address:</p>
                   </div>
                   <div class="col-10"><%= f.text_field :address%></div>
                 </div>
                 <div class=row>
-                  <div class="col-2"> 
+                  <div class="col-2">
                     <p class="text-right">Gender:</p>
                   </div>
                   <div class="col-10">
@@ -83,9 +83,15 @@
               </div>
               <div class="col-4 d-flex align-items-center justify-content-center">
                 <div>
-                  <%= image_tag 'giay.jpg', style:"width: 100px;height:100px;border-radius:50%"%>
-                  <br/>
-                  <a href="#" class="btn btn-lg btn-secondary mt-2">Change</a>
+                  <label for="file-input">
+                    <%= image_tag @user.avatar,id: "a", style:"width: 100px;height:100px;border-radius:50%"%>
+                  </label>
+                  <%= form_tag(users_change_avatar_path,method: :post, multipart: true) do %>
+                    <%= hidden_field_tag "user_id", @user.id %>
+                  <%= file_field_tag "avatar", id:"file-input" ,accept: 'image/jpeg,image/png'%>
+                  <%= submit_tag "Change",class: 'btn btn-lg btn-secondary mt-2' %>
+                  <% end %>
+
                 </div>
               </div>
             </div>
@@ -95,10 +101,50 @@
     </div>
   </div>
 </section>
-
 <script>
-  $('.sidebar-child-item').on('click', function(){
-    $('.sidebar-child-item').find('active').removeClass('active');
-    $(this).addClass('active');
-  });
+$('.sidebar-child-item').on('click', function(){
+$('.sidebar-child-item').find('active').removeClass('active');
+$(this).addClass('active');
+});
+</script>
+<script type="text/javascript">
+$( document ).ready(function() {
+var resetinput = $('#file-input');
+resetinput.replaceWith(resetinput.val('').clone(true));
+// $('.fa-exchange').hover(function(){
+//       $(this).fadeOut( 100 );
+//         $(this).fadeIn( 500 );
+// });
+$('#file-input').change(function () {
+if (this.files && this.files[0]) {
+
+
+if( checkTypeimg(this.files[0].type) == false){
+var input = $('#file-input');
+alert("only image type jpeg,png");
+input.replaceWith(input.val('').clone(true));
+document.getElementById("a").src = "";
+return;
+}
+var reader = new FileReader();
+reader.onload = function (e) {
+$('#a').attr('src', e.target.result);
+}
+reader.readAsDataURL(this.files[0]);
+}
+});
+function checkTypeimg(type){
+switch (type) {
+case "image/png":
+return true;
+break;
+case "image/jpeg":
+return true;
+break;
+default:
+return false
+break;
+}
+}
+})
 </script>

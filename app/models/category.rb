@@ -2,7 +2,7 @@ class Category < ApplicationRecord
 
 	#associates
 	has_many :products
-	    has_many :brands
+	has_many :brands
 
 	#validate
 		validates :name, presence:true, length: {minimum: 3, maximum: 30}, uniqueness:true

@@ -78,6 +78,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       format.js   
     end
   end
+   
+   def change_avatar
+  User.find(params[:user_id].to_i).avatar.attach(params[:avatar])
+  redirect_to users_profile_path ,notice: "Change the avatar successfully!!!"
+   end
+
   # PUT /resource
   def update
     @user = current_user

@@ -19,6 +19,9 @@
                     </ul>
                 </div>
                 <div class="form-group">
+                    <%= collection_select(:province, :province_id, TransportCost.all,:id, :province,{:prompt => 'Please choose province for shipping fee of your'}) %>
+                </div>
+                <div class="form-group">
                     <%= f.label 'Payment Type' %>
                     <%= f.select :pay_type, Payment.pay_types.keys, {},:class => 'form-control' %>
                 </div>
@@ -41,7 +44,7 @@
                     <input type="text" size="4" data-stripe="exp_year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
                 </div>
                 <div class="form-group">
-                    <label><strong>Total Price: <h3><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %></h3></strong></label>
+                    <label><strong>Total Price: <h3><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>$</h3></strong></label>
                 </div>
                 <div class="form-group">
                     <label>Ship: <h3 id="ship"> </h3></label>
@@ -116,26 +119,60 @@ jQuery(function($) {
 });
 </script>
 <script>
-function removesearch()
-{
-$('#datasearch li').remove();
+
+$(function() {
+    $('#payment_phone').on('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '');
+    });
+    $('#payment_name').on('input', function() {
+        this.value = this.value.replace(/[^A-Z]/ig, '');
+    });
+    $('#payment_address').on('input', function() {
+        this.value = this.value.replace(/[^A-Z0-9\,\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig, '');
+    });
+});
+
+function removesearch() {
+    $('#datasearch li').remove();
 }
+
 function search(e) {
-$.ajax({
-url: "/places/changestatus",
-type: "post",
-dataType: "script",
-data: { search: {"address": e}}
-});
+    $.ajax({
+        url: "/places/changestatus",
+        type: "post",
+        dataType: "script",
+        data: {
+            search: {
+                "address": e
+            }
+        }
+    });
 }
-$("#datasearch").on("click","li", function(e){
-$('#datasearch li').remove();
-$("#payment_address").val($(this).attr("value"));
-$.ajax({
-url: "/places/changestatus",
-type: "post",
-dataType: "script",
-data: { location: {"address": $(this).attr("value")}}
+$("#datasearch").on("click", "li", function(e) {
+    $('#datasearch li').remove();
+    $("#payment_address").val($(this).attr("value"));
+    $.ajax({
+        url: "/places/changestatus",
+        type: "post",
+        dataType: "script",
+        data: {
+            location: {
+                "address": $(this).attr("value")
+            }
+        }
+    });
 });
+$("#province_province_id").change(function() {
+    $.ajax({
+        url: "/payments/transport_cost",
+        type: "post",
+        dataType: "script",
+        data: {
+            info: {
+                "id": $(this).val()
+            }
+        }
+    });
 });
+
 </script>

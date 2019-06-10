@@ -5,10 +5,8 @@ class Admins::CommentsController < BaseController
           @listcomments = Comment.all.where(display: false)
     end
     def newcomment
-        @comment = { "product_id" => params[:data][:comment][:comment][:product_id], 
-        "user_id" => params[:data][:comment][:comment][:user_id],
-        "content" =>params[:data][:comment][:comment][:content]}
-	  end
+        @comment = Comment.where(product_id: params[:data][:comment][:comment][:product_id].to_i).last
+	end
      
      def returncomment
          

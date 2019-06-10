@@ -609,7 +609,6 @@ border-radius: 50%;
     color: #468847;
     text-align: center;
  }
-
 .admin-wrapper *{
   padding: 0;
   margin: 0;
@@ -647,4 +646,11 @@ border-radius: 50%;
 .list-unstyled li a i{
   width: 25px;
 }
-
+ div.custom-error_explanation {
+    background: #343a40 !important;
+    color: white;
+    text-align: center;
+}
+div.custom-error_explanation ul{
+  color: black;
+}

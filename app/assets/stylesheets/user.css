@@ -5,6 +5,11 @@
 .container.usertoolview {
     width: 41%;
 }
+@media screen and (max-width: 991px) {
+    .container.usertoolview {
+        width: 100%;
+    }
+}
 .center{
 	text-align: center;
 }
@@ -60,4 +65,10 @@ th.showprofile {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+
+input[type=number]#user_phone::-webkit-outer-spin-button,
+input[type=number]#user_phone::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }

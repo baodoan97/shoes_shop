@@ -1,0 +1,5 @@
+<h3>Import type file (.xls,.xlsx) , and file have two colums (province,price)</h3>
+<%= form_tag(admins_transport_costs_path ,method: :post, multipart: true) do %>
+<%= file_field_tag 'file', class: 'profile_input', accept: ".xls,.xlsx" %>
+<%= submit_tag "Import" %>
+<% end %>
