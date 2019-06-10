@@ -18,11 +18,13 @@
       <% end %>
     </div>
     <% else %>
-    <div  class="dropdown-menu bg-light ">
-      <% New.all.where('title LIKE ?', "%sale off%").order('created_at desc').limit(3).each do |n|%>
-      <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+      <% if New.all.where('title LIKE ?', "%sale off%").count != 0 %>
+      <div  class="dropdown-menu bg-light ">
+        <% New.all.where('title LIKE ?', "%sale off%").order('created_at desc').limit(3).each do |n|%>
+        <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+        <% end %>
+      </div>
       <% end %>
-    </div>
     <% end %>
   </div>
 </div>
@@ -132,9 +134,14 @@
 </div>
 </footer>
 <script type="text/javascript">
-  $("#dropup_notification" ).click(function() {
+$(".ring_ring").click(function() {
 $('.ring_ring').addClass( "ring_ring_turn_off" );
-});
+$(".toast").remove();
+$("#closetoast").css('display', 'none');
+})
+//$("#dropup_notification" ).click(function() {
+//$('.ring_ring').addClass( "ring_ring_turn_off" );
+// })
 </script>
 <% if user_signed_in? %>
 <script type="text/javascript">
@@ -144,53 +151,51 @@ mydiv.scrollTop(mydiv.prop("scrollHeight"));
 <% end %>
 <script type="text/javascript">
 function myFunction(x) {
-    if (x.matches) { // If media query matches
-        document.getElementById("repohide").style.display = "none";
-        closeForm();
-        $('.ring_ring').css("right", "11%");
-        $('.custom-size-popup').css("font-size", "8px");
-        $('.custom-size-popup').css("font-size", "8px");
-    }
-    if (!x.matches) {
-        document.getElementById("repohide").style.display = "inherit";
-         $('.ring_ring').css("right", "87px");
-         $('.custom-size-popup').css("font-size", "10px");
-         $('.custom-size-popup').css("font-size", "10px");
-    }
+if (x.matches) { // If media query matches
+document.getElementById("repohide").style.display = "none";
+closeForm();
+$('.ring_ring').css("right", "11%");
+$('.custom-size-popup').css("font-size", "8px");
+$('.custom-size-popup').css("font-size", "8px");
+}
+if (!x.matches) {
+document.getElementById("repohide").style.display = "inherit";
+$('.ring_ring').css("right", "87px");
+$('.custom-size-popup').css("font-size", "10px");
+$('.custom-size-popup').css("font-size", "10px");
+}
 }
 var x = window.matchMedia("(max-width: 990px)")
 myFunction(x) // Call listener function at run time
 x.addListener(myFunction)
 document.getElementById("myForm").style.display = "none";
-
 function openForm() {
-    document.getElementById("dropup_notification").disabled = true;
-    $("#myForm")
-        .css('opacity', 0.2)
-        .slideDown("slow")
-        .animate({
-            opacity: 1
-        }, {
-            queue: false,
-            duration: 1000
-        });
-    $('#chat-on').slideUp();
+document.getElementById("dropup_notification").disabled = true;
+$("#myForm")
+.css('opacity', 0.2)
+.slideDown("slow")
+.animate({
+opacity: 1
+}, {
+queue: false,
+duration: 1000
+});
+$('#chat-on').slideUp();
 }
-
 function closeForm() {
-    document.getElementById("dropup_notification").disabled = false;
-    $("#chat-on").slideDown(1200, 'linear');
-    $('#myForm').slideUp(1000, function() {
-        console.log('Done!');
-    }).fadeOut({
-        duration: 1000,
-        queue: false
-    });
+document.getElementById("dropup_notification").disabled = false;
+$("#chat-on").slideDown(1200, 'linear');
+$('#myForm').slideUp(1000, function() {
+console.log('Done!');
+}).fadeOut({
+duration: 1000,
+queue: false
+});
 }
 $("#closetoast").click(function() {
-    $(".toast").remove();
-    $('.ring_ring').removeClass("ring_ring_turn_off");
-    $("#closetoast").css('display', 'none');
+$('.ring_ring').removeClass("ring_ring_turn_off");
+$(".toast").remove();
+$("#closetoast").css('display', 'none');
 });
 </script>
 <% if user_signed_in? %>

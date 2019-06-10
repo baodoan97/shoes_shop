@@ -64,13 +64,13 @@ $( document ).ready(function() {
         this.value = this.value.replace(/[^\d]/g, '');
       });
       $('#user_firstname').on('input', function() {
-        this.value = this.value.replace(/[^A-Z]/ig,'');
+        this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
       });
       $('#user_lastname').on('input', function() {
-        this.value = this.value.replace(/[^A-Z]/ig,'');
+        this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
       });
       $('#user_address').on('input', function() {
-        this.value = this.value.replace(/[^A-Z0-9\,\/]|\s/ig,'');
+        this.value = this.value.replace(/[^A-Z0-9\,\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]|\s/ig,'');
       });
        $('#user_email').on('input', function() {
         this.value = this.value.replace(/[^a-zA-Z0-9\@\.]|\s/ig,'');

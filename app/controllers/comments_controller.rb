@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     if user_signed_in? == true
       @check = true
       @comment = Comment.new
-      @comment.content = params[:comment][:content]
+      @comment.content = params[:comment][:content].gsub(/[\r\n]/, '<br />')
       @comment.user = current_user
       @comment.product = Product.find(params[:product][:product_id])
       @comment.save

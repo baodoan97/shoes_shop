@@ -8,7 +8,11 @@ App.comment = App.cable.subscriptions.create "CommentChannel",
   received: (data) ->
     keys = Object.values(data)
     if keys[0]["comment"]["display"] == true
-       $('#comment'+keys[0]["comment"]["product_id"]+ ' > div:last-child').remove(); 
+       # $('#comment'+keys[0]["comment"]["product_id"]+ ' > div:last-child').remove();
+       if (keys[0]['comment']['content'].match(/&lt;/g) != null )
+         for i in [0...keys[0]['comment']['content'].match(/&lt;/g).length] by 1
+               keys[0]['comment']['content'] = keys[0]['comment']['content'].replace('&lt;','<').replace('&gt;', '>') 
+                
        $('#comment'+keys[0]["comment"]["product_id"]).prepend("<div class='media'><img src="+keys[0]['comment']['avatar']+" class='imgcomment align-self-start mr-3'> <br /><div class='media-body bg-light-custom mt-3'><h5 class='mt-0'>"+keys[0]['comment']['name']+"<small><i>"+keys[0]['comment']['updated_at']+"</i></small></h5><p>"+keys[0]['comment']['content']+"</p></div></div>");
     if keys[0]["comment"]["display"] == false 
        $.ajax '/admins/comments/newcomment',
