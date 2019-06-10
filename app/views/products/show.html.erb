@@ -43,8 +43,7 @@
             <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "carts", :action => "create"}) do |a| %>
             <div class="form-group btn-center">
                 <%= hidden_field_tag "product_id", [@product.id] %>
-                
-                <%= a.select :size,options_for_select((35..43).to_a, " "),{}, { :class => "form-control-product-show qnty-chrt" } %>
+                <%= a.select :size,options_for_select((@product.stocks.min.size..@product.stocks.max.size).to_a, " "),{}, { :class => "form-control-product-show qnty-chrt" } %>
                 <% @product.stocks.each do |stock| %>
                 <% if stock.quantity <= 10 %>
                 <%= a.select :quantity,options_for_select((1..stock.quantity.to_i).to_a, " " ),{}, { :class => "form-control-product-show qnty-chrt" } %>

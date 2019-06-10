@@ -4,7 +4,7 @@
 		<div id=commentcheck<%= v.id %> class="d-flex justify-content-between bg-light-custom mb-3">
 			<div class="p-2  bg-info"><img style="height: 25px;,width: 25px;" src=<%= url_for(Product.find(v.product_id ).images.first) %> >
 			<%= Product.find(v.product_id).name %></div>
-			<div class="p-2 "><%= v.content %></div>
+			<div class="p-2 with-content_of_comment"><%= raw v.content %></div>
 			<div class="p-2 bg-primary"><%= time_ago_in_words(v.created_at) %>
 				 <button type="button" onclick="checkcomment(<%= v.id %>,'apply');" class="btn btn-success">Success</button>
 				<button type="button" onclick="checkcomment(<%= v.id %>,'delete');" class="btn btn-danger ">Warning</button>
