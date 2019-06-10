@@ -21,21 +21,22 @@
 </head>
 
 <body>
-  <div>
-  <%= render 'layouts/adminshome' %>
-  <!-- <div class="alert alert-info alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
+  <div class="admin-wrapper">
+    <div class="container-fluid">
+      <div class="row m-0">
+        <div class="col-lg-2 m-0 p-0">
+          <%= render 'layouts/admin_sidebar' %>
+        </div>
+        <!-- start of content-->
+        <div class="col-lg-10">
+          <div class="content p-3">
+            <%= yield %>
+          </div>
+        </div>
+        <!-- end of content-->
+      </div>
+    </div>
   </div>
-  <div class="alert alert-danger alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-
-  </div> -->
-  <%= yield %>
-  <p class="notice " style="text-align:center;color: #3c763d;height: 30px;padding: 20px
-  border-color: #d6e9c6;"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-</div>
 </body>
 
 </html>

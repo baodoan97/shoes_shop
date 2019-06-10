@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "user_id"
-    t.text "content"
+    t.text "content", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "display", default: false
@@ -119,6 +119,21 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", limit: 16777215, null: false
+    t.text "last_error", limit: 16777215
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
@@ -129,8 +144,9 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "title"
-    t.text "body"
+    t.integer "product_id"
+    t.text "title", limit: 16777215
+    t.text "body", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "news_type_for_shoe_id"
@@ -151,7 +167,7 @@ ActiveRecord::Schema.define(version: 2019_06_07_074100) do
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
-    t.text "content"
+    t.text "content", limit: 16777215
     t.boolean "watched", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

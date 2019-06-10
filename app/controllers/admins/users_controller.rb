@@ -2,7 +2,7 @@
 class Admins::UsersController < BaseController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     def index
-        @users = User.all
+      @users = User.all
     end
       # GET /categories/1
       # GET /categories/1.json

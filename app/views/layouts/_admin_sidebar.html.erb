@@ -1,0 +1,37 @@
+<nav id="admin-sidebar">
+  <div class="admin-sidebar-header pl-3 pr-3 pt-3">
+        <h4 class="text-center font-weight-bold">N-Air Shop</h5>
+  </div>
+  <ul class="list-unstyled components pl-3 pr-3">
+    <h5 class="text-center font-weight-bold"> Management System</h5>
+    <hr style="border: 0.6px solid white; margin-top: 5px"> <hr/>
+    <li class="active">
+      <%= link_to '<i class="fas fa-home"></i> Home'.html_safe, admins_homepage_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fas fa-user"></i> User'.html_safe, admins_users_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fas fa-list"></i> Category'.html_safe, admins_categories_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fas fa-ellipsis-v"></i> Brand'.html_safe, admins_brands_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fas fa-box-open"></i> Product'.html_safe, admins_products_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fas fa-money-bill"></i> Order'.html_safe, admins_payments_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="fas fa-comment"></i> Comment'.html_safe, admins_comments_path %>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  $('#admin-sidebar .list-unstyled li a').click(function(){
+    $('#admin-sidebar .list-unstyled').find('li.active').removeClass('active');
+    $(this).parent('li').addClass('active');
+  });
+</script>
