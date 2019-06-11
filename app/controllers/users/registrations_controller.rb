@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-     layout 'layouts/user'
+  layout 'layouts/user'
   # before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   before_action :authenticate_user!
@@ -11,12 +11,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   yield resource if block_given?
   #   respond_with resource
   # end
-  
+
   # POST /resource
   def create
-    super
+    build_resource(sign_up_params)
+    resource.avatar.attach(resource.resize_avatar(params[:user][:avatar]))
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
     SendEmailJob.set(wait: 50.seconds).perform_later(User.find_by(email: sign_up_params[:email]))
-   # sign_out(current_user) 
+    # sign_out(current_user)
     # if sign_up_params[:avatar] == nil
     #    flash[:notice] = 'choose image for avatar'
     #    redirect_to new_user_registration_path
@@ -48,8 +66,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     # build_resource(current_user)
     # yield resource if block_given?
-     
-     self.resource = User.find(current_user.id)
+
+    self.resource = User.find(current_user.id)
     # respond_with self.resource
   end
   def show
@@ -61,28 +79,29 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
     if params[:status]
       case params[:status]
-        when "0"  
-          @payments = @user.payments.where("status = 0").order("id DESC").paginate(page: params[:page], per_page: 2)
-        when "1"
-          @payments = @user.payments.where("status = 1").order("id DESC").paginate(page: params[:page], per_page: 2)
-        when "2"
-          @payments = @user.payments.where("status = 2").order("id DESC").paginate(page: params[:page], per_page: 2)
-        else
-          @payments = @user.payments.where("status = 3").order("id DESC").paginate(page: params[:page], per_page: 2)
+      when "0"
+        @payments = @user.payments.where("status = 0").order("id DESC").paginate(page: params[:page], per_page: 2)
+      when "1"
+        @payments = @user.payments.where("status = 1").order("id DESC").paginate(page: params[:page], per_page: 2)
+      when "2"
+        @payments = @user.payments.where("status = 2").order("id DESC").paginate(page: params[:page], per_page: 2)
+      else
+        @payments = @user.payments.where("status = 3").order("id DESC").paginate(page: params[:page], per_page: 2)
       end
     else
       @payments = @user.payments.where("status = 0").order("id DESC").paginate(page: params[:page], per_page: 2)
     end
     respond_to do |format|
       format.html
-      format.js   
+      format.js
     end
   end
-   
-   def change_avatar
-  User.find(params[:user_id].to_i).avatar.attach(params[:avatar])
-  redirect_to users_profile_path ,notice: "Change the avatar successfully!!!"
-   end
+
+  def change_avatar
+    user = User.find(params[:user_id].to_i)
+    user.avatar.attach(user.resize_avatar(params[:avatar]))
+    redirect_to users_profile_path ,notice: "Change the avatar successfully!!!"
+  end
 
   # PUT /resource
   def update
@@ -121,7 +140,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-     params.require(:user).permit(:firstname,:lastname ,:email, :gender, :phone,:address,:avatar)
+    params.require(:user).permit(:firstname,:lastname ,:email, :gender, :phone,:address,:avatar)
   end
 
   # The path used after sign up.
@@ -130,9 +149,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def sign_up_params
-    params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
+    params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address)
   end
-  
+
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     super(resource)
