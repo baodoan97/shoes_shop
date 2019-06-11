@@ -28,7 +28,6 @@ class Admins::NewsController < BaseController
   # POST /new.json
   def create
     @new = New.new(new_params)
-
     respond_to do |format|
       if @new.save
         format.html { redirect_to admins_news_path(@new), notice: 'New was successfully created.' }

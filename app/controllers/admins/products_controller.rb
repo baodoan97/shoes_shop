@@ -24,6 +24,7 @@ class Admins::ProductsController < BaseController
   end
   def create
     @product = Product.new(product_params)
+    @product.images.attach(@product.resize_images(params[:product][:images]))
     @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i
     if @product.save
       flash[:success] = "Product was created successfully"
@@ -40,8 +41,8 @@ class Admins::ProductsController < BaseController
 
   def update
     @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i
+    @product.images.attach(@product.resize_images(params[:product][:images])) if params[:product][:images] != nil
     if @product.update(product_params)
-
       flash[:success] = "Product was updated"
       redirect_to edit_admins_product_path(@product)
     else
@@ -52,14 +53,14 @@ class Admins::ProductsController < BaseController
   def destroyimage
     if params[:product]
       @product = Product.find(params[:product])
-      @product.images[params[:images].to_i].destroy
+      @product.images[params[:images].to_i].purge
     end
     redirect_to edit_admins_product_path(@product.id.to_i)
   end
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :brand_id,images: [], stocks_attributes: [:id,:size, :quantity, :_destroy])
+    params.require(:product).permit(:name, :price, :description, :brand_id, stocks_attributes: [:id,:size, :quantity, :_destroy])
   end
 
   def set_product
