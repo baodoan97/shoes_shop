@@ -26,8 +26,9 @@ textarea.form-container-custom-admin {
     background: rgba(160, 151, 151, 0.075);
     height: auto;
     width: 16%;
-    border-radius: 16%;
+    /*border-radius: 16%;*/
     margin-top: 2em;
+    text-align: center;
 }
 .message_new img{
 

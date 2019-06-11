@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   validates :phone, :presence => {:message => 'Empty phone'},
     numericality: { only_integer: true },
-    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true
+    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true, unless: -> { phone = 0000000000 }
   validates :firstname , presence: true, format: {with: /[a-zA-Z]/}
   validates :lastname , presence: true, format: {with: /[a-zA-Z]/}
   validates :address , presence: true
@@ -66,18 +66,28 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth auth
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email.to_s
-      user.password = Devise.friendly_token[0,20]
-      user.avatar.attach(User.avatar_file(auth.info.image))
-      user.lastname = auth.info.name
-      user.firstname = "user_user_id_#{user.id}"
-      user.phone = "0000000000"
-      user.address = "Update address,Beacause it is form #{auth.provider}! Thank"
-      user.skip_confirmation!
-      user.confirm
-      user.save
-    end
+    a = User.find_by_email(auth.info.email.to_s)
+    if a != nil && a.provider == auth.provider.to_s
+       return a
+    else  
+      # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user = User.create
+        user.email = auth.info.email.to_s
+        user.password = Devise.friendly_token[0,20]+"9x@"
+        user.avatar.attach(User.avatar_file(auth.info.image))
+        user.lastname = auth.info.name
+        user.provider = auth.provider.to_s
+        user.uid = auth.uid
+        user.firstname = "user_user_id_"+"#{user.id}"
+        user.phone = "0000000000"
+        user.address = "Update address,Beacause it is form #{auth.provider}! Thank"
+        user.skip_confirmation!
+        user.confirm
+        user.save
+        return user
+      # end
+   end
+        return nil
   end
 
   def self.avatar_file(url_for)
