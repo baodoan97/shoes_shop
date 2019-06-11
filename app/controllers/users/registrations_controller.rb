@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     resource.avatar.attach(resource.resize_avatar(params[:user][:avatar]))
-    resource.save
+    resource.save 
     yield resource if block_given?
     if resource.persisted?
       if resource.active_for_authentication?
@@ -106,13 +106,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     @user = current_user
-    if @user.update(configure_account_update_params)
-      flash[:success] = "Update was saved"
-      render 'show'
-    else
-      flash[:danger] = "Update wasnt saved"
-      render 'show'
-    end
+      if @user.update(configure_account_update_params)
+        flash[:success] = "Update was saved"
+        render 'show'
+      else
+        flash[:danger] = "Update was not saved"
+        render 'show'
+      end
   end
 
 
