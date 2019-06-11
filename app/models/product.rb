@@ -29,19 +29,19 @@ class Product < ApplicationRecord
   private
 
   def resize_images
-    list_img = []
-    images.each do |img|
-            filename = img.filename.to_s
-            attachment_path = ActiveStorage::Blob.service.path_for(img.key)            
-            image_resize = MiniMagick::Image.open(attachment_path)
-             image_resize.resize "900x900"
-            image_resize.write attachment_path
-            a = Rack::Test::UploadedFile.new(attachment_path)
-            list_img.push(a)
-    end
-            self.images.destroy_all
-            self.images.attach(list_img)
-            delete_folder_empty
+    # list_img = []
+    # images.each do |img|
+    #         filename = img.filename.to_s
+    #         attachment_path = ActiveStorage::Blob.service.path_for(img.key)            
+    #         image_resize = MiniMagick::Image.open(attachment_path)
+    #          image_resize.resize "900x900"
+    #         image_resize.write attachment_path
+    #         a = Rack::Test::UploadedFile.new(attachment_path)
+    #         list_img.push(a)
+    # end
+    #         self.images.destroy_all
+    #         self.images.attach(list_img)
+    #         delete_folder_empty
  end
 
 
