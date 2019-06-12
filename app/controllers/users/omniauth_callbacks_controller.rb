@@ -16,7 +16,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, :event => :authentication
       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
     else
-      # session["devise.#{provider}_data"] = request.env["omniauth.auth"]
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"]
       # debugger
       redirect_to new_user_session_path, alert: "Email has already been taken, use another email. Please! "
     end

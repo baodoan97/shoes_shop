@@ -3,11 +3,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # validate :content_type_avatar,on: :create
-  before_save :resize_avatar_image
   has_one_attached :avatar
   validates :phone, :presence => {:message => 'Empty phone'},
     numericality: { only_integer: true },
-    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true
+    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true, unless: -> { phone = 0000000000 }
   validates :firstname , presence: true, format: {with: /[a-zA-Z]/}
   validates :lastname , presence: true, format: {with: /[a-zA-Z]/}
   validates :address , presence: true
@@ -24,22 +23,15 @@ class User < ApplicationRecord
   has_many :comments,:dependent => :destroy
   has_many :notifications,:dependent => :destroy
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  validates_format_of :password, :with =>  /(?=.*[!-=])(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/  , :message => "must have least one special character, must have least one number and must have least one capital character."
 
-  def resize_avatar_image
-    filename = avatar.filename.to_s
-    # puts attachment_path = "#{Dir.tmpdir}/#{avatar.filename}"
-    attachment_path = ActiveStorage::Blob.service.path_for(avatar.key)            
-    # File.open(attachment_path, 'wb') do |file|
-    #    file.write(avatar.download)
-    #    file.close
-    # end
+  def resize_avatar(avatar)
+    attachment_path = avatar.path           
     image = MiniMagick::Image.open(attachment_path)
-    # if image.width ...
     image.resize "160x160"
     image.write attachment_path
-
-    avatar.attach(io: File.open(attachment_path), filename: filename, content_type: "image/jpg")
-    delete_folder_empty
+    img_new = Rack::Test::UploadedFile.new(attachment_path)
+    img_new
   end
 
   def delete_folder_empty
@@ -74,18 +66,28 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth auth
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email.to_s
-      user.password = Devise.friendly_token[0,20]
-      user.avatar.attach(User.avatar_file(auth.info.image))
-      user.lastname = auth.info.name
-      user.firstname = "user_user_id_#{user.id}"
-      user.phone = "0000000000"
-      user.address = "Update address,Beacause it is form #{auth.provider}! Thank"
-      user.skip_confirmation!
-      user.confirm
-      user.save
-    end
+    a = User.find_by_email(auth.info.email.to_s)
+    if a != nil && a.provider == auth.provider.to_s
+       return a
+    else  
+      # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user = User.create
+        user.email = auth.info.email.to_s
+        user.password = Devise.friendly_token[0,20]+"9x@"
+        user.avatar.attach(User.avatar_file(auth.info.image))
+        user.lastname = auth.info.name
+        user.provider = auth.provider.to_s
+        user.uid = auth.uid
+        user.firstname = "user_user_id_"+"#{user.id}"
+        user.phone = "0000000000"
+        user.address = "Update address,Beacause it is form #{auth.provider}! Thank"
+        user.skip_confirmation!
+        user.confirm
+        user.save
+        return user
+      # end
+   end
+        return nil
   end
 
   def self.avatar_file(url_for)
