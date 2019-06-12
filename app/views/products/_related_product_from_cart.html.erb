@@ -1,10 +1,10 @@
 <div class="new-product mt-5">
   <div class="container">
     <h1 class="text-center">
-    <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">Selected Products From Page</span>
+    <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">Products Suggestions</span>
     <hr align="center" class="line mb-5"></hr>
     </h1>
-    <div id="more_related_products" class="owl-carousel owl-theme">
+    <div  class="owl-carousel owl-theme">
       <% products.each do |product|%>
       <div class="card" style="width: 100%; height: 18rem">
          <%= image_tag Product.find(product['id']).images[0], alt: "Product", class: "card-img-top"   %>
@@ -28,7 +28,7 @@ dots: false,
 autoplay:false,
 autoplayTimeout:1000,
 autoplayHoverPause:true,
-navText: ["<i class='fa fa-angle-left fa-2x' aria-hidden='true'></i>"," <i id=loadrelated class='fa fa-angle-right fa-2x' aria-hidden='true'></i>"],
+navText: ["<i class='fa fa-angle-left fa-2x' aria-hidden='true'></i>"," <iclass='fa fa-angle-right fa-2x' aria-hidden='true'></i>"],
 responsive:{
 0:{
 items:1
@@ -47,17 +47,4 @@ owl.trigger('play.owl.autoplay',[1000])
 $('.stop').on('click',function(){
 owl.trigger('stop.owl.autoplay')
 })
-</script>
-<script type="text/javascript">
-var count_related = 1;
-$( "#loadrelated" ).click(function() {
-count_related = count_related + 4;
-var product_id = "<%= @product.id %>";
-$.ajax({
-url: "/products/watched_more_related_products",
-type: "post",
-dataType: "script",
-data: { info: { "offset": count_related,"product_id": product_id }}
-});
-});
 </script>
