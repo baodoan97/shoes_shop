@@ -22,6 +22,10 @@
                     <%= collection_select(:province, :province_id, TransportCost.all,:id, :province,{:prompt => 'Please choose province for shipping fee of your'}) %>
                 </div>
                 <div class="form-group">
+                    <%= f.label :voucher %>
+                    <%= f.text_field :voucher, :class => 'form-control', id: "voucher" %>
+                </div>
+                <div class="form-group">
                     <%= f.label 'Payment Type' %>
                     <%= f.select :pay_type, Payment.pay_types.keys, {},:class => 'form-control' %>
                 </div>
@@ -44,7 +48,7 @@
                     <input type="text" size="4" data-stripe="exp_year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
                 </div>
                 <div class="form-group">
-                    <label><strong>Total Price: <h3><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>$</h3></strong></label>
+                    <label><strong>Total Price: <h3 id="total"><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>$</h3></strong></label>
                 </div>
                 <div class="form-group">
                     <label>Ship: <h3 id="ship"> </h3></label>
@@ -175,4 +179,29 @@ $("#province_province_id").change(function() {
     });
 });
 
+function invalidCode(blah) {
+  e.preventDefault();
+  $('#voucher').css("border-color", "red");
+}
+
+$('#voucher').change(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let code = $('#voucher').val();
+    if (code) {
+      $.ajax("/vouchers/validate/"+code, function(data){
+        if (data["valid"]) {
+          $('#voucher').css("border-color", "green");
+          $('#total').text(data["discounted_price"]);
+        } else {
+          invalidCode();
+        }
+      })
+    } else {
+      invalidCode();
+    }
+  });
+
+ 
 </script>
