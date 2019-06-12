@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+<h1>List carousel</h1>
+<%= link_to "Create a carousel", new_admins_carousel_path,class: "btn btn-primary"  %>
+<table class="table">
+  <thead>
+    <tr >
+      <th>Carousel main</th>
+      <th>New id</th>
+      <th alert="center">Image</th>
+      <th alert="center">display</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @carousels.each do |carousel| %>
+    <tr>
+      <td><%= carousel.main == true ? raw('<i class="fas fa-star text-warning"></i>'): "" %></td>
+      <td><%= link_to carousel.new_id,admins_news_path(New.find(carousel.new_id))  %></td>
+      <td class="text-center"><img  style = " width: 720px;height:auto" src=<%= url_for((carousel.image.attached? == false ? "" : carousel.image)) %> alt=""></td>
+      <td><%= carousel.display %></td>
+      <td><%= link_to 'Show', admins_carousel_path(carousel) %></td>
+      <td><%= link_to 'Edit', edit_admins_carousel_path(carousel) %></td>
+      <td><%= link_to 'Destroy', admins_carousel_path(carousel), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

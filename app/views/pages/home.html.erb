@@ -1,19 +1,20 @@
+<% if @list_carousel.where(main: true).length != 0 %>
 <div id="carouselExampleIndicators" class="carousel slide mb-1" data-ride="carousel">
   <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li class="active" data-target="#carouselExampleIndicators" data-slide-to=<%= @count_carousel %> ></li>
+    <% @list_carousel.where(main: false).each do |carousel| %>
+    <li  data-target="#carouselExampleIndicators" data-slide-to=<%= @count_carousel = @count_carousel + 1 %> ></li>
+    <% end %>
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <%=   image_tag "slide2.jpeg", class:"d-block image" %>
+      <%= image_tag url_for(@list_carousel.where(main: true).first.image), class:"d-block image" %>
     </div>
+    <% @list_carousel.where(main: false).each do |carousel| %>
     <div class="carousel-item">
-      <%=   image_tag "slide3.jpeg", class:"d-block image" %>
+      <%=   image_tag url_for(carousel.image), class:"d-block image" %>
     </div>
-    <div class="carousel-item">
-      <%=   image_tag "slide4.jpeg", class:"d-block image" %>
-    </div>
+    <% end %>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -24,6 +25,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<% end %>
 <div class="about-shop  mt-5 pt-4">
   <h3 class="text-center font-weight-bold">WELCOME TO N-AIR SHOP</h3>
   <p class="text-center welcome-text m-auto">We’re a team of creative and make amazing site in ecommerce from Unite States. We love colour pastel, highlight and simple, its make our design look so awesome</p>
@@ -52,193 +54,184 @@
       </div>
     </div>
   </div>
-</div> 
-
-
+</div>
 <!-- <hr class="container mt-5 mb-2" />
- -->
+-->
 <div class="brands">
-
-<div class="new-product mt-5">
-  <div class="container">
-    <h1 class="text-center">
+  <div class="new-product mt-5">
+    <div class="container">
+      <h1 class="text-center">
       <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">New Products</span>
       <hr align="center" class="line mb-5"></hr>
-    </h1>
-    <div class="owl-carousel owl-theme">
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+      </h1>
+      <div class="owl-carousel owl-theme">
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 002</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 002</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
-      </div>
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-        <a href="#" class="show_detail">View Detail</a>
-        <div class="card-body">
-          <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-          <p class="card-text d-inline product-price"><strong>$120</strong></p>
+        <div class="card" style="width: 100%; height: 18rem">
+          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <a href="#" class="show_detail">View Detail</a>
+          <div class="card-body">
+            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
+            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="brands mt-5">
-	<div class="container">
-		<h1 class="text-center">
+  <div class="brands mt-5">
+    <div class="container">
+      <h1 class="text-center">
       <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">Brands</span>
       <hr align="center" class="line mb-5"></hr>
-    </h1>
-    <div class="row mb-5">
-    	<div class="col-xs-12 col-md-6 col-lg-3 brand-item ">
-    		<div class="w-100 m-auto brand">
-    			<%= image_tag 'nike.jpg' %>
-    			<div class="overlay">
-    				<a href="#"><%= image_tag 'logo-nike.jpg' %></a>
-    			</div>	
-  			</div>
-    	</div>
-    	<div class="col-xs-12 col-md-6 col-lg-3 brand-item">
-    		<div class="w-100 m-auto brand">
-    			<%= image_tag 'adidas.jpg' %>
-    			<div class="overlay">
-    				<a href="#"><%= image_tag 'logo-adidas.jpg' %></a>
-    			</div>		
-  			</div>
-    	</div>
-    	<div class="col-xs-12 col-md-6 col-lg-3 brand-item">
-    		<div class="w-100 m-auto brand">
-    			<%= image_tag 'vans.jpg' %>
-    			<div class="overlay">
-    				<a href="#"><%= image_tag 'logo-vans.jpg' %></a>
-    			</div>	
-  			</div>
-    	</div>
-    	<div class="col-xs-12 col-md-6 col-lg-3 brand-item">
-    		<div class="w-100 m-auto brand">
-    			<%= image_tag 'conve.jpg' %>
-    			<div class="overlay">
-    				<a href="#"><%= image_tag 'logo-conve.jpg' %></a>
-    			</div>	
-    		</div>
-    	</div>
-    </div>
-	</div>
-</div>
-
-
-<section>
-  <div class="container">
-    <div class="img-row">
-      <div class="img-col">
-        <%= image_tag 'slideaa.jpg' %>
-        <%= image_tag 'conve1.jpg' %>
-      </div>
-      <div class="img-col">
-        <%= image_tag 'giay.jpg' %>
-        <%= image_tag 'about.jpg', style:"height:290px" %>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<div class="newsletter mt-5 mb-2">
-  <div class="container">
-    <div class="m-auto pb-3 news">
-      <p class="text-center text-uppercase">Subscribe for News</p>
-      <form id="news">
-        <div class="form-row">
-          <div class="col-9">
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-          </div>
-          <div class="col-3">
-            <button type="submit" class="btn btn-secondary">Subscribe</button>
+      </h1>
+      <div class="row mb-5">
+        <div class="col-xs-12 col-md-6 col-lg-3 brand-item ">
+          <div class="w-100 m-auto brand">
+            <%= image_tag 'nike.jpg' %>
+            <div class="overlay">
+              <a href="#"><%= image_tag 'logo-nike.jpg' %></a>
+            </div>
           </div>
         </div>
-      </form>
+        <div class="col-xs-12 col-md-6 col-lg-3 brand-item">
+          <div class="w-100 m-auto brand">
+            <%= image_tag 'adidas.jpg' %>
+            <div class="overlay">
+              <a href="#"><%= image_tag 'logo-adidas.jpg' %></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-lg-3 brand-item">
+          <div class="w-100 m-auto brand">
+            <%= image_tag 'vans.jpg' %>
+            <div class="overlay">
+              <a href="#"><%= image_tag 'logo-vans.jpg' %></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-lg-3 brand-item">
+          <div class="w-100 m-auto brand">
+            <%= image_tag 'conve.jpg' %>
+            <div class="overlay">
+              <a href="#"><%= image_tag 'logo-conve.jpg' %></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>  
-
-<script>
+  <section>
+    <div class="container">
+      <div class="img-row">
+        <div class="img-col">
+          <%= image_tag 'slideaa.jpg' %>
+          <%= image_tag 'conve1.jpg' %>
+        </div>
+        <div class="img-col">
+          <%= image_tag 'giay.jpg' %>
+          <%= image_tag 'about.jpg', style:"height:290px" %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="newsletter mt-5 mb-2">
+    <div class="container">
+      <div class="m-auto pb-3 news">
+        <p class="text-center text-uppercase">Subscribe for News</p>
+        <form id="news">
+          <div class="form-row">
+            <div class="col-9">
+              <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            </div>
+            <div class="col-3">
+              <button type="submit" class="btn btn-secondary">Subscribe</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
   var owl = $('.owl-carousel');
   owl.owlCarousel({
-    loop:true,
-    margin:10,
-    nav:true,
-    dots: false,
-    autoplay:true,
-    autoplayTimeout:2000,
-    autoplayHoverPause:true,
-    navText: ["<i class='fa fa-angle-left fa-2x' aria-hidden='true'></i>","<i class='fa fa-angle-right fa-2x' aria-hidden='true'></i>"],
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:2
-        },
-        1000:{
-            items:4
-        }
-    }
+  loop:true,
+  margin:10,
+  nav:true,
+  dots: false,
+  autoplay:true,
+  autoplayTimeout:2000,
+  autoplayHoverPause:true,
+  navText: ["<i class='fa fa-angle-left fa-2x' aria-hidden='true'></i>","<i class='fa fa-angle-right fa-2x' aria-hidden='true'></i>"],
+  responsive:{
+  0:{
+  items:1
+  },
+  600:{
+  items:2
+  },
+  1000:{
+  items:4
+  }
+  }
   });
   $('.play').on('click',function(){
-    owl.trigger('play.owl.autoplay',[1000])
+  owl.trigger('play.owl.autoplay',[1000])
   })
   $('.stop').on('click',function(){
-      owl.trigger('stop.owl.autoplay')
+  owl.trigger('stop.owl.autoplay')
   })
-</script>
+  </script>

@@ -1,0 +1,50 @@
+class Admins::CarouselsController < BaseController
+  before_action :set_carousel , only: [:edit,:update, :show,:destroy]
+  def new
+    @carousel = Carousel.new
+  end
+
+  def create
+    @carousel = Carousel.new(carousel_params)
+    case @carousel.save
+    when true
+      redirect_to admins_carousels_path
+    when false
+      render 'new'
+    end
+  end
+
+  def edit
+
+  end
+
+  def update
+    case @carousel.update(carousel_params)
+    when true
+      redirect_to admins_carousels_path
+    when false
+      render 'edit'
+    end
+  end
+
+  def index
+    @carousels = Carousel.all.order("created_at DESC")
+  end
+
+  def show
+
+  end
+
+  def destroy
+    @carousel.destroy
+    redirect_to admins_carousels_path
+  end
+
+  private
+  def carousel_params
+    params.require(:carousel).permit(:new_id, :image,:display,:main)
+  end
+  def set_carousel
+    @carousel = Carousel.find(params[:id])
+  end
+end
