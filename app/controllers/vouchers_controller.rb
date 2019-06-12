@@ -1,5 +1,6 @@
-class CouponsController < ApplicationController
+class VouchersController < ApplicationController
   def validate
+    debugger
     voucher = Voucher.all.find_by(code: params[:code])
     if voucher.present?
       response = { valid: voucher.is_valid?, 

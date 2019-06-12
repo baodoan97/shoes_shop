@@ -106,6 +106,8 @@ end
   get 'news/type=:type', to: 'news#news_category', as: 'news_category'
   post 'payments/transport_cost', to: 'payments#transport_cost'
 
+  get 'vouchers/validate', to:'vouchers#validate'
+
   post 'create', to: 'messages#create'
   mount ActionCable.server => '/cable'
 end
