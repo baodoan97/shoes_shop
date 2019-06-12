@@ -40,7 +40,8 @@ Rails.application.routes.draw do
     resources :brands
     resources :news
     resources :type_of_news
-     resources :transport_costs
+    resources :transport_costs
+    resources :carousels
 
   
     post 'comments/newcomment', to: 'comments#newcomment'
