@@ -71,6 +71,12 @@
 </div>
 </div>
 </div>
+<% if get_carts != nil%>
+<div class="container">
+    <%= render 'related_product_from_cart' , products: related_product_from_cart %>
+</div>
+<% end %>
+
 <% if @Related_products.count != 0 %>
 <div class="container">
     <%= render 'related_products' , products: @Related_products %>
