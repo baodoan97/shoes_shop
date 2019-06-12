@@ -1,0 +1,51 @@
+<div class="container">
+  <%= render "admins/shared/error_messages", resource: carousel %>
+</div>
+<%= form_for [:admins,carousel] , html: { multipart: true } do |f| %>
+<div class="form-group">
+  <%= f.check_box :main %>
+  <label>Display top carousel</label>
+</div>
+<div class="form-group">
+  <%= f.check_box :display %>
+  <label>display show in home page user</label>
+</div>
+<br>
+<div class="form-group">
+<label for="file-input">
+  <p>Image must have size 1920x430 </p>
+  <%= image_tag (carousel.image.attached? == false ? "" : carousel.image),id: "a", style:"width: 1920px;height:430px"%>
+</label>
+<%= f.file_field :image, id:"file-input",accept: 'image/jpeg,image/png' %>
+</div>
+<br>
+<div class="form-group">
+<p style="padding:2px">News_id</p>
+<%= f.text_field :new_id, type: "number", class: 'form-control',placeholder: "news_id",required:"required" , min: 1%>
+</div>
+<br>
+<%= f.submit  class: 'btn btn-success btn-block' %>
+<% end %>
+<script type="text/javascript">
+$(function() {
+$('#carousel_new_id').on('input', function() {
+this.value = this.value.replace(/[^\d]/g, '');
+if (this.value == "") {
+this.value = 1;
+}
+});
+});
+$(document).ready(function() {
+var resetinput = $('#file-input');
+resetinput.replaceWith(resetinput.val('').clone(true));
+$('#file-input').change(function() {
+if (this.files && this.files[0]) {
+var reader = new FileReader();
+reader.onload = function(e) {
+$('#a').attr('src', e.target.result);
+}
+reader.readAsDataURL(this.files[0]);
+}
+});
+});
+</script>
