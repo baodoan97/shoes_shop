@@ -34,6 +34,11 @@
           </div>
         </div>
         <% end %>
+        <% if get_carts != nil%>
+        <div class="container">
+          <%= render 'products/related_product_from_cart' , products: related_product_from_cart %>
+        </div>
+        <% end %>
       </div>
       <div class="col-lg-3 col-md-6 border-left">
         <h3>ORDER SUMMARY</h3>
@@ -45,48 +50,45 @@
   </div>
 </div>
 <script type="text/javascript">
-
-      $('#changecart').on('input', function() {
-        this.value = this.value.replace(/[^\d]/g, '');
-        if(this.value ==""){
-          this.value= 1;
-        }
-      });
-
-function deleteitemcart(id, s) {
-    if (confirm("You will lost this item")) {
-        $("#item" + id + s).fadeOut('1000', function(c) {
-            $("#item" + id + s).remove();
-        });
-        $.ajax({
-            url: "/carts/destroycart",
-            type: "post",
-            dataType: "script",
-            data: {
-                item: {
-                    "id": id,
-                    "size": s
-                }
-            }
-        });
-    }
+$('#changecart').on('input', function() {
+this.value = this.value.replace(/[^\d]/g, '');
+if(this.value ==""){
+this.value= 1;
 }
-
+});
+function deleteitemcart(id, s) {
+if (confirm("You will lost this item")) {
+$("#item" + id + s).fadeOut('1000', function(c) {
+$("#item" + id + s).remove();
+});
+$.ajax({
+url: "/carts/destroycart",
+type: "post",
+dataType: "script",
+data: {
+item: {
+"id": id,
+"size": s
+}
+}
+});
+}
+}
 function checkqt(id, s, qt) {
-    if (parseInt(qt) < 1) {
-        $('input[name=item' + id + "" + s + ']').val(1);
-    }
-    $.ajax({
-        url: "/carts/changeqt",
-        type: "post",
-        dataType: "script",
-        data: {
-            item: {
-                "id": id,
-                "size": s,
-                "qt": qt
-            }
-        }
-    });
+if (parseInt(qt) < 1) {
+$('input[name=item' + id + "" + s + ']').val(1);
+}
+$.ajax({
+url: "/carts/changeqt",
+type: "post",
+dataType: "script",
+data: {
+item: {
+"id": id,
+"size": s,
+"qt": qt
+}
+}
+});
 }
 </script>

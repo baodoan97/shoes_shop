@@ -25,8 +25,8 @@ module CartProductsHelper
     i = 0
     while i < carts.count do
         if Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).count == 0 || (Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).count != 0 && Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).first.quantity == 0)
-             carts.delete_at(i)
-             i = i - 1
+          carts.delete_at(i)
+          i = i - 1
         end
         # if carts[i]['quantity'].to_i < 0
         #   carts[i]['quantity'] = 1
@@ -34,6 +34,47 @@ module CartProductsHelper
         i = i + 1
       end
       @products
+    end
+
+
+    def analysis_cart(cart)
+      @list_product = []
+      cart.each do |product|
+        @list_product << get_duplicate_flow_price(product)
+        @list_product << get_related_flow_payment(product)
+      end
+      @list_product
+    end
+
+
+
+    private
+
+    def get_duplicate_flow_price(product)
+      @product = Product.find(product['product_id'].to_i)
+      @flow_price = Category.find(@product.category_id).products.where('price <= ? && price >= ? && id != ?',@product.price + (@product.price/2).to_i ,(@product.price/2).to_i,@product.id).limit(2)
+      @flow_price
+    end
+
+
+    def get_related_flow_payment(product)
+      @product = Product.find(product['product_id'].to_i)
+      @list = []
+      PaymentItem.all.each do |item|
+        begin
+           @list.push(item) if Product.find(item.product_id).category_id == @product.category_id && Product.find(item.product_id).id != product['product_id'].to_i
+        rescue Exception => e
+            
+        end
+      end
+      @product_bestseller =  @list.group_by(&:product_id).take(3)
+      @product_bestseller =  @product_bestseller.sort_by {|_key, value| value}.to_h
+      @product_bestseller =  @product_bestseller.reverse_each.to_h
+      @list_bestseller_of_category = []
+      @product_bestseller.each do |key,value|
+        @list_bestseller_of_category << Product.find(key.to_i)
+      end
+      @list_bestseller_of_category
     end
 
   end
