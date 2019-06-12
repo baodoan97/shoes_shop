@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_100433) do
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
-    t.text "metadata", limit: 4294967295
+    t.text "metadata", limit: 16777215
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_100433) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.text "description", limit: 4294967295
+    t.text "description", limit: 16777215
     t.boolean "display_in_navbar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_100433) do
   create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.text "content", limit: 4294967295
+    t.text "content", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_100433) do
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.text "content", limit: 4294967295
+    t.text "content", limit: 16777215
     t.boolean "usersend"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_100433) do
     t.integer "payment_id"
     t.string "code"
     t.integer "percent"
+    t.date "expiration"
   end
 
 end

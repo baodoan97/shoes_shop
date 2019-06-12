@@ -1,24 +1,34 @@
-<%= form_for([:admins,@voucher] ,as: :post,:remote=>true, :url => {:controller => "vouchers", :action => "create"}, :html => {class: "textarea", role: "form" , :method => :POST}) do |f| %>
-<%= f.text_field :code, class: 'form-control',value: SecureRandom.hex(32) , :id => "codestring"%><br>
-<%= f.text_field :percent, class: 'form-control' %>
-<br>
-<div class="form-actions">
-	<%= f.submit 'Create', class: 'btn btn-success btn-block' %>
-</div>
-<% end %>
+	<h3 class="text-center font-weight-bold">Voucher</h3>
+	<div class="w-75 m-auto p-5">
+		<%= form_tag admins_vouchers_path, :remote => "true", class: "textarea", role: "form" do %>
+			<%= label_tag "Number voucher want to create" %>
+			<%= text_field_tag :number, "",{class: 'form-control', type: "number"} %><br>
+			<%= label_tag "Expiration" %>
+			<%= date_field_tag :expiration, "",{ value: Date.current,class: 'form-control'} %><br>
+			<%= label_tag "Percent" %>
+			<%= text_field_tag :percent,"", {class: 'form-control'} %><br>
+			<div class="form-actions">
+				<%= submit_tag 'Create', class: 'btn btn-success btn-block' %>
+			</div>
+			<% end %>
+	</div>
+
 <div class="content-box-large" align="center">
 	<div class="panel-body">
 		<table id="voucherstable" border="1px">
 			<thead>
 				<tr>
 					<th>
-						Product was Actived
+						Payment_ID
 					</th>
 					<th>
-						code
+						Code
 					</th>
 					<th>
-						percent
+						Percent
+					</th>
+					<th>
+						Expiration
 					</th>
 				</tr>
 			</thead>
@@ -34,45 +44,13 @@
 					<td>
 						<%= v.percent %>
 					</td>
+					<td>
+						<%= v.expiration %>
+					</td>
 				</tr>
 			</tbody>
 			<% end %>
 		</table>
 		<%= will_paginate @vouchers, :param_name => 'vouchers_page' %>
-	</div>
-</div>
-<div class="content-box-large" align="center">
-	<div class="panel-body">
-		<table id="voucherstable" border="1px">
-			<thead>
-				<tr>
-					<th>
-						Product was Actived
-					</th>
-					<th>
-						code
-					</th>
-					<th>
-						percent
-					</th>
-				</tr>
-			</thead>
-			<% @voucherss.each do |v| %>
-			<tbody>
-				<tr>
-					<td>
-						<%= v.payment == nil ? " " : v.payment.id %>
-					</td>
-					<td>
-						<%= v.code %>
-					</td>
-					<td>
-						<%= v.percent %>
-					</td>
-				</tr>
-			</tbody>
-			<% end %>
-		</table>
-		<%= will_paginate @voucherss, :param_name => 'voucherss_page' %>
 	</div>
 </div>
