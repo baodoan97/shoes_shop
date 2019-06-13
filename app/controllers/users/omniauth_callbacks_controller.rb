@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-   def facebook
+  def facebook
     generic_callback("facebook")
   end
 
@@ -14,11 +14,15 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = @identity || current_user
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication
+      if session[:cart] != nil
+        @cart = Cart.create
+        @cart.add_carts(session[:cart],current_user.id)
+      end
+      session[:cart] = nil
       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
     else
-      session["devise.#{provider}_data"] = request.env["omniauth.auth"]
-      # debugger
-      redirect_to new_user_session_path, alert: "Email has already been taken, use another email. Please! "
+      # session["devise.#{provider}_data"] = request.env["omniauth.auth"]
+      redirect_to new_user_session_path, alert: "Email has already been taken, you must have another email. Please! "
     end
   end
   # You should configure your model like this:

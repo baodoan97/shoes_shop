@@ -38,23 +38,23 @@ class PaymentsController < ApplicationController
       if payment_params[:address] != nil
         if params[:province][:province_id] != "" && TransportCost.all.find(params[:province][:province_id]) != nil
           @payment.transport_cost = TransportCost.all.find(params[:province][:province_id]).price
+          @payment.province = TransportCost.all.find(params[:province][:province_id]).province
         else
           flash[:alert] = "Please! Choose province of your "
           render 'new'
           return
         end
         @location = nil
-        begin
-          @location = Geocoder.search(payment_params[:address]).first.coordinates
-        rescue => ex
-          flash[:alert] = "Addrress not present!"
-          render 'new'
-          return
-        end
         @place = Place.new
         @place.name = payment_params[:address]
-        @place.latitude = @location[0]
-        @place.longitude = @location[1]
+        begin
+          @location = Geocoder.search(payment_params[:address]).first.coordinates
+          @place.latitude = @location[0]
+          @place.longitude = @location[1]
+        rescue => ex
+          @place.latitude = nil
+          @place.longitude = nil
+        end
         @place.save
         @payment.place = @place
       end
