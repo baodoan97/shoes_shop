@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   validates :phone, :presence => {:message => 'Empty phone'},
     numericality: { only_integer: true },
-    :length => { :minimum => 9, :maximum => 11 }, uniqueness: true, unless: -> { phone = 0000000000 }
+    :length => { :minimum => 9, :maximum => 11 }#, uniqueness: true, unless: -> { phone = 0000000000 }
   validates :firstname , presence: true, format: {with: /[a-zA-Z]/}
   validates :lastname , presence: true, format: {with: /[a-zA-Z]/}
   validates :address , presence: true
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_many :comments,:dependent => :destroy
   has_many :notifications,:dependent => :destroy
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-  validates_format_of :password, :with =>  /(?=.*[!-=])(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/  , :message => "must have least one special character, must have least one number and must have least one capital character."
+  # validates_format_of :password, :with =>  /(?=.*[!-=])(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/  , :message => "must have least one special character, must have least one number and must have least one capital character."
 
   def resize_avatar(avatar)
     attachment_path = avatar.path           
@@ -73,7 +73,7 @@ class User < ApplicationRecord
       # where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user = User.create
         user.email = auth.info.email.to_s
-        user.password = Devise.friendly_token[0,20]+"9x@"
+        user.password ="Cxx"+Devise.friendly_token[0,20]+"9@"
         user.avatar.attach(User.avatar_file(auth.info.image))
         user.lastname = auth.info.name
         user.provider = auth.provider.to_s

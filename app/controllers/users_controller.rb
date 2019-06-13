@@ -19,7 +19,8 @@ class UsersController < ApplicationController
   end
   def update_password
     @user = current_user
-    if @user.update_with_password(user_password_params)
+    @user.update_with_password(user_password_params)
+    if @user.save
       # Sign in the user by passing validation in case their password changed
       bypass_sign_in(@user)
       redirect_to users_path(@user)

@@ -1,3 +1,6 @@
+<div class="container">
+  <%= render "users/shared/error_messages", resource: resource %>
+</div>
 <section class="user pt-5 pb-5">
   <div class="container">
     <div class="row">
@@ -87,11 +90,10 @@
                     <%= image_tag @user.avatar,id: "a", style:"width: 100px;height:100px;border-radius:50%"%>
                   </label>
                   <%= form_tag(users_change_avatar_path,method: :post, multipart: true) do %>
-                    <%= hidden_field_tag "user_id", @user.id %>
+                  <%= hidden_field_tag "user_id", @user.id %>
                   <%= file_field_tag "avatar", id:"file-input" ,accept: 'image/jpeg,image/png'%>
                   <%= submit_tag "Change",class: 'btn btn-lg btn-secondary mt-2' %>
                   <% end %>
-
                 </div>
               </div>
             </div>
@@ -117,8 +119,6 @@ resetinput.replaceWith(resetinput.val('').clone(true));
 // });
 $('#file-input').change(function () {
 if (this.files && this.files[0]) {
-
-
 if( checkTypeimg(this.files[0].type) == false){
 var input = $('#file-input');
 alert("only image type jpeg,png");
