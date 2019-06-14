@@ -55,8 +55,7 @@ class PaymentsController < ApplicationController
           @place.latitude = nil
           @place.longitude = nil
         end
-        @place.save
-        @payment.place = @place
+       @payment.place = @place if @place.save
       end
       if(params[:payment][:pay_type] == "atm")
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
@@ -73,7 +72,6 @@ class PaymentsController < ApplicationController
                                          :amount => @amount, # amount in cents, again
                                          :currency => 'usd'
         })
-        debugger
         @payment.charge_id = charge.id
         if @payment.save
           @carts = Cart.where(user_id: current_user.id)

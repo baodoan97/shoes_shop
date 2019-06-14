@@ -4,7 +4,7 @@ class Payment < ApplicationRecord
     validates :phone, :presence => {:message => 'Phone errors'},
                     :numericality => true,
                     :length => { :minimum => 9, :maximum => 11 }
-    validates :address, presence:true, length: {minimum: 25, maximum: 150}
+    validates :address, presence:true
     validates :transport_cost, presence:true,:numericality => true
     validates :province, presence:true
 
