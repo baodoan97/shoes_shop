@@ -4,6 +4,13 @@ class Product < ApplicationRecord
   scope :search, ->q{where "name LIKE '%#{q}%'"}
   scope :order_by_name, ->{order name: :asc}
 
+  enum customer:{
+    Men: 0,
+    Women: 1,
+    Boys: 2,
+    Girls: 3
+  }
+
   #validates
   validates :name, presence: true, uniqueness: true, length: {maximum: 30,minimum: 5}
   validates :description, presence:true, length: {maximum: 150,minimum: 10}

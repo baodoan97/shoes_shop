@@ -99,7 +99,7 @@ end
   post 'comments/watchedmore', to: 'comments#watchedmore'
   post 'messages/watchedmore', to: 'messages#watchedmore'
   
-  get '/categories/:name/:brand_name', to: 'categories#show', as: 'category'
+  get '/categories/:cus/:name/:brand_name', to: 'categories#show', as: 'category'
   get 'products/:name', to: 'products#show' ,as: 'product'
 
   get 'news', to: 'news#index' ,as: 'news_index'
