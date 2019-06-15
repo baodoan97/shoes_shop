@@ -23,7 +23,8 @@ class UsersController < ApplicationController
     if @user.save
       # Sign in the user by passing validation in case their password changed
       bypass_sign_in(@user)
-      redirect_to users_path(@user)
+      flash[:success] = "Change password was successfully"
+      redirect_to users_profile_path(@user)
     else
       render "edit"
     end

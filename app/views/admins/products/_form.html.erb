@@ -14,7 +14,7 @@
     </h1>
     <%= form_for [:admins,@product] , html: { multipart: true } do |f| %>
     <p style="padding:2px">Name</p>
-    <%= f.text_field :name, class: 'form-control',placeholder: "Product Name",maxlength:"30",minlength:"3",required:"required"%>
+    <%= f.text_field :name, class: 'form-control',placeholder: "Product Name",minlength:"3",required:"required"%>
     <p style="padding:2px">Customer</p>
     <%= f.collection_radio_buttons :customer, Product.customers, :first, :first do |b| %>
     <%= b.label do %>
@@ -34,7 +34,7 @@
       <%= link_to_add_association 'Add Stock', f, :stocks , class: "btn btn-primary ml-3 mt-3" %>
     </div>
     <p style="padding:2px">Description</p>
-    <%= f.text_area :description, class: "form-control", placeholder:"Description" ,maxlength:"100",minlength:"20",required:"required"%>
+    <%= f.text_area :description, class: "form-control", placeholder:"Description" ,minlength:"10",required:"required"%>
     <p style="padding:2px">Image</p>
     <label class="btn btn-block btn-primary">
       Browse&hellip; <%= f.file_field :images, multiple: true ,id: "imagetsask" %>

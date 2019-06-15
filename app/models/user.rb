@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   # validates_format_of :password, :with =>  /(?=.*[!-=])(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/  , :message => "must have least one special character, must have least one number and must have least one capital character."
 
-  def resize_avatar(avatar)
+  def self.resize_avatar(avatar)
     attachment_path = avatar.path           
     image = MiniMagick::Image.open(attachment_path)
     image.resize "160x160"

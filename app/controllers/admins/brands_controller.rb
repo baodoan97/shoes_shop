@@ -25,7 +25,6 @@ class Admins::BrandsController < BaseController
   # POST /brands.json
   def create
     @brand = Brand.new(brand_params)
-      debugger
     respond_to do |format|
       if @brand.save
         format.html { redirect_to admins_brands_path, notice: 'Brand was successfully created.' }

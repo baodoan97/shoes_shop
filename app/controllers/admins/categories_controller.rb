@@ -28,7 +28,6 @@ class Admins::CategoriesController < BaseController
   # POST /categories.json
   def create
     @category =Category.new(category_params)
-    
     if @category.save
 			#session[:user_id] = @categories.id
 		#	flash[:success] = "ssASAs, #{@categories.name}"
