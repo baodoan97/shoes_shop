@@ -105,7 +105,6 @@ Carousel.create(
   main: false,
   image: Rack::Test::UploadedFile.new(Rails.root.join("app/assets/images/slide4.jpg"))
 )
-
 Carousel.create(
   new_id: nil,
   display: true,
@@ -114,7 +113,6 @@ Carousel.create(
   main: false,
   image: Rack::Test::UploadedFile.new(Rails.root.join("app/assets/images/slide3.jpg"))
 )
-
 Carousel.create(
   new_id: nil,
   display: true,
@@ -123,4 +121,6 @@ Carousel.create(
   main: true,
   image: Rack::Test::UploadedFile.new(Rails.root.join("app/assets/images/slide2.jpg"))
 )
+
+
 

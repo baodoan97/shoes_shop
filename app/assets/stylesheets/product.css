@@ -110,5 +110,6 @@ a.btn.btn-danger.remove_image_newproduct {
 img#showlarge {
         height: auto;
     position: inherit;
-    width: 425px;
+    width: 391px;
+    height: 391px;
 }
