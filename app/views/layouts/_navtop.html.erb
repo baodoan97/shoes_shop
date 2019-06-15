@@ -51,55 +51,52 @@
           <%= link_to 'Home', root_path, class:"nav-link" %>
         </li>
         <li class="nav-item dropdown mr-3">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Shop
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <% Category.all.each do |cat| %>
-            <li>  <!-- link_to cat.name, category_path(cat), class:"dropdown-item" %> -->
-            <li class="dropdown-submenu ">
-              <%= link_to cat.name, category_path(:name => cat.name ,:brand_name => " ",:cus => " "), class: "test dropdown-item" %>
-              <ul class="dropdown-menu aaa">
+            <li class="dropdown-submenu">
+              <%= link_to cat.name, category_path(:name => cat.name ,:brand_name => " ",:cus => " "), class: "dropdown-item dropdown-toggle" %>
+              <ul class="dropdown-menu">
                 <% Brand.where(category_id: cat.id).each do |brand| %>
-                <li class="dropdown-lv3">
-                  <%= link_to brand.brand_name, category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => " "), class: "testdrop dropdown-item " %>
-                <ul class="dropdown-menu">
-                  <% Product.customers.each do |key,value| %>
-                  <% if cat.brands.find(brand.id).products.where(customer: key.to_s) %>
-                  <li class="dropdown-item">
-                    <%= link_to key, category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => key), class: "dropdown-item " %>
-                  </li>
-                  <%end %>
-                  <% end %>
-                </ul>
-              </li>
-              <% end %>
-            </ul>
-          </li>
-          
+                <li class="dropdown-submenu">
+                  <%= link_to brand.brand_name, category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => " "), class: "dropdown-item dropdown-toggle" %>
+                  <ul class="dropdown-menu">
+                    <% Product.customers.each do |key,value| %>
+                    <% if cat.brands.find(brand.id).products.where(customer: key.to_s) %>
+                    <li> <%= link_to key, category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => key), class: "dropdown-item " %>
+                      
+                    </li>
+                    <% end %>
+                    <% end %>
+                  </ul>
+                </li>
+                <% end %>
+              </ul>
+            </li>
+            <% end %>
+          </ul>
         </li>
-        <% end %>
+        <!-- woman -->
+        
+        <li class="nav-item mr-3">
+          <%= link_to 'News',  news_index_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item mr-3">
+          <%= link_to 'About', about_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item mr-3">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
       </ul>
-    </li>
-    <!-- woman -->
-    
-    <li class="nav-item mr-3">
-      <%= link_to 'News',  news_index_path, class:"nav-link" %>
-    </li>
-    <li class="nav-item mr-3">
-      <%= link_to 'About', about_path, class:"nav-link" %>
-    </li>
-    <li class="nav-item mr-3">
-      <a class="nav-link" href="#">Contact</a>
-    </li>
-  </ul>
-  <div class="search" style="width: 270px; position:relative;">
-    <%= form_tag products_path, method: :get, class:"form-inline my-2 my-lg-0 float-right"  do %>
-    <%= text_field_tag :search,'', {class:"form-control", id:"search_input", type:"search", placeholder: "Enter name of product"} %>
-    <% end %>
+      <div class="search" style="width: 270px; position:relative;">
+        <%= form_tag products_path, method: :get, class:"form-inline my-2 my-lg-0 float-right"  do %>
+        <%= text_field_tag :search,'', {class:"form-control", id:"search_input", type:"search", placeholder: "Enter name of product"} %>
+        <% end %>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </div>
 </nav>
 <script>
@@ -124,56 +121,52 @@ return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "products/
 .appendTo(ul);
 };
 });
-$(document).ready(function(){
-    if (!window.matchMedia("(max-width: 990px)").matches == true) {
-        $('.dropdown-submenu a.test').hover(
-            function(e) {
-                var x = window.matchMedia("(max-width: 990px)")
-                if (!x.matches == true) {
-                    $('.aaa').css("display", "none");
-                } else {
-                    $('.aaa').css("display", "block");
-                }
-                $(this).next('ul').toggle(500);
-                e.stopPropagation();
-                e.preventDefault();
-
-            },
-            function() {
-
-            }
-        );
-    } else {
-        $('.dropdown-submenu a.test').on("click", function(e) {
-            $(this).next('ul').toggle();
-            e.stopPropagation();
-            e.preventDefault();
-        });
-    }
-});
-$('.dropdown-lv3 a.testdrop').hover(
-            function(e) {
-                  $(this).next('ul').toggle(500);
-                 e.stopPropagation();
-                e.preventDefault();
-            },
-            function() {
-                                          // $('.dropdown-lv3 >.dropdown-menu').slideDown(1500);
-
-            }
-        );
-$('.nav-item').hover(
-    function(e) {
-        if ($('.dropdown-menu.aaa').css('display') == 'block') {
-                  $('.dropdown-menu.aaa').css('display','none');
-                   $('.dropdown-lv3 >.dropdown-menu').css('display','none');
-        }
-    },
-    function() {
-    }
-);
-
-
+// $(document).ready(function(){
+// if (!window.matchMedia("(max-width: 990px)").matches == true) {
+// $('.dropdown-submenu a.test').hover(
+// function(e) {
+// var x = window.matchMedia("(max-width: 990px)")
+// if (!x.matches == true) {
+// $('.aaa').css("display", "none");
+// } else {
+// $('.aaa').css("display", "block");
+// }
+// $(this).next('ul').toggle(500);
+// $(this).next('ul').next('li').hiden(;
+// e.stopPropagation();
+// e.preventDefault();
+// },
+// function() {
+// }
+// );
+// } else {
+// $('.dropdown-submenu a.test').on("click", function(e) {
+// $(this).next('ul').toggle();
+// e.stopPropagation();
+// e.preventDefault();
+// });
+// }
+// });
+// $('.dropdown-lv3 a.testdrop').hover(
+//             function(e) {
+//                   $(this).next('ul').toggle(500);
+//                  e.stopPropagation();
+//                 e.preventDefault();
+//             },
+//             function() {
+//                                           // $('.dropdown-lv3 >.dropdown-menu').slideDown(1500);
+//             }
+//         );
+// $('.nav-item').hover(
+//     function(e) {
+//         if ($('.dropdown-menu.aaa').css('display') == 'block') {
+//                   $('.dropdown-menu.aaa').css('display','none');
+//                    $('.dropdown-lv3 >.dropdown-menu').css('display','none');
+//         }
+//     },
+//     function() {
+//     }
+// );
 // $( ".navbar-toggler-icon" ).click(function() {
 //   if($("#navbarNav").hasClass("show")){
 //       $('#navbarNav').removeClass('show');
