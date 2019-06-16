@@ -17,7 +17,7 @@
             <div class="showcase-rt-top">
                 <div class="pull-left shoe-name">
                     <h3><%= @product.name%></h3>
-                    <p>Fit with <%= @product.customer %></p>
+                    <p><%= @product.customer %> <%= @product.brand.brand_name %></p>
                     <h4><%= number_to_currency(@product.price, unit: "VND", separator: ",",precision: 0, format: "%n %u") %></h4>
                 </div>
                 <div class="pull-left rating-stars">
@@ -43,7 +43,7 @@
             <%= form_for(:addcart,as: :post,:remote=>true, :url => {:controller => "carts", :action => "create"}) do |a| %>
             <div class="form-group btn-center">
                 <%= hidden_field_tag "product_id", [@product.id] %>
-                <%= a.select :size,options_for_select((@product.stocks.min.size..@product.stocks.max.size).to_a, " "),{}, { :class => "form-control-product-show qnty-chrt" } %>
+                <%= a.select :size,options_for_select(@product.stocks.group(:size).count.map { |k,v| k }.to_a, " "),{}, { :class => "form-control-product-show qnty-chrt" } %>
                 <% if @product.stocks.max.quantity <= 10 %>
                 <%= a.select :quantity,options_for_select((1..stock.quantity.to_i).to_a, " " ),{}, { :class => "form-control-product-show qnty-chrt" } %>
                 <% else %>

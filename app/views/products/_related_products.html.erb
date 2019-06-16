@@ -51,7 +51,7 @@ owl.trigger('stop.owl.autoplay')
 <script type="text/javascript">
 var count_related = 1;
 $( "#loadrelated" ).click(function() {
-count_related = count_related + 4;
+count_related = count_related + 5;
 var product_id = "<%= @product.id %>";
 $.ajax({
 url: "/products/watched_more_related_products",
