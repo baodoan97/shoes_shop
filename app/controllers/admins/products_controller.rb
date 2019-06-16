@@ -48,7 +48,7 @@ class Admins::ProductsController < BaseController
   end
   private
   def product_params
-     params[:product][:images] =  Product.resize_images(params[:product][:images])
+     params[:product][:images] =  Product.resize_images(params[:product][:images]) if params[:product][:images] != nil
     params.require(:product).permit(:name,:customer, :price, :description, :brand_id, stocks_attributes: [:id,:size, :quantity, :_destroy] ,images: [])
   end
   def set_product

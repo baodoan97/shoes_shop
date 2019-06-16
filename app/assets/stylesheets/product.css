@@ -46,18 +46,22 @@ img#showlarge {
 .image-show-center{
     text-align: center;
 }
+img#showlarge {
+height: 30em;
+}
 @media only screen and (max-width: 1178px) {
 img#showlarge {
     position: inherit;
-    width: 461px;
+  width: 28em;
+    height: 20em;
     /* text-align: center; */
 }
 }
 @media only screen and (max-width: 802px) {
 img#showlarge {
     position: inherit;
-    width: 425px;
-    /* text-align: center; */
+    width: 22em;
+        height: 18em;
 }
 }
 .form-control-product-show{
@@ -107,9 +111,3 @@ a.btn.btn-danger.remove_image_newproduct {
    /* height: 250;*/width: 1100px;
 }
 
-img#showlarge {
-        height: auto;
-    position: inherit;
-    width: 391px;
-    height: 391px;
-}
