@@ -56,25 +56,28 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <% Category.all.each do |cat| %>
+            <% if cat.products.count != 0  %>
             <li class="dropdown-submenu">
               <%= link_to cat.name, category_path(:name => cat.name ,:brand_name => " ",:cus => " "), class: "dropdown-item dropdown-toggle" %>
               <ul class="dropdown-menu">
                 <% Brand.where(category_id: cat.id).each do |brand| %>
+                <% if brand.products.count != 0  %>
                 <li class="dropdown-submenu">
-                  <%= link_to brand.brand_name, category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => " "), class: "dropdown-item dropdown-toggle" %>
+                  <%= link_to brand.brand_name.gsub(cat.name,''), category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => " "), class: "dropdown-item dropdown-toggle" %>
                   <ul class="dropdown-menu">
-                    <% Product.customers.each do |key,value| %>
-                    <% if cat.brands.find(brand.id).products.where(customer: key.to_s) %>
+                    <% Brand.find(brand.id).products.group(:customer).count.each do |key,value| %>
+                    <% if cat.brands.find(brand.id).products.where(customer: key.to_s).count != 0 %>
                     <li> <%= link_to key, category_path(:name => cat.name ,:brand_name => brand.brand_name,:cus => key), class: "dropdown-item " %>
-                      
                     </li>
                     <% end %>
                     <% end %>
                   </ul>
                 </li>
                 <% end %>
+                <% end %>
               </ul>
             </li>
+            <% end %>
             <% end %>
           </ul>
         </li>

@@ -20,7 +20,7 @@ class Admins::ProductsController < BaseController
   end
   def create
     @product = Product.new(product_params)
-    @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i
+    @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i if product_params[:brand_id] != nil
     if @product.save
       flash[:success] = "Product was created successfully"
       redirect_to admins_products_path
@@ -31,7 +31,7 @@ class Admins::ProductsController < BaseController
   def edit
   end
   def update
-    @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i
+    @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i if product_params[:brand_id] != nil
     if @product.update(product_params)
       flash[:success] = "Product was updated"
       redirect_to edit_admins_product_path(@product)
