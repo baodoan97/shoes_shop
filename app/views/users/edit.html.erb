@@ -4,7 +4,7 @@
       <div class="col-lg-3">
         <div class="row" style="height:50px;">
           <div class="col-sm-3 user-avatar">
-            <%= image_tag 'giay.jpg', style:"width:50px; height:50px; border-radius: 50%"%>
+            <%= image_tag @user.avatar.attached? == true ? @user.avatar : 'giay.jpg', style:"width:50px; height:50px; border-radius: 50%"%>
           </div>
           <div class="col-sm-9 username">
             <p class="mb-1"><strong><%= @user.firstname %></strong></p>

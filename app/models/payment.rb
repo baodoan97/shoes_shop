@@ -6,6 +6,7 @@ class Payment < ApplicationRecord
                     :length => { :minimum => 9, :maximum => 11 }
     validates :address, presence:true, length: {minimum: 25, maximum: 150}
 
+
     belongs_to :user
     has_one  :place
     has_one :voucher

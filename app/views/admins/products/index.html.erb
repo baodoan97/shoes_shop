@@ -44,7 +44,7 @@
               <div class="row">
               
                 <div class="col-sm-3">
-                  <%= image_tag product.images.first ,class: "img-thumbail",style:"width:100px"%>
+                  <%= image_tag product.images.attached? == true ? product.images.first : " " ,class: "img-thumbail",style:"width:100px"%>
                 </div>
              
               </div>

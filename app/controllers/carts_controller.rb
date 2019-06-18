@@ -2,6 +2,7 @@ class CartsController < ApplicationController
   skip_before_action :verify_authenticity_token
   include CartProductsHelper
   before_action :check_cart, only: [:show]
+  before_action :check_quanity, only: [:create]
   def changeqt
     @checkqt = 0
     @resetvalue = 0
@@ -48,7 +49,6 @@ class CartsController < ApplicationController
           redirect_to root_path
         end
       else
-
         @cartss = session[:cart]
         i = 0
         while i < @cartss.count do
@@ -162,10 +162,10 @@ class CartsController < ApplicationController
           end
         else
           if session[:cart] != nil
-              @carts = checkallquantity_cart_session(session[:cart])
-              redirect_to root_path  if @carts.count == 0
-              i = 0
-              while i < @carts.count do
+            @carts = checkallquantity_cart_session(session[:cart])
+            redirect_to root_path  if @carts.count == 0
+            i = 0
+            while i < @carts.count do
                 @total = @total + (@carts[i]["price"].to_i*@carts[i]["quantity"].to_i)
                 i = i + 1
               end
@@ -175,3 +175,13 @@ class CartsController < ApplicationController
             end
           end
         end
+     
+
+     def check_quanity
+        @check = Product.find(params[:product_id]).stocks.find_by_size(params[:addcart][:size])
+        if @check.quantity < params[:addcart][:quantity].to_i
+          flash[:danger] = "Product was out of stocks"
+          render 'show' 
+          return
+        end
+    end

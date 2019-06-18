@@ -10,7 +10,7 @@ module ProductsHelper
 	 end
 
 	 def Find_related_products_of_product(product,offset = 1)
-         @products = covert_array(Product.find(product.id).category.products.where.not(id: product.id).where('price >= :price ',price: product.price.to_f).limit(10).offset(offset))
+         @products = covert_array(Product.find(product.id).category.products.where.not(id: product.id).where(customer: product.customer.to_s).where('price >= :price ',price: product.price.to_f).limit(10).offset(offset))
 	 end
 
 	 def Find_related_products_of_product_user(products,offset = 1)

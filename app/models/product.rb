@@ -4,9 +4,16 @@ class Product < ApplicationRecord
   scope :search, ->q{where "name LIKE '%#{q}%'"}
   scope :order_by_name, ->{order name: :asc}
 
+  enum customer:{
+    Men: 0,
+    Women: 1,
+    Boys: 2,
+    Girls: 3
+  }
+
   #validates
-  validates :name, presence: true, uniqueness: true, length: {maximum: 30,minimum: 5}
-  validates :description, presence:true, length: {maximum: 150,minimum: 10}
+  validates :name, presence: true, uniqueness: true
+  validates :description, presence:true, length: {minimum: 10}
   validates :price, :presence => {:message => 'Price is number'},:numericality => true
   validates :category_id, presence:true
   validates :images, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 3.megabytes , message: 'is not given between size ,maximum 3mb ' }
@@ -24,7 +31,7 @@ class Product < ApplicationRecord
   has_many :news, through: :news_products
 
 
-  def resize_images(images)
+  def self.resize_images(images)
     list_img = []
     images.each do |img|
       filename = img.original_filename.to_s

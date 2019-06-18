@@ -15,7 +15,7 @@
     <% @carousels.each do |carousel| %>
     <tr>
       <td><%= carousel.main == true ? raw('<i class="fas fa-star text-warning"></i>'): "" %></td>
-      <td><%= link_to carousel.new_id,admins_news_path(New.find(carousel.new_id))  %></td>
+      <td><%= link_to carousel.new_id,New.exists?(id: carousel.new_id) == true ? admins_news_path(New.find(carousel.new_id)): " "  %></td>
       <td class="text-center"><img  style = " width: 720px;height:auto" src=<%= url_for((carousel.image.attached? == false ? "" : carousel.image)) %> alt=""></td>
       <td><%= carousel.display %></td>
       <td><%= link_to 'Show', admins_carousel_path(carousel) %></td>

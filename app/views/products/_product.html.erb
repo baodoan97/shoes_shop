@@ -2,8 +2,8 @@
   <div class="row mb-5">
   <% obj.each do |product| %>
     <div class="col-lg-4 col-md-6 col-sm-12 col-sm-6 mb-5">
-      <div class="card" style="width: 100%; height: 18rem">
-        <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+      <div class="card" style="width: 100%; height: 21rem">
+        <%= image_tag(product.images.attached? == false ? "slide.jpeg" : product.images.first, alt: "Product", class: "card-img-top" ) %>
         <%= link_to "View Detail",product_path(:name =>product.name),class: "show_detail", method: :get  %>
         <div class="card-body">
           <p class="card-text d-inline product-name"><strong><%= product.name %></strong></p>

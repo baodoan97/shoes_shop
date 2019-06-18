@@ -15,7 +15,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     build_resource(sign_up_params)
-    resource.avatar.attach(resource.resize_avatar(params[:user][:avatar]))
     resource.save 
     yield resource if block_given?
     if resource.persisted?
@@ -99,7 +98,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def change_avatar
     user = User.find(params[:user_id].to_i)
-    user.avatar.attach(user.resize_avatar(params[:avatar]))
+    user.avatar.purge
+    user.avatar.attach(User.resize_avatar(params[:avatar]))
     redirect_to users_profile_path ,notice: "Change the avatar successfully!!!"
   end
 
@@ -140,6 +140,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     # devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+    params[:user][:avatar] =  User.resize_avatar(params[:user][:avatar])
     params.require(:user).permit(:firstname,:lastname ,:email, :gender, :phone,:address,:avatar)
   end
 
@@ -149,7 +150,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def sign_up_params
-    params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address)
+    params[:user][:avatar] =  User.resize_avatar(params[:user][:avatar])
+    params.require(:user).permit(:firstname,:lastname ,:email,:password,:phone,:address,:avatar)
   end
 
   # The path used after sign up for inactive accounts.

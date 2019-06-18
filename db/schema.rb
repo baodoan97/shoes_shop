@@ -219,12 +219,13 @@ ActiveRecord::Schema.define(version: 2019_06_17_154602) do
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 10
-    t.string "description"
+    t.text "description"
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "liked", default: 0
     t.integer "brand_id"
+    t.integer "customer", default: 0
   end
 
   create_table "provinces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

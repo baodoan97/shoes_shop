@@ -4,11 +4,8 @@ class Admins::ProductsController < BaseController
   def index
     @product = Product.all
   end
-
   def show
-
   end
-
   def destroy
     if @product.destroy
       flash[:success] = "Product was successfully deleted"
@@ -17,31 +14,24 @@ class Admins::ProductsController < BaseController
       redirect_to  admins_homepage_path
     end
   end
-
   def new
     @product = Product.new
     @product.stocks.new
   end
   def create
     @product = Product.new(product_params)
-    @product.images.attach(@product.resize_images(params[:product][:images]))
     @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i
     if @product.save
       flash[:success] = "Product was created successfully"
       redirect_to admins_products_path
-      # debugger
     else
       render 'new'
     end
   end
-
   def edit
-
   end
-
   def update
     @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i
-    @product.images.attach(@product.resize_images(params[:product][:images])) if params[:product][:images] != nil
     if @product.update(product_params)
       flash[:success] = "Product was updated"
       redirect_to edit_admins_product_path(@product)
@@ -49,7 +39,6 @@ class Admins::ProductsController < BaseController
       render 'edit'
     end
   end
-
   def destroyimage
     if params[:product]
       @product = Product.find(params[:product])
@@ -58,11 +47,10 @@ class Admins::ProductsController < BaseController
     redirect_to edit_admins_product_path(@product.id.to_i)
   end
   private
-
   def product_params
-    params.require(:product).permit(:name, :price, :description, :brand_id, stocks_attributes: [:id,:size, :quantity, :_destroy])
+     params[:product][:images] =  Product.resize_images(params[:product][:images]) if params[:product][:images] != nil
+    params.require(:product).permit(:name,:customer, :price, :description, :brand_id, stocks_attributes: [:id,:size, :quantity, :_destroy] ,images: [])
   end
-
   def set_product
     if Product.exists? id: params[:id]
       @product = Product.find(params[:id])

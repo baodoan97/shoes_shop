@@ -32,12 +32,23 @@
     border-radius: 0.25rem;
 }
 
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
 .dropdown-submenu {
-  position: relative;
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top:0;
+    left:100%;
+    margin-top:-6px;
 }
 
-.dropdown-submenu .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -1px;
-}
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+} 
+
+
+// .dropdown-lv3:hover .dropdown-menu {display: block;} 
