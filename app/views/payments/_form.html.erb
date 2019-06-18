@@ -1,29 +1,33 @@
 <div class="container">
     <div class="row">
         <div class=col-12>
-            <div class="pay-form w-50">
+            <div class="pay-form w-50 p-5">
                 <h1 class="text-center">Payment</h1>
                 <%= form_for(@payment, :html => {:id => 'payment-form'}) do |f| %>
                 <div class="form-group">
                     <%= f.label :name %>
-                    <%= f.text_field :name, :class => 'form-control',:onclick => "removesearch();" %>
+                    <%= f.text_field :name, :class => 'form-control'%>
                 </div>
                 <div class="form-group">
                     <%= f.label :phone %>
-                    <%= f.text_field :phone, :class => 'form-control',:onclick => "removesearch();" %>
+                    <%= f.text_field :phone, :class => 'form-control'%>
                 </div>
                 <div class="form-group">
                     <%= f.label :address %>
-                    <%= f.text_area :address, :class => 'form-control',:onkeyup => "search(this.value);" ,:onclick => "removesearch();" %>
-                    <ul id="datasearch">
+                    <%= f.text_area :address, :class => 'form-control' %>
                     </ul>
                 </div>
                 <div class="form-group">
-                    <%= collection_select(:province, :province_id, TransportCost.all,:id, :province,{:prompt => 'Please choose province for shipping fee of your'}) %>
+                    <%= label_tag :province%>
+                    <%= select_tag :province, options_from_collection_for_select(@province.order(:province_name), :province_id, :province_name), class:'form-control', id:'province' %>
                 </div>
                 <div class="form-group">
-                    <%= f.label :voucher %>
-                    <%= f.text_field :voucher, :class => 'form-control', id: "voucher" %>
+                    <%= label_tag :district%>
+                    <%= select_tag :district, options_from_collection_for_select(@district.order(:district_name), :district_id, :district_name), class:'form-control', id:'district'%>
+                </div>
+                <div class="form-group">
+                    <%= label_tag :voucher%>
+                    <%= text_field_tag :voucher,"", {class:'form-control', id: 'voucher'} %>
                 </div>
                 <div class="form-group">
                     <%= f.label 'Payment Type' %>
@@ -115,7 +119,7 @@ jQuery(function($) {
     });
 });
 </script>
-<script>
+<!-- <script>
 
 $(function() {
     $('#payment_phone').on('input', function() {
@@ -129,56 +133,20 @@ $(function() {
     });
 });
 
-function removesearch() {
-    $('#datasearch li').remove();
-}
 
-function search(e) {
-    $.ajax({
-        url: "/places/changestatus",
-        type: "post",
-        dataType: "script",
-        data: {
-            search: {
-                "address": e
-            }
-        }
-    });
-}
-$("#datasearch").on("click", "li", function(e) {
-    $('#datasearch li').remove();
-    $("#payment_address").val($(this).attr("value"));
-    $.ajax({
-        url: "/places/changestatus",
-        type: "post",
-        dataType: "script",
-        data: {
-            location: {
-                "address": $(this).attr("value")
-            }
-        }
-    });
-});
-$("#province_province_id").change(function() {
-    $.ajax({
-        url: "/payments/transport_cost",
-        type: "post",
-        dataType: "script",
-        data: {
-            info: {
-                "id": $(this).val()
-            }
-        }
-    });
-});
-</script>
+</script> -->
 <script>
 function invalidCode(blah) {
   $('#voucher').css("border-color", "red");
+  $("#payment-form").find("input[type=submit]").prop("disabled", true);
+  $('#total').text('<%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>$');
 }
-  $('#voucher').keyup(function() {
-    c =  $('#voucher').val();
-    if(c && c.length == 14){
+
+$('#voucher').keyup(function() {
+  c =  $('#voucher').val();
+  if(c){
+    invalidCode();
+    if(c.length == 14){
       $.ajax({
         url: "/vouchers/validate",
         dataType: "json",
@@ -190,14 +158,47 @@ function invalidCode(blah) {
         success: function(result){
           if (result["valid"]) {
             $('#voucher').css("border-color", "green");
-            $('#total').text(result["discounted_price"]);
+            $('#total').text(result["discounted_price"] + ' $');
+            $("#payment-form").find("input[type=submit]").prop("disabled", false);
           } else {
             invalidCode();
           };
         }
       })
-    } else {
-      invalidCode();
     };
+  };
+});
+</script>
+
+<script>
+  $('#province').change(function(){
+    $.ajax({
+      url: "/payments/find_district",
+      dataType: "json",
+      data: {
+        province_id: $('#province').val()
+      },
+      type: "get",
+      success: function(result){
+        $('#district').empty();
+        for (var i = 0; i < result.length; i++){
+          $('#district').append('<option value='+result[i].district_id+'>'+result[i].district_name+'</option>');
+        }
+      }
+    });
+  });
+
+  $('#district').change(function(){
+    $.ajax({
+      url: "/payments/calc_shipping_fee",
+      dataType: "json",
+      data: {
+        district_id: $('#district').val()
+      },
+      type: "get",
+      success: function(result){
+        $('#ship').text(result.data.CalculatedFee);
+      }
+    });
   });
 </script>

@@ -6,28 +6,32 @@ class PaymentsController < ApplicationController
     @payment_items = PaymentItem.find_by(payment_id: params[:payment][:payment_id])
   end
 
-  def transport_cost
-    @ship = TransportCost.all.find(params[:info][:id])
+  def find_district
+    @district = Province.find_by(province_id: params[:province_id]).districts.order(:district_name)
+    respond_to do |format|
+      format.json { render json: @district }
+    end
+  end
+
+  def calc_shipping_fee
+    @response = call_calc_fee_api(params[:district_id])
+    respond_to do |format|
+      format.json { render json: @response }
+    end
   end
 
   def new
-    if TransportCost.all.count == 0 #TransportCost.all is nil , using file on cloud amazon
-      s3 = AmazonS3Helper.s3
-      obj= s3.bucket('doanshoes').object('list63provinces.xlsx')
-      obj.get(response_target: Rails.root.join("public/list63provinces.xlsx"))
-      file = Rack::Test::UploadedFile.new(Rails.root.join("public/list63provinces.xlsx"))
-      TransportCost.import(file)
-      FileUtils.rm_f(Rails.root.join("public/list63provinces.xlsx"))
-    end
-
     if  user_signed_in? == false ||  Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'Login please!'
       return
     end
+    @district = Province.find(606).districts
+    @province = Province.all
     @payment = Payment.new
   end
 
   def create
+    debugger
     # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
     if Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice => 'Your cart is empty'
@@ -35,35 +39,21 @@ class PaymentsController < ApplicationController
     else
       @payment = Payment.new(payment_params)
       @payment.user = current_user
-      if payment_params[:address] != nil
-        if params[:province][:province_id] != "" && TransportCost.all.find(params[:province][:province_id]) != nil
-          @payment.transport_cost = TransportCost.all.find(params[:province][:province_id]).price
-          @payment.province = TransportCost.all.find(params[:province][:province_id]).province
-        else
-          flash[:alert] = "Please! Choose province of your "
-          render 'new'
-          return
-        end
-        @location = nil
-        @place = Place.new
-        @place.name = payment_params[:address]
-        begin
-          @location = Geocoder.search(payment_params[:address]).first.coordinates
-          @place.latitude = @location[0]
-          @place.longitude = @location[1]
-        rescue => ex
-          @place.latitude = nil
-          @place.longitude = nil
-        end
-        @place.save
-        @payment.place = @place
+      @fee = call_calc_fee_api(params[:district])
+      @fee = @fee['data']['CalculatedFee'].to_i
+      @amount = Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity}.to_i
+      if params[:voucher]
+        @voucher = Voucher.find_by(code: params[:voucher])
+        @amount = @voucher.discounted_price(@amount) + @fee
+      else
+        @amount = @amount + @fee
       end
+      
+      
+      
       if(params[:payment][:pay_type] == "atm")
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
-        # @cart = current_cartart
-        @amount = Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity}.to_i * 100
         token = params[:stripeToken]
-        # Create a Customer
         customer = Stripe::Customer.create({
                                              :description => params[:payment][:name],
                                              :card => token,
@@ -71,11 +61,37 @@ class PaymentsController < ApplicationController
         charge = Stripe::Charge.create({
                                          :customer => customer.id,
                                          :amount => @amount, # amount in cents, again
-                                         :currency => 'usd'
+                                         :currency => 'vnd'
         })
-        debugger
         @payment.charge_id = charge.id
         if @payment.save
+          HTTParty.post(
+            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
+            body: {
+              "token": "TokenStaging",
+              "PaymentTypeID": 1,
+              "FromDistrictID": 1461,
+              "ToDistrictID": params[:district].to_i,
+              "ExternalCode": "",
+              "ClientContactName": "Giao Hang Nhanh",
+              "ClientContactPhone": "19001206",
+              "ClientAddress": "70 Lữ Gia",
+              "CustomerName": params[:payment][:name],
+              "CustomerPhone": params[:payment][:phone],
+              "ShippingAddress": params[:payment][:address],
+              "NoteCode": "CHOXEMHANGKHONGTHU",
+              "ServiceID": 53319,
+              "Weight": 1000,
+              "Length": 10,
+              "Width": 10,
+              "Height": 10,
+            }.to_json,
+
+            headers: {
+              'Accept' => 'application/json',
+              'Content-Type' => 'application/json'
+            }
+          )
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
           @carts.destroy_all
@@ -90,6 +106,36 @@ class PaymentsController < ApplicationController
         end
       else
         if @payment.save
+          HTTParty.post(
+            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
+            body: {
+              "token": "TokenStaging",
+              "PaymentTypeID": 1,
+              "FromDistrictID": 1461,
+              "ToDistrictID": params[:district].to_i,
+              "ExternalCode": "",
+              "ClientContactName": "Giao Hang Nhanh",
+              "ClientContactPhone": "19001206",
+              "ClientAddress": "70 Lữ Gia",
+              "CustomerName": params[:payment][:name],
+              "CustomerPhone": params[:payment][:phone],
+              "ShippingAddress": params[:payment][:address],
+              "NoteCode": "CHOXEMHANGKHONGTHU",
+              "CoDAmount": @amount.to_i,
+              "ServiceID": 53319,
+              "Weight": 1000,
+              "Length": 10,
+              "Width": 10,
+              "Height": 10,
+            }.to_json,
+
+            headers: {
+              'Accept' => 'application/json',
+              'Content-Type' => 'application/json'
+            }
+          )
+          @payment.voucher = @voucher
+          @voucher.payment_id = @payment.id
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
           @carts.destroy_all
@@ -111,5 +157,26 @@ class PaymentsController < ApplicationController
   private
   def payment_params
     params.require(:payment).permit(:name, :phone, :address, :pay_type)
+  end
+
+  def call_calc_fee_api(district)
+    return HTTParty.post(
+      'https://apiv3-test.ghn.vn/api/v1/apiv3/CalculateFee',
+      body: {
+        "token": "TokenStaging",
+          "Weight": 10000,
+          "Length": 10,
+          "Width": 10,
+          "Height": 20,
+          "FromDistrictID": 1461,
+          "ToDistrictID": district.to_i,
+          "ServiceID": 53319,
+      }.to_json,
+
+        headers: {
+          'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+        }
+    )
   end
 end

@@ -5,12 +5,10 @@ class Payment < ApplicationRecord
                     :numericality => true,
                     :length => { :minimum => 9, :maximum => 11 }
     validates :address, presence:true, length: {minimum: 25, maximum: 150}
-    validates :transport_cost, presence:true,:numericality => true
-    validates :province, presence:true
 
     belongs_to :user
     has_one  :place
-    has_one  :voucher
+    has_one :voucher
 	has_many :payment_items, :dependent => :destroy
 	has_many :products, through: :payment_item
 	accepts_nested_attributes_for :payment_items

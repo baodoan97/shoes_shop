@@ -8,6 +8,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'devise'
 gem 'stripe'
+gem 'httparty'
 gem 'hirb'
 gem 'cocoon'
 gem 'whenever', require: false

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_13_082404) do
+ActiveRecord::Schema.define(version: 2019_06_17_154602) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_082404) do
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
-    t.text "metadata", limit: 4294967295
+    t.text "metadata", limit: 16777215
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_082404) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
-    t.text "description", limit: 4294967295
+    t.text "description", limit: 16777215
     t.boolean "display_in_navbar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_082404) do
   create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.text "content", limit: 4294967295
+    t.text "content", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -127,16 +127,38 @@ ActiveRecord::Schema.define(version: 2019_06_13_082404) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "delayed_jobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", limit: 16777215, null: false
+    t.text "last_error", limit: 16777215
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "districts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "district_name"
+    t.string "district_id"
+    t.integer "province_id"
+  end
+
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "admin_id"
-    t.text "content", limit: 4294967295
+    t.text "content", limit: 16777215
     t.boolean "usersend"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "product_id"
     t.text "title", limit: 16777215
     t.text "body", limit: 16777215
     t.datetime "created_at", null: false
@@ -205,6 +227,11 @@ ActiveRecord::Schema.define(version: 2019_06_13_082404) do
     t.integer "brand_id"
   end
 
+  create_table "provinces", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "province_name"
+    t.string "province_id"
+  end
+
   create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "size"
@@ -237,6 +264,7 @@ ActiveRecord::Schema.define(version: 2019_06_13_082404) do
     t.string "provider"
     t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
