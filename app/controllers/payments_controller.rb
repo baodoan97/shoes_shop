@@ -42,7 +42,7 @@ class PaymentsController < ApplicationController
       @fee = call_calc_fee_api(params[:district])
       @fee = @fee['data']['CalculatedFee'].to_i
       @amount = Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity}.to_i
-      if params[:voucher]
+      if params[:voucher] != ""
         @voucher = Voucher.find_by(code: params[:voucher])
         @amount = @voucher.discounted_price(@amount) + @fee
       else
@@ -94,6 +94,9 @@ class PaymentsController < ApplicationController
           )
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
+          if params[:voucher] != ""
+            @voucher.payment_id = @payment.id
+          end
           @carts.destroy_all
           @payment.payment_items.each do |item|
             @product = Product.find(item.product_id).stocks.where(size: item.size).first
@@ -135,7 +138,9 @@ class PaymentsController < ApplicationController
             }
           )
           @payment.voucher = @voucher
-          @voucher.payment_id = @payment.id
+          if params[:voucher] != ""
+            @voucher.payment_id = @payment.id
+          end
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
           @carts.destroy_all
