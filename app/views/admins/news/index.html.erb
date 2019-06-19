@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h1>News</h1>
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Product</th>
@@ -17,8 +17,8 @@
           v.name
         %></span></h3>
       <% end %></td>
-      <td><%= raw news.title %></td>
-      <td><%= raw truncate(news.body, length: 25) %></td>
+      <td><%= raw news.title.gsub!(%r{</?[^>]+?>},'')[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"") %></td>
+      <td><%= raw news.body.gsub!(%r{</?[^>]+?>},'')[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"") %></td>
       <td><%= link_to 'Show', admins_news_path(news) %></td>
       <td><%= link_to 'Edit', edit_admins_news_path(news) %></td>
       <td><%= link_to 'Destroy', admins_news_path(news), method: :delete, data: { confirm: 'Are you sure?' } %></td>

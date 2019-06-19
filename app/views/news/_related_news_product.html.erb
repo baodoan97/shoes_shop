@@ -1,5 +1,5 @@
 <ul class="list-group ">
 	<% obj.each {|n|%>
-	<li class="list-group-item"><%= link_to raw("<i class='far fa-newspaper'></i> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "text-secondary" %> <span class="badge float-right"><%= n.created_at.strftime("%d/%m/%Y")%></span></li>
+	<li class="list-group-item"><%= link_to raw("<i class='far fa-newspaper'></i> #{n.title.gsub!(%r{</?[^>]+?>},'')}") ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "text-secondary" %> <span class="badge float-right"><%= n.created_at.strftime("%d/%m/%Y")%></span></li>
 	<%}%>
 </ul>

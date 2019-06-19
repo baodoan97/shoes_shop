@@ -2,7 +2,7 @@
   <div class="container ">
     <div class="row mt-5">
       <div class="col-lg-9 col-md-6">
-        <h3>Your Shopping Bag(2)</h3>
+        <h3>Your Shopping Bag(<%= @carts.count %>)</h3>
         <% @carts.each do |item| %>
         <div id=item<%= item["product_id"]%><%= item["size"]%> class="cart-item-list border-top pt-4">
           <div class="row cart-item m-0">
@@ -32,11 +32,6 @@
               <input id=btn<%= item["id"] %> class="btn btn-danger" onclick="deleteitemcart(<%= item["product_id"]%>,<%= item["size"]%>);" type="button" value="x" >
             </div>
           </div>
-        </div>
-        <% end %>
-        <% if get_carts != nil%>
-        <div class="container">
-          <%= render 'products/related_product_from_cart' , products: related_product_from_cart %>
         </div>
         <% end %>
       </div>

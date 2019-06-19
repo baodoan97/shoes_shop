@@ -5,7 +5,7 @@
 			<% NewsTypeForShoe.all.each { |v| %>
 			<ul class="list-group news_category_list">
 				<%= link_to news_category_path(:type => v.name) do  %>
-				<li class="list-group-item "><%= v.name %><span class="badge float-right"><%= v.new.count %></span></li>
+				<li class="list-group-item text-body"><%= v.name %><span class="badge float-right"><%= v.new.count %></span></li>
 				<% end %>
 			</ul>
 			<% } %>

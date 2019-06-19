@@ -10,18 +10,20 @@
     </button>
     <% if user_signed_in? %>
     <div   class="dropdown-menu bg-light">
-      <% New.all.where('title LIKE ?', "%sale off%").order('created_at desc').limit(3).each do |n|%>
-      <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+      <% if  NewsTypeForShoe.where(name: 'sale').first != nil 
+       NewsTypeForShoe.where(name: 'sale').first.new.order('created_at desc').limit(3).each do |n|%>
+      <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> #{n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40]}") ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+      <% end %>
       <% end %>
       <% Notification.where(user_id: current_user.id).where(watched: false).order('created_at desc').limit(2).each do |n| %>
       <span class="dropdown-item text-muted custom-size-popup"><%=(n.content.split(' ').include?('comment')? raw("<i class='fas fa-comments'></i> ")+n.content : " " )%></span>
       <% end %>
     </div>
     <% else %>
-      <% if New.all.where('title LIKE ?', "%sale off%").count != 0 %>
+      <% if NewsTypeForShoe.where(name: 'sale').first != nil %>
       <div  class="dropdown-menu bg-light ">
-        <% New.all.where('title LIKE ?', "%sale off%").order('created_at desc').limit(3).each do |n|%>
-        <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> ")+n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40] ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
+        <% NewsTypeForShoe.where(name: 'sale').first.new.order('created_at desc').limit(3).each do |n|%>
+        <%= link_to raw("<img class='img-icon-sale' src='/assets/sale.png' /> #{n.title.gsub!(%r{</?[^>]+?>},'').gsub(/&nbsp;/i,"")[0..40]}") ,news_path(:type => n.news_type_for_shoe != nil ? n.news_type_for_shoe.name : " " ,:title => n.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')),class: "dropdown-item text-danger custom-size-popup" %>
         <% end %>
       </div>
       <% end %>

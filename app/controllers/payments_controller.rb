@@ -55,13 +55,13 @@ class PaymentsController < ApplicationController
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
         token = params[:stripeToken]
         customer = Stripe::Customer.create({
-                                             :description => params[:payment][:name],
-                                             :card => token,
+           :description => params[:payment][:name],
+           :card => token,
         })
         charge = Stripe::Charge.create({
-                                         :customer => customer.id,
-                                         :amount => @amount, # amount in cents, again
-                                         :currency => 'vnd'
+           :customer => customer.id,
+           :amount => @amount, # amount in cents, again
+           :currency => 'vnd'
         })
         @payment.charge_id = charge.id
         if @payment.save
