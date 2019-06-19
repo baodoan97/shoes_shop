@@ -2,6 +2,13 @@
 <%= f.error_notification %>
 <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 <div class="form-group">
+    <% unless @new.new_record? %>
+    <% NewsProduct.where(new_id: @new.id).each do |n| %>
+    <h4><span class="badge badge-secondary"><%= n.product.name %></span></h4>
+    <% end %>
+    <% end %>
+</div>
+<div class="form-group">
     <%= f.collection_select(:news_type_for_shoe_id, NewsTypeForShoe.all, :id, :name, {:prompt => 'Chooses Type of News'},{:class=>'form-control'} ) %>
     <br>
     <input id="seacrh_product_of_news" type="text" name="search" placeholder="Search product...">

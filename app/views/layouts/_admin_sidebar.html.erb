@@ -27,10 +27,19 @@
       <%= link_to '<i class="fas fa-box"></i> Voucher'.html_safe, admins_vouchers_path %>
     </li>
     <li>
-      <%= link_to '<i class="fas fa-comment"></i> Comment'.html_safe, admins_comments_path %>
+      <%= link_to '<i class="fas fa-comment"></i> Comment'.html_safe, new_admins_comment_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="far fa-comment-dots"></i> Messages'.html_safe, admins_messages_path %>
     </li>
     <li>
       <%= link_to '<i class="fas fa-comment"></i> District'.html_safe, admins_provinces_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="far fa-newspaper"></i> News'.html_safe,  admins_news_index_path %>
+    </li>
+    <li>
+      <%= link_to '<i class="far fa-newspaper"></i> Type of news'.html_safe,  admins_type_of_news_index_path %>
     </li>
   </ul>
 </nav>

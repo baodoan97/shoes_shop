@@ -14,6 +14,9 @@ class CommentsController < ApplicationController
       @comment.user = current_user
       @comment.product = Product.find(params[:product][:product_id])
       @comment.save
+    else
+      flash[:alert] ="Login to comment. Please!"
+      redirect_to new_user_session_path
     end
     # respond_to do |format|
     #   	format.html

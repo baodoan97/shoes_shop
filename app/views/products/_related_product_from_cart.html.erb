@@ -1,11 +1,11 @@
 <div class="new-product mt-5">
   <div class="container">
     <h1 class="text-center">
-    <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">Products Suggestions</span>
+    <span style="font-family: time new roman, times, serif; text-shadow: 0 0 3px #080202a1">YOU MAY ALSO LIKE</span>
     <hr align="center" class="line mb-5"></hr>
     </h1>
     <div  class="owl-carousel owl-theme">
-      <% products.uniq! {|p| p['id'] }.to_a.each do |product|%>
+      <% products.each do |product|%>
       <div class="card" style="width: 100%; height: 18rem">
          <%= image_tag Product.find(product['id']).images[0], alt: "Product", class: "card-img-top"   %>
          <%= link_to "View Detail",product_path(:name =>product['name']),class: "show_detail"  %>

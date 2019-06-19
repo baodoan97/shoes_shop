@@ -40,7 +40,6 @@ Rails.application.routes.draw do
     resources :brands
     resources :news
     resources :type_of_news
-    resources :transport_costs
     resources :carousels
     resources :districts, only: [:index]
     resources :provinces, only: [:create, :index]
