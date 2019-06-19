@@ -25,7 +25,7 @@ class PaymentsController < ApplicationController
       redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'Login please!'
       return
     end
-    @district = Province.find(606).districts
+    @district = Province.find_by(province_name: 'An Giang').districts
     @province = Province.all
     @payment = Payment.new
   end
