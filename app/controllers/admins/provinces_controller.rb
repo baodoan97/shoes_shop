@@ -6,16 +6,15 @@ class Admins::ProvincesController < BaseController
 	def create
 		Province.delete_all
 		District.delete_all
+		Ward.delete_all
 		@response = HTTParty.post(
       'https://apiv3-test.ghn.vn/api/v1/apiv3/GetDistricts',
       body: {
             token: 'TokenStaging',
-            Email: 'mr.cupo97@gmail.com',
-            Password: '98776597'
       }.to_json,
       headers: {
         'Accept' => 'application/json',
-      'Content-Type' => 'application/json'
+	      'Content-Type' => 'application/json'
       }
     )
 
@@ -37,7 +36,25 @@ class Admins::ProvincesController < BaseController
 			end
 		end
 
+		@response = HTTParty.post(
+      'https://apiv3-test.ghn.vn/api/v1/apiv3/GetWards',
+      body: {
+        token: 'TokenStaging',
+      }.to_json,
+      headers: {
+        'Accept' => 'application/json',
+	      'Content-Type' => 'application/json'
+      }
+    )
 
-	    render 'index'
+    @response['data']['Wards'].each do |item|
+    	Ward.create(
+    		ward_name: item['WardName'],
+    		ward_id: item['WardCode'],
+    		district_id: District.find_by(district_id: item['DistrictID']).id
+    	)
+    end
+
+    render 'index'
 	end
 end
