@@ -29,6 +29,7 @@ class Admins::ProductsController < BaseController
     end
   end
   def edit
+    @stock_arr =  @product.stocks.group(:size).count.map { |k,v| k }.to_a.reverse 
   end
   def update
     @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i if product_params[:brand_id] != nil

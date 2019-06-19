@@ -1,5 +1,5 @@
 if ("<%= @checkqt %>" == '1') {
-    alert("only sell quantities <%= @resetvalue %>");
+    alert("only sell quantity <%= @resetvalue %>");
     $('input[name=item' + "<%= params[:item][:id] %>" + "<%= params[:item][:size] %>" + ']').val("<%= @resetvalue %>");
 }
 if ("<%= @checkqt %>" == '2') {

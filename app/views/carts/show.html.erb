@@ -38,7 +38,8 @@
       <div class="col-lg-3 col-md-6 border-left">
         <h3>ORDER SUMMARY</h3>
         <!--         <p class="pt-4 border-top">Total:  @total %>$</p>
-        -->        <h4 id="total_carts" class="border-top">TOTAL: <%= @total %>$ </h4>
+        -->        <h4 id="total_carts" class="border-top">TOTAL:
+        <%= number_to_currency(@total, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %> </h4>
         <%= link_to "PROCEED TO CHECKOUT",new_payment_path(), class: "btn btn-dark w-100" %>
       </div>
     </div>
