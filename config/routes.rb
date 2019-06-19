@@ -42,7 +42,8 @@ Rails.application.routes.draw do
     resources :type_of_news
     resources :transport_costs
     resources :carousels
-
+    resources :districts, only: [:index]
+    resources :provinces, only: [:create, :index]
   
     post 'comments/newcomment', to: 'comments#newcomment'
     post 'comments/returncomment', to: 'comments#returncomment'
@@ -105,8 +106,8 @@ end
   get 'news', to: 'news#index' ,as: 'news_index'
   get 'news/type=:type&&title=:title', to: 'news#show', as: 'news'
   get 'news/type=:type', to: 'news#news_category', as: 'news_category'
-  post 'payments/transport_cost', to: 'payments#transport_cost'
-
+  get 'payments/find_district', to: 'payments#find_district'
+  get 'payments/calc_shipping_fee', to: 'payments#calc_shipping_fee'
   get 'vouchers/validate', to:'vouchers#validate'
 
   post 'create', to: 'messages#create'
