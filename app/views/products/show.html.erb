@@ -18,7 +18,7 @@
                 <div class="pull-left shoe-name">
                     <h3><%= @product.name%></h3>
                     <p><%= @product.customer %> <%= @product.brand.brand_name %></p>
-                    <h4><%= number_to_currency(@product.price, unit: "USD", separator: ",",precision: 0, format: "%n %u") %></h4>
+                    <h4><%= number_to_currency(@product.price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></h4>
                 </div>
                 <div class="pull-left rating-stars">
                     <ul>

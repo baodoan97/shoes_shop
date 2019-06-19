@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.date "expiration"
   end
 
-  create_table "wards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "wards", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "ward_name"
     t.string "ward_id"
     t.integer "district_id"

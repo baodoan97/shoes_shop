@@ -1,6 +1,6 @@
 <div class="nested-fields">
   <p style="padding:2px">Size</p>
-  <%= f.select :size, options_for_select(30..43), {:promt => "--quantity--"}, { :class => "form-control" } %>
+  <%= f.select :size, options_for_select(30..43, :selected => @product.new_record? == false ? @stock_arr.pop : 35), {:promt => "--quantity--"}, { :class => "form-control" } %>
   <p style="padding:2px">Quantity</p>
   <%= f.text_field :quantity , type: "number", class: "form-control", placeholder:"Quantity"%>
   <%= f.check_box :_destroy  %>
