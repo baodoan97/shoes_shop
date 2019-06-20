@@ -40,10 +40,15 @@ class Admins::BrandsController < BaseController
   # PATCH/PUT /brands/1.json
   def update
     respond_to do |format|
+      @brand.image_main_brand.purge if params[:brand][:image_main_brand] != nil
+      @brand.image_effect_brand.purge if params[:brand][:image_effect_brand] != nil
       if @brand.update(brand_params)
         format.html { redirect_to admins_brands_path, notice: 'Brand was successfully updated.' }
         format.json { render :show, status: :ok, location: @brand }
       else
+        @brand.image_main_brand.purge if @brand.errors[:image_main_brand] != nil
+        @brand.image_effect_brand.purge if @brand.errors[:image_effect_brand] != nil
+        render 'edit'
         format.html { render :edit }
         format.json { render json: @brand.errors, status: :unprocessable_entity }
       end
@@ -62,13 +67,15 @@ class Admins::BrandsController < BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brand
-      @brand = Brand.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brand
+    @brand = Brand.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def brand_params
-      params.require(:brand).permit(:brand_name, :category_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def brand_params
+    params[:brand][:image_main_brand] =  Brand.resize_image_brand(params[:brand][:image_main_brand])
+    params[:brand][:image_effect_brand] =  Brand.resize_image_brand(params[:brand][:image_effect_brand])
+    params.require(:brand).permit(:brand_name, :image_main_brand, :image_effect_brand, :category_id)
+  end
 end

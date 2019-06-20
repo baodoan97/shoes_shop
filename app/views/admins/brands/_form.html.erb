@@ -1,17 +1,58 @@
-
 <%= simple_form_for([:admins,@brand]) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-   <div class="form-group">
-     <%= f.label 'Brand name' %>
-     <%= f.text_field :brand_name,class: "form-control" %>
-  </div> 
-    <div class="form-group">
-     <%= f.label 'Category' %>
-     <%= f.collection_select(:category_id, Category.all, :id, :name, {:prompt => 'Chooses Category'},{:class=>'form-control'} ) %>
-
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit , class: "btn btn-primary" %>
-  </div>
+<%= f.error_notification %>
+<%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<div class="form-group">
+  <%= f.label 'Brand name' %>
+  <%= f.text_field :brand_name,class: "form-control" %>
+</div>
+<div class="form-group">
+  <%= f.label 'Category' %>
+  <%= f.collection_select(:category_id, Category.all, :id, :name, {:prompt => 'Chooses Category'},{:class=>'form-control'} ) %>
+</div>
+<div class="form-group">
+  <label for="file-input">
+    <p>Image must have size 255x400 </p>
+    <%= image_tag (@brand.image_main_brand.attached? == false ? "" : @brand.image_main_brand),id: "a", style:"width: 255px;height:400px"%>
+  </label>
+  <%= f.file_field :image_main_brand, id:"file-input",accept: 'image/jpeg,image/png' %>
+</div>
+<div class="form-group">
+  <label for="file-input1">
+    <p>Image must have size 255x400 </p>
+    <%= image_tag (@brand.image_effect_brand.attached? == false ? "" : @brand.image_effect_brand),id: "a1", style:"width: 255px;height:400px"%>
+  </label>
+  <%= f.file_field :image_effect_brand, id:"file-input1",accept: 'image/jpeg,image/png',class: "d-none" %>
+</div>
+<div class="form-actions">
+  <%= f.button :submit , class: "btn btn-primary" %>
+</div>
 <% end %>
+<script type="text/javascript">
+  $(document).ready(function() {
+var resetinput = $('#file-input');
+resetinput.replaceWith(resetinput.val('').clone(true));
+$('#file-input').change(function() {
+if (this.files && this.files[0]) {
+var reader = new FileReader();
+reader.onload = function(e) {
+$('#a').attr('src', e.target.result);
+}
+reader.readAsDataURL(this.files[0]);
+}
+});
+
+
+var resetinput = $('#file-input1');
+resetinput.replaceWith(resetinput.val('').clone(true));
+$('#file-input1').change(function() {
+if (this.files && this.files[0]) {
+var reader = new FileReader();
+reader.onload = function(e) {
+$('#a1').attr('src', e.target.result);
+}
+reader.readAsDataURL(this.files[0]);
+}
+});
+
+});
+</script>
