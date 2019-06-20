@@ -65,70 +65,16 @@
       <hr align="center" class="line mb-5"></hr>
       </h1>
       <div class="owl-carousel owl-theme">
+        <% Product.all.where(status: 'active').order("created_at DESC").limit(15).each do |product| %>
         <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
+          <%= image_tag( product.images.attached? == false ? " " : product.images.first, alt: "Product", class: "card-img-top" ) %>
           <a href="#" class="show_detail">View Detail</a>
           <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
+            <p class="card-text d-inline product-name"><strong><%= product.name %></strong></p>
+            <p class="card-text d-inline product-price"><strong><%= number_to_currency(product.price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></strong></p>
           </div>
         </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 002</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 003</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 004</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
-        <div class="card" style="width: 100%; height: 18rem">
-          <%= image_tag("slide.jpeg", alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
-          <div class="card-body">
-            <p class="card-text d-inline product-name"><strong>Product 001</strong></p>
-            <p class="card-text d-inline product-price"><strong>$120</strong></p>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -139,39 +85,22 @@
       <hr align="center" class="line mb-5"></hr>
       </h1>
       <div class="row mb-5">
+        <% Brand.all.each do |brand| %>
+        <% if brand.image_main_brand.attached? && brand.image_effect_brand.attached? %>
         <div class="col-xs-12 col-md-6 col-lg-3 brand-item ">
           <div class="w-100 m-auto brand">
-            <%= image_tag 'nike.jpg' %>
+            <%= image_tag  brand.image_main_brand %>
             <div class="overlay">
-              <a href="#"><%= image_tag 'logo-nike.jpg' %></a>
+              <%= link_to category_path(:name => " " ,:brand_name => brand.brand_name,:cus => " ") do  %>
+              <%= image_tag brand.image_effect_brand %>
+              <% end %>
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-md-6 col-lg-3 brand-item">
-          <div class="w-100 m-auto brand">
-            <%= image_tag 'adidas.jpg' %>
-            <div class="overlay">
-              <a href="#"><%= image_tag 'logo-adidas.jpg' %></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-md-6 col-lg-3 brand-item">
-          <div class="w-100 m-auto brand">
-            <%= image_tag 'vans.jpg' %>
-            <div class="overlay">
-              <a href="#"><%= image_tag 'logo-vans.jpg' %></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-md-6 col-lg-3 brand-item">
-          <div class="w-100 m-auto brand">
-            <%= image_tag 'conve.jpg' %>
-            <div class="overlay">
-              <a href="#"><%= image_tag 'logo-conve.jpg' %></a>
-            </div>
-          </div>
-        </div>
+        <% end %>
+        <% end %>
       </div>
+      
     </div>
   </div>
   <section>

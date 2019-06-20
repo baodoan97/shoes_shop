@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include CartProductsHelper
-  helper_method :related_product_from_cart,:get_carts
+  helper_method :related_product_from_cart,:get_carts,:update_status_model
 
   protect_from_forgery with: :exception
   def get_carts
@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   def related_product_from_cart
     @related_product ||= analysis_cart(get_carts).flatten if get_carts
   end
+
+
 
   # private
 

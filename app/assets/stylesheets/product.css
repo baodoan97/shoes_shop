@@ -111,3 +111,7 @@ a.btn.btn-danger.remove_image_newproduct {
    /* height: 250;*/width: 1100px;
 }
 
+.transform-status{
+    transform: translateX(-116px);
+        text-align: center;
+}

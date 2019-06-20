@@ -38,11 +38,11 @@ class CategoriesController < ApplicationController
   def set_category
     if Category.exists? name: params[:name]
       if params[:brand_name] != " "
-        @category = Category.find_by_name(params[:name]).brands.find_by_brand_name(params[:brand_name]).products
-        @category = Category.find_by_name(params[:name]).brands.find_by_brand_name(params[:brand_name]).products.where(customer: params[:cus]) if params[:cus] != " "
+        @category = Category.find_by_name(params[:name]).brands.find_by_brand_name(params[:brand_name]).products.where(status: 'active')
+        @category = Category.find_by_name(params[:name]).brands.find_by_brand_name(params[:brand_name]).products.where(customer: params[:cus]).where(status: 'active') if params[:cus] != " "
       else
-        @category = Category.find_by_name(params[:name]).products
-        @category = Category.find_by_name(params[:name]).products.where(customer: params[:cus])  if params[:cus] != " "
+        @category = Category.find_by_name(params[:name]).products.where(status: 'active')
+        @category = Category.find_by_name(params[:name]).products.where(customer: params[:cus]).where(status: 'active')  if params[:cus] != " "
       end
     else
       redirect_to root_path

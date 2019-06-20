@@ -15,7 +15,18 @@
       <td><%= brand.brand_name %></td>
       <td><%= Category.find(brand.category_id).name  %></td>
       <td><%= link_to 'Edit', edit_admins_brand_path(brand) %></td>
-      <td><%= link_to 'Destroy', admins_brand_path(brand), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td>  <div class="dropdown ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= brand.status %>
+                </button>
+                <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
+                  <% Brand.statuses.to_h.except!(brand.status).each do |key,value| %>
+                  <%= link_to key, admins_brand_status_path(:status => key.to_s,:id => brand.id.to_s), method: :post,
+                  data: { confirm: "Are you sure you want to delete the product?"},
+                  class: "dropdown-item " %>
+                  <% end %>
+                </div>
+              </div></td>
     </tr>
     <% end %>
   </tbody>

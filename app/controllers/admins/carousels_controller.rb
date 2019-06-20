@@ -19,7 +19,7 @@ class Admins::CarouselsController < BaseController
   end
 
   def update
-    @carousel.image.purge if params[:carousel][:avatar] != nil
+    @carousel.image.purge if params[:carousel][:image] != nil
     case @carousel.update(carousel_params)
     when true
       redirect_to admins_carousels_path

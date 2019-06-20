@@ -33,7 +33,18 @@
           <td><%= link_to '', admins_user_path(user),class: "btn btn-info fas fa-eye" %></td>
           <td><%= link_to '', edit_admins_user_path(user),class: "btn btn-warning fas fa-edit" %></td>
           <td>
-            <%= link_to '', user, method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
+              <div class="dropdown ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= user.status %>
+                </button>
+                <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
+                  <% Category.statuses.to_h.except!(user.status).each do |key,value| %>
+                  <%= link_to key, admins_user_status_path(:status => key.to_s,:id => user.id.to_s), method: :post,
+                  data: { confirm: "Are you sure you want to delete the product?"},
+                  class: "dropdown-item " %>
+                  <% end %>
+                </div>
+              </div>
           </td>
         </tr>
         <% end %>

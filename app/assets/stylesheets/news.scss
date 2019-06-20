@@ -80,7 +80,7 @@ width: 87px;
 .news_before {
 margin: 0 auto;
 border: 1px solid;
-width: 67%;
+// width: 67%;
 border-style: ridge;
 padding: 8px;
 box-shadow: 1px 1px 1px 1px #e3e3e3;
@@ -121,11 +121,11 @@ margin: -4px;
 padding-left: 181px;
 }
 .time_news_span {
-position: absolute;
-right: 17%;
-/* bottom: 19px; */
-margin-top: 94px;
-}
+    position: absolute;
+    right: 0%;
+    /* bottom: 19px; */
+    margin-top: 94px;
+	}
 .news_before a{
 color: black;
 text-decoration: none;

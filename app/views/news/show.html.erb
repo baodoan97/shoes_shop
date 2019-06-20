@@ -1,6 +1,5 @@
-
+<br>
 <div class="container">
-
 	<div class="row">
 		<div class="col-lg-2">
 			<h4>News category</h4>
@@ -17,6 +16,7 @@
 				<%= raw @item.title.gsub!(%r{</?[^>]+?>},'').insert(0, '<h1>').insert(-1, '</h1>').gsub(/&nbsp;/i,"")%>
 				<%= raw @item.body %>
 			</div>
+			<div ><span><%=  time_ago_in_words(@item.created_at) %></span></div>
 		</div>
 	</div>
 </div>

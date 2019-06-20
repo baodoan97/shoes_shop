@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_19_140034) do
+ActiveRecord::Schema.define(version: 2019_06_20_134528) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 2
   end
 
   create_table "carousels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -90,6 +91,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.boolean "display_in_navbar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 2
   end
 
   create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -148,6 +150,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "news_type_for_shoe_id"
+    t.integer "status", default: 2
   end
 
   create_table "news_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -161,6 +164,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 2
   end
 
   create_table "notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -210,6 +214,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.integer "liked", default: 0
     t.integer "brand_id"
     t.integer "customer", default: 0
+    t.integer "status", default: 2
   end
 
   create_table "provinces", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -248,6 +253,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_140034) do
     t.string "unconfirmed_email"
     t.string "provider"
     t.string "uid"
+    t.integer "status", default: 2
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

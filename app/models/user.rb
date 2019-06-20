@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   require 'open-uri'
+  enum status: [:closed, :archived,:active]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   # validate :content_type_avatar,on: :create
