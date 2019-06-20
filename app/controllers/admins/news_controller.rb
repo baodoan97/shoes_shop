@@ -56,9 +56,9 @@ class Admins::NewsController < BaseController
   # DELETE /new/1
   # DELETE /new/1.json
   def destroy
-    @new.destroy
+    @new.update_attribute(:status, params[:status])
     respond_to do |format|
-      format.html { redirect_to admins_news_index_path, notice: 'New was successfully destroyed.' }
+      format.html { redirect_to admins_news_index_path, notice: 'News was change status.' }
       format.json { head :no_content }
     end
   end

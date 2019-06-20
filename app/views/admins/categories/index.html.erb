@@ -1,8 +1,7 @@
-
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
-    <h1>Categories</h1>
-    <%= link_to ' New ', new_admins_category_path,class: "btn-lg btn btn-primary fas fa-plus-square " %>
+  <h1>Categories</h1>
+  <%= link_to ' New ', new_admins_category_path,class: "btn-lg btn btn-primary fas fa-plus-square " %>
   <div class="content-box-large">
     <div class="panel-body">
       <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
@@ -16,13 +15,13 @@
             <th>Update At</th>
             <th>Show</th>
             <th>Edit</th>
-            <th>Delete</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <% @categories.each do |category| %>
           <tr class="gradeU">
-              <td><%= category.id %></td>
+            <td><%= category.id %></td>
             <td><%= category.name %></td>
             <td><%= category.description %></td>
             <td><%= category.display_in_navbar %></td>
@@ -31,7 +30,18 @@
             <td><%= link_to '', admins_category_path(category),class: "btn btn-info fas fa-eye" %></td>
             <td><%= link_to '', edit_admins_category_path(category),class: "btn btn-warning fas fa-edit" %></td>
             <td>
-              <%= link_to '',  admins_category_path(category), method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
+              <div class="dropdown ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= category.status %>
+                </button>
+                <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
+                  <% Category.statuses.to_h.except!(category.status).each do |key,value| %>
+                  <%= link_to key, admins_category_status_path(:status => key.to_s,:id => category.id.to_s), method: :post,
+                  data: { confirm: "Are you sure you want to delete the product?"},
+                  class: "dropdown-item " %>
+                  <% end %>
+                </div>
+              </div>
             </td>
           </tr>
           <% end %>
@@ -39,5 +49,5 @@
       </table>
     </div>
   </div>
- 
+  
 </div>

@@ -15,9 +15,9 @@
             <th>Description</th>
             <th>Category</th>
             <th>Picture</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Show</th>
+            <th>Edit</th>
+            <th>Status</th>
             
           </tr>
         </thead>
@@ -30,43 +30,53 @@
             <td><%= product.price %></td>
             <td>
               <% product.stocks.each do |stock| %>
-                <%= stock.size %><br>
+              <%= stock.size %><br>
               <% end %>
             </td>
             <td>
               <% product.stocks.each do |stock| %>
-                <%= stock.quantity %><br>
+              <%= stock.quantity %><br>
               <% end %>
             </td>
             <td><%= product.description %></td>
             <td><%= product.category_id %></td>
             <td>
               <div class="row">
-              
+                
                 <div class="col-sm-3">
                   <%= image_tag product.images.attached? == true ? product.images.first : " " ,class: "img-thumbail",style:"width:100px"%>
                 </div>
-             
+                
               </div>
             </td>
             <td><%= link_to '', admins_product_path(product), class: "btn btn-info fas fa-eye" %></td>
             <td><%= link_to '', edit_admins_product_path(product), class: "btn btn-warning fas fa-edit" %></td>
             <td>
-              <%= link_to "", admins_product_path(product), method: :delete,
-              data: { confirm: "Are you sure you want to delete the product?"},
-              class: "btn btn-danger far fa-trash-alt" %>
-            </td>
+              <div class="dropdown ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= product.status %>
+                </button>
+                <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
+                  <% Product.statuses.to_h.except!(product.status).each do |key,value| %>
+                  <%= link_to key, admins_product_status_path(:status => key.to_s,:id => product.id.to_s), method: :post,
+                  data: { confirm: "Are you sure you want to delete the product?"},
+                  class: "dropdown-item " %>
+                  <% end %>
+                </div>
+              </div>
             
-          </tr>
-          <% end %>
-        </tbody>
-        <tfoot>
-        <tr>
-          <th colspan="10" style="text-align:left">Example Total:</th>
-          <th style="text-align:right"></th>
+          </td>
+          
         </tr>
-        </tfoot>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="10" style="text-align:left">Example Total:</th>
+        <th style="text-align:right"></th>
+      </tr>
+      </tfoot>
+    </table>
   </div>
+</div>
 </div>

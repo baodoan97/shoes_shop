@@ -7,7 +7,7 @@ class Admins::ProductsController < BaseController
   def show
   end
   def destroy
-    if @product.destroy
+    if @product.update_attribute(:status, params[:status])
       flash[:success] = "Product was successfully deleted"
       redirect_to  admins_products_path
     else

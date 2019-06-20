@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
 		<div class="col-lg-2">
-			<h2>News category</h2>
+			<h4>News category</h4>
 			<% NewsTypeForShoe.all.each { |v| %>
 			<ul class="list-group news_category_list">
 				<%= link_to news_category_path(:type => v.name) do  %>

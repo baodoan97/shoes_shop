@@ -53,7 +53,8 @@ class Admins::BrandsController < BaseController
   # DELETE /brands/1
   # DELETE /brands/1.json
   def destroy
-    @brand.destroy
+    @brand.update_attribute(:status, params[:status])
+    update_status_model(@brand.products,params[:status])
     respond_to do |format|
       format.html { redirect_to admins_brands_path, notice: 'Brand was successfully destroyed.' }
       format.json { head :no_content }

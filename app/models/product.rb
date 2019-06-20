@@ -10,6 +10,9 @@ class Product < ApplicationRecord
     Boys: 2,
     Girls: 3
   }
+ 
+
+  enum status: [:closed, :archived,:active]
 
   #validates
   validates :name, presence: true, uniqueness: true

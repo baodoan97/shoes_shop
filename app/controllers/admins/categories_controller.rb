@@ -11,7 +11,7 @@ class Admins::CategoriesController < BaseController
   # GET /categories/1
   # GET /categories/1.json
   def show
-    
+
   end
 
   # GET /categories/new
@@ -21,7 +21,7 @@ class Admins::CategoriesController < BaseController
 
   # GET /categories/1/edit
   def edit
-    
+
   end
 
   # POST /categories
@@ -29,44 +29,44 @@ class Admins::CategoriesController < BaseController
   def create
     @category =Category.new(category_params)
     if @category.save
-			#session[:user_id] = @categories.id
-		#	flash[:success] = "ssASAs, #{@categories.name}"
-			redirect_to admins_categories_path()
-		else
-			render 'new'
-		end
+      #session[:user_id] = @categories.id
+      # flash[:success] = "ssASAs, #{@categories.name}"
+      redirect_to admins_categories_path()
+    else
+      render 'new'
+    end
   end
 
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-   
-      if @category.update(category_params)
-      
+
+    if @category.update(category_params)
       flash[:success] =  'Category was successfully updated.'
       redirect_to admins_category_path(@category)
-      else
-       render 'edit'
-      end
-    
+    else
+      render 'edit'
+    end
+
   end
 
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category.destroy
+    @category.update_attribute(:status, params[:status])
+    update_status_model(@category.products,params[:status])
     redirect_to admins_categories_path()
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def category_params
-     #debugger
-      params.require(:category).permit(:name, :description, :display_in_navbar)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def category_params
+    #debugger
+    params.require(:category).permit(:name, :description, :display_in_navbar)
+  end
 end

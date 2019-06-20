@@ -46,7 +46,8 @@ class Admins::UsersController < BaseController
       # DELETE /categories/1
       # DELETE /categories/1.json
       def destroy
-        @user1.destroy
+        @user1.update_attribute(:status, params[:status])
+
         redirect_to admins_users_path
       end
     

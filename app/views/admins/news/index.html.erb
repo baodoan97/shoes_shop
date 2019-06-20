@@ -21,7 +21,18 @@
       <td><%= raw news.body.gsub!(%r{</?[^>]+?>},'')[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"") %></td>
       <td><%= link_to 'Show', admins_news_path(news) %></td>
       <td><%= link_to 'Edit', edit_admins_news_path(news) %></td>
-      <td><%= link_to 'Destroy', admins_news_path(news), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td> <div class="dropdown ">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= news.status %>
+        </button>
+        <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
+          <% New.statuses.to_h.except!(news.status).each do |key,value| %>
+          <%= link_to key, admins_news_status_path(:status => key.to_s,:id => news.id.to_s), method: :post,
+          data: { confirm: "Are you sure you want to delete the product?"},
+          class: "dropdown-item " %>
+          <% end %>
+        </div>
+      </div></td>
     </tr>
     <% end %>
   </tbody>
