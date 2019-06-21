@@ -22,7 +22,7 @@ class PaymentsController < ApplicationController
 
   def new
     if  user_signed_in? == false ||  Cart.where(user_id: current_user.id).size == 0
-      redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'Login please!'
+      redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'You need to login to place order!'
       return
     end
     @district = Province.find_by(province_name: 'An Giang').districts

@@ -70,7 +70,7 @@
           <%= image_tag( product.images.attached? == false ? " " : product.images.first, alt: "Product", class: "card-img-top" ) %>
           <a href="#" class="show_detail">View Detail</a>
           <div class="card-body">
-            <p class="card-text d-inline product-name"><strong><%= product.name %></strong></p>
+            <p class="card-text d-inline product-name"><strong><%= truncate(product.name, length: 20) %></strong></p>
             <p class="card-text d-inline product-price"><strong><%= number_to_currency(product.price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></strong></p>
           </div>
         </div>

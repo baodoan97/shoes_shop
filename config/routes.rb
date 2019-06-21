@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   get 'brands/show'
   post 'notifications/create'
   get 'notifications/:id' , to: 'notifications#show'
-  resources :places
-  post 'places/changestatus', to: 'places#changestatus'
   post 'payments/paymentdetail', to: 'payments#paymentdetail'
   #resources :categories
   #get 'admins/categories', to: 'categories#index'

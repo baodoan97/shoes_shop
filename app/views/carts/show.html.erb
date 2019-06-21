@@ -1,5 +1,5 @@
 <div class="cart">
-  <div class="container ">
+  <div class="container">
     <div class="row mt-5">
       <div class="col-lg-9 col-md-6">
         <h3>Your Shopping Bag(<%= @carts.count %>)</h3>
@@ -11,8 +11,8 @@
             </div>
             <div class="col-lg-4">
               <h5><strong><%= Product.find(item["product_id"]).name %> </strong></h5>
-              <p class="badge badge-primary">Brand</p>
-              <p><span>Name: <%= truncate(Product.find(item["product_id"]).description, :length => 17)  %></span></p>
+              <p class="badge badge-primary"><%= Product.find(item["product_id"]).brand.brand_name %></p>
+              <p><span>Description: <%= truncate(Product.find(item["product_id"]).description, :length => 50)  %></span></p>
               <p >Size: <%= item["size"] %></p>
             </div>
             <div class="col-lg-1 p-0">
@@ -20,10 +20,10 @@
               <input min="1" id="changecart" onchange="checkqt(<%= item["product_id"]%>,<%= item["size"]%>,this.value);" type="number" name=item<%= item["product_id"]%><%= item["size"]%> value=<%= item["quantity"] %>  >
             </div>
             <div class="col-lg-2">
-              <p>Price: <%= item["price"] %>$</p>
+              <p>Price: <%= number_to_currency( item["price"], unit: "VNĐ", separator: ",",precision: 0, format: "%n %u")%></p>
             </div>
             <div class="col-lg-2 p-0">
-              <p>SubTotal: <%= item["price"].to_i*item["item"].to_i %>$</p>
+              <p>SubTotal: <%= number_to_currency(item["price"].to_i*item["quantity"].to_i, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u" ) %></p>
             </div>
             <div class="col-lg-1 p-0">
               <!--     link_to '<i class="fas fa-minus"></i>'.html_safe, destroycart_path(item), method: :delete, data: { confirm: "Delete this order?"} %>
@@ -53,7 +53,7 @@ this.value= 1;
 }
 });
 function deleteitemcart(id, s) {
-if (confirm("You will lost this item")) {
+if (confirm("Are your sure to delete this item from cart?")) {
 $("#item" + id + s).fadeOut('1000', function(c) {
 $("#item" + id + s).remove();
 });
