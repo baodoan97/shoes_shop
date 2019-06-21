@@ -15,3 +15,4 @@ task Find_carts_user_not_update_for_3_days: :environment do
        end
    end
 end
+

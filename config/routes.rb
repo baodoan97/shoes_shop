@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       match 'news/set_status/:id/status=:status' => 'news#destroy', :via => [:post] ,as: :news_status
       resources :type_of_news,except: [:destroy]
       match 'type_of_news/set_status/:id/status=:status' => 'type_of_news#destroy', :via => [:post] ,as: :type_of_news_status
-      resources :manages
+      resources :manages, only: [:index]
       resources :comments
       resources :carousels
       resources :districts, only: [:index]
@@ -50,6 +50,10 @@ Rails.application.routes.draw do
       post 'messages/watchedmore', to: 'messages#watchedmore'
       delete 'images', to:  'products#destroyimage'
       post 'news/search_products_for_news', to: 'news#search_products_for_news'
+      match 'manages/process_data' => 'manages#process_data', :via => [:get] ,as: :process_data
+      post 'manages/get_file_database', to: 'manages#get_file_database'
+      post 'manages/download/:key', to: 'manages#download',as: :dowload_file_database
+      post 'manages/delete/model=:model', to: 'manages#delete',as: :delete_status_closed
     end
   end
   #user

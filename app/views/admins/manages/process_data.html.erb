@@ -1,0 +1,62 @@
+<h2>List file auto dump from system</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>File name</th>
+			<th>Last modified</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @obj.map do |file| %>
+		<tr>
+			<td><%= file.key %></td>
+			<td><%= file.last_modified  %></td>
+			<td>  <%= link_to 'Download', admins_dowload_file_database_path(:key => file.key),method: :post, class: "btn btn-info" %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<%= link_to "Getting a file dump database now",  admins_manages_get_file_database_path,method: :post ,class: "btn btn-primary" %>
+<h2 class="mt-5">Delelte data status is closed</h2>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Model</th>
+			<th>Count status closed</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Product</td>
+			<td><%= Product.all.where(status: 'closed').count %></td>
+			<td><%= link_to "Delete",admins_delete_status_closed_path(:model => Product.name),method: :post,class: "btn btn-danger",
+			data: { confirm: "Are you sure you want to delete the product have status closed?"}   %></td>
+		</tr>
+		<tr>
+			<td>Category</td>
+			<td><%= Category.all.where(status: 'closed').count %></td>
+			<td><%= link_to "Delete",admins_delete_status_closed_path(:model => Category.name),method: :post,class: "btn btn-danger",
+			data: { confirm: "Are you sure you want to delete the category have status closed?"}   %></td>
+		</tr>
+		<tr>
+			<td>Brand</td>
+			<td><%= Brand.all.where(status: 'closed').count %></td>
+			<td><%= link_to "Delete",admins_delete_status_closed_path(:model => Brand.name),method: :post,class: "btn btn-danger",
+			data: { confirm: "Are you sure you want to delete the Brand have status closed?"}   %></td>
+		</tr>
+		<tr>
+			<td>News</td>
+			<td><%= New.all.where(status: 'closed').count %></td>
+			<td><%= link_to "Delete",admins_delete_status_closed_path(:model => New.name),method: :post,class: "btn btn-danger",
+			data: { confirm: "Are you sure you want to delete the News have status closed?"}  %></td>
+		</tr>
+		<tr>
+			<td>Type of News</td>
+			<td><%= NewsTypeForShoe.all.where(status: 'closed').count %></td>
+			<td><%= link_to "Delete",admins_delete_status_closed_path(:model => NewsTypeForShoe.name),method: :post,class: "btn btn-danger",
+			data: { confirm: "Are you sure you want to delete the Type of news have status closed?"}  %></td>
+		</tr>
+	</tbody>
+</table>
