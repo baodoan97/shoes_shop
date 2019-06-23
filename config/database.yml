@@ -23,5 +23,6 @@ test:
   database: appwithmysql_test
 
 production:
-  <<: *default
+  # <<: *default
+  adapter: mysql2
   database: shoes
