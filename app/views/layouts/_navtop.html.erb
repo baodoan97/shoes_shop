@@ -13,7 +13,7 @@
           <span class="cart-text badge-danger"><%= session[:cart] == nil ? 0 : session[:cart].count %></span></i> |
           <% else %>
           <i class="fas fa-shopping-bag cart mr-2 text-secondary">
-          <span class="cart-text badge-danger"><%= Cart.where(user_id: current_user.id).count == 0 ? 0 : Cart.where(user_id: current_user.id).count %></span></i>
+          <span class="cart-text badge-danger"><%= Cart.where(user_id: current_user.id).count == 0 ? 0 : Cart.where(user_id: current_user.id).count %></span></i> |
           <% end %>
           <% end %>
           <% if user_signed_in? %>
