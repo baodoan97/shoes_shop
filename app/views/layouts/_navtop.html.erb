@@ -18,7 +18,7 @@
           <% end %>
           <% if user_signed_in? %>
           <i>
-          <%= image_tag(current_user.avatar) if current_user.avatar.attached?, style:"width: 14px; height: 14px; border-radius: 50%" %>
+          <%= image_tag(current_user.avatar, style:"width: 14px; height: 14px; border-radius: 50%")  if current_user.avatar.attached?%>
           <span class="ml-1"><%= link_to current_user.firstname, users_profile_path, style:"font-weight:900" %></span>
           </i> |
           <i class="fas fa-envelope ml-1">
