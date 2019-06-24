@@ -25,4 +25,9 @@ test:
 production:
   # <<: *default
   adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: 98776597
+  socket: /var/run/mysqld/mysqld.sock
   database: shoes
