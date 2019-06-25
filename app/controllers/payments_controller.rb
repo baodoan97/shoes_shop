@@ -14,7 +14,6 @@ class PaymentsController < ApplicationController
   end
 
   def calc_shipping_fee
-    debugger
     @response = call_calc_fee_api(params[:district_id])
     respond_to do |format|
       format.json { render json: @response }
