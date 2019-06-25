@@ -14,6 +14,7 @@ class PaymentsController < ApplicationController
   end
 
   def calc_shipping_fee
+    debugger
     @response = call_calc_fee_api(params[:district_id])
     respond_to do |format|
       format.json { render json: @response }
@@ -166,16 +167,16 @@ class PaymentsController < ApplicationController
 
   def call_calc_fee_api(district)
     return HTTParty.post(
-      'https://console.ghn.vn/api/v1/apiv3/CalculateFee',
+      'https://apiv3-test.ghn.vn/api/v1/apiv3/CalculateFee',
       body: {
-        "token": "5d0486dfeeb354000c49e226",
-        "Weight": 10000,
-        "Length": 10,
-        "Width": 10,
-        "Height": 20,
-        "FromDistrictID": 1461,
-        "ToDistrictID": district.to_i,
-        "ServiceID": 53319,
+        "token": "TokenStaging",
+          "Weight": 1000,
+          "Length": 5,
+          "Width": 10,
+          "Height": 10,
+          "FromDistrictID": 1461,
+          "ToDistrictID": district.to_i,
+          "ServiceID": 53321,
       }.to_json,
 
         headers: {
