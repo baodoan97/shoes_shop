@@ -166,21 +166,21 @@ class PaymentsController < ApplicationController
 
   def call_calc_fee_api(district)
     return HTTParty.post(
-      'https://apiv3-test.ghn.vn/api/v1/apiv3/CalculateFee',
+      'https://console.ghn.vn/api/v1/apiv3/CalculateFee',
       body: {
-        "token": "TokenStaging",
-          "Weight": 10000,
-          "Length": 10,
-          "Width": 10,
-          "Height": 20,
-          "FromDistrictID": 1461,
-          "ToDistrictID": district.to_i,
-          "ServiceID": 53319,
+        "token": "5d0486dfeeb354000c49e226",
+        "Weight": 10000,
+        "Length": 10,
+        "Width": 10,
+        "Height": 20,
+        "FromDistrictID": 1461,
+        "ToDistrictID": district.to_i,
+        "ServiceID": 53319,
       }.to_json,
 
         headers: {
           'Accept' => 'application/json',
-        'Content-Type' => 'application/json'
+          'Content-Type' => 'application/json'
         }
     )
   end
