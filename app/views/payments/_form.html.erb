@@ -19,11 +19,11 @@
                 </div>
                 <div class="form-group">
                     <%= label_tag :province%>
-                    <%= select_tag :province, options_from_collection_for_select(@province.order(:province_name), :province_id, :province_name), class:'form-control', id:'province' %>
+                    <%= select_tag :province, options_from_collection_for_select(@province.order(:province_name), :province_id, :province_name), prompt: "-- Select Your Province --", class:'form-control', id:'province' %>
                 </div>
                 <div class="form-group">
                     <%= label_tag :district%>
-                    <%= select_tag :district, options_from_collection_for_select(@district.order(:district_name), :district_id, :district_name), class:'form-control', id:'district'%>
+                    <%= select_tag :district, (options_from_collection_for_select(@district.order(:district_name), :district_id, :district_name) if @district != nil) ,prompt: "-- Select Your District --", class:'form-control', id:'district'%>
                 </div>
                 <div class="form-group">
                     <%= label_tag :voucher%>
@@ -35,11 +35,11 @@
                 </div>
                 <div class="form-group">
                     <label id="lbl-number">Card Number</label>
-                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
+                    <input type="text" size="20" autocomplete="off" data-stripe="number" id="number" class="card-number form-control" placeholder = "**** **** **** ****" pattern="[\d ]*" />
                 </div>
                 <div class="form-group">
                     <label id="lbl-cvc">Security Code/CVC</label>
-                    <input type="text" size="20" autocomplete="off" data-stripe="cvc" id="cvc" class="card-number form-control" placeholder = "**** **** **** ****" value = "4242424242424242" pattern="[\d ]*" />
+                    <input type="text" size="20" autocomplete="off" data-stripe="cvc" id="cvc" class="card-number form-control" placeholder = "***" pattern="[\d ]*" />
                 </div>
                 <div class="form-group">
                     <label id="lbl-month">Expiration (MM/YYYY)</label>
@@ -51,7 +51,7 @@
                     <label><strong>Total Price: <h3 id="total"><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>$</h3></strong></label>
                 </div>
                 <div class="form-group">
-                    <label>Ship: <h3 id="ship"> </h3></label>
+                    <label><strong>Ship: <h3 id="ship"> </h3></strong></label>
                 </div>
                 <div class="actions">
                     <%= f.submit 'Place order', :class => 'btn btn-primary btn-payment' %>
@@ -181,6 +181,7 @@ $('#voucher').keyup(function() {
       type: "get",
       success: function(result){
         $('#district').empty();
+        $('#district').append('<option> Select Your District </option>');
         for (var i = 0; i < result.length; i++){
           $('#district').append('<option value='+result[i].district_id+'>'+result[i].district_name+'</option>');
         }

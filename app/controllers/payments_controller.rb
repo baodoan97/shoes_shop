@@ -25,7 +25,7 @@ class PaymentsController < ApplicationController
       redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'You need to login to place order!'
       return
     end
-    @district = Province.find_by(province_name: 'An Giang').districts
+    @district = nil
     @province = Province.all
     @payment = Payment.new
   end
@@ -38,7 +38,7 @@ class PaymentsController < ApplicationController
       return
     else
       @payment = Payment.new(payment_params)
-      @payment.user = current_user
+      @payment.user_id = current_user.id
       @fee = call_calc_fee_api(params[:district])
       @fee = @fee['data']['CalculatedFee'].to_i
       @amount = Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity}.to_i
@@ -48,9 +48,6 @@ class PaymentsController < ApplicationController
       else
         @amount = @amount + @fee
       end
-      
-      
-      
       if(params[:payment][:pay_type] == "atm")
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
         token = params[:stripeToken]
@@ -65,37 +62,14 @@ class PaymentsController < ApplicationController
         })
         @payment.charge_id = charge.id
         if @payment.save
-          HTTParty.post(
-            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
-            body: {
-              "token": "TokenStaging",
-              "PaymentTypeID": 1,
-              "FromDistrictID": 1461,
-              "ToDistrictID": params[:district].to_i,
-              "ExternalCode": "",
-              "ClientContactName": "Giao Hang Nhanh",
-              "ClientContactPhone": "19001206",
-              "ClientAddress": "70 Lữ Gia",
-              "CustomerName": params[:payment][:name],
-              "CustomerPhone": params[:payment][:phone],
-              "ShippingAddress": params[:payment][:address],
-              "NoteCode": "CHOXEMHANGKHONGTHU",
-              "ServiceID": 53319,
-              "Weight": 1000,
-              "Length": 10,
-              "Width": 10,
-              "Height": 10,
-            }.to_json,
-
-            headers: {
-              'Accept' => 'application/json',
-              'Content-Type' => 'application/json'
-            }
-          )
+          @response = create_order(params[:district],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])          
+          @payment.total =@amount 
+          @payment.order_id = @response['data']['OrderCode']
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
           if params[:voucher] != ""
             @voucher.payment_id = @payment.id
+            @voucher.save
           end
           @carts.destroy_all
           @payment.payment_items.each do |item|
@@ -104,43 +78,19 @@ class PaymentsController < ApplicationController
             @product.save
             redirect_to root_path,:notice => 'Payment request success!!!'
           end
+          @payment.save
         else
           render 'new'
         end
       else
         if @payment.save
-          HTTParty.post(
-            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
-            body: {
-              "token": "TokenStaging",
-              "PaymentTypeID": 1,
-              "FromDistrictID": 1461,
-              "ToDistrictID": params[:district].to_i,
-              "ExternalCode": "",
-              "ClientContactName": "Giao Hang Nhanh",
-              "ClientContactPhone": "19001206",
-              "ClientAddress": "70 Lữ Gia",
-              "CustomerName": params[:payment][:name],
-              "CustomerPhone": params[:payment][:phone],
-              "ShippingAddress": params[:payment][:address],
-              "NoteCode": "CHOXEMHANGKHONGTHU",
-              "CoDAmount": @amount.to_i,
-              "ServiceID": 53319,
-              "Weight": 1000,
-              "Length": 10,
-              "Width": 10,
-              "Height": 10,
-            }.to_json,
-
-            headers: {
-              'Accept' => 'application/json',
-              'Content-Type' => 'application/json'
-            }
-          )
-          @payment.voucher = @voucher
+          @response = create_order(params[:district],params[:payment][:name],0,params[:payment][:phone],params[:payment][:address])  
           if params[:voucher] != ""
             @voucher.payment_id = @payment.id
+            @voucher.save
           end
+          @payment.total = @amount 
+          @payment.order_id = @response['data']['OrderCode']
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
           @carts.destroy_all
@@ -150,6 +100,7 @@ class PaymentsController < ApplicationController
             @product.save
             redirect_to root_path,:notice => 'Payment request success!!!'
           end
+          @payment.save
         else
           render 'new'
         end
@@ -162,6 +113,37 @@ class PaymentsController < ApplicationController
   private
   def payment_params
     params.require(:payment).permit(:name, :phone, :address, :pay_type)
+  end
+
+  def create_order(district, name, amount, phone, address)
+    return HTTParty.post(
+            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
+            body: {
+              "token": "TokenStaging",
+              "PaymentTypeID": 1,
+              "FromDistrictID": 1461,
+              "ToDistrictID": district.to_i,
+              "ExternalCode": "",
+              "ClientContactName": "Geogre Doan",
+              "ClientContactPhone": "0902424936",
+              "ClientAddress": "956 Quang Trung",
+              "CustomerName": name,
+              "CustomerPhone": phone,
+              "ShippingAddress": address,
+              "NoteCode": "CHOXEMHANGKHONGTHU",
+              "CoDAmount": amount.to_i,
+              "ServiceID": 53321,
+              "Weight": 1000,
+              "Length": 10,
+              "Width": 10,
+              "Height": 10,
+            }.to_json,
+
+            headers: {
+              'Accept' => 'application/json',
+              'Content-Type' => 'application/json'
+            }
+          )
   end
 
   def call_calc_fee_api(district)
