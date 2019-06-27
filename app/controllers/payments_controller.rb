@@ -31,7 +31,6 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    debugger
     # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
     if Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice => 'Your cart is empty'
@@ -103,6 +102,19 @@ class PaymentsController < ApplicationController
           @payment.save
         else
           render 'new'
+        end
+      end
+    end
+  end
+
+  def api_webhook
+    if params[:OrderCode]
+      @payment = Payment.find_by(order_id: params[:OrderCode])
+      if params[:CurrentStatus] == "ReadyToPick"
+        @payment.status = 1
+      else
+        if params[:CurrentStatus] == "Delivered"
+          @payment.status = 2
         end
       end
     end
