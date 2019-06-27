@@ -34,7 +34,7 @@ class Admins::TypeOfNewsController < BaseController
   def destroy
     @type_of_news.update_attribute(:status, params[:status])
     update_status_model(@type_of_news.new,params[:status])
-    redirect_to admins_type_of_news_index_path, notice: 'Type of news was change status.'
+    redirect_to admins_type_of_news_index_path, notice: 'Type of news was change successfully status.'
   end
 
   private

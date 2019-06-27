@@ -13,7 +13,7 @@ default: &default
   socket: /var/run/mysqld/mysqld.sock
 development:
   <<: *default
-  database: shoes_db
+  database: shoes
  
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
