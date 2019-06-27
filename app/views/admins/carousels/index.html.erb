@@ -1,14 +1,16 @@
 <p id="notice"><%= notice %></p>
-<h1>List carousel</h1>
-<%= link_to "Create a carousel", new_admins_carousel_path,class: "btn btn-primary"  %>
-<table class="table">
+<h1>Carousel lists</h1>
+<%= link_to "New carousel", new_admins_carousel_path,class: "btn-lg btn btn-primary fas fa-plus-square "  %>
+<table class="table" id="example" style="width:100%">
   <thead>
     <tr >
       <th>Carousel main</th>
-      <th>New id</th>
+      <th>News id</th>
       <th alert="center">Image</th>
       <th alert="center">display</th>
-      <th colspan="3"></th>
+      <th>Show</th>
+      <th>Edit</th>
+      <th>Destroy</th>
     </tr>
   </thead>
   <tbody>
@@ -18,10 +20,24 @@
       <td><%= link_to carousel.new_id,New.exists?(id: carousel.new_id) == true ? admins_news_path(New.find(carousel.new_id)): " "  %></td>
       <td class="text-center"><img  style = " width: 720px;height:auto" src=<%= url_for((carousel.image.attached? == false ? "" : carousel.image)) %> alt=""></td>
       <td><%= carousel.display %></td>
-      <td><%= link_to 'Show', admins_carousel_path(carousel) %></td>
-      <td><%= link_to 'Edit', edit_admins_carousel_path(carousel) %></td>
-      <td><%= link_to 'Destroy', admins_carousel_path(carousel), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= link_to '', admins_carousel_path(carousel),class: "btn btn-info fas fa-eye" %></td>
+      <td><%= link_to '', edit_admins_carousel_path(carousel),class: "btn btn-warning fas fa-edit" %></td>
+      <td><%= link_to '', admins_carousel_path(carousel), method: :delete, data: { confirm: 'Are you sure?' },class: "text-danger fas fa-trash" %></td>
     </tr>
     <% end %>
   </tbody>
+  <tfoot>
+  <tr>
+    <th>Carousel main</th>
+      <th>News id</th>
+      <th alert="center">Image</th>
+      <th alert="center">display</th>
+      <th colspan="3"></th>
+  </tr>
+  </tfoot>
 </table>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

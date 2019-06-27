@@ -7,6 +7,7 @@ class Admins::ManagesController < BaseController
   def process_data
     s3 = AmazonS3Helper.s3
     @obj= s3.bucket('doanshoes').objects.select { |obj| (obj.key =~ /database/) }.sort_by(&:last_modified).reverse!
+
   end
   def download
     s3 = AmazonS3Helper.s3
@@ -15,6 +16,11 @@ class Admins::ManagesController < BaseController
     send_data data.read, filename: @obj.key
   end
   def get_file_database
+    # Product.all.each do |product|
+    #     product.images.each do |image|
+    #     DownFileJob.set(wait: 1.seconds).perform_later(image.key)
+    #   end
+    # end
     filename = 'database.sql'
     system "mysqldump -u root -p'phamtien9`' shoes > #{filename}"
     send_file("#{Rails.root}/#{filename}")

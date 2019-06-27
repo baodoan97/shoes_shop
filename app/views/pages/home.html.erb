@@ -85,13 +85,13 @@
       <hr align="center" class="line mb-5"></hr>
       </h1>
       <div class="row mb-5">
-        <% Brand.all.each do |brand| %>
+         <% get_brands.each do |brand| %>
         <% if brand.image_main_brand.attached? && brand.image_effect_brand.attached? %>
         <div class="col-xs-12 col-md-6 col-lg-3 brand-item ">
           <div class="w-100 m-auto brand">
             <%= image_tag  brand.image_main_brand %>
             <div class="overlay">
-              <%= link_to category_path(:name => " " ,:brand_name => brand.brand_name,:cus => " ") do  %>
+              <%= link_to category_path(:name => brand.category.name ,:brand_name => brand.brand_name,:cus => " ") do  %>
               <%= image_tag brand.image_effect_brand %>
               <% end %>
             </div>

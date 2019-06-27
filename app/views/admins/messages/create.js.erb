@@ -1,8 +1,9 @@
+$(".user_message").empty();
 $(".user_message").html("<%= j render 'new_message_to_user' , obj: @list_new_message.take(10) %>");
 document.getElementById("adminchat").value = null;
 $('#admin_chat' + "<%= @message.user_id %>").append("<li class='self'> <div class='avatar'></div> <div class='msg'> <p>" + "<%= raw @message.content %>" + "</p> <time>" + "<%= time_ago_in_words(@message.created_at) %>" + "</time> </div> </li>");
 // window.scrollTo(0, 9999999999999999999999999);
-var mydiv = $('#admin_chat' + "<%= @message.user_id %>"); 
+var mydiv = $('#admin_chat' + "<%= @message.user_id %>");
 mydiv.scrollTop(mydiv.prop("scrollHeight"));
 $(document).ready(function() {
     "<% if Message.all.where('user_id=?',@message.user_id).count > 10 %>"
@@ -18,7 +19,6 @@ $(document).ready(function() {
     };
     App.message_admin.admin_send_msg(messsage);
     App.message_admin.received = function(data) {
-
+     
     }
-
 })

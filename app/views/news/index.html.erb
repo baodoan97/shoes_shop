@@ -29,7 +29,7 @@
 					<%=  raw (v.body.gsub!(%r{</?[^>]+?>},''))[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"")  %>
 					<% end %>
 				</div>
-				<span class="time_news_span"><%=  time_ago_in_words(v.created_at) %></span>
+				<span class="time_news_span"><%= ((DateTime.now.to_date - v.created_at.to_date).to_i  < 1) == true ? time_ago_in_words(v.created_at) :  v.created_at.strftime("%d/%m/%Y") %></span>
 			</div>
 			<% end %>
 		</div>

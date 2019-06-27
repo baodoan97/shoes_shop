@@ -29,7 +29,7 @@
               <!--     link_to '<i class="fas fa-minus"></i>'.html_safe, destroycart_path(item), method: :delete, data: { confirm: "Delete this order?"} %>
               <a href="#" class="btn btn-danger">
               <i class="fas fa-times"></i></a> -->
-              <input id=btn<%= item["id"] %> class="btn btn-danger" onclick="deleteitemcart(<%= item["product_id"]%>,<%= item["size"]%>);" type="button" value="x" >
+              <input id=btn<%= item["id"] %> class="btn btn-danger media-btn-close-cart" onclick="deleteitemcart(<%= item["product_id"]%>,<%= item["size"]%>);" type="button" value="x" >
             </div>
           </div>
         </div>
