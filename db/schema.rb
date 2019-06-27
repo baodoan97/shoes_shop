@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
-    t.text "metadata", limit: 16777215
+    t.text "metadata", limit: 4294967295
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
@@ -41,6 +41,11 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
@@ -56,9 +61,9 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
   create_table "carousels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "new_id"
     t.boolean "display", default: false
-    t.boolean "main", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "main", default: false
   end
 
   create_table "cart_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -89,6 +94,14 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.integer "status", default: 2
   end
 
+  create_table "chats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "admin_id"
+    t.text "content", limit: 4294967295
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ckeditor_assets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "data_file_name", null: false
     t.string "data_content_type"
@@ -102,7 +115,7 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "product_id"
     t.integer "user_id"
-    t.text "content", limit: 4294967295
+    t.text "content", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "display", default: false
@@ -134,17 +147,17 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "title", limit: 16777215
     t.text "body", limit: 16777215
-    t.integer "news_type_for_shoe_id"
-    t.integer "status", default: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "news_type_for_shoe_id"
+    t.integer "status", default: 2
   end
 
   create_table "news_products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "new_id"
     t.integer "product_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "news_type_for_shoes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -178,12 +191,23 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.string "charge_id"
     t.integer "user_id"
     t.integer "status", default: 0, null: false
+    t.decimal "transport_cost", precision: 10
+    t.string "province"
+  end
+
+  create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "payment_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.decimal "price", precision: 10
-    t.text "description", limit: 16777215
+    t.text "description"
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -204,6 +228,11 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.integer "quantity"
   end
 
+  create_table "transport_costs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "province"
+    t.decimal "price", precision: 10
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
@@ -212,20 +241,20 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.string "phone"
     t.string "address"
     t.boolean "gender", default: false
-    t.integer "status", default: 2
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "provider"
     t.string "uid"
+    t.integer "status", default: 2
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -242,5 +271,4 @@ ActiveRecord::Schema.define(version: 2019_06_20_140214) do
     t.integer "district_id"
   end
 
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end
