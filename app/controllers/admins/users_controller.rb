@@ -1,4 +1,3 @@
-
 class Admins::UsersController < BaseController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     def index
@@ -27,7 +26,7 @@ class Admins::UsersController < BaseController
             
             if @user1.save
                     #session[:user_id] = @categories.id
-                #	flash[:success] = "ssASAs, #{@categories.name}"
+                # flash[:success] = "ssASAs, #{@categories.name}"
                     redirect_to admins_users_path()
                 else
                     render 'new'
@@ -47,14 +46,13 @@ class Admins::UsersController < BaseController
       # DELETE /categories/1.json
       def destroy
         @user1.update_attribute(:status, params[:status])
-
         redirect_to admins_users_path
       end
     
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_user
-          @user1 = Admins::User.find(params[:id])
+          @user1 = User.find(params[:id])
         end
         def user_params
             params.permit(:email, :password)

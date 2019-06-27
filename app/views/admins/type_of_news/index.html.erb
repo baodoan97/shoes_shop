@@ -1,17 +1,18 @@
-<div class="container">
-	<H1>List Type of news</H1>
-	<table align="center" class="table table-hover">
+	<H1>News category</H1>
+	<%= link_to 'New news category', new_admins_type_of_news_path,class: "btn-lg btn btn-primary fas fa-plus-square "  %>
+	<table class="table" id="example" style="width:100%">
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th  colspan="2">Funtion</th>
+				<th>Edit</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% @list_type_of_news.each do |type|  %>
 			<tr>
 				<td><%= type.name %></td>
-				<td><%= link_to 'Edit',  edit_admins_type_of_news_path(type) %></td>
+				<td><%= link_to '',  edit_admins_type_of_news_path(type),class: "btn btn-warning fas fa-edit" %></td>
 				<td>
 					<div class="dropdown ">
 						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,6 +30,16 @@
 			</tr>
 			<% end %>
 		</tbody>
+		<tfoot>
+		<tr>
+			<th>Name</th>
+			<th>Edit</th>
+			<th>Status</th>
+		</tr>
+		</tfoot>
 	</table>
-</div>
-<%= link_to 'Create a news', new_admins_type_of_news_path,class: "btn btn-primary"  %>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

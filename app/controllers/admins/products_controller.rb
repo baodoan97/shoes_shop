@@ -8,7 +8,7 @@ class Admins::ProductsController < BaseController
   end
   def destroy
     if @product.update_attribute(:status, params[:status])
-      flash[:success] = "Product was successfully deleted"
+      flash[:success] = "Product was change successfully status."
       redirect_to  admins_products_path
     else
       redirect_to  admins_homepage_path

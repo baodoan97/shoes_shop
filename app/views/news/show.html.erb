@@ -16,7 +16,7 @@
 				<%= raw @item.title.gsub!(%r{</?[^>]+?>},'').insert(0, '<h1>').insert(-1, '</h1>').gsub(/&nbsp;/i,"")%>
 				<%= raw @item.body %>
 			</div>
-			<div ><span><%=  time_ago_in_words(@item.created_at) %></span></div>
+			<div style="float:right;"><span><%= ((DateTime.now.to_date - @item.created_at.to_date).to_i  < 1) == true ? time_ago_in_words(@item.created_at) :  @item.created_at.strftime("%d/%m/%Y") %></span></div>
 		</div>
 	</div>
 </div>

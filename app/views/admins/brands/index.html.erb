@@ -1,12 +1,13 @@
 <p id="notice"><%= notice %></p>
 <h1>Brands</h1>
-<div class="container">
-<table class="table table-striped">
+<%= link_to 'New Brand',  new_admins_brand_path ,class: "btn-lg btn btn-primary fas fa-plus-square " %>
+<table id="example" class="table" style="width:100%">
   <thead>
     <tr>
       <th>Brand name</th>
       <th>Category</th>
-      <th colspan="3"></th>
+      <th>Edit</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
@@ -14,23 +15,35 @@
     <tr>
       <td><%= brand.brand_name %></td>
       <td><%= Category.find(brand.category_id).name  %></td>
-      <td><%= link_to 'Edit', edit_admins_brand_path(brand) %></td>
-      <td>  <div class="dropdown ">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= brand.status %>
-                </button>
-                <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
-                  <% Brand.statuses.to_h.except!(brand.status).each do |key,value| %>
-                  <%= link_to key, admins_brand_status_path(:status => key.to_s,:id => brand.id.to_s), method: :post,
-                  data: { confirm: "Are you sure you want to delete the product?"},
-                  class: "dropdown-item " %>
-                  <% end %>
-                </div>
-              </div></td>
+      <td><%= link_to '', edit_admins_brand_path(brand),class: "btn btn-warning fas fa-edit" %></td>
+      <td>
+        <div class="dropdown ">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= brand.status %>
+          </button>
+          <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
+            <% Brand.statuses.to_h.except!(brand.status).each do |key,value| %>
+            <%= link_to key, admins_brand_status_path(:status => key.to_s,:id => brand.id.to_s), method: :post,
+            data: { confirm: "Are you sure you want to delete the product?"},
+            class: "dropdown-item " %>
+            <% end %>
+          </div>
+        </div>
+      </td>
     </tr>
     <% end %>
   </tbody>
+  <tfoot>
+  <tr>
+    <th>Name</th>
+    <th>Position</th>
+    <th>Edit</th>
+    <th>Status</th>
+  </tr>
+  </tfoot>
 </table>
-</div>
-<br>
-<%= link_to 'New Brand',  new_admins_brand_path , class: "btn btn-primary" %>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

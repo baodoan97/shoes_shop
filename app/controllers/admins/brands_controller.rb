@@ -61,7 +61,7 @@ class Admins::BrandsController < BaseController
     @brand.update_attribute(:status, params[:status])
     update_status_model(@brand.products,params[:status])
     respond_to do |format|
-      format.html { redirect_to admins_brands_path, notice: 'Brand was successfully destroyed.' }
+      format.html { redirect_to admins_brands_path, notice: 'Brand was change successfully status.' }
       format.json { head :no_content }
     end
   end
