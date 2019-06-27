@@ -115,8 +115,13 @@ class PaymentsController < ApplicationController
       else
         if params[:CurrentStatus] == "Delivered"
           @payment.status = 2
+        else
+          if params[:CurrentStatus] == "Cancel"
+            @payment.status = 3
+          end
         end
       end
+      @payment.save
     end
   end
 
