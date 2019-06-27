@@ -1,12 +1,5 @@
-
 <div class="container-fluid" >  <p id="notice"><%= notice %></p>
   <h1>Users</h1>
-  <%= link_to ' Create', new_admins_user_path, class: "btn-lg btn btn-primary fas fa-plus-square "%>
-  <br>
-</div>
-<style>
-  
-</style>
 <div class="content-box-large"  >
   <div class="panel-body">
     <table id="example" class="display" width="100%">
@@ -54,3 +47,8 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

@@ -33,6 +33,12 @@
     <%= f.text_area :address, class: "form-control"%>
   </div>
   <div class="form-group">
+    <%= f.radio_button :gender, 'Male', :checked => true %> 
+    <%= label :gender, 'Male' %>
+    <%= f.radio_button :gender, 'Female' %>
+    <%= label :gender, 'Female' %>
+  </div>
+  <div class="form-group">
     <%= f.label :phone %><br />
     <%= f.text_field :phone, type: :number, autofocus: true, class: "form-control",min: 0 %>
   </div>
@@ -58,26 +64,23 @@
 </div>
 <script type="text/javascript">
 $( document ).ready(function() {
-
-  $(function() {
-      $('#user_phone').on('input', function() {
-        this.value = this.value.replace(/[^\d]/g, '');
-      });
-      $('#user_firstname').on('input', function() {
-        this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
-      });
-      $('#user_lastname').on('input', function() {
-        this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
-      });
-      $('#user_address').on('input', function() {
-        this.value = this.value.replace(/[^A-Z0-9\,\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]|\s/ig,'');
-      });
-       $('#user_email').on('input', function() {
-        this.value = this.value.replace(/[^a-zA-Z0-9\@\.]|\s/ig,'');
-      });
-  });
-
-
+$(function() {
+$('#user_phone').on('input', function() {
+this.value = this.value.replace(/[^\d]/g, '');
+});
+$('#user_firstname').on('input', function() {
+this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
+});
+$('#user_lastname').on('input', function() {
+this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
+});
+$('#user_address').on('input', function() {
+this.value = this.value.replace(/[^A-Z0-9\,\s\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]|/ig,'');
+});
+$('#user_email').on('input', function() {
+this.value = this.value.replace(/[^a-zA-Z0-9\@\.]|\s/ig,'');
+});
+});
 var resetinput = $('#file-input');
 resetinput.replaceWith(resetinput.val('').clone(true));
 // $('.fa-exchange').hover(function(){
@@ -86,8 +89,6 @@ resetinput.replaceWith(resetinput.val('').clone(true));
 // });
 $('#file-input').change(function () {
 if (this.files && this.files[0]) {
-
-
 // if( checkTypeimg(this.files[0].type) == false){
 //  var input = $('#file-input');
 //   alert("only image type jpeg,png");

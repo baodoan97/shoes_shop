@@ -58,7 +58,7 @@ class Admins::NewsController < BaseController
   def destroy
     @new.update_attribute(:status, params[:status])
     respond_to do |format|
-      format.html { redirect_to admins_news_index_path, notice: 'News was change status.' }
+      format.html { redirect_to admins_news_index_path, notice: 'News was change successfully status.' }
       format.json { head :no_content }
     end
   end
