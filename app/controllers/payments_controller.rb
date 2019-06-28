@@ -121,6 +121,7 @@ class PaymentsController < ApplicationController
       end
       @payment.save
     end
+    render json: event
   end
 
 
