@@ -108,18 +108,16 @@ class PaymentsController < ApplicationController
   end
 
   def api_webhook
-    if params[:OrderCode]
-      @payment = Payment.find_by(order_id: params[:OrderCode])
-      if params[:CurrentStatus] == "ReadyToPick"
-        @payment.status = 1
-      else
-        if params[:CurrentStatus] == "Delivered"
+    event = JSON.parse(request.body.read)
+    if event['OrderCode']
+      @payment = Payment.find_by(order_id: event['OrderCode'])
+      case event['CurrentStatus']
+        when "ReadyToPick"
+          @payment.status = 1
+        when "Delivered"
           @payment.status = 2
-        else
-          if params[:CurrentStatus] == "Cancel"
-            @payment.status = 3
-          end
-        end
+        when "Cancel"
+          @payment.status = 3
       end
       @payment.save
     end
