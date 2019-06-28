@@ -112,7 +112,7 @@ class PaymentsController < ApplicationController
     if event['OrderCode']
       @payment = Payment.find_by(order_id: event['OrderCode'])
       case event['CurrentStatus']
-        when "ReadyToPick"
+        when "Picking"
           @payment.status = 1
         when "Delivered"
           @payment.status = 2
