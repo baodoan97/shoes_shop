@@ -17,23 +17,29 @@ module CartProductsHelper
         item.quantity = 1
         item.save
       end
+      if item.quantity > Product.find(item.product_id).stocks.where(size: item.size).first.quantity.to_i
+        item.quantity = Product.find(item.product_id).stocks.where(size: item.size).first.quantity.to_i
+        item.save
+      end
     end
   end
 
   def checkallquantity_cart_session(carts)
-    @products = carts
     i = 0
     while i < carts.count do
         if Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).count == 0 || (Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).count != 0 && Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).first.quantity == 0)
           carts.delete_at(i)
           i = i - 1
         end
+        if carts[i]['quantity'].to_i > Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).first.quantity.to_i
+            carts[i]['quantity'] = Product.find(carts[i]['product_id'].to_i).stocks.where(size: carts[i]['size'].to_i).first.quantity.to_i
+        end
         # if carts[i]['quantity'].to_i < 0
         #   carts[i]['quantity'] = 1
         # end
         i = i + 1
       end
-      @products
+      carts
     end
 
 
@@ -62,9 +68,9 @@ module CartProductsHelper
       @list = []
       PaymentItem.all.each do |item|
         begin
-           @list.push(item) if Product.find(item.product_id).category_id == @product.category_id && Product.find(item.product_id).id != product['product_id'].to_i
+          @list.push(item) if Product.find(item.product_id).category_id == @product.category_id && Product.find(item.product_id).id != product['product_id'].to_i
         rescue Exception => e
-            
+
         end
       end
       @product_bestseller =  @list.group_by(&:product_id).take(3)

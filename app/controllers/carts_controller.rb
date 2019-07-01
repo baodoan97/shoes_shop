@@ -139,6 +139,7 @@ class CartsController < ApplicationController
             })
           end
           session[:cart] = carts
+
           respond_to do |format|
             format.html
             format.js

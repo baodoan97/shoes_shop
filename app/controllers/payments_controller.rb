@@ -21,6 +21,7 @@ class PaymentsController < ApplicationController
   end
 
   def new
+    checkallquantity_cart_user(current_user.id)
     if  user_signed_in? == false ||  Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'You need to login to place order!'
       return
