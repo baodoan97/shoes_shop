@@ -103,6 +103,7 @@
 </div>
 </nav>
 <script>
+
 $(document).ready(function(){
 $("#search_input").autocomplete({
 source: '/search',
@@ -119,7 +120,7 @@ $('#search_input').val(ui.item.name);
 }
 });
 $("#search_input").data("ui-autocomplete")._renderItem = function (ul, item) {
-return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "products/"+item.name})
+return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "/products/"+item.name})
 .append(item.value))
 .appendTo(ul);
 };
