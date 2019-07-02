@@ -44,6 +44,7 @@
      <li>
       <%= link_to '<i class="fas fa-database"></i> Database'.html_safe,  admins_process_data_path %>
     </li>
+    <li><%= link_to 'Log Out', destroy_admin_session_path,method: :delete %></li>
   </ul>
 </nav>
 
