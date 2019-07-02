@@ -16,9 +16,6 @@
 						address
 					</th>
 					<th>
-						province
-					</th>
-					<th>
 						pay_type
 					</th>
 					<th>
@@ -46,33 +43,29 @@
 						<%= v.address %>
 					</td>
 					<td>
-						<%= v.province %>
-						<span> transport cost : <%= v.transport_cost %>
-						</td>
-						<td>
-							<%= v.pay_type %>
-						</td>
-						<td>
-							<%= ((v.payment_items.sum('price * quantity').to_i + v.transport_cost.to_i) + (v.payment_items.sum('price * quantity').to_i + v.transport_cost.to_i)*0.1).to_i %>
-						</td>
-						<td id="<%= v.id %>">
-							<%= v.status %>
-						</td>
-						<td class="changestatus" id=change<%=v.id %> >
-							<%= link_to "Change","#",{ :onclick => "update_status(#{v.id});" ,:remote=>true, :class => 'btn btn-primary' } %>
-						</td>
-						<td>
-							<%= link_to "Cancel", admins_payments_cancel_payment_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-danger'%>
-						</td>
-					</tr>
-				</tbody>
+						<%= v.pay_type %>
+					</td>
+					<td>
+						<%= v.total %>
+					</td>
+					<td id="<%= v.id %>">
+						<%= v.status %>
+					</td>
+					<td class="changestatus" id=change<%=v.id %> >
+						<%= link_to "Change", admins_payments_changestatus_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-primary'%>
+					</td>
+					<td>
+						<%= link_to "Cancel", admins_payments_cancel_payment_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-danger'%>
+					</td>
+				</tr>
+			</tbody>
 				<% end %>
 				
 			</table>
 			<%= will_paginate @payments, :param_name => 'payments_noprocess_page' %>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		var i = 0;
 		// function changeon(id,e)
 		// {
@@ -91,4 +84,4 @@
 	// var x = "change"+id;
 	// document.getElementById(x).style.display = "none";
 		}
-	</script>
+	</script> -->

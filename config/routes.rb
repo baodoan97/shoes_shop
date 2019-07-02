@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       resources :admins
     end
     namespace :admins do
-      get 'payments/changestatus', to: 'payments#changestatus'
+      put 'payments/changestatus', to: 'payments#changestatus'
       resources :payments, except: [:update]
       resources :vouchers
       resources :messages
