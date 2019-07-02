@@ -64,7 +64,7 @@ class Admins::NewsController < BaseController
   end
 
   def search_products_for_news
-      @products = Product.where('name LIKE ?', "%#{params[:info][:name]}%").limit(5)
+    @products = Product.where('name LIKE ?', "%#{params[:info][:name]}%").limit(5)
 
 
   end
@@ -78,11 +78,9 @@ class Admins::NewsController < BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def new_params
     if params[:new][:product_ids] != nil
-    params[:new][:product_ids].uniq!
-    params[:new][:product_ids].join.to_i
-
-
-  end
+      params[:new][:product_ids].uniq!
+      params[:new][:product_ids].join.to_i
+    end
     params.require(:new).permit(:title, :body,:news_type_for_shoe_id,product_ids: [])
   end
 end

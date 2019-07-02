@@ -24,7 +24,6 @@ class Admins::CarouselsController < BaseController
     when true
       redirect_to admins_carousels_path
     when false
-      @carousel.image.purge if @carousel.errors[:image] != nil
       render 'edit'
     end
   end
@@ -44,7 +43,7 @@ class Admins::CarouselsController < BaseController
 
   private
   def carousel_params
-    params[:carousel][:new_id] = nil if params[:carousel][:new_id] == 0
+    params[:carousel][:new_id] = nil if params[:carousel][:new_id].to_i == 0
     params.require(:carousel).permit(:new_id, :image,:display,:main)
   end
   def set_carousel

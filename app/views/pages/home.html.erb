@@ -8,7 +8,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <%= image_tag url_for(@list_carousel.where(main: true).first.image), class:"d-block image" %>
+      <% if @list_carousel.where(main: true).first.new != nil %>
+      <%= link_to news_path(:type => @list_carousel.where(main: true).first.new.news_type_for_shoe != nil ? @list_carousel.where(main: true).first.new.news_type_for_shoe.name : " " ,:title => @list_carousel.where(main: true).first.new.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
+      <%= image_tag url_for(@list_carousel.where(main: true).first.image), class: "d-block image" %>
+      <% end %>
+      <% else %>
+       <%= image_tag url_for(@list_carousel.where(main: true).first.image), class: "d-block image" %>
+      <% end %>
     </div>
     <% @list_carousel.where(main: false).each do |carousel| %>
     <div class="carousel-item">
@@ -68,7 +74,7 @@
         <% Product.all.where(status: 'active').order("created_at DESC").limit(15).each do |product| %>
         <div class="card" style="width: 100%; height: 18rem">
           <%= image_tag( product.images.attached? == false ? " " : product.images.first, alt: "Product", class: "card-img-top" ) %>
-          <a href="#" class="show_detail">View Detail</a>
+           <%= link_to "View Detail",product_path(:name =>product.name),class: "show_detail", method: :get  %>
           <div class="card-body">
             <p class="card-text d-inline product-name"><strong><%= truncate(product.name, length: 20) %></strong></p>
             <p class="card-text d-inline product-price"><strong><%= number_to_currency(product.price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></strong></p>
