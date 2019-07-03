@@ -13,7 +13,7 @@ default: &default
   socket: /var/run/mysqld/mysqld.sock
 development:
   <<: *default
-  database: shoes
+  database: shoes_db
  
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -22,12 +22,12 @@ test:
   <<: *default
   database: appwithmysql_test
 
-production:
-  # <<: *default
-  adapter: mysql2
-  encoding: utf8
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: 98776597
-  socket: /var/run/mysqld/mysqld.sock
-  database: shoes
+# production:
+#   # <<: *default
+#   adapter: mysql2
+#   encoding: utf8
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#   username: root
+#   password: 98776597
+#   socket: /var/run/mysqld/mysqld.sock
+#   database: shoes
