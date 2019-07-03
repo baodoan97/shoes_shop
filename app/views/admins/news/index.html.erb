@@ -4,6 +4,7 @@
 <table id="example" class="table">
   <thead>
     <tr>
+       <th>id</th>
       <th>Product</th>
       <th>Title</th>
       <th>Body</th>
@@ -15,6 +16,7 @@
   <tbody>
     <% @news.each do |news| %>
     <tr>
+      <td><%= news.id %></td>
       <td><% news.products.each do |v| %>
         <h3> <span class="badge badge-secondary"><%=
           v.name
@@ -41,6 +43,7 @@
   </tbody>
   <tfoot>
   <tr>
+    <th>id</th>
     <th>Product</th>
     <th>Title</th>
     <th>Body</th>

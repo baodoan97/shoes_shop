@@ -18,14 +18,12 @@ class Carousel < ApplicationRecord
     end
   end
   def check_news
-    begin
-      if New.find(self.new_id.to_i) == nil || self.new_id != 0 
-        self.destroy
-        errors.add(:news, " id not exists")
-        return false
+      if New.exists?(:id => self.new_id.to_i) == false
+        unless self.new_id == nil
+          self.destroy 
+          errors.add(:news, " id not exists")
+          return false
+        end
       end
-    rescue Exception => e
-
-    end
   end
 end

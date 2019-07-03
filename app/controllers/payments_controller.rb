@@ -28,11 +28,11 @@ class PaymentsController < ApplicationController
   end
 
   def new
-    checkallquantity_cart_user(current_user.id)
     if  user_signed_in? == false ||  Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice =>  user_signed_in? == true ? 'Your cart is empty' : 'You need to login to place order!'
       return
     end
+    checkallquantity_cart_user(current_user.id)
     @district = nil
     @ward = nil
     @province = Province.all
@@ -61,18 +61,25 @@ class PaymentsController < ApplicationController
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
         token = params[:stripeToken]
         customer = Stripe::Customer.create({
-           :description => params[:payment][:name],
-           :card => token,
+                                             :description => params[:payment][:name],
+                                             :card => token,
         })
         charge = Stripe::Charge.create({
-           :customer => customer.id,
-           :amount => @amount, # amount in cents, again
-           :currency => 'vnd'
+                                         :customer => customer.id,
+                                         :amount => @amount, # amount in cents, again
+                                         :currency => 'vnd'
         })
         @payment.charge_id = charge.id
         if @payment.save
           @response = create_order(params[:district], params[:ward],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])          
           @payment.total =@amount 
+          time = Time.now
+          sleep 2.seconds until Time.now > time + 15.seconds 
+          if  @response['data']['OrderCode'] == nil
+            @payment.destroy
+            redirect_to root_path, flash: {alert: "Authentication time error when payment. Payment again, please!"}
+            return
+          end
           @payment.order_id = @response['data']['OrderCode']
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
@@ -98,7 +105,14 @@ class PaymentsController < ApplicationController
             @voucher.payment_id = @payment.id
             @voucher.save
           end
-          @payment.total = @amount 
+          @payment.total = @amount
+          time = Time.now
+          sleep 2.seconds until Time.now > time + 15.seconds 
+          if  @response['data']['OrderCode'] == nil
+            @payment.destroy
+            redirect_to root_path, flash: {alert: "Authentication time error when payment. Payment again, please!"}
+            return
+          end
           @payment.order_id = @response['data']['OrderCode']
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
@@ -122,12 +136,12 @@ class PaymentsController < ApplicationController
     if event['OrderCode']
       @payment = Payment.find_by(order_id: event['OrderCode'])
       case event['CurrentStatus']
-        when "Picking"
-          @payment.status = 1
-        when "Delivered"
-          @payment.status = 2
-        when "Cancel"
-          @payment.status = 3
+      when "Picking"
+        @payment.status = 1
+      when "Delivered"
+        @payment.status = 2
+      when "Cancel"
+        @payment.status = 3
       end
       @payment.save
     end
@@ -165,11 +179,11 @@ class PaymentsController < ApplicationController
               "Height": 10,
             }.to_json,
 
-            headers: {
-              'Accept' => 'application/json',
-              'Content-Type' => 'application/json'
-            }
-          )
+      headers: {
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+      }
+    )
   end
 
   def call_calc_fee_api(district)
@@ -177,19 +191,19 @@ class PaymentsController < ApplicationController
       'https://apiv3-test.ghn.vn/api/v1/apiv3/CalculateFee',
       body: {
         "token": "TokenStaging",
-          "Weight": 1000,
-          "Length": 5,
-          "Width": 10,
-          "Height": 10,
-          "FromDistrictID": 1461,
-          "ToDistrictID": district.to_i,
-          "ServiceID": 53321,
+        "Weight": 1000,
+        "Length": 5,
+        "Width": 10,
+        "Height": 10,
+        "FromDistrictID": 1461,
+        "ToDistrictID": district.to_i,
+        "ServiceID": 53321,
       }.to_json,
 
-        headers: {
-          'Accept' => 'application/json',
-          'Content-Type' => 'application/json'
-        }
+      headers: {
+        'Accept' => 'application/json',
+        'Content-Type' => 'application/json'
+      }
     )
   end
 end

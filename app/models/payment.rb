@@ -1,10 +1,11 @@
 class Payment < ApplicationRecord
 
-    validates :name, presence:true, length: {minimum: 10, maximum: 50}
-    validates :phone, :presence => {:message => 'Phone errors'},
-                    :numericality => true,
-                    :length => { :minimum => 9, :maximum => 11 }
-    validates :address, presence:true, length: {minimum: 10, maximum: 150}
+
+    # validates :name, presence:true, length: {minimum: 10, maximum: 50}
+    # validates :phone, :presence => {:message => 'Phone errors'},
+    #                 :numericality => true,
+    #                 :length => { :minimum => 9, :maximum => 11 }
+
 
 
     belongs_to :user
