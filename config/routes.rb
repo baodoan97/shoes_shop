@@ -101,6 +101,7 @@ Rails.application.routes.draw do
   get 'news/type=:type&&title=:title', to: 'news#show', as: 'news'
   get 'news/type=:type', to: 'news#news_category', as: 'news_category'
   get 'payments/find_district', to: 'payments#find_district'
+  get 'payments/find_ward', to: 'payments#find_ward'
   get 'payments/calc_shipping_fee', to: 'payments#calc_shipping_fee'
   post 'payments/api_webhook', to: 'payments#api_webhook' 
   get 'vouchers/validate', to:'vouchers#validate'

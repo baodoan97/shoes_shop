@@ -43,35 +43,43 @@
             <div class="row">
               <div class="col-8 border-right">
                 <div class=row>
-                  <div class="col-2">
-                    <p class="text-right">Name:</p>
-                  </div>
-                  <div class="col-10"><%= "#{@user.firstname} #{@user.lastname}" %></div>
-                </div>
-                <div class=row>
-                  <div class="col-2">
+                  <div class="col-3">
                     <p class="text-right">Email:</p>
                   </div>
-                  <div class="col-10"><%= @user.email %></div>
+                  <div class="col-9"><%= @user.email %></div>
                 </div>
                 <%= form_for @user,:url => user_registration_path(@user), :method => :put do |f| %>
                 <div class=row>
-                  <div class="col-2">
+                  <div class="col-3">
+                    <p class="text-right">First Name:</p>
+                  </div>
+                  <div class="col-9"><%= f.text_field :firstname %></div>
+                </div>
+                <div class=row>
+                  <div class="col-3">
+                    <p class="text-right">Last Name:</p>
+                  </div>
+                  <div class="col-9"><%= f.text_field :lastname %></div>
+                </div>
+                
+                
+                <div class=row>
+                  <div class="col-3">
                     <p class="text-right">Phone:</p>
                   </div>
-                  <div class="col-10"><%=f.text_field :phone %></div>
+                  <div class="col-9"><%=f.text_field :phone %></div>
                 </div>
                 <div class=row>
-                  <div class="col-2">
+                  <div class="col-3">
                     <p class="text-right">Address:</p>
                   </div>
-                  <div class="col-10"><%= f.text_field :address%></div>
+                  <div class="col-9"><%= f.text_field :address%></div>
                 </div>
                 <div class=row>
-                  <div class="col-2">
+                  <div class="col-3">
                     <p class="text-right">Gender:</p>
                   </div>
-                  <div class="col-10">
+                  <div class="col-9">
                     <%= f.radio_button :gender, true  %>
                     <%= f.label :gender, "Male", :value => "true"  %>
                     <%= f.radio_button :gender, false %>
@@ -79,8 +87,8 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-2"></div>
-                  <div class="col-10"><%= f.submit 'Save', class:"btn btn-danger" %></div>
+                  <div class="col-3"></div>
+                  <div class="col-9"><%= f.submit 'Save', class:"btn btn-danger" %></div>
                 </div>
                 <% end %>
               </div>
