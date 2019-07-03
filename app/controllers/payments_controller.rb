@@ -13,6 +13,13 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def find_ward
+    @ward = District.find_by(district_id: params[:district_id]).wards.order(:ward_name)
+    respond_to do |format|
+      format.json { render json: @ward }
+    end
+  end
+
   def calc_shipping_fee
     @response = call_calc_fee_api(params[:district_id])
     respond_to do |format|
@@ -27,11 +34,13 @@ class PaymentsController < ApplicationController
     end
     checkallquantity_cart_user(current_user.id)
     @district = nil
+    @ward = nil
     @province = Province.all
     @payment = Payment.new
   end
 
   def create
+    debugger
     # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
     if Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice => 'Your cart is empty'
@@ -62,8 +71,8 @@ class PaymentsController < ApplicationController
         })
         @payment.charge_id = charge.id
         if @payment.save
-          @response = create_order(params[:district],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])
-          @payment.total =@amount
+          @response = create_order(params[:district], params[:ward],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])          
+          @payment.total =@amount 
           time = Time.now
           sleep 2.seconds until Time.now > time + 15.seconds 
           if  @response['data']['OrderCode'] == nil
@@ -91,7 +100,7 @@ class PaymentsController < ApplicationController
         end
       else
         if @payment.save
-          @response = create_order(params[:district],params[:payment][:name],0,params[:payment][:phone],params[:payment][:address])
+          @response = create_order(params[:district],params[:ward],params[:payment][:name],0,params[:payment][:phone],params[:payment][:address])  
           if params[:voucher] != ""
             @voucher.payment_id = @payment.id
             @voucher.save
@@ -145,29 +154,30 @@ class PaymentsController < ApplicationController
     params.require(:payment).permit(:name, :phone, :address, :pay_type)
   end
 
-  def create_order(district, name, amount, phone, address)
+  def create_order(district,ward, name, amount, phone, address)
     return HTTParty.post(
-      'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
-      body: {
-        "token": "TokenStaging",
-        "PaymentTypeID": 1,
-        "FromDistrictID": 1461,
-        "ToDistrictID": district.to_i,
-        "ExternalCode": "",
-        "ClientContactName": "Geogre Doan",
-        "ClientContactPhone": "0902424936",
-        "ClientAddress": "956 Quang Trung",
-        "CustomerName": name,
-        "CustomerPhone": phone,
-        "ShippingAddress": address,
-        "NoteCode": "CHOXEMHANGKHONGTHU",
-        "CoDAmount": amount.to_i,
-        "ServiceID": 53321,
-        "Weight": 1000,
-        "Length": 10,
-        "Width": 10,
-        "Height": 10,
-      }.to_json,
+            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
+            body: {
+              "token": "TokenStaging",
+              "PaymentTypeID": 1,
+              "FromDistrictID": 1461,
+              "FromWardCode": "4576",
+              "ToDistrictID": district.to_i,
+              "ToWardCode": ward,
+              "ClientContactName": "Geogre Doan",
+              "ClientContactPhone": "0902424936",
+              "ClientAddress": "956 Quang Trung",
+              "CustomerName": name,
+              "CustomerPhone": phone,
+              "ShippingAddress": address,
+              "NoteCode": "CHOXEMHANGKHONGTHU",
+              "CoDAmount": amount.to_i,
+              "ServiceID": 53321,
+              "Weight": 1000,
+              "Length": 5,
+              "Width": 10,
+              "Height": 10,
+            }.to_json,
 
       headers: {
         'Accept' => 'application/json',

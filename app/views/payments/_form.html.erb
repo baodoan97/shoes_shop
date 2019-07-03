@@ -26,6 +26,10 @@
                     <%= select_tag :district, (options_from_collection_for_select(@district.order(:district_name), :district_id, :district_name) if @district != nil) ,prompt: "-- Select Your District --", class:'form-control', id:'district'%>
                 </div>
                 <div class="form-group">
+                    <%= label_tag :ward%>
+                    <%= select_tag :ward, (options_from_collection_for_select(@ward.order(:district_name), :district_id, :district_name) if @ward != nil) ,prompt: "-- Select Your Ward --", class:'form-control', id:'ward'%>
+                </div>
+                <div class="form-group">
                     <%= label_tag :voucher%>
                     <%= text_field_tag :voucher,"", {class:'form-control', id: 'voucher'} %>
                 </div>
@@ -119,22 +123,7 @@ jQuery(function($) {
     });
 });
 </script>
-<!-- <script>
 
-$(function() {
-    $('#payment_phone').on('input', function() {
-        this.value = this.value.replace(/[^\d]/g, '');
-    });
-    $('#payment_name').on('input', function() {
-        this.value = this.value.replace(/[^A-Z]/ig, '');
-    });
-    $('#payment_address').on('input', function() {
-        this.value = this.value.replace(/[^A-Z0-9\,\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig, '');
-    });
-});
-
-
-</script> -->
 <script>
 function invalidCode(blah) {
   $('#voucher').css("border-color", "red");
@@ -199,6 +188,22 @@ $('#voucher').keyup(function() {
       type: "get",
       success: function(result){
         $('#ship').text(result.data.CalculatedFee);
+      }
+    });
+
+    $.ajax({
+      url: "/payments/find_ward",
+      dataType: "json",
+      data: {
+        district_id: $('#district').val()
+      },
+      type: "get",
+      success: function(result){
+        $('#ward').empty();
+        $('#ward').append('<option> Select Your Ward </option>');
+        for (var i = 0; i < result.length; i++){
+          $('#ward').append('<option value='+result[i].ward_id+'>'+result[i].ward_name+'</option>');
+        }
       }
     });
   });
