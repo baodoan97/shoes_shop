@@ -7,13 +7,13 @@ class Admins::PaymentsController < BaseController
    end
 
    def changestatus
-        @payment = Payment.find(params[:payment][:id].to_i)
-        if params[:payment][:status] == "in_progress"
-        	@payment.status = 1
-        else
-        	if params[:payment][:status] == "shipping"
-        		@payment.status = 2
-        	end
+        @payment = Payment.find(params[:id])
+        @status = @payment
+        case @payment.status
+        when "in_progress"
+          @payment.status = 1
+        when "shipping"
+          @payment.status = 2
         end
         @payment.save
    end 
