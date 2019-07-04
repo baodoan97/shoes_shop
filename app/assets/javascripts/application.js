@@ -37,7 +37,8 @@
 //= require_dataTables.bootstrap
 //= require_dataTables.jqueryui.min
 //= require highcharts
-
+//= require jquery.raty
+//= require ratyrate
 $( document ).on('turbolinks:load', function() {
    
  

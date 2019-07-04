@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   validates :avatar, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1.5.megabytes , message: 'is not given between size ,maximum 1.5mb ' }
 
-
+  ratyrate_rater
 
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable,:confirmable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2]

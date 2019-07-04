@@ -11,6 +11,7 @@ class Product < ApplicationRecord
     Girls: 3
   }
  
+  ratyrate_rateable "score"
 
   enum status: [:closed, :archived,:active]
 
