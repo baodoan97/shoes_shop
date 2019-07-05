@@ -1,7 +1,7 @@
 <% obj.each do |order| %>
 		<div class="row">
 			<div class="col-12">
-				<p><strong>Order ID: </strong> <%= order.id %></p>
+				<p><strong>Order ID: </strong> <%= order.id %>      <%= link_to 'Cancel',payments_cancel_payment_path(id: order.id) if order.status == 'in_progress' %></p> 
 				<table class="table text-center border">
 				  <thead class="thead-dark">
 				    <tr>

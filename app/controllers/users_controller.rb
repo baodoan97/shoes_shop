@@ -18,15 +18,24 @@ class UsersController < ApplicationController
     end
   end
   def update_password
+    debugger
     @user = current_user
-    @user.update_with_password(user_password_params)
-    if @user.save
-      # Sign in the user by passing validation in case their password changed
-      bypass_sign_in(@user)
-      flash[:success] = "Change password was successfully"
-      redirect_to users_profile_path(@user)
-    else
+    if !@user.valid_password?(user_password_params[:current_password])
+      flash[:danger] = "Current Password Is Wrong"
       render "edit"
+    else
+      if user_password_params[:password_confirmation] != user_password_params[:password]
+        flash[:danger] = "Password Confirmation Is Not Match"
+        render "edit"
+      else 
+        @user.update_with_password(user_password_params)
+        if @user.save
+          # Sign in the user by passing validation in case their password changed
+          bypass_sign_in(@user)
+          flash[:success] = "Change password was successfully"
+          redirect_to users_profile_path(@user)
+        end
+      end
     end
   end
 
