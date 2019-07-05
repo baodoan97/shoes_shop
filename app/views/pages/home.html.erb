@@ -13,12 +13,18 @@
       <%= image_tag url_for(@list_carousel.where(main: true).first.image), class: "d-block image" %>
       <% end %>
       <% else %>
-       <%= image_tag url_for(@list_carousel.where(main: true).first.image), class: "d-block image" %>
+      <%= image_tag url_for(@list_carousel.where(main: true).first.image), class: "d-block image" %>
       <% end %>
     </div>
     <% @list_carousel.where(main: false).each do |carousel| %>
     <div class="carousel-item">
+      <% if carousel.new != nil %>
+      <%= link_to news_path(:type => carousel.new.news_type_for_shoe != nil ? carousel.new.news_type_for_shoe.name : " " ,:title => carousel.new.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
       <%=   image_tag url_for(carousel.image), class:"d-block image" %>
+      <% end %>
+      <% else %>
+      <%=   image_tag url_for(carousel.image), class:"d-block image" %>
+      <% end %>
     </div>
     <% end %>
   </div>
@@ -74,7 +80,7 @@
         <% Product.all.where(status: 'active').order("created_at DESC").limit(15).each do |product| %>
         <div class="card" style="width: 100%; height: 18rem">
           <%= image_tag( product.images.attached? == false ? " " : product.images.first, alt: "Product", class: "card-img-top" ) %>
-           <%= link_to "View Detail",product_path(:name =>product.name),class: "show_detail", method: :get  %>
+          <%= link_to "View Detail",product_path(:name =>product.name),class: "show_detail", method: :get  %>
           <div class="card-body">
             <p class="card-text d-inline product-name"><strong><%= truncate(product.name, length: 20) %></strong></p>
             <p class="card-text d-inline product-price"><strong><%= number_to_currency(product.price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></strong></p>
@@ -91,7 +97,7 @@
       <hr align="center" class="line mb-5"></hr>
       </h1>
       <div class="row mb-5">
-         <% get_brands.each do |brand| %>
+        <% get_brands.each do |brand| %>
         <% if brand.image_main_brand.attached? && brand.image_effect_brand.attached? %>
         <div class="col-xs-12 col-md-6 col-lg-3 brand-item ">
           <div class="w-100 m-auto brand">
