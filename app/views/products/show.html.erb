@@ -46,14 +46,9 @@
             <div class="form-group btn-center">
                 <%= hidden_field_tag "product_id", [@product.id] %>
                 <%= a.select :size,options_for_select(@product.stocks.group(:size).count.map { |k,v| k }.to_a, " "),{}, { :class => "form-control-product-show qnty-chrt" } %>
-                <% if @product.stocks.max.quantity <= 10 %>
-                <%= a.select :quantity,options_for_select((1..stock.quantity.to_i).to_a, " " ),{}, { :class => "form-control-product-show qnty-chrt" } %>
-                <% else %>
-                <%= a.select :quantity,options_for_select((1..10), " " ),{}, { :class => "form-control-product-show qnty-chrt" } %>
-                <% end %>
+                <%= a.text_field :quantity, type: :number, autofocus: true, class: "form-control",min: 1 ,value: 1, style: ' width: 60px;display: initial;' %>
             </div>
-            <div class="form-group">
-            </div>
+            <div class="clearfix"></div>
             <div class="form-group btn-center">
                 
                 <%= a.submit "Add To Cart", class: "btn btn-primary" %>
@@ -73,76 +68,78 @@
 </div>
 <% if @Related_products.count != 0 %>
 <div class="container">
-    <%= render 'related_products' , products: @Related_products %>
+<%= render 'related_products' , products: @Related_products %>
 </div>
 <% end %>
 <% if get_carts != nil &&  related_product_from_cart.count != 0%>
 <div class="container">
-    <%= render 'related_product_from_cart' , products: related_product_from_cart %>
+<%= render 'related_product_from_cart' , products: related_product_from_cart %>
 </div>
 <% end %>
 <% if @list_news.count != 0 %>
-    <div class="container mt-3">
-    <h3>News About Products</h3>
-        <%= render 'news/related_news_product' , obj: @list_news %>
-    </div>
+<div class="container mt-3">
+<h3>News About Products</h3>
+<%= render 'news/related_news_product' , obj: @list_news %>
+</div>
 <% end %>
 </div>
 <div class="container">
 <%= render 'comments/new' , product_id: @product.id %>
 </div>
 <script type="text/javascript">
+$(function() {
+$('#addcart_quantity').on('input', function() {
+this.value = this.value.replace(/[^\d]/g, '');
+});
+});
 var saveshow = "";
-
 function showpictrue(i) {
-    clearTimeout(myVar);
-    if (saveshow != "") {
-        document.getElementById(saveshow).style.opacity = 1;
-    }
-    var x = "show" + i;
-    saveshow = x;
-    document.getElementById(x).style.opacity = 0.3;
-    showlarge.src = document.getElementById(x).src;
-    nextimg = i;
-    myVar = setTimeout(function() {
-        imagesilder(nextimg)
-    }, 13000);
+clearTimeout(myVar);
+if (saveshow != "") {
+document.getElementById(saveshow).style.opacity = 1;
+}
+var x = "show" + i;
+saveshow = x;
+document.getElementById(x).style.opacity = 0.3;
+showlarge.src = document.getElementById(x).src;
+nextimg = i;
+myVar = setTimeout(function() {
+imagesilder(nextimg)
+}, 13000);
 }
 var nextimg = 0
-
 function imagesilder(nextimg) {
-    console.log(nextimg);
-    var end = parseInt("<%= i %>");
-    if (saveshow != "") {
-        document.getElementById(saveshow).style.opacity = 1;
-    }
-    if (nextimg < end) {
-        imgnext(nextimg);
-        nextimg++;
-        myVar = setTimeout(function() {
-            imagesilder(nextimg)
-        }, 7000);
-    } else {
-        nextimg = 0
-        myVar = setTimeout(function() {
-            imagesilder(nextimg)
-        }, 7000);
-    }
+console.log(nextimg);
+var end = parseInt("<%= i %>");
+if (saveshow != "") {
+document.getElementById(saveshow).style.opacity = 1;
 }
-
+if (nextimg < end) {
+imgnext(nextimg);
+nextimg++;
+myVar = setTimeout(function() {
+imagesilder(nextimg)
+}, 7000);
+} else {
+nextimg = 0
+myVar = setTimeout(function() {
+imagesilder(nextimg)
+}, 7000);
+}
+}
 function imgnext(i) {
-    if (saveshow != "") {
-        document.getElementById(saveshow).style.opacity = 1;
-    }
-    $("#showlarge").fadeOut(900);
-    var x = "show" + i;
-    saveshow = x;
-    document.getElementById(x).style.opacity = 0.3;
-    // setTimeout(function(){ $("#showlarge").fadeIn(1000) }, 1000);
-    $("#showlarge").fadeIn(1200);
-    showlarge.src = document.getElementById(x).src;
+if (saveshow != "") {
+document.getElementById(saveshow).style.opacity = 1;
+}
+$("#showlarge").fadeOut(900);
+var x = "show" + i;
+saveshow = x;
+document.getElementById(x).style.opacity = 0.3;
+// setTimeout(function(){ $("#showlarge").fadeIn(1000) }, 1000);
+$("#showlarge").fadeIn(1200);
+showlarge.src = document.getElementById(x).src;
 }
 $(window).load(function() {
-    imagesilder(nextimg);
+imagesilder(nextimg);
 });
 </script>

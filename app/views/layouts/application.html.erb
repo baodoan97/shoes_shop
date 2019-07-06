@@ -14,25 +14,51 @@
     <link href='//fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-     
-     <script type="text/javascript" src="https://js.stripe.com/v2/">
-     </script>
-      <script>
-       Stripe.setPublishableKey('pk_test_RzeE0Y6x35ftiTEQUhz9LSjj00fb8ZtjsY');
-     </script>
- </head>
-
-       <%= yield(:head_tags) %>   
-
+    
+    <script type="text/javascript" src="https://js.stripe.com/v2/">
+    </script>
+    <script>
+    Stripe.setPublishableKey('pk_test_RzeE0Y6x35ftiTEQUhz9LSjj00fb8ZtjsY');
+    </script>
   </head>
-  <body>
-    <%= render 'layouts/navtop' %>
-<!--     <p class="notice"> notice %></p>
-    <p class="alert"> alert %></p> -->
-    <%= render 'layouts/messages' %>
-    <div style="min-height: 500px">
-    <%= yield %>
+  <%= yield(:head_tags) %>
+</head>
+<body>
+  <%= render 'layouts/navtop' %>
+  <!--     <p class="notice"> notice %></p>
+  <p class="alert"> alert %></p> -->
+ <!--  <a class="trigger_popup_fricc">Click here to show the popup</a> -->
+<!--   <div class="hover_bkgr_fricc">
+    <span class="helper"></span>
+    <div>
+      <div class="popupCloseButton text-danger ">X</div>
+      <div id="text-popup">
+        <div class="bg-secondary">
+           Notification to cart
+        </div>
+        <div class="body-popup">
+           Add an item to Cart, Susscess!!!
+        </div>
+      </div>
     </div>
-    <%= render 'layouts/footer' %>
-  </body>
+  </div> -->
+  <%= render 'layouts/messages' %>
+  <div style="min-height: 500px">
+    <%= yield %>
+  </div>
+  <%= render 'layouts/footer' %>
+</body>
 </html>
+<!-- <script type="text/javascript">
+    $(window).load(function () {
+    // $(".trigger_popup_fricc").click(function(){
+    //    $('.hover_bkgr_fricc').show();
+    // });
+    $('.hover_bkgr_fricc').click(function(){
+        $('.hover_bkgr_fricc').hide();
+    });
+    $('.popupCloseButton').click(function(){
+        $('.hover_bkgr_fricc').hide();
+    });
+});
+</script> -->

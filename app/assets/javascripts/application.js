@@ -15,6 +15,7 @@
 //= require popper
 //= require turbolinks
 //= require jquery-ui/widgets/autocomplete
+//= require jquery-confirm.min
 //= require owl.carousel.min
 //= require cocoon
 //= require activestorage
