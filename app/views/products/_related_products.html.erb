@@ -11,7 +11,7 @@
          <%= link_to "View Detail",product_path(:name =>product['name']),class: "show_detail"  %>
         <div class="card-body">
           <p class="card-text d-inline product-name"><strong><%= truncate(product['name'], length: 20) %></strong></p>
-          <p class="card-text d-inline product-price"><strong>$<%= number_to_currency(product['price'], unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></strong></p>
+          <p class="card-text d-inline product-price"><strong><%= number_to_currency(product['price'], unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></strong></p>
         </div>
       </div>
       <% end %>

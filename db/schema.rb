@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_03_190131) do
+ActiveRecord::Schema.define(version: 201907031901291) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -252,6 +252,7 @@ ActiveRecord::Schema.define(version: 2019_07_03_190131) do
     t.string "dimension"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type"
     t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable_type_and_rateable_id"
     t.index ["rater_id"], name: "index_rates_on_rater_id"
   end

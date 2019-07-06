@@ -71,7 +71,7 @@ item: {
 }
 }
 function checkqt(id, s, qt) {
-if (parseInt(qt) < 1) {
+if (parseInt(qt) < 1 || parseInt(qt) == 0) {
 $('input[name=item' + id + "" + s + ']').val(1);
 }
 $.ajax({

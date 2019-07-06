@@ -1,9 +1,51 @@
 if ("<%= @checkqt %>" == '1') {
-    alert("only sell quantity <%= @resetvalue %>");
     $('input[name=item' + "<%= params[:item][:id] %>" + "<%= params[:item][:size] %>" + ']').val("<%= @resetvalue %>");
+    $.alert({
+        title: 'Notification to cart',
+        content: 'Only still <%= @resetvalue %> quantity in warehouse',
+        animation: 'scale',
+        closeAnimation: 'bottom',
+        backgroundDismiss: true,
+        buttons: {
+            okay: {
+                text: 'okay',
+                btnClass: 'btn-blue',
+                action: function() {
+                    location.reload();
+                }
+            }
+        }
+    });
 }
 if ("<%= @checkqt %>" == '2') {
-    alert("Sorry! Out of stock");
-}else{
-	  location.reload();
+    $.alert({
+        title: 'Notification to cart',
+        content: 'Sorry! Out of stock',
+        animation: 'scale',
+        closeAnimation: 'bottom',
+        backgroundDismiss: true,
+        buttons: {
+            okay: {
+                text: 'okay',
+                btnClass: 'btn-blue',
+                action: function() {
+                    location.reload();
+                }
+            }
+        }
+    });
+}
+if ("<%= @checkqt %>" == '0') {
+    $.confirm({
+        title: 'Notification to cart',
+        content: 'Update quantity item cart, success!!!',
+        autoClose: 'Wait|500',
+        buttons: {
+            Wait: {
+                action: function() {
+                   location.reload();
+                }
+            }
+        }
+    });
 }
