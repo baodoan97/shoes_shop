@@ -47,27 +47,28 @@
 </div>
 <script type="text/javascript">
 $('#changecart').on('input', function() {
-this.value = this.value.replace(/[^\d]/g, '');
-if(this.value ==""){
-this.value= 1;
-}
+  this.value = this.value.replace(/[^\d]/g, '');
+  if(this.value == "" || this.value == 0){
+  this.value= 1;
+  }
 });
+
 function deleteitemcart(id, s) {
-if (confirm("Are your sure to delete this item from cart?")) {
-$("#item" + id + s).fadeOut('1000', function(c) {
-$("#item" + id + s).remove();
-});
-$.ajax({
-url: "/carts/destroycart",
-type: "post",
-dataType: "script",
-data: {
-item: {
-"id": id,
-"size": s
-}
-}
-});
+  if (confirm("Are your sure to delete this item from cart?")) {
+    $("#item" + id + s).fadeOut('1000', function(c) {
+      $("#item" + id + s).remove();
+      });
+    $.ajax({
+      url: "/carts/destroycart",
+      type: "post",
+      dataType: "script",
+      data: {
+        item: {
+        "id": id,
+        "size": s
+        }
+      }
+    });
 }
 }
 function checkqt(id, s, qt) {

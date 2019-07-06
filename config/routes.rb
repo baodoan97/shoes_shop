@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   get 'payments/find_district', to: 'payments#find_district'
   get 'payments/find_ward', to: 'payments#find_ward'
   get 'payments/calc_shipping_fee', to: 'payments#calc_shipping_fee'
+  get 'payments/cancel_payment', to: 'payments#cancel_payment'
   post 'payments/api_webhook', to: 'payments#api_webhook' 
   get 'vouchers/validate', to:'vouchers#validate'
   post 'create', to: 'messages#create'

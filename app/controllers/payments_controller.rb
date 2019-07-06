@@ -131,6 +131,13 @@ class PaymentsController < ApplicationController
     end
   end
 
+  def cancel_payment
+    @payment = Payment.find(params[:id])
+    @payment.status = 3
+    @payment.save
+    redirect_to users_order_path
+  end
+
   def api_webhook
     event = JSON.parse(request.body.read)
     if event['OrderCode']
