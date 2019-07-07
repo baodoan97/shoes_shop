@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       post 'news/search_products_for_news', to: 'news#search_products_for_news'
       match 'manages/process_data' => 'manages#process_data', :via => [:get] ,as: :process_data
       post 'manages/get_file_database', to: 'manages#get_file_database'
+      post 'manages/set_file_database', to: 'manages#set_file_database'
       post 'manages/download/:key', to: 'manages#download',as: :dowload_file_database
       post 'manages/delete/model=:model', to: 'manages#delete',as: :delete_status_closed
     end

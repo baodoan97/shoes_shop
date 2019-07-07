@@ -11,13 +11,20 @@
 		<% @obj.map do |file| %>
 		<tr>
 			<td><%= file.key %></td>
-			<td><%= file.last_modified  %></td>
+			<td><%= file.last_modified.localtime.strftime("%d/%m/%Y %T")  %></td>
 			<td>  <%= link_to 'Download', admins_dowload_file_database_path(:key => file.key),method: :post, class: "btn btn-info" %></td>
 		</tr>
 		<% end %>
 	</tbody>
 </table>
 <%= link_to "Getting a file dump database now",  admins_manages_get_file_database_path,method: :post ,class: "btn btn-primary" %>
+<%= form_tag(admins_manages_set_file_database_path,method: :post, multipart: true) do %>
+<div class="custom-file mt-3">
+	<%= file_field_tag "file" ,accept: '.sql', class: "custom-file-input", id: "customFile"%>
+    <label class="custom-file-label" for="customFile">Choose file</label>
+  </div>
+<%= submit_tag "Import",class: 'btn btn-primary mt-3' %>
+<% end %>
 <h2 class="mt-5">Delelte data status is closed</h2>
 <table class="table table-striped">
 	<thead>
@@ -66,3 +73,9 @@
 		</tr>
 	</tbody>
 </table>
+<script type="text/javascript">
+	$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>

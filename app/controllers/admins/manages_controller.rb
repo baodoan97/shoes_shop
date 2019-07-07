@@ -22,10 +22,25 @@ class Admins::ManagesController < BaseController
     #   end
     # end
     filename = 'database.sql'
-    system "mysqldump -u root -p'phamtien9`' shoes > #{filename}"
+    system "mysqldump -u root -p'phamtien9`' shoes > #{filename};"
     send_file("#{Rails.root}/#{filename}")
     RemoveFileJob.set(wait: 1.minutes).perform_later(Rails.root.to_s,filename)
   end
+  
+  def set_file_database
+    tmp = params[:file].tempfile
+    destiny_file = File.join('public', 'uploads', params[:file].original_filename)
+    FileUtils.move tmp.path, destiny_file
+    system "mysql -u root -p'phamtien9`' -e 'drop database shoes_db; ' " 
+    system "mysql -u root -p'phamtien9`' -e 'create database shoes_db; ' "
+    system "mysql -u root -p'phamtien9`' shoes_db < #{destiny_file}"
+    system "rails db:migrate"
+    FileUtils.rm_f(destiny_file)
+    redirect_to admins_process_data_path, notice: 'Import file databases successfully'
+
+  end
+
+
   def delete
     param[:model].constantize.all.where(status: 'closed').map do |item|
       item.destroy

@@ -1,7 +1,10 @@
-.changestatus
+/*.changestatus
 {
 	display: none;
 }
 .changestatuslink{
 	display: none;
+}*/
+label.custom-file-label {
+    width: 250px;
 }
