@@ -26,11 +26,11 @@ Rails.application.routes.draw do
       resources :messages
       resources :products ,except: [:destroy]
       match 'products/set_status/:id/status=:status' => 'products#destroy', :via => [:post] ,as: :product_status
-      resources :categories,except: [:destroy]
+      resources :categories,except: [:destroy,:show]
       match 'categories/set_status/:id/status=:status' => 'categories#destroy', :via => [:post] ,as: :category_status
       resources :brands,except: [:destroy]
       match 'brands/set_status/:id/status=:status' => 'brands#destroy', :via => [:post] ,as: :brand_status
-      resources :users,except: [:destroy]
+      resources :users,except: [:destroy,:show]
       match 'users/set_status/:id/status=:status' => 'users#destroy', :via => [:post] ,as: :user_status
       resources :news,except: [:destroy]
       match 'news/set_status/:id/status=:status' => 'news#destroy', :via => [:post] ,as: :news_status
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       match 'type_of_news/set_status/:id/status=:status' => 'type_of_news#destroy', :via => [:post] ,as: :type_of_news_status
       resources :manages, only: [:index]
       resources :comments
-      resources :carousels
+      resources :carousels,except: [:show]
       resources :districts, only: [:index]
       resources :provinces, only: [:create, :index]
 

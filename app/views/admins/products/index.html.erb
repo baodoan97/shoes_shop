@@ -58,7 +58,7 @@
                 <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
                   <% Product.statuses.to_h.except!(product.status).each do |key,value| %>
                   <%= link_to key, admins_product_status_path(:status => key.to_s,:id => product.id.to_s), method: :post,
-                  data: { confirm: "Are you sure you want to delete the product?"},
+                  data: { confirm: "The status will be changed!"},
                   class: "dropdown-item " %>
                   <% end %>
                 </div>

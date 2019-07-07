@@ -52,36 +52,37 @@
 						<%= v.status %>
 					</td>
 					<td class="changestatus" id=change<%=v.id %> >
-						<%= link_to "Change", admins_payments_changestatus_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-primary'%>
+						<%= link_to "Change", admins_payments_changestatus_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-primary',
+						data: { confirm: "The status will be changed!"}%>
 					</td>
 					<td>
 						<%= link_to "Cancel", admins_payments_cancel_payment_path(:id => v.id), method: :put, :remote => true, :class => 'btn btn-danger'%>
 					</td>
 				</tr>
 			</tbody>
-				<% end %>
-				
-			</table>
-			<%= will_paginate @payments, :param_name => 'payments_noprocess_page' %>
-		</div>
+			<% end %>
+			
+		</table>
+		<%= will_paginate @payments, :param_name => 'payments_noprocess_page' %>
 	</div>
-	<!-- <script type="text/javascript">
-		var i = 0;
-		// function changeon(id,e)
-		// {
-	//         var x = "change"+id;
-	//         i = e;
-	//         document.getElementById(x).style.display = "block";
-		// }
-		function update_status(id) {
+</div>
+<!-- <script type="text/javascript">
+	var i = 0;
+	// function changeon(id,e)
+	// {
+//         var x = "change"+id;
+//         i = e;
+//         document.getElementById(x).style.display = "block";
+	// }
+	function update_status(id) {
 					var status = 	$("#"+id).text();
-			$.ajax({
-	url: "payments/changestatus",
-	type: "get",
-	dataType: "script",
-	data: { payment:{"status": status.trim(), "id" : id}}
-	});
-	// var x = "change"+id;
-	// document.getElementById(x).style.display = "none";
-		}
-	</script> -->
+		$.ajax({
+url: "payments/changestatus",
+type: "get",
+dataType: "script",
+data: { payment:{"status": status.trim(), "id" : id}}
+});
+// var x = "change"+id;
+// document.getElementById(x).style.display = "none";
+	}
+</script> -->

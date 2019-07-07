@@ -42,8 +42,8 @@ class Admins::CategoriesController < BaseController
   def update
 
     if @category.update(category_params)
-      flash[:success] =  'Category was successfully updated.'
-      redirect_to admins_category_path(@category)
+      flash[:success] =  'Category has been changed successfully'
+      redirect_to admins_categories_path()
     else
       render 'edit'
     end

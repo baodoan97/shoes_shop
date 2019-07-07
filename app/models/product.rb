@@ -19,7 +19,8 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :description, presence:true, length: {minimum: 10}
   validates :price, :presence => {:message => 'Price is number'},:numericality => true
-  validates :category_id, presence:true
+  # validates :category_id, presence:true
+  validates :brand_id, presence:true
   validates :images, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 3.megabytes , message: 'is not given between size ,maximum 3mb ' }
   #associate
   has_many :stocks, dependent: :destroy
@@ -33,6 +34,17 @@ class Product < ApplicationRecord
   belongs_to :brand, optional: true
   has_many :news_products
   has_many :news, through: :news_products
+  before_save :add_category_after
+
+  def add_category_after
+      if self.brand.category != nil 
+             self.category_id = self.brand.category_id
+      else
+           self.destroy
+           errors.add(:brand, "is null")
+           return false
+      end
+  end
 
 
   def self.resize_images(images)

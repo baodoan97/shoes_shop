@@ -1,10 +1,11 @@
-<div class="container">
   <h2 align="center">Sign up</h2>
+<div id="errors" class="container">
   <br>
   <%= render "users/shared/error_messages", resource: resource %>
 </div>
 <div class="container usertoolview p-5">
-  <%= form_for(resource, as: resource_name, url: registration_path(:user)) do |f| %>
+  <%= form_for(resource, as: resource_name,remote: true ,authenticity_token: true, url: registration_path(:user),:html => { :multipart => true }) do |f| %>
+
   <div class="form-group ">
     <div align="center">
     </div>
@@ -13,13 +14,15 @@
       <label for="file-input">
         <div class="changeavt">
           <i class="fa fa-exchange"></i>
-          <%= image_tag "",class: "img",id: "a" %>
+          <%= image_tag "member.jpg" ,class: "img",id: "a" %>
+
         </div>
       </label>
       <%= f.file_field :avatar, id:"file-input",accept: 'image/jpeg,image/png' %>
     </div>
     </center>
   </div>
+  <input name="avatar_temp" type="hidden" value=<%= resource.avatar.attached? == false ? "" : resource.avatar.key  %> >
   <div class="form-group">
     <%= f.label :firstname %><br />
     <%= f.text_field :firstname, autofocus: true, class: "form-control" %>
@@ -63,58 +66,75 @@
   <% end %>
 </div>
 <script type="text/javascript">
-$( document ).ready(function() {
-$(function() {
-$('#user_phone').on('input', function() {
-this.value = this.value.replace(/[^\d]/g, '');
-});
-$('#user_firstname').on('input', function() {
-this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
-});
-$('#user_lastname').on('input', function() {
-this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig,'');
-});
-$('#user_address').on('input', function() {
-this.value = this.value.replace(/[^A-Z0-9\,\s\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]|/ig,'');
-});
-$('#user_email').on('input', function() {
-this.value = this.value.replace(/[^a-zA-Z0-9\@\.]|\s/ig,'');
-});
-});
-var resetinput = $('#file-input');
-resetinput.replaceWith(resetinput.val('').clone(true));
-// $('.fa-exchange').hover(function(){
-//       $(this).fadeOut( 100 );
-//         $(this).fadeIn( 500 );
-// });
-$('#file-input').change(function () {
-if (this.files && this.files[0]) {
-// if( checkTypeimg(this.files[0].type) == false){
-//  var input = $('#file-input');
-//   alert("only image type jpeg,png");
-//   input.replaceWith(input.val('').clone(true));
-//  document.getElementById("a").src = "";
-//        return;
-//  }
-var reader = new FileReader();
-reader.onload = function (e) {
-$('#a').attr('src', e.target.result);
-}
-reader.readAsDataURL(this.files[0]);
-}
-});
-function checkTypeimg(type){
-switch (type) {
-case "image/png":
-return true;
-break;
-case "image/jpeg":
-return true;
-break;
-default:
-return false
-break;
-}
-}
+// $('#a').attr('src', localStorage.getItem('file'));
+// console.log(localStorage.getItem('file'));
+
+// var debug = {hello: localStorage.getItem('file')};
+// var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'image/jpeg'});
+
+// var outputfile =new File([blob], "filename");
+
+// var formData = new FormData();
+
+// // JavaScript file-like object
+// var content = '<a id="a"><b id="b">hey!</b></a>'; // the body of the new file...
+// var blob = new Blob([JSON.stringify(debug, null, 2)], { type: "text/xml"});
+
+// formData.append("webmasterfile", blob);
+
+// var request = new XMLHttpRequest();
+// request.open("POST", "");
+// request.send(formData);
+
+$(document).ready(function() {
+    $(function() {
+        $('#user_phone').on('input', function() {
+            this.value = this.value.replace(/[^\d]/g, '');
+        });
+        $('#user_firstname').on('input', function() {
+            this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig, '');
+        });
+        $('#user_lastname').on('input', function() {
+            this.value = this.value.replace(/[^A-Z\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]/ig, '');
+        });
+        $('#user_address').on('input', function() {
+            this.value = this.value.replace(/[^A-Z0-9\,\s\/\zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ\ ]|/ig, '');
+        });
+        $('#user_email').on('input', function() {
+            this.value = this.value.replace(/[^a-zA-Z0-9\@\.]|\s/ig, '');
+        });
+    });
+    // var resetinput = $('#file-input');
+    // resetinput.replaceWith(resetinput.val('').clone(true));
+    // $('.fa-exchange').hover(function(){
+    //       $(this).fadeOut( 100 );
+    //         $(this).fadeIn( 500 );
+    // });
+    $('#file-input').change(function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                // localStorage.setItem('file',e.target.result);
+                
+                $('#a').attr('src', e.target.result);
+
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
+    function checkTypeimg(type) {
+        switch (type) {
+            case "image/png":
+                return true;
+                break;
+            case "image/jpeg":
+                return true;
+                break;
+            default:
+                return false
+                break;
+        }
+    }
 })
 </script>
