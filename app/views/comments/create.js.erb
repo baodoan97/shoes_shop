@@ -5,7 +5,10 @@ $(document).ready(function(){
 	else{
      var comment = {"product_id":"<%= @comment.product_id %>","user_id":"<%= @comment.user_id %>","content":"<%= @comment.content %>","display": false};
 	 App.comment.send_comment(comment);
-	 alert("You was comment, Admin will browse comments this");
+	 $.alert({
+    title: 'Comment',
+    content: 'You commented, this comment will be approved by the manager',
+});
 	}
 })
 

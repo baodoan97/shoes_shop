@@ -1,11 +1,11 @@
 <div class="container">
     <h1 style="text-align:center">Edit User With Admin</h1><br>
-  <%= form_for @user1 do |f| %>
+  <%= form_for @user1,  :url => url_for(:controller => 'admins/users', :action => 'update') do |f| %>
  
   <div class="form-inputs">
     <%= f.text_field :email,disabled: true, class: 'form-control' %><br>
     <%= f.text_field :password, class: 'form-control', type: 'password',placeholder: "Password" %>
-    <%= f.text_field :password, class: 'form-control', type: 'password',placeholder: "Password" %>
+     <%= f.text_field :password_confirmation, class: 'form-control', type: 'password',placeholder: "password confirmation" %>
   </div>
   <br><br>
   <div class="form-actions">

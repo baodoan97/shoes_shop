@@ -9,9 +9,6 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Display in navbar</th>
-            <th>Show</th>
             <th>Edit</th>
             <th>Status</th>
           </tr>
@@ -21,9 +18,6 @@
           <tr class="gradeU">
             <td><%= category.id %></td>
             <td><%= category.name %></td>
-            <td><%= category.description %></td>
-            <td><%= category.display_in_navbar %></td>
-            <td><%= link_to '', admins_category_path(category),class: "btn btn-info fas fa-eye" %></td>
             <td><%= link_to '', edit_admins_category_path(category),class: "btn btn-warning fas fa-edit" %></td>
             <td>
               <div class="dropdown ">
@@ -33,7 +27,7 @@
                 <div class="dropdown-menu transform-status" aria-labelledby="dropdownMenuButton">
                   <% Category.statuses.to_h.except!(category.status).each do |key,value| %>
                   <%= link_to key, admins_category_status_path(:status => key.to_s,:id => category.id.to_s), method: :post,
-                  data: { confirm: "Are you sure you want to delete the product?"},
+                  data: { confirm: "The status will be changed!"},
                   class: "dropdown-item " %>
                   <% end %>
                 </div>
@@ -43,15 +37,12 @@
           <% end %>
         </tbody>
         <tfoot>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Display in navbar</th>
-            <th>Show</th>
-            <th>Edit</th>
-            <th>Status</th>
-          </tr>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Edit</th>
+          <th>Status</th>
+        </tr>
         </tfoot>
       </table>
     </div>

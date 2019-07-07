@@ -22,6 +22,8 @@
 //= require bootstrap
 //= require turbolinks
 //= require ckeditor/init
+//= require jquery.remotipart
+//= require data-confirm-modal
 //= require_tree .
 //= require_imagezoom
 //= require_jquery.flexslider
@@ -135,3 +137,4 @@ document.addEventListener("turbolinks:before-cache", function() {
 
   }
 })
+

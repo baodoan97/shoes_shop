@@ -129,6 +129,8 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
+    data-confirm-modal (1.6.2)
+      railties (>= 3.0)
     devise (4.6.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -274,6 +276,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     regexp_parser (1.5.1)
+    remotipart (1.4.2)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
       railties (>= 4.2.0, < 6.0)
@@ -380,6 +383,7 @@ DEPENDENCIES
   ckeditor (= 4.2.4)
   cocoon
   coffee-rails (~> 4.2)
+  data-confirm-modal
   devise
   fog-aws
   font-awesome-sass (~> 5.6.1)
@@ -400,6 +404,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.2)
   ratyrate
+  remotipart (~> 1.2)
   roo
   roo-xls
   sass-rails (~> 5.0)

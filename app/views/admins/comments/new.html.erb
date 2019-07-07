@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<%= link_to "List comments", admins_comments_path,class: "btn-lg btn btn-primary "  %>
+<div class="container-fluid mt-5">
 	<div id="appendcomment" >
 		<%  @listcomments.each do |v| %>
 		<div id=commentcheck<%= v.id %> class="d-flex justify-content-between bg-light-custom mb-3">

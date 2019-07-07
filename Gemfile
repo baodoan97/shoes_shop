@@ -33,6 +33,9 @@ gem "chartkick"
 gem 'groupdate'
 gem 'simple_form'
 gem 'bootstrap-sass-extras', '~> 0.0.2'
+gem 'remotipart', '~> 1.2'
+gem 'data-confirm-modal'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'

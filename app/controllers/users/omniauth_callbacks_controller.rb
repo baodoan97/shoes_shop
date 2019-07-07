@@ -10,6 +10,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider)
+    
     @identity = User.from_omniauth(request.env["omniauth.auth"])
     @user = @identity || current_user
     if @user.persisted?
