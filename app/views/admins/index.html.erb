@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
   <p id="notice"><%= notice %></p>
   <h1>Admins</h1>
@@ -12,23 +11,30 @@
         <tr>
           <th>ID</th>
           <th>Email</th>
-          <th>Password</th>
           <th>Create At</th>
           <th>Update At</th>
           <th>Edit</th>
-          <th>Show</th>
           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-        <% @admins.each do |admin| %>
+        <tr class="gradeU">
+          <td><%= @admins.first.id %><i class="fas fa-star text-warning"></i>
+          </td>
+          <td><%= @admins.first.email %></td>
+          <td><%= @admins.first.created_at.localtime.strftime("%d/%m/%Y %T") %></td>
+          <td><%= @admins.first.updated_at.localtime.strftime("%d/%m/%Y %T") %></td>
+          <td><%= link_to '', edit_admin_path(@admins.first),class: "btn btn-warning fas fa-edit" %></td>
+          <td>
+            <%= link_to '', @admins.first, method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+        <% @admins.offset(1).each do |admin| %>
         <tr class="gradeU">
           <td><%= admin.id %></td>
           <td><%= admin.email %></td>
-          <td><%= admin.password %></td>
-          <td><%= admin.created_at %></td>
-          <td><%= admin.updated_at %></td>
-          <td><%= link_to '', admin,class: "btn btn-info fas fa-eye" %></td>
+          <td><%= admin.created_at.localtime.strftime("%d/%m/%Y %T") %></td>
+          <td><%= admin.updated_at.localtime.strftime("%d/%m/%Y %T") %></td>
           <td><%= link_to '', edit_admin_path(admin),class: "btn btn-warning fas fa-edit" %></td>
           <td>
             <%= link_to '', admin, method: :delete,class: "btn btn-danger far fa-trash-alt", data: { confirm: 'Are you sure?' } %>
@@ -40,3 +46,8 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

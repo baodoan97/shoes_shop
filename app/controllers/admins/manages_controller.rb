@@ -1,4 +1,5 @@
 class Admins::ManagesController < BaseController
+  before_action :check_manager, only: [:process_data]
   include ActionController::Helpers
   helper AmazonS3Helper
   require 'open-uri'
@@ -46,5 +47,12 @@ class Admins::ManagesController < BaseController
       item.destroy
     end
     redirect_to admins_process_data_path
+  end
+
+  private
+  def check_manager
+    if current_admin.id != Admin.first.id
+      redirect_to admins_homepage_path,alert: "The largest manager is allowed to access"
+    end
   end
 end

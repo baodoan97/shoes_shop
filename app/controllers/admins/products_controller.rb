@@ -1,4 +1,6 @@
 class Admins::ProductsController < BaseController
+     skip_before_action :verify_authenticity_token  
+
   before_action :set_product , only: [:edit,:update, :show,:destroy]
   #include ActiveModel::AttributeMethods
   def index
@@ -25,7 +27,9 @@ class Admins::ProductsController < BaseController
       flash[:success] = "Product was created successfully"
       redirect_to admins_products_path
     else
-      render 'new'
+      respond_to do |format|
+         format.js { render :validation_errors }
+      end
     end
   end
   def edit
@@ -37,7 +41,9 @@ class Admins::ProductsController < BaseController
       flash[:success] = "Product was updated"
       redirect_to edit_admins_product_path(@product)
     else
-      render 'edit'
+      respond_to do |format|
+         format.js { render :validation_errors }
+      end
     end
   end
   def destroyimage

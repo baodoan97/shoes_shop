@@ -89,9 +89,7 @@
         <li class="nav-item mr-3">
           <%= link_to 'About', about_path, class:"nav-link" %>
         </li>
-        <li class="nav-item mr-3">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
+
       </ul>
       <div class="search" style="width: 270px; position:relative;">
         <%= form_tag products_path, method: :get, class:"form-inline my-2 my-lg-0 float-right"  do %>
@@ -103,7 +101,6 @@
 </div>
 </nav>
 <script>
-
 $(document).ready(function(){
 $("#search_input").autocomplete({
 source: '/search',
@@ -125,5 +122,4 @@ return $('<li/>', {'data-value': item.value}).append($('<a/>', {href: "/products
 .appendTo(ul);
 };
 });
-
 </script>

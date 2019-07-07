@@ -14,7 +14,13 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    if User.find_by(email: params[:user][:email]).confirmed? == false
+    if params[:user][:email].blank? || User.all.find_by_email(params[:user][:email]) == nil
+      self.resource = resource_class.new(sign_in_params)
+      clean_up_passwords(resource)
+            flash[:alert] = "Check your email and password again"
+      yield resource if block_given?
+      render 'new'
+    elsif User.find_by(email: params[:user][:email]).confirmed? == false
       self.resource = resource_class.new(sign_in_params)
       clean_up_passwords(resource)
       yield resource if block_given?
@@ -26,7 +32,7 @@ class Users::SessionsController < Devise::SessionsController
         @cart.add_carts(session[:cart],current_user.id)
       end
       session[:cart] = nil
-            # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
+      # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
 
     end
   end

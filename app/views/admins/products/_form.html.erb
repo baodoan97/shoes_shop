@@ -1,18 +1,13 @@
-<% if @product.errors.any? %>
-<div class="alert alert-danger">
-    <ul>
-        <% @product.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-        <% end %>
-    </ul>
+<div id="errors" class="container">
+  <br>
+  <%= render "admins/shared/error_messages", resource: @product %>
 </div>
-<% end %>
 <div class="container">
     <div class="product-form">
         <h1 class="text-center">
         <%= Product %>
         </h1>
-        <%= form_for [:admins,@product] , html: { multipart: true } do |f| %>
+        <%= form_for [:admins,@product] , html: { multipart: true },remote: true ,authenticity_token: true do |f| %>
         <p style="padding:2px">Name</p>
         <%= f.text_field :name, class: 'form-control',placeholder: "Product Name",minlength:"3",required:"required"%>
         <p style="padding:2px">Customer</p>

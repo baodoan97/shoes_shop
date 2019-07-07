@@ -23,7 +23,7 @@ class NewsController < ApplicationController
 
   def set_params_category
      redirect_to news_index_path if params[:type] == " " || NewsTypeForShoe.find_by_name(params[:type]) == nil
-     @news_category = NewsTypeForShoe.all.find_by_name(params[:type]).new.where(status: 'active').order("created_at DESC").paginate(page: params[:news_category], per_page: 10)
+     @news_category = NewsTypeForShoe.all.find_by_name(params[:type]).new.where(status: 'active').order("created_at DESC").paginate(page: params[:news_category], per_page: 3)
   end
 
   def set_params

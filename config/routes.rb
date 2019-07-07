@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
     #get '/admins/statistics', to:'admins#homepage'
     scope '/admins' do
-      resources :admins
+      resources :admins,except: [:show]
     end
     namespace :admins do
       put 'payments/changestatus', to: 'payments#changestatus'

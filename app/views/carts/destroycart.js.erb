@@ -1,4 +1,7 @@
-alert("Delete item was success!");
+$.alert({
+    title: 'Notification',
+    content: 'Product in the cart has been deleted!',
+});
 var total = parseInt("<%= @location['price'].to_i*@location['quantity'].to_i %>");
 var update = parseInt($('#total_carts').text().replace('TOTAL:', '').replace(',', '').replace(',', '').replace('$', '')) - total;
 $('#total_carts').text('TOTAL: ' + update + ' VND');
