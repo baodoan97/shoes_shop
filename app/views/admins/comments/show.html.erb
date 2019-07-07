@@ -1,0 +1,34 @@
+<h3><%= @listcomment.first.product.name %> </h3>
+<div class="container-fluid">
+	<p id="notice"><%= notice %></p>
+	<div class="content-box-large">
+		<div class="panel-body">
+			<table class="table" id="example">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Content</th>
+						<th>Time</th>
+						<th>Destroy</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @listcomment.each do |comment| %>
+					<tr  alert="center">
+						<td><%= comment.user.lastname %></td>
+						<td><%= comment.content %></td>
+						<td><%= comment.updated_at.localtime.strftime("%d/%m/%Y %T") %></td>
+						<td><%= link_to '', admins_comment_path(comment), method: :delete, data: { confirm: 'You will lose it!' },remote: true,class: "text-danger fas fa-trash" %></td>
+						
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

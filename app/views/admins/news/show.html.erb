@@ -1,16 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 
-<p>
-  <strong>Title:</strong>
-  <%= raw @new.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= raw @new.body %>
-</p>
-<p>
+<div class="body-news">
+        <%= raw @new.title.gsub!(%r{</?[^>]+?>},'').insert(0, '<h1>').insert(-1, '</h1>').gsub(/&nbsp;/i,"")%>
+        <%= raw @new.body %>
+      </div>
+      <div style="float:right;"><span><%= ((DateTime.now.to_date - @new.created_at.to_date).to_i  < 1) == true ? time_ago_in_words(@new.created_at) :  @new.created_at.strftime("%d/%m/%Y") %></span></div>
   <strong>products: </strong>
   <% @new.products.each do |v| %>
   <h3> <span class="badge badge-secondary"><%=

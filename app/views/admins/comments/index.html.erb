@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <p id="notice"><%= notice %></p>
+  <h1>Product comments</h1>
+  <div class="content-box-large">
+    <div class="panel-body">
+      <table class="table" id="example">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Quantities of comments</th>
+            <th>show</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @product.each do |product| %>
+          <tr  alert="center">
+            <td><%= product.name %></td>
+            <td ><%= product.comments.count %></td>
+            <td><%= link_to '', admins_comment_path(product), class: "btn btn-info fas fa-eye" %></td>
+            
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+dataTable = $('#example').DataTable({
+stateSave: true
+})
+</script>

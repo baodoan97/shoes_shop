@@ -20,7 +20,7 @@ class Admins::ProductsController < BaseController
   end
   def create
     @product = Product.new(product_params)
-    @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i if product_params[:brand_id] != nil
+    # @product.category_id = Brand.find(product_params[:brand_id]).category.id.to_i if product_params[:brand_id] != nil
     if @product.save
       flash[:success] = "Product was created successfully"
       redirect_to admins_products_path
