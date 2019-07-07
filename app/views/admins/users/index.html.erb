@@ -21,8 +21,8 @@
           <td><%= user.id %></td>
           <td><%= user.email %></td>
           <td><%= user.admin %></td>
-          <td><%= user.created_at.localtime %></td>
-          <td><%= user.updated_at.localtime %></td>
+          <td><%= user.created_at.strftime("%d-%m-%Y") %></td>
+          <td><%= user.updated_at.strftime("%d-%m-%Y") %></td>
           <td><%= link_to '', admins_user_path(user),class: "btn btn-info fas fa-eye" %></td>
           <td><%= link_to '', edit_admins_user_path(user),class: "btn btn-warning fas fa-edit" %></td>
           <td>

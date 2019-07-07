@@ -1,1 +1,6 @@
-<%= render 'product', obj: @products %>
+<div class="container mt-5">
+	<div class="product-search p-5">
+		<strong><h3 class="text-center mb-3">Find out <%= @products.count %> product</h3></strong>
+		<%= render 'product', obj: @products %>
+	</div>
+</div>

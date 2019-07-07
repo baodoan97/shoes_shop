@@ -1,20 +1,31 @@
-<div class="container">
+<div class="container">\
     <div class="row">
         <div class=col-12>
             <div class="pay-form w-50 p-5">
                 <h1 class="text-center">Payment</h1>
                 <%= form_for(@payment, :html => {:id => 'payment-form'}) do |f| %>
+                <% if @payment.errors.any? %>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <% @payment.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                  
+                <% end %>
                 <div class="form-group">
                     <%= f.label :name %>
-                    <%= f.text_field :name, :class => 'form-control'%>
+                    <%= f.text_field :name, :class => 'form-control', required: true%>
                 </div>
                 <div class="form-group">
                     <%= f.label :phone %>
-                    <%= f.text_field :phone, :class => 'form-control'%>
+                    <%= f.text_field :phone, :class => 'form-control', required: true, minlength: "9", maxlength: "10"%>
                 </div>
                 <div class="form-group">
                     <%= f.label :address %>
-                    <%= f.text_area :address, :class => 'form-control' %>
+                    <%= f.text_area :address, :class => 'form-control', placeholder: "e.g: 956 Quang Trung", require: true %>
                     </ul>
                 </div>
                 <div class="form-group">
@@ -92,6 +103,13 @@ jQuery(function($) {
             $("#lbl-month").fadeIn(1000);
             $("#lbl-year").fadeIn(1000);
             var show_error, stripeResponseHandler;
+            $("#payment-form").submit(function(event) {
+                var $form;
+                $form = $(this);
+                $form.find("input[type=submit]").prop("disabled", true);
+                Stripe.card.createToken($form, stripeResponseHandler);
+                return false;
+            });
             stripeResponseHandler = function(status, response) {
                 var $form, token;
                 $form = $("#payment-form");
@@ -110,13 +128,6 @@ jQuery(function($) {
                 $('.alert').delay(5000).fadeOut(3000);
                 return false;
             };
-            $("#payment-form").submit(function(event) {
-                var $form;
-                $form = $(this);
-                $form.find("input[type=submit]").prop("disabled", true);
-                Stripe.card.createToken($form, stripeResponseHandler);
-                return false;
-            });
         } else {
             hideCC();
         }
