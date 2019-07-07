@@ -24,6 +24,13 @@ class Admins::PaymentsController < BaseController
    		@payment.status = 3
    	end
    	if @payment.save
+      if @payment.pay_type == "atm"
+        Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
+        Stripe::Refund.create({
+          charge: @payment.charge_id,
+          amount: @payment.total
+        })
+      end
    		respond_to do |format|
           format.js
       end

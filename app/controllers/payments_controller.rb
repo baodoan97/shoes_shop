@@ -60,15 +60,45 @@ class PaymentsController < ApplicationController
       if(params[:payment][:pay_type] == "atm")
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
         token = params[:stripeToken]
-        customer = Stripe::Customer.create({
-                                             :description => params[:payment][:name],
-                                             :card => token,
-        })
-        charge = Stripe::Charge.create({
-                                         :customer => customer.id,
-                                         :amount => @amount, # amount in cents, again
-                                         :currency => 'vnd'
-        })
+        begin
+          customer = Stripe::Customer.create({
+                                               :description => params[:payment][:name],
+                                               :card => token,
+          })
+          charge = Stripe::Charge.create({
+                                           :customer => customer.id,
+                                           :amount => @amount, # amount in cents, again
+                                           :currency => 'vnd'
+          })
+          rescue Stripe::CardError => e
+            # CardError; display an error message.
+            body = e.json_body
+            err  = body[:error]
+            flash[:danger] = "#{err[:message]}"
+            @province = Province.all
+            render :new
+          rescue Stripe::RateLimitError => e
+            flash[:danger] = "Server is overloading, please try again"
+            @province = Province.all
+            render :new
+          rescue Stripe::InvalidRequestError => e
+            flash[:danger] = "Your credit card is invalid"
+            @province = Province.all
+            render :new
+          rescue Stripe::AuthenticationError => e
+            flash[:danger] = "Something went wrong, please contact us"
+            @province = Province.all
+            render :new
+          rescue Stripe::APIConnectionError => e
+            flash[:danger] = "Please check your network or try again" 
+            @province = Province.all
+            render :new
+          rescue => e
+            # Some other error; display an error message.
+            flash[:error] = 'Some error occurred.'
+            @province = Province.all
+            render :new
+          else
         @payment.charge_id = charge.id
         if @payment.save
           @response = create_order(params[:district], params[:ward],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])          
@@ -95,8 +125,8 @@ class PaymentsController < ApplicationController
             redirect_to root_path,:notice => 'Payment request success!!!'
           end
           @payment.save
-        else
-          render 'new'
+
+        end
         end
       else
         if @payment.save
@@ -125,6 +155,7 @@ class PaymentsController < ApplicationController
           end
           @payment.save
         else
+          @province = Province.all
           render 'new'
         end
       end
@@ -135,6 +166,13 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
     @payment.status = 3
     @payment.save
+    if @payment.pay_type == "atm"
+      Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
+      Stripe::Refund.create({
+        charge: @payment.charge_id,
+        amount: @payment.total
+      })
+    end
     redirect_to users_order_path
   end
 

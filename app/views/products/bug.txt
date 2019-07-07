@@ -5,19 +5,19 @@
 - Dong nhat du lieu tien te (*)
 - Admin load va quan ly comment (*)
 - xoa noi dung sau khi comment (*)
-- Them label size + so luong, doi input so luong thanh numeric
-- Show message when add to cart success
-- sua cart-text theo so luong san pham trong gio hang chu ko theo loai (*)
+- Them label size + so luong, doi input so luong thanh numeric - ok
+- Show message when add to cart success - ok
+- sua cart-text theo so luong san pham trong gio hang chu ko theo loai (*) -ok
 - em de 1 ma 											- ok
 - xu ly hien thi trang loi
-- hoan thien trang tim kiem (*)
+- hoan thien trang tim kiem (*) - ok
 - fix place order khi thanh toan loi, redirect ko lay @province
-- Xu ly khi tai thoan het tien, sai so the 
-- Xu ly refund khi huy don hang ( stripe )
+- Xu ly khi tai thoan het tien, sai so the - ok
+- Xu ly refund khi huy don hang ( stripe ) - ok
 - Dinh dang lai thoi gian theo chuan vietnam
-- import database tren admin
+- import database tren admin -ok
 - hien thi name cat thay cho id 						- ok
 - gan link edit vao trang show
-- xac nhan khi bam cancel
-- validate payment,  create coupon
+- xac nhan khi bam cancel -ok
+- validate payment,  create coupon -ok
 - quan li admin

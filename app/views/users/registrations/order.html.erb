@@ -46,19 +46,12 @@
         </div>
 
         <div class="row mt-5 p-5" style="background-color: white; min-height: 400px">
-          
-            <div class="container-fluid">
-              <div id="order-detail">
-                <%= render 'order', obj: @payments %>
+          <div class="container-fluid">
+            <div id="order-detail">
+              <%= render 'order', obj: @payments %>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-12" id="paginate">
-            <%= will_paginate @payments %>
-          </div>
-        </div> 
       </div>
     </div>
   </div>
