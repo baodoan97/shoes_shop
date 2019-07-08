@@ -1,7 +1,7 @@
 if ("<%= @checkqt %>" == '1') {
     $('input[name=item' + "<%= params[:item][:id] %>" + "<%= params[:item][:size] %>" + ']').val("<%= @resetvalue %>");
     $.alert({
-        title: 'Notification to cart',
+        title: 'Notification',
         content: 'Only still <%= @resetvalue %> quantity in warehouse',
         animation: 'scale',
         closeAnimation: 'bottom',
@@ -19,7 +19,7 @@ if ("<%= @checkqt %>" == '1') {
 }
 if ("<%= @checkqt %>" == '2') {
     $.alert({
-        title: 'Notification to cart',
+        title: 'Notification',
         content: 'Sorry! Out of stock',
         animation: 'scale',
         closeAnimation: 'bottom',
@@ -37,7 +37,7 @@ if ("<%= @checkqt %>" == '2') {
 }
 if ("<%= @checkqt %>" == '0') {
     $.confirm({
-        title: 'Notification to cart',
+        title: 'Notification',
         content: 'Update quantity item cart, success!!!',
         autoClose: 'Wait|500',
         buttons: {

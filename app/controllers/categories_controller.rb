@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  include PagesHelper
   #layout 'layouts/adminshome'
   before_action :set_category, only: [:show]
   #include ActiveModel::AttributeMethods
@@ -19,8 +20,10 @@ class CategoriesController < ApplicationController
         @products = @category.order(name: :desc).paginate(page: params[:page], per_page: params[:show])
       end
     else
-      if params[:brand_name] != " "
+      if params[:brand_name] != " " && params[:name] != " "
         @products = @category.order(id: :desc).paginate(page: params[:page], per_page: 8)
+      elsif params[:brand_name] != " "
+       @products = @category.order(id: :desc).paginate(page: params[:page], per_page: 8)
       else
         @products = @category.paginate(page: params[:page], per_page: 8)
       end
@@ -44,6 +47,8 @@ class CategoriesController < ApplicationController
         @category = Category.find_by_name(params[:name]).products.where(status: 'active')
         @category = Category.find_by_name(params[:name]).products.where(customer: params[:cus]).where(status: 'active')  if params[:cus] != " "
       end
+    elsif params[:name] == " " 
+        @category = Brand.find_by_brand_name(params[:brand_name]).products.where(status: 'active')
     else
       redirect_to root_path
       flash[:danger] = "Category with ID = #{params[:id]} is not exist"

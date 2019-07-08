@@ -1,6 +1,6 @@
 $(".cart-text ").text('<%= user_signed_in? == false ? session[:cart].sum { |h| h["quantity"].to_i} : Cart.where(user_id: current_user.id).sum { |h| h[:quantity].to_i}  %>' );
 $.alert({
-    title: 'Notification to cart',
+    title: 'Notification',
     content: 'Add an item to cart, Susscess!!!',
 });
 

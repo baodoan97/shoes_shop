@@ -103,7 +103,7 @@
           <div class="w-100 m-auto brand">
             <%= image_tag  brand.image_main_brand %>
             <div class="overlay">
-              <%= link_to category_path(:name => brand.category.name ,:brand_name => brand.brand_name,:cus => " ") do  %>
+              <%= link_to category_path(:name => " " ,:brand_name => brand.brand_name,:cus => " ") do  %>
               <%= image_tag brand.image_effect_brand %>
               <% end %>
             </div>
@@ -115,37 +115,28 @@
       
     </div>
   </div>
-  <section>
-    <div class="container">
-      <div class="img-row">
-        <div class="img-col">
-          <%= image_tag 'slideaa.jpg' %>
-          <%= image_tag 'conve1.jpg' %>
-        </div>
-        <div class="img-col">
-          <%= image_tag 'giay.jpg' %>
-          <%= image_tag 'about.jpg', style:"height:290px" %>
+<div class="container">
+  <div class="row">
+    <div >
+      <h2 align="center">News</h2>
+      <% New.all.order("created_at desc").limit(4).each do |v| %>
+      <div class="row mt-2">
+        <div class="news_before" style="width: 100%;">
+          <%= link_to news_path(:type => v.news_type_for_shoe != nil ? v.news_type_for_shoe.name : " " ,:title => v.title.gsub(%r{</?[^>]+?>|[^A-Za-z0-9 ]}, '')) do %>
+          <%= raw v.title.gsub(/&nbsp;/i,"") %>
+          <%= raw (v.body.gsub!(%r{</?[^>]+?>},''))[0..300].insert(0, '<span>').insert(-1, '...</span>').gsub(/&nbsp;/i,"")  %>
+          <% end %>
         </div>
       </div>
-    </div>
-  </section>
-  <div class="newsletter mt-5 mb-2">
-    <div class="container">
-      <div class="m-auto pb-3 news">
-        <p class="text-center text-uppercase">Subscribe for News</p>
-        <form id="news">
-          <div class="form-row">
-            <div class="col-9">
-              <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-            </div>
-            <div class="col-3">
-              <button type="submit" class="btn btn-secondary">Subscribe</button>
-            </div>
-          </div>
-        </form>
-      </div>
+      <% end %>
     </div>
   </div>
+</div>
+<br>
+<script type="text/javascript">
+  $(".main-news img").removeAttr('style');
+  $(".news_before img").removeAttr('style');
+</script>
   <script>
   var owl = $('.owl-carousel');
   owl.owlCarousel({
