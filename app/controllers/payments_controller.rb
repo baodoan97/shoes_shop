@@ -165,13 +165,19 @@ class PaymentsController < ApplicationController
   def cancel_payment
     @payment = Payment.find(params[:id])
     @payment.status = 3
-    @payment.save
-    if @payment.pay_type == "atm"
-      Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
-      Stripe::Refund.create({
-        charge: @payment.charge_id,
-        amount: @payment.total
-      })
+    @payment.payment_items.each do |item|
+      @product = Product.find(item.product_id).stocks.where(size: item.size).first
+      @product.quantity = @product.quantity + item.quantity
+      @product.save
+    end        
+    if @payment.save
+      if @payment.pay_type == "atm"
+          Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
+          Stripe::Refund.create({
+            charge: @payment.charge_id,
+            amount: @payment.total.to_i
+          })
+      end
     end
     redirect_to users_order_path
   end
