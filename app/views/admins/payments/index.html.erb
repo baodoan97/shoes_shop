@@ -19,8 +19,7 @@
 						pay_type
 					</th>
 					<th>
-						payment_total
-						(total+ship+VAT)
+						payment_total + fee
 					</th>
 					<th>
 						status
@@ -46,7 +45,7 @@
 						<%= v.pay_type %>
 					</td>
 					<td>
-						<%= v.total %>
+						<%= number_to_currency(v.total, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %>
 					</td>
 					<td id="<%= v.id %>">
 						<%= v.status %>

@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 2019_07_08_041508) do
     t.string "province_id"
   end
 
-  create_table "rates", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "rater_id"
     t.string "rateable_type"
     t.bigint "rateable_id"

@@ -22,13 +22,18 @@ class Admins::PaymentsController < BaseController
    	if params[:id]
    		@payment = Payment.find(params[:id])
    		@payment.status = 3
+      @payment.payment_items.each do |item|
+        @product = Product.find(item.product_id).stocks.where(size: item.size).first
+        @product.quantity = @product.quantity + item.quantity
+        @product.save
+      end  
    	end
    	if @payment.save
       if @payment.pay_type == "atm"
         Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
-        Stripe::Refund.create({
+        re = Stripe::Refund.create({
           charge: @payment.charge_id,
-          amount: @payment.total
+          amount: @payment.total.to_i
         })
       end
    		respond_to do |format|

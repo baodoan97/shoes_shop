@@ -1,37 +1,41 @@
 <% obj.each do |order| %>
-		<div class="row">
-			<div class="col-12">
-				<p><strong>Order ID: </strong> <%= order.id %>      <%= link_to 'Cancel',payments_cancel_payment_path(id: order.id) if order.status == 'in_progress' %></p> 
-				<table class="table text-center border">
-				  <thead class="thead-dark">
-				    <tr>
-				      <th scope="col">#</th>
-				      <th scope="col">Product Name</th>
-				      <th scope="col">Size</th>
-				      <th scope="col">Quantity</th>
-				      <th scope="col">UnitPrice</th>
-				      <th scope="col">SubTotal</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-					<% order.payment_items.each do |item| %>
-				    <tr>
-				      <th scope="row">1</th>
-				      <td><%= item.product.name %></td>
-				      <td><%= item.size %></td>
-				      <td><%= item.quantity %></td>
-				      <td><%= item.price %></td>
-				      <td>$<%= item.total_price %></td>
-				    </tr>
-					<% end %>
-				  </tbody>
-				</table>
-				<p class="float-right"><strong>Total:</strong> $<%= order.total_price %></p>
-			</div>
-		</div>
+<div class="row">
+	<div class="col-12">
+		<p><strong>Order ID: </strong> <%= order.id %>      <%= link_to 'Cancel',payments_cancel_payment_path(id: order.id) if order.status == 'in_progress' %></p>
+		<table class="table text-center border">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Size</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">UnitPrice</th>
+					<th scope="col">SubTotal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% order.payment_items.each do |item| %>
+				<tr>
+					<th scope="row">1</th>
+					<td><%= item.product.name %></td>
+					<td><%= item.size %></td>
+					<td><%= item.quantity %></td>
+					<td><%= number_to_currency(item.price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></td>
+					<td><%= number_to_currency(item.total_price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<p class="float-right"><strong>Total:</strong> <%= number_to_currency(order.total_price, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %>
+			<br>
+			<strong>Fee: </strong> <%= number_to_currency(order.transport_cost, unit: "VNĐ", separator: ",",precision: 0, format: "%n %u") %>
+			
+		</p>
+	</div>
+</div>
 <% end %>
-		<div class="row">
-			<div class="col-12" id="paginate">
-	            <%= will_paginate @payments %>
-            </div>
-        </div>
+<div class="row">
+	<div class="col-12" id="paginate">
+		<%= will_paginate @payments %>
+	</div>
+</div>

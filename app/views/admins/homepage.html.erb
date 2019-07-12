@@ -40,14 +40,8 @@
   </div>
 </div>
 <div class="dark" style="background-color: #d1d1d4">
-  <%
-  # dates = Payment.pluck("distinct date(datetime_column)")
-  # dates.group_by(&:year).map do |y, items|
-  # [y, items.group_by(&:month).map { |m, days| [m, days.map(&:day)] }.to_h]
-  # end.to_h
-  %>
-  <h3><b>User chart</b></h3>
-  <%= pie_chart User.group(:created_at).count %>
+  <h3><b>Payment Chart</b></h3>
+  <%= pie_chart Payment.group(:status).count %>
 </div>
 <style>
 .tile_count {

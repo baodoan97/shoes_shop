@@ -16,15 +16,15 @@
                   
                 <% end %>
                 <div class="form-group">
-                    <%= f.label :name %>
+                    <%= f.label :name %> <span class="text-danger">(*)</span>
                     <%= f.text_field :name, :class => 'form-control', required: true%>
                 </div>
                 <div class="form-group">
-                    <%= f.label :phone %>
+                    <%= f.label :phone %> <span class="text-danger">(*)</span>
                     <%= f.text_field :phone, :class => 'form-control', required: true, minlength: "9", maxlength: "10"%>
                 </div>
                 <div class="form-group">
-                    <%= f.label :address %>
+                    <%= f.label :address %> <span class="text-danger">(*)</span>
                     <%= f.text_area :address, :class => 'form-control', placeholder: "e.g: 956 Quang Trung", require: true %>
                     </ul>
                 </div>
@@ -63,7 +63,7 @@
                     <input type="text" size="4" data-stripe="exp_year" id="exp-year" class="card-expiry-year form-control" placeholder="YYYY" pattern="\d*" />
                 </div>
                 <div class="form-group">
-                    <label><strong>Total Price: <h3 id="total"><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>$</h3></strong></label>
+                    <label><strong>Total Price: <h3 id="total"><%= Cart.where(user_id: current_user.id).sum{|item|item.price*item.quantity} %>VND</h3></strong></label>
                 </div>
                 <div class="form-group">
                     <label><strong>Ship: <h3 id="ship"> </h3></strong></label>
