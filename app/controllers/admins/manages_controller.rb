@@ -43,7 +43,7 @@ class Admins::ManagesController < BaseController
 
 
   def delete
-    param[:model].constantize.all.where(status: 'closed').map do |item|
+    params[:model].constantize.all.where(status: 'closed').map do |item|
       item.destroy
     end
     redirect_to admins_process_data_path

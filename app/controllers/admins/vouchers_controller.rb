@@ -6,7 +6,6 @@ class Admins::VouchersController < BaseController
   end
 
   def create
-    debugger
     @number = params[:number].to_i
     (1..@number).each do |voucher|
       begin

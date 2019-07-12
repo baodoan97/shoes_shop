@@ -41,6 +41,7 @@ class PaymentsController < ApplicationController
 
   def create
     debugger
+
     # SendEmailJob.set(wait: 50.seconds).perform_later(current_user)
     if Cart.where(user_id: current_user.id).size == 0
       redirect_to '/', :notice => 'Your cart is empty'
@@ -67,77 +68,78 @@ class PaymentsController < ApplicationController
           })
           charge = Stripe::Charge.create({
                                            :customer => customer.id,
-                                           :amount => @amount, # amount in cents, again
+                                           :amount => @amount.to_i, # amount in cents, again
                                            :currency => 'vnd'
           })
-          rescue Stripe::CardError => e
-            # CardError; display an error message.
-            body = e.json_body
-            err  = body[:error]
-            flash[:danger] = "#{err[:message]}"
-            @province = Province.all
-            render :new
-          rescue Stripe::RateLimitError => e
-            flash[:danger] = "Server is overloading, please try again"
-            @province = Province.all
-            render :new
-          rescue Stripe::InvalidRequestError => e
-            flash[:danger] = "Your credit card is invalid"
-            @province = Province.all
-            render :new
-          rescue Stripe::AuthenticationError => e
-            flash[:danger] = "Something went wrong, please contact us"
-            @province = Province.all
-            render :new
-          rescue Stripe::APIConnectionError => e
-            flash[:danger] = "Please check your network or try again" 
-            @province = Province.all
-            render :new
-          rescue => e
-            # Some other error; display an error message.
-            flash[:error] = 'Some error occurred.'
-            @province = Province.all
-            render :new
-          else
-        @payment.charge_id = charge.id
-        if @payment.save
-          @response = create_order(params[:district], params[:ward],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])          
-          @payment.total =@amount 
-          time = Time.now
-          sleep 2.seconds until Time.now > time + 15.seconds 
-          if  @response['data']['OrderCode'] == nil
-            @payment.destroy
-            redirect_to root_path, flash: {alert: "Authentication time error when payment. Payment again, please!"}
-            return
-          end
-          @payment.order_id = @response['data']['OrderCode']
-          @carts = Cart.where(user_id: current_user.id)
-          @payment.add_line_items_from_cart(@carts,@payment.id)
-          if params[:voucher] != ""
-            @voucher.payment_id = @payment.id
-            @voucher.save
-          end
-          @carts.destroy_all
-          @payment.payment_items.each do |item|
-            @product = Product.find(item.product_id).stocks.where(size: item.size).first
-            @product.quantity = @product.quantity - item.quantity
-            @product.save
-            redirect_to root_path,:notice => 'Payment request success!!!'
-          end
-          @payment.save
+        rescue Stripe::CardError => e
+          # CardError; display an error message.
+          body = e.json_body
+          err  = body[:error]
+          flash[:danger] = "#{err[:message]}"
+          @province = Province.all
+          render :new
+        rescue Stripe::RateLimitError => e
+          flash[:danger] = "Server is overloading, please try again"
+          @province = Province.all
+          render :new
+        rescue Stripe::InvalidRequestError => e
+          flash[:danger] = "Your credit card is invalid"
+          @province = Province.all
+          render :new
+        rescue Stripe::AuthenticationError => e
+          flash[:danger] = "Something went wrong, please contact us"
+          @province = Province.all
+          render :new
+        rescue Stripe::APIConnectionError => e
+          flash[:danger] = "Please check your network or try again"
+          @province = Province.all
+          render :new
+        rescue => e
+          # Some other error; display an error message.
+          flash[:error] = 'Some error occurred.'
+          @province = Province.all
+          render :new
+        else
+          @payment.charge_id = charge.id
+          if @payment.save
+            @response = create_order(params[:district], params[:ward],params[:payment][:name],@amount,params[:payment][:phone],params[:payment][:address])
+            @payment.total =@amount
+            time = Time.now
+            sleep 2.seconds until Time.now > time + 15.seconds
+            if  @response['data']['OrderCode'] == nil
+              @payment.destroy
+              redirect_to root_path, flash: {alert: "Authentication time error when payment. Payment again, please!"}
+              return
+            end
+            @payment.order_id = @response['data']['OrderCode']
+            @carts = Cart.where(user_id: current_user.id)
+            @payment.add_line_items_from_cart(@carts,@payment.id)
+            @payment.transport_cost = @fee if @fee != nil
+            if params[:voucher] != ""
+              @voucher.payment_id = @payment.id
+              @voucher.save
+            end
+            @carts.destroy_all
+            @payment.payment_items.each do |item|
+              @product = Product.find(item.product_id).stocks.where(size: item.size).first
+              @product.quantity = @product.quantity - item.quantity
+              @product.save
+              redirect_to root_path,:notice => 'Payment request success!!!'
+            end
+            @payment.save
 
-        end
+          end
         end
       else
         if @payment.save
-          @response = create_order(params[:district],params[:ward],params[:payment][:name],0,params[:payment][:phone],params[:payment][:address])  
+          @response = create_order(params[:district],params[:ward],params[:payment][:name],0,params[:payment][:phone],params[:payment][:address])
           if params[:voucher] != ""
             @voucher.payment_id = @payment.id
             @voucher.save
           end
           @payment.total = @amount
           time = Time.now
-          sleep 2.seconds until Time.now > time + 15.seconds 
+          sleep 2.seconds until Time.now > time + 15.seconds
           if  @response['data']['OrderCode'] == nil
             @payment.destroy
             redirect_to root_path, flash: {alert: "Authentication time error when payment. Payment again, please!"}
@@ -146,6 +148,8 @@ class PaymentsController < ApplicationController
           @payment.order_id = @response['data']['OrderCode']
           @carts = Cart.where(user_id: current_user.id)
           @payment.add_line_items_from_cart(@carts,@payment.id)
+          @payment.transport_cost = @fee if @fee != nil
+
           @carts.destroy_all
           @payment.payment_items.each do |item|
             @product = Product.find(item.product_id).stocks.where(size: item.size).first
@@ -169,14 +173,14 @@ class PaymentsController < ApplicationController
       @product = Product.find(item.product_id).stocks.where(size: item.size).first
       @product.quantity = @product.quantity + item.quantity
       @product.save
-    end        
+    end
     if @payment.save
       if @payment.pay_type == "atm"
-          Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
-          Stripe::Refund.create({
-            charge: @payment.charge_id,
-            amount: @payment.total.to_i
-          })
+        Stripe.api_key = "sk_test_wdVv7Hk8YLpEDoSxmCiaxEyp00p5Be9Ide"
+        Stripe::Refund.create({
+                                charge: @payment.charge_id,
+                                amount: @payment.total.to_i
+        })
       end
     end
     redirect_to users_order_path
@@ -207,28 +211,28 @@ class PaymentsController < ApplicationController
 
   def create_order(district,ward, name, amount, phone, address)
     return HTTParty.post(
-            'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
-            body: {
-              "token": "TokenStaging",
-              "PaymentTypeID": 1,
-              "FromDistrictID": 1461,
-              "FromWardCode": "4576",
-              "ToDistrictID": district.to_i,
-              "ToWardCode": ward,
-              "ClientContactName": "Geogre Doan",
-              "ClientContactPhone": "0902424936",
-              "ClientAddress": "956 Quang Trung",
-              "CustomerName": name,
-              "CustomerPhone": phone,
-              "ShippingAddress": address,
-              "NoteCode": "CHOXEMHANGKHONGTHU",
-              "CoDAmount": amount.to_i,
-              "ServiceID": 53321,
-              "Weight": 1000,
-              "Length": 5,
-              "Width": 10,
-              "Height": 10,
-            }.to_json,
+      'https://apiv3-test.ghn.vn/api/v1/apiv3/CreateOrder',
+      body: {
+        "token": "TokenStaging",
+        "PaymentTypeID": 1,
+        "FromDistrictID": 1461,
+        "FromWardCode": "4576",
+        "ToDistrictID": district.to_i,
+        "ToWardCode": ward,
+        "ClientContactName": "Geogre Doan",
+        "ClientContactPhone": "0902424936",
+        "ClientAddress": "956 Quang Trung",
+        "CustomerName": name,
+        "CustomerPhone": phone,
+        "ShippingAddress": address,
+        "NoteCode": "CHOXEMHANGKHONGTHU",
+        "CoDAmount": amount.to_i,
+        "ServiceID": 53321,
+        "Weight": 1000,
+        "Length": 5,
+        "Width": 10,
+        "Height": 10,
+      }.to_json,
 
       headers: {
         'Accept' => 'application/json',

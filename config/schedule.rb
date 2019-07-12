@@ -22,7 +22,7 @@ end
 require File.expand_path(File.dirname(__FILE__) + "/environment")
 set :output,"#{Rails.root}/shoes_database_dump_use_whenever.sql"
 set :environment, 'development'
-every 30.minute do
+every 10.minute do
   command "mysqldump -u root -p'phamtien9`' shoes"
   s3 = Aws::S3::Resource.new(region: 'ap-southeast-1',
                              access_key_id: 'AKIAXILANUF6HKQO42PR',
